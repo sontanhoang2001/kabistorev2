@@ -271,6 +271,7 @@ img {
 /* Start Search */
 
 #suggestion {
+    margin-top: 0px !important;
     background-color: inherit;
     -webkit-box-shadow: 0 8px 6px -6px black;
     -moz-box-shadow: 0 8px 6px -6px black;
@@ -280,8 +281,9 @@ img {
 
 @media only screen and (max-width: 600px) {
     #suggestion {
+        margin-top: 0px;
         background-color: inherit;
-        margin-right: -147px;
+        margin-right: -150px;
         -webkit-box-shadow: 0 8px 6px -6px black;
         -moz-box-shadow: 0 8px 6px -6px black;
         box-shadow: 0 8px 6px -6px black;

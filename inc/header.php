@@ -57,7 +57,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <!-- Title  -->
     <title>Vũng Liêm Now - Giao hàng siêu tốc</title>
 
-    <!-- <base href="http://192.168.1.7/kabistore/"> -->
+    <!-- <base href="http://192.168.1.7/"> -->
     <base href="https://webcuatoi.vn/">
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/icon-web.ico">
@@ -100,14 +100,28 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                 <!-- Menu -->
                 <div class="classy-menu">
                     <!-- close btn -->
-                    <div class="classycloseIcon">
+                    <!-- <div class="classycloseIcon">
                         <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                    </div>
+                    </div> -->
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a href="index.html">Trang Chủ</a>
-                            <li><a href="#">Shop</a>
+                            <li>
+                                <div class="col-12 col-sm-auto mb-5" id="user-infor">
+                                    <div class="mx-auto" style="width: 100px;">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <span><img class="avatar img-thumbnail border-1 avatar-nav" src="upload/27051fb5b6833d78a4eb34d26d97d922.jpg" /></span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-1 mb-2">
+                                        <h5 class="pb-1 mb-0 text-nowrap">Tấn Hoàng</h5>
+                                        <div class="text-muted"><small>Số dư 360 xu</small></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li><a href="index.html"><i class="fa fa-home iconfa" aria-hidden="true"></i> Trang Chủ</a>
+                            <li><a href="#"><i class="fa fa-shopping-cart iconfa" aria-hidden="true"></i> Shop</a>
                                 <div class="megamenu">
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Sen Đá</li>
@@ -138,7 +152,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="#">Menu</a>
+                            <li><a href="#"><i class="fa fa-bars iconfa" aria-hidden="true"></i> Menu</a>
                                 <ul class="dropdown">
                                     <li><a href="index.html">Trang Chủ</a></li>
                                     <li><a href="products.html">Tất Cả Sản Phẩm</a></li>
@@ -232,8 +246,8 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                                         ?>
                                 </ul>
                             </li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Liên Hệ</a></li>
+                            <li><a href="blog.html"><i class="fa fa-rss iconfa" aria-hidden="true"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fa fa-phone-square iconfa" aria-hidden="true"></i> Liên Hệ</a></li>
 
                         </ul>
                     </div>
@@ -320,7 +334,6 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                         // }
                         // 
                         ?>
-                        
 
                         <span class="arrow_carrot-down"></span>
                         <ul>

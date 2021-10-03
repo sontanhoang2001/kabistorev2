@@ -21,11 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
   $UpdateCustomers = $cs->update_customers($_POST, $id); // hàm check catName khi submit lên
 }
 ?>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-<h1>
-  <br<<br><br><br>
-</h1>
 <div class="container">
   <div class="row flex-lg-nowrap">
     <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
@@ -46,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
     if ($get_customers) {
       while ($result = $get_customers->fetch_assoc()) {
     ?>
-
         <form class="form" novalidate="" action="" method="post" enctype="multipart/form-data">
           <div class="col">
             <div class="row">
