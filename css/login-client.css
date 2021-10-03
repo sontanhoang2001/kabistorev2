@@ -1,0 +1,63 @@
+/* body{
+    background: url(https://nuithanhschooldn.edu.vn/wp-content/uploads/2019/08/mau-background-don-gian-01-1024x640.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}    */
+
+.global-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+}
+
+.card-title {
+    font-weight: 300;
+}
+
+.btn {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.login-form {
+    width: 330px;
+    margin: 20px;
+}
+
+.sign-up {
+    text-align: center;
+    padding: 20px 0 0;
+}
+
+.alert {
+    margin-bottom: -30px;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.icon-facebook {
+    width: 35px;
+    margin-left: 62px;
+}
+
+.icon-google {
+    width: 35px;
+    margin-left: -6px;
+}
+
+.icon-zalo {
+    width: 35px;
+    margin-left: -18px;
+}
+
+.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+}
+
+.bg-light {
+    background-color: #f8f9fa!important;
+}

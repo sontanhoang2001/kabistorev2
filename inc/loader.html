@@ -1,0 +1,14 @@
+<script src="jquery-2.1.4.js">
+</script>
+<link rel="stylesheet" type="text/css" href="css/loader.css" />
+
+<div class="loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
+
+<script>
+    window.addEventListener("load", function() {
+        const loader = document.querySelector(".loader-wrapper")
+        loader.className += "hidden";
+    });
+</script>

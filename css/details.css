@@ -1,0 +1,116 @@
+button#buttonIncrement, button#buttonDecrement {
+    color: #fff;
+    border-color: transparent;
+    background-color: #0398ff;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    border-radius: 5px;
+    min-width: 30px;
+    height: 30px;
+    box-shadow: rgb(0 0 0 / 40%) 0px 2px 5px;
+    cursor: pointer;
+}
+
+.input-quantity {
+    border: none;
+    outline: none;
+    padding: 5px;
+    margin: 0 5px !important;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.input-quantity:hover, .input-quantity:focus {
+    background: #ff008b;
+    color: #fff;
+}
+
+button#buttonIncrement:hover {
+    background: #ff008b;
+    color: #fff;
+}
+
+button#buttonDecrement:hover {
+    background: #ff008b;
+    color: #fff;
+}
+
+.essence-btn:hover, .essence-btn:focus {
+    color: #ffffff;
+    background-color: #ff008b;
+}
+
+.btn-add {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.single_product_details_area .single_product_desc .cart-fav-box .favme {
+    cursor: pointer;
+    color: #fff;
+    font-size: 24px;
+}
+
+.fa-cart-plus:before {
+    font-size: 25px;
+}
+
+/* Sroll bar */
+
+.descriptionBox {
+    border: none;
+    padding: 5px;
+    font: 24px/36px sans-serif;
+    width: 100%;
+    height: 277px;
+    overflow: scroll;
+}
+
+/* Scrollbar styles */
+
+.descriptionBox::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+    border-radius: none;
+    background-color: none;
+}
+
+.descriptionBox::-webkit-scrollbar {
+    width: 0px;
+    background-color: none;
+}
+
+.descriptionBox::-webkit-scrollbar-thumb {
+    border-radius: 0px;
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3); */
+    background-color: none;
+}
+
+/* START HEART EFFECT */
+
+.heart {
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    background: url("../img/core-img/heart.png") no-repeat;
+    background-position: -25px -25px;
+    cursor: pointer;
+    transition: background-position 1s steps(28);
+    transition-duration: 0s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+}
+
+.heart:hover, .heart.is-active:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+.heart.is-active {
+    z-index: 1;
+    transition-duration: 1s;
+    background-position: -2825px -25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+}
+
+/* END HEART EFFECT */
