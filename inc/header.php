@@ -107,17 +107,36 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                     <div class="classynav">
                         <ul>
                             <li>
-                                <div class="col-12 col-sm-auto mb-5" id="user-infor">
-                                    <div class="mx-auto" style="width: 100px;">
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <span><img class="avatar img-thumbnail border-1 avatar-nav" src="upload/27051fb5b6833d78a4eb34d26d97d922.jpg" /></span>
+                                <?php if (Session::get('customer_login') == true) { ?>
+                                    <div class="row">
+                                        <div class="col-12 mb-4" id="user-infor">
+                                            <div class="mx-auto" style="width: 130px;">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <span><a href="profile.html"><img class="avatar img-thumbnail border-1 avatar-nav" src="upload/<?php echo (Session::get('avatar') == null) ? "default-user-image.jpg" : Session::get('avatar') ?>" /></a></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-1 mb-2">
-                                        <h5 class="pb-1 mb-0 text-nowrap">Tấn Hoàng</h5>
-                                        <div class="text-muted"><small>Số dư 360 xu</small></div>
+                                    <div class="row">
+                                        <div class="col-12 mb-2 mt-2" id="user-infor">
+                                            <div class="text-center mt-5 mb-2">
+                                                <h5 class="pb-1 mb-0 text-nowrap"><?php echo Session::get('customer_name') ?></h5>
+                                                <div class="text-muted"><small>Số dư 360 xu</small></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } else { ?>
+                                    <div class="col-12 col-sm-auto mb-4" id="user-infor">
+                                        <div class="mx-auto" style="width: 100px;">
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <span><img class="avatar img-thumbnail border-1 avatar-nav" src="upload/default-user-image.jpg" /></span>
+                                            </div>
+                                        </div>
+                                        <div class=" text-center mt-2 mb-0">
+                                            <h6 class="pb-1 mb-0 text-nowrap"><a href="login.html">Đăng nhập</a><a href="register.html">Đăng ký</a></h6>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </li>
 
                             <li><a href="index.html"><i class="fa fa-home iconfa" aria-hidden="true"></i> Trang Chủ</a>

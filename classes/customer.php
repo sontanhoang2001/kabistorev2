@@ -104,7 +104,7 @@ class customer
 			$alert = "<span class='error'>Tên đăng nhập và mật khẩu không được để trống!</span>";
 			return $alert;
 		} else {
-			$check_login = "SELECT id, username, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
+			$check_login = "SELECT id, username, name, avatar, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
 			$result_check = $this->db->select($check_login);
 			if ($result_check != false) {
 
@@ -113,6 +113,8 @@ class customer
 				Session::set('customer_login', true);
 				Session::set('customer_id', $customer_id);
 				Session::set('customer_username', $value['username']);
+				Session::set('customer_name', $value['name']);
+				Session::set('avatar', $value['avatar']);
 				$extra = Session::get('REQUEST_URI');
 				if ($value['phone'] == null) {
 					header("Location: editprofile.html");
@@ -153,13 +155,15 @@ class customer
 			$insert_customer = $this->db->insert($insert_customerSocial);
 
 			if ($insert_customer) {
-				$select_loginFromSocial = "SELECT id, username, phone FROM tbl_customer WHERE username='$socialUser_id'";
+				$select_loginFromSocial = "SELECT id, username, name, avatar, phone FROM tbl_customer WHERE username='$socialUser_id'";
 				$result = $this->db->select($select_loginFromSocial);
 				$value_select = $result->fetch_assoc();
 
 				Session::set('customer_login', true);
 				Session::set('customer_id', $value_select['id']);
 				Session::set('customer_username', $socialUser_name);
+				Session::set('customer_name', $value_select['name']);
+				Session::set('avatar', $value_select['avatar']);
 				$extra = Session::get('REQUEST_URI');
 				if ($value_select['phone'] == null) {
 					header("Location: editprofile.html");
@@ -197,8 +201,8 @@ class customer
 			}
 
 			$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
-				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
-				session::set('number_cart', (int)$check_quantity_cart['countCart']);
+			$check_quantity_cart = $this->db->select($query)->fetch_assoc();
+			session::set('number_cart', (int)$check_quantity_cart['countCart']);
 		}
 		// $result = mysqli_query($con, "Select `id`,`username`,`email`,`fullname` from `user` WHERE `email` ='" . $socialUser['email'] . "'");
 		// if ($result->num_rows == 0) {
