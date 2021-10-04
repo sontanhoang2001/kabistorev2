@@ -553,8 +553,6 @@ if ($login_check) {
 
 </body>
 
-
-
 <!--
 
  <div class="main">
@@ -617,10 +615,6 @@ if ($login_check) {
     <div class="alert-box warning notification">Warning Alert !!!</div> -->
 
 
-<?php
-include 'inc/bs-modal.php';
-include 'inc/footer.php';
-?>
 <!-- js -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="js/flyto.js"></script>
@@ -657,3 +651,4 @@ include 'inc/footer.php';
     });
 </script> -->
 <script src="js/ajax_wishlist-and-cart.js"></script>
+<?php include 'inc/footer.php'?>
