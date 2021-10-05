@@ -31,6 +31,7 @@ $(document).ready(function () {
 
     $(".add_to_wishlist_details").click(function (event) {
         var productId = $(location).attr('search').substring(7);
+        alert(productId);
         event.preventDefault();
         $.ajax({
             type: "POST",

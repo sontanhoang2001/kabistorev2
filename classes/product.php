@@ -27,7 +27,30 @@ class product
 		$result = $this->db->select($query);
 		return $result;
 		$this->link->close();
+
+
+		// $product_num = 12;
+		// $index_page = ($page - 1) * $product_num;
+		// $search_text = $this->fm->validation($search_text); //gọi ham validation từ file Format để ktra
+		// $query = "SELECT * FROM tbl_product WHERE productName LIKE '%$search_text%'
+		// order by productId desc LIMIT $index_page, $product_num";
+		// $result = $this->db->select($query);
+		// return $result;
+		// $this->link->close();
 	}
+
+	// đếm tổng số sản phẩm
+	public function get_amount_search_product($filter, $type)
+	{
+		$catId = $type;
+		$brandId = $type;
+
+		// Đếm tất cả sản phẩm select = 0
+		$query = "SELECT COUNT(productId) as totalRow FROM tbl_product";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
 
 	// Nhập sản phẩm admin
 	public function insert_product($date, $files)

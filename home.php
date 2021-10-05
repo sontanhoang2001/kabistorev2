@@ -1,51 +1,31 @@
 <?php
-include 'inc/header.php';
-include 'inc/slider.php';
-?>
-<?php
+ include 'inc/slider.php';
+include 'lib/session.php';
+Session::init();
+include 'lib/database.php';
+include 'helpers/format.php';
+include 'helpers/helpers.php';
+
+
+// spl_autoload_register(function ($class) {
+// include_once "classes/" . $class . ".php";
+// });
+
+include_once "classes/cart.php";
+include_once "classes/user.php";
+include_once "classes/customer.php";
+include_once "classes/category.php";
+include_once "classes/product.php";
+include_once "classes/brand.php";
 $login_check = Session::get('customer_login');
 if ($login_check) {
 }
 ?>
 
 <!-- All css index -->
-<link rel="stylesheet" href="css/index.css">
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-<style>
-
-</style>
-
-<!-- API Voice Robot -->
-<!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=5CJ9DfAD"></script>
-<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<input id="text" type="hidden" value="Chào mừng Độ Nguyễn đã đến với Tấn Hoàng Shop"></input>
-
-<input id="voiceselection" type="hidden" value="Vietnamese Female"></input> -->
-
-
-<script>
-    //Populate voice selection dropdown
-    // var voicelist = responsiveVoice.getVoices();
-    // var vselect = $("#voiceselection");
-    // $.each(voicelist, function() {
-    //     vselect.append($("<option />").val(this.name).text(this.name));
-    // });
-
-
-    // responsiveVoice.speak($('#text').val(),$('#voiceselection').val());
-
-    // window.document.onload = function() {
-    //     // alert("Image is loaded");
-    //     //setTimeout(responsiveVoice.speak("Welcome to the Responsive Voice website","Vietnamese Female"),150);
-    // }
-</script>
-<!-- <input id="click-robot" onclick="responsiveVoice.speak($('#text').val(),$('#voiceselection').val());" type="button" value="🔊 Play"/> -->
-
-<!-- API Voice Robot -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="css/index.css">
 
 <!-- <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false"> -->
 
@@ -192,7 +172,7 @@ if ($login_check) {
 
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <a href="products-category-1-<?php echo $result['catId'] ?>.html">
+                                        <a href="shopbycategory?catId=<?php echo $result['catId']; ?>">
                                             <img src="admin/uploads/<?php echo $result['image'] ?>" alt="">
                                             <h5 class="categories_name"><?php echo $result['catName']; ?></h5>
                                         </a>
@@ -651,4 +631,3 @@ if ($login_check) {
     });
 </script> -->
 <script src="js/ajax_wishlist-and-cart.js"></script>
-<?php include 'inc/footer.php'?>

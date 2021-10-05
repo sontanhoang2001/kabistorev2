@@ -177,7 +177,6 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                         <h6 class="widget-title mb-30">Lọc Sản Phẩm</h6>
                         Widget Title 2
                         <p class="widget-title2 mb-30">giá sản phẩm</p>
-
                         <div class="widget-desc">
                             <div class="slider-range">
                                 <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
@@ -337,7 +336,6 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                                 $result['productId'];
                                 $customer_id = Session::get('customer_id');
                                 $wishlist_check = $product->wishlist_check($customer_id, $result['productId']);
-
                                 $login_check = Session::get('customer_login');
                                 if ($login_check) {
                                     if ($wishlist_check) {
@@ -388,17 +386,14 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                     .col-sm-6 {
                         float: left;
                     }
-
                     .essence-btn,
                     .wishlist-btn,
                     .compare-btn {
                         min-width: auto;
                     }
-
                     .single-product-wrapper .product-img {
                         height: auto;
                     }
-
                     .single-product-wrapper .product-img .product-badge {
                         height: 19px;
                         background-color: #000000;
@@ -414,7 +409,6 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                         left: 7px;
                         z-index: 10;
                     }
-
                     .essence-btn,
                     .wishlist-btn,
                     .compare-btn {
@@ -434,17 +428,14 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                         box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
                         margin: 22px 0px 7px;
                     }
-
                     /* @media (min-width: 1200px) {
                         .col-lg-4 {
                             width: 33%;
                         }
                     } */
-
                     .pagination {
                         display: inline-block;
                     }
-
                     .pagination a {
                         color: black;
                         float: left;
@@ -453,13 +444,11 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                         transition: background-color .3s;
                         border: 1px solid #ddd;
                     }
-
                     .pagination a.active {
                         background-color: #4CAF50;
                         color: white;
                         border: 1px solid #4CAF50;
                     }
-
                     .pagination a:hover:not(.active) {
                         background-color: #ddd;
                     }
