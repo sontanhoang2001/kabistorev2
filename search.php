@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												?>
 												<li>
 													<img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
-													<a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a>
+                                                    <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-shopping-cart"></i></a>
 												</li>
 											</ul>
 											<!-- Product Badge -->
