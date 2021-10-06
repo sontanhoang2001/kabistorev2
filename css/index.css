@@ -913,7 +913,7 @@ a.pageCatName {
 }
 
 .promoBox aside p {
-    padding: 10px 80px 10px 80px;
+    padding: 2px 80px 10px 80px;
     margin: 0;
     color: aliceblue;
 }
@@ -946,7 +946,7 @@ a.pageCatName {
     border-color: #b6e1f6;
 }
 
-.promoBox.info-box h4 {
+.promoBox.info-box h5 {
     color: #225b9c;
     border-color: #8dc2dd;
 }
@@ -1054,7 +1054,7 @@ a.pageCatName {
 .promoCode {
     background: #ccc;
     padding: 3px;
-    color: red;
+    color: rgba(32, 25, 25, 0.698);
 }
 
 /* END PROMOTION */

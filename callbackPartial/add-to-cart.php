@@ -7,10 +7,10 @@ $productId = $_POST['productId'];
 $productSize = $_POST['productSize'];
 $quantity = $_POST['quantity'];
 
-if($productId == null){
-    header('Location:404');
-    exit;
-}
+// if($productId == null){
+//     header('Location:login.html');
+//     exit;
+// }
 $ct = new cart();
 echo $ct->add_to_cart($customer_id, $productId, $productSize, $quantity);
 // Session::init();

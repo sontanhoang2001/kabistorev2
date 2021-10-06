@@ -17,6 +17,13 @@ include 'inc/header.php';
 //    		$delcart = $ct->del_product_cart($cartId);
 //    	}
 //    } 
+
+
+if (!isset($_GET['page'])) {
+	echo $page = 1;
+} else {
+	$page = $_GET['page'];
+}
 ?>
 <?php
 $login_check = Session::get('customer_login');
@@ -34,7 +41,7 @@ if ($login_check == false) {
 ?>
 
 
-
+<link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/cart.css">
 
 <div class="wrap cf">
@@ -45,7 +52,11 @@ if ($login_check == false) {
 	<div class="cart">
 		<?php
 		$customer_id = Session::get('customer_id');
-		$get_cart_ordered = $ct->get_cart_ordered($customer_id);
+		$product_num = 12;
+		$get_cart_ordered = $ct->get_cart_ordered($customer_id, $page, $product_num);
+		$amount_all_cart = $ct->get_amount_all_cart($customer_id);
+		$result = $amount_all_cart->fetch_assoc();
+		$product_count = $result['totalRow'];
 		if ($get_cart_ordered) {
 			$i = 0;
 			$qty = 0;
@@ -69,9 +80,10 @@ if ($login_check == false) {
 									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								</a>
 								<div class="mt-1">Số lượng: <?php echo $quantity ?></div>
-								
 
-								<div class=""><i class="fa fa-money" aria-hidden="true"></i> <p class="p-price"><?php echo $fm->format_currency($result['price']) . ' ₫' ?></p>
+
+								<div class=""><i class="fa fa-money" aria-hidden="true"></i>
+									<p class="p-price"><?php echo $fm->format_currency($result['price']) . ' ₫' ?></p>
 								</div>
 								<?php
 								if ($status == '0') {
@@ -104,8 +116,56 @@ if ($login_check == false) {
 			}
 		}
 		?>
-		<hr>
 	</div>
+	<!-- Pagination -->
+	<ul class="pagination">
+		<?php
+		if ($product_count >= $product_num) {
+			$product_button = ceil(($product_count) / 6);
+			$page_now = $page;
+			if ($page_now == 0) {
+				$page_now = (int)$query_string + 1;
+			}
+			$product_button = ceil(($product_count) / $product_num);
+			if ($page_now != 1) {
+				$page_now_index = $page_now - 1;
+				echo '<li class="page-item"><a class="page-link" href="orderdetails-' . $page_now_index . '.html">❮</a></li>';
+				// << previous
+			}
+		?>
+			<?php
+			$max = 0;
+			for ($i = 1; $i <= $product_button; $i++) {
+				if ($i == 1) {
+			?>
+					<li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-right:0px"><a class="page-link" href="orderdetails-<?php echo $i ?>.html"><?php echo $i ?></a></li>
+					<?php
+				} else {
+					if ($i == $page_now) {
+						if ($i == $max + 1) {
+					?>
+							<li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-left:0px"><a class="page-link" href="orderdetails-<?php echo $i ?>.html"><?php echo $i ?></a></li>
+						<?php
+						} else {
+						?>
+							<li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="orderdetails-<?php echo $i ?>.html"><?php echo $i ?></a></li>
+						<?php
+						}
+					} else {
+						?>
+						<li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="orderdetails-<?php echo $i ?>.html"><?php echo $i ?></a></li>
+		<?php
+					}
+				}
+				$max++;
+			}
+			if ($page_now != $max) {
+				$page_now_index = $page_now + 1;
+				echo '<li class="page-item"><a class="page-link" href="orderdetails-' . $page_now_index . '.html">❯</a></li>';
+				// >> next
+			}
+		}
+		?>
 </div>
 
 <?php

@@ -240,7 +240,8 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                 </div>
             </div>
             <?php
-            $product_all = $product->get_all_product($filter, $page, $type);
+            $product_num = 24;
+            $product_all = $product->get_all_product($filter, $page, $type, $product_num);
             $amount_all_product = $product->get_amount_all_product($filter, $type);
             $result = $amount_all_product->fetch_assoc();
             $product_count = $result['totalRow'];
@@ -457,7 +458,7 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                 <!-- Pagination -->
                 <ul class="pagination">
                     <?php
-                    if ($product_count >= 12) {
+                    if ($product_count >= $product_num) {
                         $product_button = ceil(($product_count) / 6);
                         $query = $_SERVER['QUERY_STRING'];
                         $query_string = substr($query, -1, 2);
@@ -465,7 +466,7 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                         if ($page_now == 0) {
                             $page_now = (int)$query_string + 1;
                         }
-                        $product_button = ceil(($product_count) / 12);
+                        $product_button = ceil(($product_count) / $product_num);
                         $page_now = $_GET['page'];
                         if ($page_now != 1) {
                             $page_now_index = $page_now - 1;

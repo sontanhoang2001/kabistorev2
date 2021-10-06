@@ -1,4 +1,5 @@
 <?php
+
 include 'inc/header.php';
 include 'inc/slider.php';
 ?>
@@ -106,9 +107,7 @@ if ($login_check) {
                                                 <img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
                                                 <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-shopping-cart"></i></a>
                                             </li>
-
                                             <!-- <a class="add_to_cart" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a> -->
-
                                         </ul>
 
                                         <!-- <button id="add_to_cart_effect_<?php echo $productId ?>" class="button add_to_cart_effect" type="button">
@@ -116,16 +115,13 @@ if ($login_check) {
                                             Add to cart
                                         </button> -->
 
-
-
                                         <!-- Product Badge -->
                                         <?php
                                         $old_price = $result['old_price'];
                                         $price = $result['price'];
                                         if ($old_price != 0) {
                                             $per = round($temp = (($price * 100) / $old_price) - 100);
-                                            echo '<div class="product-badge offer-badge">
-                                                                    <span>';
+                                            echo '<div class="product-badge offer-badge"><span>';
                                             echo $per . " %";
                                             echo '</span></div>';
                                         }
@@ -150,7 +146,7 @@ if ($login_check) {
                                     </div>
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <span class="category">Tấn Hoàng Shop</span>
+                                        <span class="category"><?php echo $result['catName'] ?></span>
                                         <a href="details/<?php echo $result['productId'] ?>/<?php echo $seo ?>.html">
                                             <div class="product-name"><?php echo $result['productName'] ?></div>
                                         </a>
@@ -224,7 +220,49 @@ if ($login_check) {
             <!-- Swiper -->
             <div class="wrapper-coupon">
                 <div class="carousel-promotion owl-carousel">
-                    <div class="promoBox info-box info-ribbon">
+                    <?php
+                    $promotion_index = 0;
+                    $show_promotion = $product->show_promotion();
+                    if ($show_promotion) {
+                        while ($result = $show_promotion->fetch_assoc()) {
+                            $stylePromotion =  $result['style'];
+                    ?>
+                            <div class="
+                            <?php
+                            switch ($stylePromotion) {
+                                case "1":
+                                    echo "promoBox info-box info-ribbon";
+                                    break;
+                                case "2":
+                                    echo "promoBox warning-box danger-ribbon";
+                                    break;
+                                case "3":
+                                    echo "promoBox success-ribbon";
+                                    break;
+                                case "4":
+                                    echo "promo";
+                                    break;
+                                case "5":
+                                    echo "promoBox";
+                                    break;
+                                default:
+                            } ?>">
+                                <aside>
+                                    <p>Mua từ <?php echo $fm->format_currency($result['condition']) . " ₫" ?></p>
+                                </aside>
+                                <h5>Giảm <?php echo $fm->format_currency($result['discountMoney']) . " ₫" ?></h5>
+                                <p class="row col-10"><?php echo $result['description'] ?></p>
+                                <div class="row ml-2">
+                                    <p style="color: green;">Mã giảm giá: <span class="promoCode" id="promocode-<?php echo $promotion_index ?>"><?php echo $result['promotionsCode'] ?></span></p>
+                                    <button type="button" class="btn ml-4" onclick="copyToClipboard('#promocode-<?php echo $promotion_index ?>')">sao chép</button>
+                                </div>
+                            </div>
+                    <?php
+                            $promotion_index++;
+                        }
+                    } ?>
+
+                    <!-- <div class="promoBox info-box info-ribbon">
                         <aside>
                             <p>Mua từ 120k</p>
                         </aside>
@@ -296,7 +334,7 @@ if ($login_check) {
                             <p style="color: green;">Mã giảm giá: <span class="promoCode">BOH232</span></p>
                             <button type="button" class="btn ml-4">sao chép</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -616,13 +654,14 @@ if ($login_check) {
 
 
 <!-- js -->
+<?php include 'inc/footer.php' ?>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="js/flyto.js"></script>
 <script>
     // var productId;
     // var localbutton;
-
-    var limitCart = <?php echo session::get('number_cart') ?>;
+    <?php $number_cart = session::get('number_cart'); ?>
+    var limitCart = <?php echo (!$number_cart) ? 0 : session::get('number_cart') ?>;
     $('#wrapper_product').flyto({
         target: '#cart-img',
         button: '.add_to_cart'
@@ -651,4 +690,4 @@ if ($login_check) {
     });
 </script> -->
 <script src="js/ajax_wishlist-and-cart.js"></script>
-<?php include 'inc/footer.php'?>
+<script src="js/function.js"></script>

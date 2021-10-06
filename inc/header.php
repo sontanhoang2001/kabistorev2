@@ -20,7 +20,6 @@ include_once "classes/category.php";
 include_once "classes/product.php";
 include_once "classes/brand.php";
 
-
 $db = new Database();
 $fm = new Format();
 $ct = new cart();
@@ -29,6 +28,7 @@ $cs = new customer();
 $cat = new category();
 $product = new product();
 $bra = new brand();
+
 
 
 //Loout

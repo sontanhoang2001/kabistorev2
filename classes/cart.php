@@ -74,6 +74,13 @@ class cart
 		return $result;
 	}
 
+	public function get_amount_all_cart($customer_id)
+	{
+		$query = "SELECT COUNT(id) as totalRow FROM tbl_order WHERE customer_id = '$customer_id'";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
 	// Cập nhật giỏ hàng
 	public function update_quantity_Cart($customerId, $cartId, $productId, $quantity)
 	{
@@ -110,7 +117,7 @@ class cart
 	}
 
 
-	// Cập nhật giỏ hàng
+	// Cập nhật size giỏ hàng
 	public function update_size_cart($customerId, $cartId, $size)
 	{
 		$size = $this->fm->validation($size);
@@ -407,14 +414,15 @@ class cart
 		return $get_price;
 	}
 
-	public function get_cart_ordered($customer_id)
+	public function get_cart_ordered($customer_id, $page, $product_num)
 	{
+		$index_page = ($page - 1) * $product_num;
 		$query = "SELECT p.productName, p.product_code, p.image, p.old_price, p.price, o.id, o.address_id, o.quantity, o.totalPayment, o.status, a.date_create
 		FROM tbl_order as o
 		inner join tbl_product as p on o.productId = p.productId
         inner join tbl_address as a on o.address_id = a.address_id
 		WHERE o.customer_id = '$customer_id'
-		ORDER by o.id DESC";
+		ORDER by o.id DESC LIMIT $index_page, $product_num";
 		$get_cart_ordered = $this->db->select($query);
 		return $get_cart_ordered;
 	}

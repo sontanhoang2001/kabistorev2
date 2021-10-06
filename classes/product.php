@@ -411,9 +411,8 @@ class product
 	}
 
 	// Lấy tất cả sản phẩm
-	public function get_all_product($filter, $page, $type)
+	public function get_all_product($filter, $page, $type, $product_num)
 	{
-		$product_num = 12;
 		$index_page = ($page - 1) * $product_num;
 		$catId = $type;
 		$brandId = $type;
@@ -567,7 +566,11 @@ class product
 	// Lấy Sản phẩm nổi bật (index)
 	public function get_all_product_Featured()
 	{
-		$query = "SELECT productId, productName, seo, catId, type, old_price, price, image, size FROM tbl_product where type = '1' LIMIT 6";
+		$query = "SELECT p.productId, p.productName, p.seo, p.type, p.old_price, p.price, p.image, p.size, c.catName
+		FROM tbl_product as p
+		INNER JOIN tbl_category as c
+		ON p.catId = c.catId
+		where type = '1' LIMIT 12";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -719,6 +722,14 @@ class product
 				return $alert;
 			}
 		}
+	}
+
+	// hiển thị khuyến mãi
+	public function show_promotion()
+	{
+		$query = "SELECT promotionsCode, description, `condition`, discountMoney, style FROM tbl_promotions order by promotionsId asc";
+		$result = $this->db->select($query);
+		return $result;
 	}
 }
 

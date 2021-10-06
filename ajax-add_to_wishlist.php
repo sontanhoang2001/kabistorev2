@@ -21,7 +21,7 @@ $productid = $_POST['productId'];
 
 // Nếu typeId = 1 thì thêm vào wishlist ngược lại thì xóa wishlist
 if ($customer_id == null) {
-    echo "<script> window.location = 'login.php' </script>";
+    echo "<script> window.location = 'login.html' </script>";
 } else {
     $check_wlist = "SELECT * FROM tbl_wishlist WHERE productId = '$productid' AND customerId ='$customer_id'";
     $result = $conn->query($check_wlist);
