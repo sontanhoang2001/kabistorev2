@@ -11,7 +11,7 @@ if ($login_check) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	// LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-	$search_text = $_GET['search'];
+	$search_text = $_GET['key'];
 	$search_product = $product->search_product($search_text); // hàm check catName khi submit lên
 }
 ?>
@@ -352,9 +352,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 						}
 						?>
 					</div>
-					<div class="row">
-						<a class="list-Product"></a>
-					</div>
 				</div>
 
 				<!-- <style>
@@ -454,32 +451,6 @@ include 'inc/footer.php';
 ?>
 
 <script src="js/function.js"></script>
-<script type="text/javascript">
-	var filter = <?php echo $filter ?>;
-	// var page = 0;
-	// $(document).ready(function() {
-	//     $("#xemthem").click(function() {
-	//         page = page + 1;
-	//         $.get("page_ajax.php", {
-	//                 page: page
-	//             },
-	//             function(data) {
-	//                 $(".list-Product").html(data);
-	//             });
-	//     });
-	// });
-
-	$(document).on("click", ".nice-select .option:not(.disabled)", function(t) {
-		var s = $(this),
-			n = s.closest(".nice-select");
-		if (s.data("value") != filter) {
-			if (s.data("value") == "c" || s.data("value") == "b") {} else {
-				window.location.replace(getAbsolutePath() + "products-" + s.data("value") + "-1-0.html");
-			}
-		}
-	})
-</script>
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="js/flyto.js"></script>
 <script>

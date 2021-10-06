@@ -54,37 +54,42 @@ if ($login_check == false) {
 				$i++;
 				$status = $result['status'];
 				$date_order = $result['date_create'];
-				$date_orderTemp[$i+1] = $date_order;
+				$date_orderTemp[$i + 1] = $date_order;
+				$quantity = $result['quantity'];
 		?>
-				<div class="border-group text-right"><?php echo ($date_order != $date_orderTemp[$i-1]) ? $fm->formatDateTimeP($date_order) : ""?></div>
+				<div class="border-group text-right"><?php echo ($date_order != $date_orderTemp[$i - 1]) ? $fm->formatDateTimeP($date_order) : "" ?></div>
 				<ul class="cartWrap">
 					<li class="items odd">
 						<div class="infoWrap">
-							<div class="cartSection">
+							<div class="cartSection mwp">
 								<!-- <h5 class="numorder"><?php echo $i++; ?></h5> -->
 								<img src="admin/uploads/<?php echo $result['image'] ?>" alt="" class="itemImg" />
-								<p class="itemNumber"><small>#QUE-007544-002</small></p>
+								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
 								<a href="orderdetail?orderId=<?php echo $result['id'] ?>">
-									<h3><?php echo $result['productName'] ?></h3>
+									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								</a>
-								<div class="text-muted">Tổng thanh toán: <p class="p-price"><?php echo $fm->format_currency($result['price']) . ' ₫' ?></p></div>
+								<div class="mt-1">Số lượng: <?php echo $quantity ?></div>
+								
+
+								<div class=""><i class="fa fa-money" aria-hidden="true"></i> <p class="p-price"><?php echo $fm->format_currency($result['price']) . ' ₫' ?></p>
+								</div>
 								<?php
 								if ($status == '0') {
 								?>
 									<td>
-										<div class="status-order"><?php echo 'Đang chờ xác nhận...'; ?></div>
+										<div class="status-order float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo 'Đang chờ xác nhận...'; ?></div>
 									</td>
 								<?php
 								} elseif ($status == 1) {
 								?>
 									<td>
-										<div class="status-order">Chờ nhận hàng...</div>
+										<div class="status-order float-right">Chờ nhận hàng...</div>
 									</td>
 								<?php
 								} else {
 								?>
 									<td>
-										<div class="status-order"><?php echo 'Đã giao'; ?></div>
+										<div class="status-order float-right"><?php echo 'Đã giao'; ?></div>
 									</td>
 								<?php
 								}

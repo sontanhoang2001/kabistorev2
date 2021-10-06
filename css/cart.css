@@ -188,7 +188,7 @@ h3.name-cart {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
 }
 
 .cart {
@@ -218,6 +218,8 @@ h3.name-cart {
     vertical-align: middle;
 }
 
+
+
 .cart .items .cartSection .itemNumber {
     font-size: .75em;
     color: #1a9cb7;
@@ -225,7 +227,7 @@ h3.name-cart {
 }
 
 .cart .items .cartSection h3 {
-    font-size: 1em;
+    font-size: 15px;
     font-family: "Montserrat", sans-serif;
     font-weight: bold;
     /* text-transform: uppercase;
@@ -526,10 +528,15 @@ a.remove:hover {
         width: 100%;
         text-align: center;
     }
-    @media only screen and (max-width: 600px) {
-        .cart .items .cartSection p.stockStatus-out {
-            padding: 0.5em 0 0 9em;
-        }
+}
+
+@media only screen and (max-width: 600px) {
+    .cart .items .cartSection p.stockStatus-out {
+        padding: 0.5em 0 0 9em;
+    }
+
+    .cartSection.mwp {
+        width: 100% !important;
     }
 }
 
@@ -538,5 +545,5 @@ a.remove:hover {
 }
 
 .status-order {
-    font-size: 11px;
+    font-size: 12px;
 }

@@ -279,7 +279,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                 <!-- Search Area -->
                 <div class="search-area">
                     <form action="search.html" method="GET">
-                        <input type="search" name="search" id="search-text" placeholder="Tìm kiếm sản phẩm">
+                        <input type="search" name="key" id="search-text" placeholder="Tìm kiếm sản phẩm">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true" name="search_product" value="Tìm Kiếm"></i></button>
                     </form>
                     <ul id="suggestion"></ul>

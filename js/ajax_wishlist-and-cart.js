@@ -5,8 +5,6 @@ $(document).ready(function () {
         var productStatus = $(this).attr("data-id-1"),
             productId = $(this).attr("href");
 
-
-            alert(productId, productStatus);
         event.preventDefault();
         $.ajax({
             type: "POST",
