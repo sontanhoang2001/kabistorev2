@@ -1,29 +1,49 @@
 var indexCountMessage = 0;
 $(".add_to_wishlist").click(function (event) {
     var class_localtion = $(this);
-    var productStatus = $(this).attr("data-id-1"),
-        productId = $(this).attr("href");
+    var productId = $(this).attr("href");
 
     event.preventDefault();
     $.ajax({
         type: "POST",
-        url: "ajax-add_to_wishlist.php",
+        url: "~/../callbackPartial/wishlist.php",
         data: {
-            'data': 0,
             'productId': productId
         },
         success: function (data) {
-            $(".myModal_text").html(data);
-            // $("#myModal").modal('show');
-            $(class_localtion).toggleClass("fa-heart fa-heart-o");
-            if (productStatus == 0) {
-                $(class_localtion).attr('data-id-1', 1);
-                $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Thêm yêu thích thành công!!!</div>');
-                $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
-            } else {
-                $(class_localtion).attr('data-id-1', 0);
-                $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Đã xóa yêu thích thành công!!!</div>');
-                $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+            Status = JSON.parse(data).status;
+
+            switch (Status) {
+                case 0: {
+                    window.location = 'login.html';
+                    break;
+                }
+                case 1: {
+                    $(class_localtion).toggleClass("fa-heart fa-heart-o");
+                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Thêm yêu thích thành công!</div>');
+                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    break;
+                }
+                case 2: {
+                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Thêm yêu thích thất bại!!!</div>');
+                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    break;
+                }
+                case 3: {
+                    $(class_localtion).toggleClass("fa-heart fa-heart-o");
+                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thành công!</div>');
+                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    break;
+                }
+                case 4: {
+                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Xóa yêu thích thất bại!!!</div>');
+                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    break;
+                }
+                default: {
+                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Đã xảy ra sự cố mạng!!!</div>');
+                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                }
             }
         }
     });
@@ -31,48 +51,97 @@ $(".add_to_wishlist").click(function (event) {
 });
 
 $(".add_to_wishlist_details").click(function (event) {
-    var productId = $(location).attr('search').substring(7);
-    alert(productId);
+    // var productId = $(location).attr('search');
+    var productId = $(this).attr('data-productId');
+
     event.preventDefault();
     $.ajax({
         type: "POST",
-        url: "ajax-add_to_wishlist.php",
+        url: "~/../callbackPartial/wishlist.php",
         data: {
-            'data': 0,
             'productId': productId
         },
         success: function (data) {
-            $('.heart').toggleClass("is-active");
-        }
-    });
-});
+            Status = JSON.parse(data).status;
 
-// Xóa wishlist
-$("#remove-wishlist").click(function (event) {
-    event.preventDefault();
-    var productId = $(this).attr("href");
-
-    $.ajax({
-        type: "POST",
-        url: "ajax-add_to_wishlist.php",
-        data: {
-            'data': 0,
-            'productId': productId
-        },
-        success: function (data) {
-            $("#row_product_" + productId).remove();
-
-            $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thành công!!!</div>');
-            $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
-        }, error: function (data) {
-            audioError.play();
-            $("#message").append('<div class="alert-box failure notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thất bại!!!</a ></div>');
-            $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
-
+            switch (Status) {
+                case 0: {
+                    window.location = 'login.html';
+                    break;
+                }
+                case 1: {
+                    $('.heart').toggleClass("is-active");
+                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Thêm yêu thích thành công!</div>');
+                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    break;
+                }
+                case 2: {
+                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Thêm yêu thích thất bại!!!</div>');
+                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    break;
+                }
+                case 3: {
+                    $('.heart').toggleClass("is-active");
+                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thành công!</div>');
+                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    break;
+                }
+                case 4: {
+                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Xóa yêu thích thất bại!!!</div>');
+                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    break;
+                }
+                default: {
+                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Đã xảy ra sự cố mạng!!!</div>');
+                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                }
+            }
         }
     });
     indexCountMessage++;
 });
+
+
+//delete wishlist
+
+$('a#remove-wishlist').each(function (index, val) {
+    var cartWrapIndex = ".cartWrap:eq(" + index + ")";
+    $(this).click(function (event) {
+        event.preventDefault();
+        var productId = $(cartWrapIndex).attr("data-id-1");
+        alert(index);
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/wishlist.php",
+            data: {
+                'productId': productId
+            },
+            success: function (data) {
+                Status = JSON.parse(data).status;
+                alert(Status);
+                switch (Status) {
+                    case 3: {
+                        $(cartWrapIndex).css("display","none");
+                        $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thành công!</div>');
+                        $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        break;
+                    }
+                    case 4: {
+                        $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Xóa yêu thích thất bại!!!</div>');
+                        $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        break;
+                    }
+                    default: {
+                        $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Đã xảy ra sự cố mạng!!!</div>');
+                        $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    }
+                }
+            }
+        });
+        indexCountMessage++;
+    });
+});
+
 
 $(".add_to_cart").click(function (event) {
     var productId = $(this).attr("href"),
@@ -134,6 +203,7 @@ $(".add_to_cart").click(function (event) {
     indexCountMessage++;
 });
 
+// Start cartSubmit in product details
 var productSize = 0;
 $('#cartSubmit').on("click", ".nice-select:eq(0) .option:not(.disabled)", function (t) {
     var s = $(this),
@@ -170,7 +240,7 @@ $("#cartSubmit").submit(function (e) {
                 case 2: {
                     audioError.play();
                     $("#error-submit").append('<div class="alert-box failure notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Lỗi máy chủ!!!.</div>');
-                    $("#rror-submit1" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    $("#error-submit1" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
                     break;
                 }
                 case 3: {
@@ -197,7 +267,7 @@ $("#cartSubmit").submit(function (e) {
         }
     });
 });
-
+// End cartSubmit in product details
 
 $('.input-quantity').focus(function () {
     $('.essence-btn').css("background-color", "rgb(153, 153, 153)");

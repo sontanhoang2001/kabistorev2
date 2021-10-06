@@ -645,7 +645,7 @@ class product
 	// lấy yêu thích
 	public function get_wishlist($customer_id)
 	{
-		$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.seo, tbl_product.old_price, tbl_product.price, tbl_product.image
+		$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.seo, tbl_product.product_code, tbl_product.old_price, tbl_product.price, tbl_product.image
 		FROM tbl_wishlist
 		INNER JOIN tbl_product ON tbl_wishlist.productId = tbl_product.productId
 		where tbl_wishlist.customerId = '$customer_id' order by tbl_wishlist.wishlistId desc;";

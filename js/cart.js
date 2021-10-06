@@ -21,7 +21,7 @@ $('a#remove-cart').each(function (index, val) {
             success: function (data) {
                 // Xóa row cart
                 // Cập nhật lại tổng tiền subtotal
-                $(cartWrapIndex).remove();
+                $(cartWrapIndex).css("display","none");
                 if (data == 0) {
                     $(".promoCode").remove();
                     $(".subtotal").remove();

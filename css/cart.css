@@ -188,7 +188,7 @@ h3.name-cart {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
 }
 
 .cart {

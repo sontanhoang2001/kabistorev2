@@ -213,9 +213,9 @@ if ($login_check) {
 										$login_check = Session::get('customer_login');
 										if ($login_check) {
 											if ($wishlist_check) {
-												echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add is-active"></button>';
+												echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add is-active" data-productId="' .  $productid . '"></button>';
 											} else {
-												echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add"></button>';
+												echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add" data-productId="' .  $productid . '"></button>';
 											}
 										}
 										?>
@@ -231,11 +231,6 @@ if ($login_check) {
 								// if (isset($AddtoCart)) {
 								// 	echo '<span style="color:red; font-size:18px;">Sản phẩm đã được bạn thêm vào giỏ hàng</span>';
 								// }
-								?>
-								<?php
-								if (isset($insertCart)) {
-									echo $insertCart;
-								}
 								?>
 								</form>
 							</div>

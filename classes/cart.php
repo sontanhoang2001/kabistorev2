@@ -23,16 +23,17 @@ class cart
 	{
 		$customer_id = $this->fm->validation($customer_id);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
-		$productId = $this->fm->validation($productId);
-		$productId = mysqli_real_escape_string($this->db->link, $productId);
-		$productSize = $this->fm->validation($productSize);
-		$productSize = mysqli_real_escape_string($this->db->link, $productSize);
-		$quantity = $this->fm->validation($quantity);
-		$quantity = mysqli_real_escape_string($this->db->link, $quantity);
 
 		if ($customer_id == null) {
 			return json_encode($result_json[][] = ['status' => 0, 'value' => 0]);
 		} else {
+			$productId = $this->fm->validation($productId);
+			$productId = mysqli_real_escape_string($this->db->link, $productId);
+			$productSize = $this->fm->validation($productSize);
+			$productSize = mysqli_real_escape_string($this->db->link, $productSize);
+			$quantity = $this->fm->validation($quantity);
+			$quantity = mysqli_real_escape_string($this->db->link, $quantity);
+
 			$queryCartCustomer = "SELECT COUNT(customerId) as CartCustomer FROM tbl_cart WHERE customerId = '$customer_id'";
 			$resultCartCustomer = $this->db->select($queryCartCustomer)->fetch_assoc();
 
@@ -59,6 +60,43 @@ class cart
 			} else {
 				return json_encode($result_json[][] = ['status' => 4, 'value' => 0]);
 			}
+		}
+	}
+
+
+	public function add_to_wishlist($productid, $customer_id)
+	{
+		// customer_id = null = 0
+		// thêm thành công = 1
+		// thêm thất bại = 2
+		// xóa thành công = 3
+		// xóa thất bại = 4
+		if ($customer_id == null) {
+			return json_encode($result_json[][] = ['status' => 0]);
+		} else {
+			$check_wishlist = "SELECT * FROM tbl_wishlist WHERE productId = '$productid' AND customerId ='$customer_id'";
+			$result = $this->db->select($check_wishlist);
+
+			if ($result) {
+				// nếu sản phẩm tồn tại thì xóa
+				$query_delete = "DELETE FROM tbl_wishlist where productId = '$productid' AND customerId = '$customer_id' ";
+				$result = $this->db->delete($query_delete);
+				if ($result) {
+					return json_encode($result_json[][] = ['status' => 3]);
+				} else {
+					return json_encode($result_json[][] = ['status' => 4]);
+				}
+			} else {
+				// chưa có sản phẩm thì thêm vào
+				$inser_wishlist = "INSERT INTO tbl_wishlist(productId,customerId) VALUES('$productid','$customer_id')";
+				$result = $this->db->insert($inser_wishlist);
+				if ($result) {
+					return json_encode($result_json[][] = ['status' => 1]);
+				} else {
+					return json_encode($result_json[][] = ['status' => 2]);
+				}
+			}
+			$this->db->null;
 		}
 	}
 

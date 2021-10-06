@@ -41,21 +41,21 @@ if ($login_check == false) {
 				$old_price = $result['old_price'];
 				$i++;
 		?>
-				<ul class="cartWrap" id="row_product_<?php echo $productId ?>">
+				<ul class="cartWrap" data-id-1="<?php echo $productId; ?>">
 					<li class="items odd">
 						<div class="infoWrap">
 							<div class="cartSection">
 								<img src="admin/uploads/<?php echo $result['image'] ?>" alt="" class="itemImg" />
-								<p class="itemNumber"><small>#QUE-007544-002</small></p>
+								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></small></p>
 								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
-									<h3><?php echo $result['productName'] ?></h3>
+									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								</a>
 								<small class="old-price"><?php echo ($old_price == 0) ? $old_price : '' ?></small>
 								<p class="p-price"> <?php echo $fm->format_currency($result['price']) . ' ₫' ?></p>
 								<!-- <button class="btn btn-succes btn-buy" onclick="window.location.href='details/<?php echo $productId ?>/<?php echo $seo ?>.html'"><i class="fa fa-shopping-cart" aria-hidden="true"> Mua ngay</i></button> -->
 							</div>
 							<div class="cartSection removeWrap">
-								<a class="remove" id="remove-wishlist" href="<?php echo $productId ?>">x</a>
+								<a class="remove" id="remove-wishlist" href="#">x</a>
 							</div>
 						</div>
 					</li>
@@ -63,9 +63,17 @@ if ($login_check == false) {
 				</ul>
 		<?php
 			}
+		} else {
+			echo '
+ 			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<p>Không có sản phẩm nào trong yêu thích! Hãy nhấn tim <i class="fa fa-heart" aria-hidden="true"></i> sản phẩm để lưu trữ vào ưa thích.</p>
+					</div>
+				</div>
+	 		</div>';
 		}
 		?>
-		<hr>
 	</div>
 </div>
 <div class="fixed" id="message"></div>

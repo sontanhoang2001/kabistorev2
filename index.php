@@ -90,11 +90,11 @@ if ($login_check) {
                                             if ($login_check) {
                                                 if ($wishlist_check) {
                                             ?>
-                                                    <li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" href="<?php echo $productId ?>" data-id-1="1"></a></li>
+                                                    <li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" href="<?php echo $productId ?>"></a></li>
                                                 <?php
                                                 } else {
                                                 ?>
-                                                    <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" href="<?php echo $productId ?>" data-id-1="0"></i></a></li>
+                                                    <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" href="<?php echo $productId ?>"></i></a></li>
                                                 <?php
                                                 }
                                             } else {
@@ -105,7 +105,7 @@ if ($login_check) {
                                             ?>
                                             <li>
                                                 <img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
-                                                <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-shopping-cart"></i></a>
+                                                <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                             </li>
                                             <!-- <a class="add_to_cart" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a> -->
                                         </ul>
