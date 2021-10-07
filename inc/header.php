@@ -223,7 +223,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                                         // }
                                         ?>
 
-                                    <div class="shopping_cart">
+                                    <!-- <div class="shopping_cart">
                                         <div class="cart">
                                             <a href="cart.html" title="View my shopping cart" rel="nofollow">
                                                 <span class="cart_title">Giỏ hàng</span>
@@ -244,7 +244,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                                                 </span>
                                             </a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <?php
                                     // if (isset($_GET['customer_id'])) {
                                     //     $customer_id = $_GET['customer_id'];
@@ -372,8 +372,6 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                         </ul>
                     </ul>
                 </div>
-
-
             </div>
         </div>
 

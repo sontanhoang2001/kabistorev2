@@ -43,6 +43,7 @@ if ($login_check == false) {
 
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/cart.css">
+<link rel="stylesheet" href="css/pagination.css">
 
 <div class="wrap cf">
 	<div class="heading cf">
@@ -121,12 +122,11 @@ if ($login_check == false) {
 	<ul class="pagination">
 		<?php
 		if ($product_count >= $product_num) {
-			$product_button = ceil(($product_count) / 6);
+			$product_button = ceil(($product_count) / $product_num);
 			$page_now = $page;
 			if ($page_now == 0) {
 				$page_now = (int)$query_string + 1;
 			}
-			$product_button = ceil(($product_count) / $product_num);
 			if ($page_now != 1) {
 				$page_now_index = $page_now - 1;
 				echo '<li class="page-item"><a class="page-link" href="orderdetails-' . $page_now_index . '.html">❮</a></li>';

@@ -19,24 +19,21 @@ class product
 		$this->fm = new Format();
 	}
 
+	// Tìm kiếm live sản phẩm
+	public function live_search($search_text)
+	{
+		$query = "SELECT productId, productName, old_price, price, image FROM tbl_product WHERE productName LIKE '%$search_text%' LIMIT 6";
+		$product = $this->db->select($query);
+		return $product;
+	}
+
 	// Tìm kiếm sản phẩm
 	public function search_product($search_text)
 	{
 		$search_text = $this->fm->validation($search_text); //gọi ham validation từ file Format để ktra
-		$query = "SELECT * FROM tbl_product WHERE productName LIKE '%$search_text%'";
+		$query = "SELECT productId, productName, seo, product_soldout, old_price, price, image FROM tbl_product WHERE productName LIKE '%$search_text%'";
 		$result = $this->db->select($query);
 		return $result;
-		$this->link->close();
-
-
-		// $product_num = 12;
-		// $index_page = ($page - 1) * $product_num;
-		// $search_text = $this->fm->validation($search_text); //gọi ham validation từ file Format để ktra
-		// $query = "SELECT * FROM tbl_product WHERE productName LIKE '%$search_text%'
-		// order by productId desc LIMIT $index_page, $product_num";
-		// $result = $this->db->select($query);
-		// return $result;
-		// $this->link->close();
 	}
 
 	// đếm tổng số sản phẩm
@@ -643,12 +640,23 @@ class product
 	}
 
 	// lấy yêu thích
-	public function get_wishlist($customer_id)
+	public function get_wishlist($customer_id, $page, $product_num)
 	{
+		$index_page = ($page - 1) * $product_num;
 		$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.seo, tbl_product.product_code, tbl_product.old_price, tbl_product.price, tbl_product.image
 		FROM tbl_wishlist
 		INNER JOIN tbl_product ON tbl_wishlist.productId = tbl_product.productId
-		where tbl_wishlist.customerId = '$customer_id' order by tbl_wishlist.wishlistId desc;";
+		where tbl_wishlist.customerId = '$customer_id'
+		order by tbl_wishlist.wishlistId desc
+		LIMIT $index_page, $product_num";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+
+	public function get_wishlist_all_product($customer_id)
+	{
+		$query = "SELECT COUNT(wishlistId) as totalRow FROM tbl_wishlist WHERE customerId = '$customer_id'";
 		$result = $this->db->select($query);
 		return $result;
 	}

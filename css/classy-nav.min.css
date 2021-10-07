@@ -1033,3 +1033,69 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     margin-left: 0;
     margin-right: 15px
 }
+
+/* filter-pannel */
+
+@media only screen and (max-width: 600px) {
+    #filter-panel {
+        z-index: 998;
+        position: fixed;
+        background-color: #fff;
+        width: 300px;
+        height: 100%;
+        top: 0;
+        left: 0px;
+        box-shadow: 2px -5px 6px -6px black;
+    }
+    .filterShowEffectOpen {
+        animation: filterShowEffect;
+        animation-duration: 0.5s;
+    }
+    @keyframes filterShowEffect {
+        from {
+            left: -310px;
+        }
+        to {
+            left: 0px;
+        }
+    }
+    .filterShowEffectClose {
+        animation: filterShowEffectClose;
+        animation-duration: 0.5s;
+    }
+    @keyframes filterShowEffectClose {
+        from {
+            left: 0px;
+        }
+        to {
+            left: -310px;
+        }
+    }
+    .filter-panel-scrollbar {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
+    .widget {
+        margin: 20px;
+    }
+    #showFilterPannel {
+        position: fixed;
+        z-index: 1;
+        display: block;
+        bottom: 300px;
+        background-color: #ed949e;
+        border-radius: 0;
+        box-shadow: 0 2px 6px 0 rgb(0 0 0 / 30%);
+        color: #fff;
+        font-size: 18px;
+        height: 55px;
+        line-height: 40px;
+        text-align: center;
+        width: 40px;
+        padding: 6px;
+    }
+}
+
+/* filter-pannel */

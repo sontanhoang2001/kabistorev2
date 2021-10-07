@@ -109,7 +109,6 @@ $('a#remove-wishlist').each(function (index, val) {
     $(this).click(function (event) {
         event.preventDefault();
         var productId = $(cartWrapIndex).attr("data-id-1");
-        alert(index);
         $.ajax({
             type: "POST",
             url: "~/../callbackPartial/wishlist.php",
@@ -118,7 +117,6 @@ $('a#remove-wishlist').each(function (index, val) {
             },
             success: function (data) {
                 Status = JSON.parse(data).status;
-                alert(Status);
                 switch (Status) {
                     case 3: {
                         $(cartWrapIndex).css("display","none");

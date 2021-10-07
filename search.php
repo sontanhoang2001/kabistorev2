@@ -454,13 +454,13 @@ include 'inc/footer.php';
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="js/flyto.js"></script>
 <script>
-	// var productId;
-	// var localbutton;
-
-	var limitCart = <?php echo session::get('number_cart') ?>;
-	$('#wrapper_product').flyto({
-		target: '#cart-img',
-		button: '.add_to_cart'
-	});
+    // var productId;
+    // var localbutton;
+    <?php $number_cart = session::get('number_cart'); ?>
+    var limitCart = <?php echo (!$number_cart) ? 0 : session::get('number_cart') ?>;
+    $('#wrapper_product').flyto({
+        target: '#cart-img',
+        button: '.add_to_cart'
+    });
 </script>
 <script src="js/ajax_wishlist-and-cart.js"></script>

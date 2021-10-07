@@ -124,34 +124,41 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-4 col-lg-3">
-                <div class="shop_sidebar_area d-none d-sm-block">
+                <div class="shop_sidebar_area d-none d-sm-block" id="filter-panel">
+                    <!-- close btn -->
+                    <div class="classycloseIcon" id="closeFilterPanel">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+                    <div class="filter-panel-scrollbar my-custom-scrollbar-primary">
 
-                    <!-- ##### Single Widget ##### -->
-                    <div class="widget catagory mb-4">
-                        <!--  Catagories  -->
-                        <div class="catagories-menu">
-                            <ul id="menu-content2" class="menu-content collapse show">
-                                <!-- Single Item -->
-                                <li data-toggle="collapse" data-target="#category">
-                                    <!-- Widget Title -->
-                                    <h6 class="widget-title mb-4">Loại Sản Phẩm</h6>
-                                    <!-- <a href="#">Tất cả</a> -->
-                                    <ul class="sub-menu collapse show" id="category">
-                                        <?php
-                                        $cat_featheread = $cat->show_category();
-                                        if ($cat_featheread) {
-                                            while ($result = $cat_featheread->fetch_assoc()) {
-                                                $catId = $result['catId'];
-                                                $catName = $result['catName'];
-                                        ?>
-                                                <li><a class="<?php echo ($filter == "category" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="products-category-1-<?php echo $catId ?>.html"><?php echo $catName ?></a></li>
-                                        <?php
-                                            }
-                                        } ?>
-                                    </ul>
-                                </li>
-                                <!-- Single Item -->
-                                <!-- <li data-toggle="collapse" data-target="#shoes" class="collapsed">
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget catagory mb-4">
+                            <!--  Catagories  -->
+                            <div class="catagories-menu">
+                                <h6 class="widget-title mb-4">Lọc sản phẩm</h6>
+                                <hr>
+                                <ul id="menu-content2" class="menu-content collapse show">
+                                    <!-- Single Item -->
+                                    <li data-toggle="collapse" data-target="#category">
+                                        <!-- Widget Title -->
+                                        <h6 class="widget-title2 mb-3">Loại Sản Phẩm</h6>
+                                        <!-- <a href="#">Tất cả</a> -->
+                                        <ul class="sub-menu collapse show" id="category">
+                                            <?php
+                                            $cat_featheread = $cat->show_category();
+                                            if ($cat_featheread) {
+                                                while ($result = $cat_featheread->fetch_assoc()) {
+                                                    $catId = $result['catId'];
+                                                    $catName = $result['catName'];
+                                            ?>
+                                                    <li><a class="<?php echo ($filter == "category" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="products-category-1-<?php echo $catId ?>.html"><?php echo $catName ?></a></li>
+                                            <?php
+                                                }
+                                            } ?>
+                                        </ul>
+                                    </li>
+                                    <!-- Single Item -->
+                                    <!-- <li data-toggle="collapse" data-target="#shoes" class="collapsed">
                                     <a href="#">shoes</a>
                                     <ul class="sub-menu collapse" id="shoes">
                                         <li><a href="#">All</a></li>
@@ -167,32 +174,32 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                                         <li><a href="#">Sweaters &amp; Knits</a></li>
                                     </ul>
                                 </li> -->
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- ##### Single Widget ##### -->
-                    <!-- <div class="widget price mb-50">
-                        Widget Title
-                        <h6 class="widget-title mb-30">Lọc Sản Phẩm</h6>
-                        Widget Title 2
-                        <p class="widget-title2 mb-30">giá sản phẩm</p>
-                        <div class="widget-desc">
-                            <div class="slider-range">
-                                <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
-                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                </div>
-                                <div class="range-price">Giá Từ: $49.00 - $360.00</div>
+                                </ul>
                             </div>
                         </div>
-                    </div> -->
 
-                    <!-- ##### Single Widget ##### -->
-                    <!-- <div class="widget color mb-50"> -->
-                    <!-- Widget Title 2 -->
-                    <!-- <p class="widget-title2 mb-30">Color</p>
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget price mb-50">
+                            <!-- Widget Title -->
+                            <!-- <h6 class="widget-title mb-30">Giá Sản Phẩm</h6> -->
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Lọc theo giá</p>
+                            <div class="widget-desc">
+                                <div class="slider-range">
+                                    <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    </div>
+                                    <div class="range-price">Giá Từ: $49.00 - $360.00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget color mb-50">
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Màu sắc <small>(chưa khả dụng)</small></p>
                             <div class="widget-desc">
                                 <ul class="d-flex">
                                     <li><a href="#" class="color1"></a></li>
@@ -206,35 +213,36 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                                     <li><a href="#" class="color9"></a></li>
                                     <li><a href="#" class="color10"></a></li>
                                 </ul>
-                            </div> -->
-                    <!-- </div> -->
+                            </div>
+                        </div>
 
-                    <!-- ##### Single Widget ##### -->
-                    <div class="widget catagory mb-4">
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget catagory mb-4">
 
-                        <!--  Catagories  -->
-                        <div class="catagories-menu">
-                            <ul id="menu-content2" class="menu-content collapse show">
-                                <!-- Single Item -->
-                                <li data-toggle="collapse" data-target="#brand">
-                                    <!-- Widget Title -->
-                                    <h6 class="widget-title mb-4">Thương hiệu</h6>
-                                    <!-- <a href="#">Tất cả</a> -->
-                                    <ul class="sub-menu collapse show" id="brand">
-                                        <?php
-                                        $brand_featheread = $bra->show_brand();
-                                        if ($brand_featheread) {
-                                            while ($result = $brand_featheread->fetch_assoc()) {
-                                                $brandId = $result['brandId'];
-                                                $brandName = $result['brandName']
-                                        ?>
-                                                <li><a class="<?php echo ($filter == "brand" && $type == $brandId) ? 'font-weight-bold' . $brandSelected = $brandName : ''; ?>" href="products-brand-1-<?php echo $brandId ?>.html"><?php echo $brandName ?></a></li>
-                                        <?php
-                                            }
-                                        } ?>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <!--  Catagories  -->
+                            <div class="catagories-menu">
+                                <ul id="menu-content2" class="menu-content collapse show">
+                                    <!-- Single Item -->
+                                    <li data-toggle="collapse" data-target="#brand">
+                                        <!-- Widget Title -->
+                                        <h6 class="widget-title mb-4">Thương hiệu</h6>
+                                        <!-- <a href="#">Tất cả</a> -->
+                                        <ul class="sub-menu collapse show" id="brand">
+                                            <?php
+                                            $brand_featheread = $bra->show_brand();
+                                            if ($brand_featheread) {
+                                                while ($result = $brand_featheread->fetch_assoc()) {
+                                                    $brandId = $result['brandId'];
+                                                    $brandName = $result['brandName']
+                                            ?>
+                                                    <li><a class="<?php echo ($filter == "brand" && $type == $brandId) ? 'font-weight-bold' . $brandSelected = $brandName : ''; ?>" href="products-brand-1-<?php echo $brandId ?>.html"><?php echo $brandName ?></a></li>
+                                            <?php
+                                                }
+                                            } ?>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -459,14 +467,13 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                 <ul class="pagination">
                     <?php
                     if ($product_count >= $product_num) {
-                        $product_button = ceil(($product_count) / 6);
+                        $product_button = ceil(($product_count) / $product_num);
                         $query = $_SERVER['QUERY_STRING'];
                         $query_string = substr($query, -1, 2);
                         $page_now = (int)$query_string;
                         if ($page_now == 0) {
                             $page_now = (int)$query_string + 1;
                         }
-                        $product_button = ceil(($product_count) / $product_num);
                         $page_now = $_GET['page'];
                         if ($page_now != 1) {
                             $page_now_index = $page_now - 1;
@@ -512,8 +519,9 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
         </div>
     </div>
 </section>
-<div class="fixed" id="message"></div>
-
+<a id="showFilterPannel" href="#"><i class="fa fa-filter">
+        <p style="color: #fff;">Lọc</p>
+    </i></a>
 <!-- ##### Shop Grid Area End ##### -->
 
 
@@ -522,6 +530,7 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
 include 'inc/bs-modal.php';
 include 'inc/footer.php';
 ?>
+
 
 <script src="js/function.js"></script>
 <script type="text/javascript">
@@ -555,8 +564,8 @@ include 'inc/footer.php';
 <script>
     // var productId;
     // var localbutton;
-
-    var limitCart = <?php echo session::get('number_cart') ?>;
+    <?php $number_cart = session::get('number_cart'); ?>
+    var limitCart = <?php echo (!$number_cart) ? 0 : session::get('number_cart') ?>;
     $('#wrapper_product').flyto({
         target: '#cart-img',
         button: '.add_to_cart'

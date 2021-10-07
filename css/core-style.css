@@ -425,7 +425,6 @@ img {
     letter-spacing: 1.5px;
     font-weight: 600;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .5); */
-
     position: relative;
     z-index: 100;
     border: 1px solid #ebebeb;
@@ -438,14 +437,12 @@ img {
     margin: 0;
     text-transform: uppercase;
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, .5); */
-
 }
 
 /* .wishlist-btn:hover, .wishlist-btn:focus {
     background: #a3758e;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
 } */
-
 
 /* :: 4.0 Header Area CSS */
 
@@ -566,10 +563,11 @@ img {
 
 @media only screen and (max-width: 767px) {
     .header_area .search-area form input {
-        width: 170px;
+        width: 180px;
         height: 40px;
         padding: 0 10px 0 30px;
     }
+    
 }
 
 .header_area .search-area form input:focus {
@@ -1991,7 +1989,6 @@ img {
 
 .product-topbar {
     position: relative;
-    z-index: 100;
     margin-bottom: 40px;
 }
 

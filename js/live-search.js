@@ -4,13 +4,12 @@ $(document).ready(function () {
         var query = $(this).val();
         if (query != "") {
             $.ajax({
-                url: 'livesearch.php',
+                url: '~/../callbackPartial/live-search.php',
                 method: 'POST',
                 data: {
-                    query: query
+                    searchText: query
                 },
                 success: function (data) {
-
                     $('#suggestion').html(data);
                     $('#suggestion').css('display', 'inline-table');
 
