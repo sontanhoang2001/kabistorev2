@@ -9,7 +9,7 @@
 
 
 
-(function($) {
+(function ($) {
     'use strict';
 
     var $window = $(window);
@@ -66,15 +66,15 @@
     var cartOverlayOn = "cart-bg-overlay-on";
     var cartOn = "cart-on";
 
-    cartbtn1.on('click', function() {
+    cartbtn1.on('click', function () {
         cartOverlay.toggleClass(cartOverlayOn);
         cartWrapper.toggleClass(cartOn);
     });
-    cartOverlay.on('click', function() {
+    cartOverlay.on('click', function () {
         $(this).removeClass(cartOverlayOn);
         cartWrapper.removeClass(cartOn);
     });
-    cartbtn2.on('click', function() {
+    cartbtn2.on('click', function () {
         cartOverlay.removeClass(cartOverlayOn);
         cartWrapper.removeClass(cartOn);
     });
@@ -90,12 +90,12 @@
         }
     }
 
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
         addScrollUp();
     })
 
     // :: Sticky Active Code
-    $window.on('scroll', function() {
+    $window.on('scroll', function () {
         if ($window.scrollTop() > 0) {
             $('.header_area').addClass('sticky');
         } else {
@@ -109,7 +109,7 @@
     }
 
     // :: Slider Range Price Active Code
-    $('.slider-range-price').each(function() {
+    $('.slider-range-price').each(function () {
         var min = jQuery(this).data('min');
         var max = jQuery(this).data('max');
         var unit = jQuery(this).data('unit');
@@ -122,10 +122,15 @@
             min: min,
             max: max,
             values: [value_min, value_max],
-            slide: function(event, ui) {
-                var result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
-                console.log(t);
+            slide: function (event, ui) {
+                var result = label_result + " " + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(ui.values[0]) + ' - ' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(ui.values[1]);
+                // console.log(t);
                 t.closest('.slider-range').find('.range-price').html(result);
+                var priceStart = ui.values[0];
+                var priceEnd = ui.values[1];
+
+                // var url = "products-0-1-0-" + priceStart + "-" + priceEnd+ ".html";
+                // $(location).attr('href', url);
             }
         });
     });
@@ -161,7 +166,7 @@
     }
 
     // :: PreventDefault a Click
-    $("a[href='#']").on('click', function($) {
+    $("a[href='#']").on('click', function ($) {
         $.preventDefault();
     });
 

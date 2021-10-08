@@ -408,7 +408,7 @@ class product
 	}
 
 	// Lấy tất cả sản phẩm
-	public function get_all_product($filter, $page, $type, $product_num)
+	public function get_all_product($filter, $page, $type, $product_num, $priceStart, $priceEnd)
 	{
 		$index_page = ($page - 1) * $product_num;
 		$catId = $type;
@@ -421,6 +421,7 @@ class product
 						$query = "SELECT productId, productName, seo, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
+						WHERE tbl_product.price BETWEEN '$priceStart' and '$priceEnd'
 						order by productId desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -431,6 +432,7 @@ class product
 						$query = "SELECT productId, productName, seo, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
+						WHERE tbl_product.price BETWEEN '$priceStart' and '$priceEnd'
 						order by product_soldout desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -442,7 +444,7 @@ class product
 						FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
-						where old_price != 0
+						where old_price != 0 and tbl_product.price BETWEEN '$priceStart' and '$priceEnd'
 						order by old_price
 						desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
@@ -460,7 +462,7 @@ class product
 						$query = "SELECT tbl_product.productId, tbl_product.productName,tbl_product.seo, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
 						FROM tbl_product
 						inner join tbl_category on tbl_product.catId = tbl_category.catId
-						where tbl_category.catId = '$catId'
+						where tbl_category.catId = '$catId' AND tbl_product.price BETWEEN '$priceStart' AND '$priceEnd'
 						LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -470,7 +472,7 @@ class product
 						$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.seo, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
-						where tbl_brand.brandId = '$brandId'
+						where tbl_brand.brandId = '$brandId' AND tbl_product.price BETWEEN '$priceStart' AND '$priceEnd'
 						LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;

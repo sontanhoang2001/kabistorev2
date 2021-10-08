@@ -1,0 +1,45 @@
+.price-range-block {
+    margin: 60px;
+}
+
+.sliderText {
+    width: 40%;
+    margin-bottom: 30px;
+    border-bottom: 2px solid red;
+    padding: 10px 0 10px 0px;
+    font-weight: bold;
+}
+
+.ui-slider-horizontal {
+    height: .6em;
+}
+
+.ui-slider-horizontal {
+    margin-bottom: 15px;
+    width: 90%;
+}
+
+.ui-widget-header {
+    background: #2a39fe;
+}
+
+.price-range-search {
+    display: inline-block;
+    float: right;
+    margin-right: 12px;
+    height: 30px;
+    line-height: 10px;
+}
+
+.price-range-field {
+    display: initial !important;
+    width: 34%;
+    font-family: myFont;
+    font: normal 14px Arial, Helvetica, sans-serif;
+}
+
+.search-results-block {
+    position: relative;
+    display: block;
+    clear: both;
+}

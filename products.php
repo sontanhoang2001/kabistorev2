@@ -9,21 +9,38 @@ if ($login_check) {
     $customer_id = 0;
 }
 
-if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
+if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])  && !isset($_GET['priceStart']) && !isset($_GET['priceEnd'])) {
     $filter = 0;
     $page = 1;
     $type = 0;
+    $priceStart = 0;
+    $priceEnd = 0;
 } else {
     $filter = $_GET['filter'];
     $page = $_GET['page'];
     $type = $_GET['type'];
+
+    if ($_GET['priceStart'] == "m") {
+        $priceStart = 0;
+    } else {
+        $priceStart = $_GET['priceStart'];
+    }
+
+    if ($_GET['priceEnd'] == "m") {
+        $priceEnd = 500000;
+    } else {
+        $priceEnd = $_GET['priceEnd'];
+    }
 }
+
+
 // if (!isset($_GET['page'])) {
 //     echo "<meta http-equiv='refresh' content='0;URL=?page=1'>";
 // }
 ?>
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/message.css">
+<link rel="stylesheet" href="css/price_range_style.css">
 
 <!-- ##### Right Side Cart Area ##### -->
 <div class="cart-bg-overlay"></div>
@@ -129,6 +146,7 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                     <div class="classycloseIcon" id="closeFilterPanel">
                         <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                     </div>
+
                     <div class="filter-panel-scrollbar my-custom-scrollbar-primary">
 
                         <!-- ##### Single Widget ##### -->
@@ -137,6 +155,53 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                             <div class="catagories-menu">
                                 <h6 class="widget-title mb-4">Lọc sản phẩm</h6>
                                 <hr>
+
+
+                                <!-- ##### Single Widget ##### -->
+                                <div class="widget price mb-50">
+                                    <!-- Widget Title -->
+                                    <!-- <h6 class="widget-title mb-30">Giá Sản Phẩm</h6> -->
+                                    <!-- Widget Title 2 -->
+                                    <p class="widget-title2 mb-30">Lọc theo giá</p>
+                                    <div class="widget-desc">
+                                        <div class="slider-range">
+                                            <div id="slider-range" class="price-filter-range mb-3" name="rangeInput"></div>
+                                            <input type="number" min=0 max="500000" oninput="validity.valid||(value='0');" id="min_price" class="price-range-field form-control" />-
+                                            <input type="number" min=0 max="500000" oninput="validity.valid||(value='500000');" id="max_price" class="price-range-field form-control" />
+                                            <button class="btn btn-info price-range-search" id="price-range-submit"><i class="fa fa-search"></i></button>
+
+                                            <div class="range-price">Giá Từ: 0₫ - 500.000₫</div>
+                                            <!-- <div data-min="0" data-max="500000" data-unit="₫" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="500000" data-label-result="Giá từ:">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    </div>
+
+                                    <div class="range-price">Giá Từ: 0₫ - 500.000₫</div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ##### Single Widget ##### -->
+                                <div class="widget color mb-50">
+                                    <!-- Widget Title 2 -->
+                                    <p class="widget-title2 mb-30">Màu sắc <small>(chưa khả dụng)</small></p>
+                                    <div class="widget-desc">
+                                        <ul class="d-flex">
+                                            <li><a href="#" class="color1"></a></li>
+                                            <li><a href="#" class="color2"></a></li>
+                                            <li><a href="#" class="color3"></a></li>
+                                            <li><a href="#" class="color4"></a></li>
+                                            <li><a href="#" class="color5"></a></li>
+                                            <li><a href="#" class="color6"></a></li>
+                                            <li><a href="#" class="color7"></a></li>
+                                            <li><a href="#" class="color8"></a></li>
+                                            <li><a href="#" class="color9"></a></li>
+                                            <li><a href="#" class="color10"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                                 <ul id="menu-content2" class="menu-content collapse show">
                                     <!-- Single Item -->
                                     <li data-toggle="collapse" data-target="#category">
@@ -179,44 +244,6 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                         </div>
 
                         <!-- ##### Single Widget ##### -->
-                        <div class="widget price mb-50">
-                            <!-- Widget Title -->
-                            <!-- <h6 class="widget-title mb-30">Giá Sản Phẩm</h6> -->
-                            <!-- Widget Title 2 -->
-                            <p class="widget-title2 mb-30">Lọc theo giá</p>
-                            <div class="widget-desc">
-                                <div class="slider-range">
-                                    <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-                                    <div class="range-price">Giá Từ: $49.00 - $360.00</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ##### Single Widget ##### -->
-                        <div class="widget color mb-50">
-                            <!-- Widget Title 2 -->
-                            <p class="widget-title2 mb-30">Màu sắc <small>(chưa khả dụng)</small></p>
-                            <div class="widget-desc">
-                                <ul class="d-flex">
-                                    <li><a href="#" class="color1"></a></li>
-                                    <li><a href="#" class="color2"></a></li>
-                                    <li><a href="#" class="color3"></a></li>
-                                    <li><a href="#" class="color4"></a></li>
-                                    <li><a href="#" class="color5"></a></li>
-                                    <li><a href="#" class="color6"></a></li>
-                                    <li><a href="#" class="color7"></a></li>
-                                    <li><a href="#" class="color8"></a></li>
-                                    <li><a href="#" class="color9"></a></li>
-                                    <li><a href="#" class="color10"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- ##### Single Widget ##### -->
                         <div class="widget catagory mb-4">
 
                             <!--  Catagories  -->
@@ -225,7 +252,7 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                                     <!-- Single Item -->
                                     <li data-toggle="collapse" data-target="#brand">
                                         <!-- Widget Title -->
-                                        <h6 class="widget-title mb-4">Thương hiệu</h6>
+                                        <h6 class="widget-title2 mb-4">Thương hiệu</h6>
                                         <!-- <a href="#">Tất cả</a> -->
                                         <ul class="sub-menu collapse show" id="brand">
                                             <?php
@@ -249,7 +276,7 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
             </div>
             <?php
             $product_num = 24;
-            $product_all = $product->get_all_product($filter, $page, $type, $product_num);
+            $product_all = $product->get_all_product($filter, $page, $type, $product_num, $priceStart, $priceEnd);
             $amount_all_product = $product->get_amount_all_product($filter, $type);
             $result = $amount_all_product->fetch_assoc();
             $product_count = $result['totalRow'];
@@ -279,7 +306,6 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
                                         <?php } ?>
                                         <option value="1" <?php echo ($filter == 1) ? 'selected="selected"' : '' ?>>Bán chạy</option>
                                         <option value="2" <?php echo ($filter == 2) ? 'selected="selected"' : '' ?>>Khuyến mãi</option>
-
                                     </select>
                                 </div>
                             </div>
@@ -525,7 +551,6 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])) {
 <!-- ##### Shop Grid Area End ##### -->
 
 
-
 <?php
 include 'inc/bs-modal.php';
 include 'inc/footer.php';
@@ -535,25 +560,12 @@ include 'inc/footer.php';
 <script src="js/function.js"></script>
 <script type="text/javascript">
     var filter = <?php echo $filter ?>;
-    // var page = 0;
-    // $(document).ready(function() {
-    //     $("#xemthem").click(function() {
-    //         page = page + 1;
-    //         $.get("page_ajax.php", {
-    //                 page: page
-    //             },
-    //             function(data) {
-    //                 $(".list-Product").html(data);
-    //             });
-    //     });
-    // });
-
     $(document).on("click", ".nice-select .option:not(.disabled)", function(t) {
         var s = $(this),
             n = s.closest(".nice-select");
         if (s.data("value") != filter) {
             if (s.data("value") == "c" || s.data("value") == "b") {} else {
-                window.location.replace(getAbsolutePath() + "products-" + s.data("value") + "-1-0.html");
+                window.location.replace(getAbsolutePath() + s.data("value") + "-1-0s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html");
             }
         }
     })
@@ -573,3 +585,37 @@ include 'inc/footer.php';
 </script>
 <script src="js/ajax_wishlist-and-cart.js"></script>
 <script src="js/audio-message.js"></script>
+<script src="js/price_range_script.js"></script>
+<script>
+    // get and set range value url
+    $(function() {
+        $("#slider-range").slider({
+            range: true,
+            orientation: "horizontal",
+            min: 0,
+            max: 500000,
+            values: [<?php echo $priceStart ?>, <?php echo $priceEnd ?>],
+            step: 100,
+
+            slide: function(event, ui) {
+                if (ui.values[0] == ui.values[1]) {
+                    return false;
+                }
+
+                $("#min_price").val(ui.values[0]);
+                $("#max_price").val(ui.values[1]);
+            }
+        });
+
+        $("#min_price").val($("#slider-range").slider("values", 0));
+        $("#max_price").val($("#slider-range").slider("values", 1));
+        $(".range-price").html("Giá từ: " + new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format($("#slider-range").slider("values", 0)) + " - " + new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format($("#slider-range").slider("values", 1)));
+
+    });
+</script>
