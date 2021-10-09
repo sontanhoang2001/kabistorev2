@@ -1,0 +1,67 @@
+/* START MAP API */
+
+#map {
+    top: 10px;
+    bottom: 0px;
+    width: 100%;
+    height: 300px;
+}
+
+.row-flex {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+/* .geocoder {
+    position: absolute;
+    top: 200px;
+} */
+
+#menu-map {
+    z-index: 3;
+    position: absolute;
+    background: #efefef;
+    padding: 4px;
+    font-family: 'Open Sans', sans-serif;
+    bottom: -10px;
+}
+
+#geocoder {
+    z-index: 1;
+    margin-left: 0px;
+}
+
+.mapboxgl-ctrl-geocoder {
+    min-width: 100%;
+}
+
+a.mapboxgl-ctrl-logo {
+    display: none !important;
+}
+
+.mapboxgl-ctrl-attrib.mapboxgl-compact {
+    display: none;
+}
+
+.mapboxgl-marker {
+    z-index: 1;
+}
+
+.mapboxgl-user-location-accuracy-circle {
+    z-index: 0;
+}
+
+.mapboxgl-user-location-dot, .mapboxgl-user-location-dot:before {
+    z-index: 0;
+}
+
+.mapboxgl-ctrl-geocoder--input {
+    width: 290px !important;
+}
+
+.panel {
+    margin: -8px;
+    margin-bottom: 1px;
+}
+
+/* END MAP API */

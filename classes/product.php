@@ -457,7 +457,7 @@ class product
 			}
 		} else {
 			switch ($filter) {
-				case "category": {
+				case "c": {
 						// Tìm theo loại sản phẩm
 						$query = "SELECT tbl_product.productId, tbl_product.productName,tbl_product.seo, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
 						FROM tbl_product
@@ -468,7 +468,7 @@ class product
 						return $result;
 						break;
 					}
-				case "brand": {
+				case "b": {
 						$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.seo, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
@@ -485,8 +485,9 @@ class product
 		}
 	}
 
+
 	// đếm tổng số sản phẩm
-	public function get_amount_all_product($filter, $type)
+	public function get_amount_all_product($filter, $type, $priceStart, $priceEnd)
 	{
 		$catId = $type;
 		$brandId = $type;
@@ -495,14 +496,16 @@ class product
 			switch ($filter) {
 				case 0: {
 						// Đếm tất cả sản phẩm select = 0
-						$query = "SELECT COUNT(productId) as totalRow FROM tbl_product";
+						$query = "SELECT COUNT(productId) as totalRow FROM tbl_product
+						where price BETWEEN '$priceStart' AND '$priceEnd'";
 						$result = $this->db->select($query);
 						return $result;
 						break;
 					}
 				case 1: {
 						// Đếm Sản phẩm bán nhiều nhất select = 2
-						$query = "SELECT COUNT(productId) as totalRow FROM tbl_product";
+						$query = "SELECT COUNT(productId) as totalRow FROM tbl_product
+						where price BETWEEN '$priceStart' AND '$priceEnd'";
 						$result = $this->db->select($query);
 						return $result;
 						break;
@@ -511,7 +514,7 @@ class product
 						// Đếm tất cả Sản phẩm khuyến mãi select = 3
 						$query = "SELECT COUNT(productId) as totalRow
 					FROM tbl_product
-					where old_price != 0";
+					where old_price != 0 AND price BETWEEN '$priceStart' AND '$priceEnd'";
 						$result = $this->db->select($query);
 						return $result;
 						break;
@@ -521,21 +524,21 @@ class product
 			}
 		} else {
 			switch ($filter) {
-				case "category": {
+				case "c": {
 						// Tìm theo loại sản phẩm
 						$query = "SELECT COUNT(tbl_product.productId) as totalRow
 						FROM tbl_product
 						inner join tbl_category on tbl_product.catId = tbl_category.catId
-						where tbl_category.catId = '$catId'";
+						where tbl_category.catId = '$catId' AND price BETWEEN '$priceStart' AND '$priceEnd'";
 						$result = $this->db->select($query);
 						return $result;
 						break;
 					}
-				case "brand": {
+				case "b": {
 						$query = "SELECT COUNT(tbl_product.productId) as totalRow
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
-						where tbl_brand.brandId = '$brandId'";
+						where tbl_brand.brandId = '$brandId' AND price BETWEEN '$priceStart' AND '$priceEnd'";
 						$result = $this->db->select($query);
 						return $result;
 						break;

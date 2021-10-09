@@ -16,9 +16,9 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])  &
     $priceStart = 0;
     $priceEnd = 0;
 } else {
-    echo $filter = $_GET['filter'];
-    echo $page = $_GET['page'];
-    echo $type = $_GET['type'];
+    $filter = $_GET['filter'];
+    $page = $_GET['page'];
+    $type = $_GET['type'];
 
     if ($_GET['priceStart'] == "m") {
         $priceStart = 0;
@@ -36,15 +36,14 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])  &
 if (!isset($_GET['typeName'])) {
     $typeName = 0;
 } else {
-    echo $typeName = $_GET['typeName'];
+    $typeName = $_GET['typeName'];
 }
 
-// if (!isset($_GET['page'])) {
-//     echo "<meta http-equiv='refresh' content='0;URL=?page=1'>";
-// }
 ?>
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/message.css">
+<link rel="stylesheet" href="css/pagination.css">
+
 <link rel="stylesheet" href="css/price_range_style.css">
 
 <!-- ##### Right Side Cart Area ##### -->
@@ -210,7 +209,7 @@ if (!isset($_GET['typeName'])) {
                                     <!-- Single Item -->
                                     <li data-toggle="collapse" data-target="#category">
                                         <!-- Widget Title -->
-                                        <h6 class="widget-title2 mb-3">Loại Sản Phẩm</h6>
+                                        <h6 class="widget-title2 mb-2">Loại Sản Phẩm</h6>
                                         <!-- <a href="#">Tất cả</a> -->
                                         <ul class="sub-menu collapse show" id="category">
                                             <?php
@@ -220,7 +219,7 @@ if (!isset($_GET['typeName'])) {
                                                     $catId = $result['catId'];
                                                     $catName = $result['catName'];
                                             ?>
-                                                    <li><a class="<?php echo ($filter == "category" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="products-category-1-<?php echo $catId ?>.html"><?php echo $catName ?></a></li>
+                                                    <li><a class="<?php echo ($filter == "c" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $catName ?></a></li>
                                             <?php
                                                 }
                                             } ?>
@@ -256,7 +255,7 @@ if (!isset($_GET['typeName'])) {
                                     <!-- Single Item -->
                                     <li data-toggle="collapse" data-target="#brand">
                                         <!-- Widget Title -->
-                                        <h6 class="widget-title2 mb-4">Thương hiệu</h6>
+                                        <h6 class="widget-title2 mb-2">Thương hiệu</h6>
                                         <!-- <a href="#">Tất cả</a> -->
                                         <ul class="sub-menu collapse show" id="brand">
                                             <?php
@@ -266,7 +265,7 @@ if (!isset($_GET['typeName'])) {
                                                     $brandId = $result['brandId'];
                                                     $brandName = $result['brandName']
                                             ?>
-                                                    <li><a class="<?php echo ($filter == "brand" && $type == $brandId) ? 'font-weight-bold' . $brandSelected = $brandName : ''; ?>" href="products-brand-1-<?php echo $brandId ?>.html"><?php echo $brandName ?></a></li>
+                                                    <li><a class="<?php echo ($filter == "b" && $type == $brandId) ? 'font-weight-bold' . $brandSelected = $brandName : ''; ?>" href="<?php echo  $fm->vn_to_str($brandName) ?>-fbp1t<?php echo $brandId ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $brandName ?></a></li>
                                             <?php
                                                 }
                                             } ?>
@@ -279,9 +278,9 @@ if (!isset($_GET['typeName'])) {
                 </div>
             </div>
             <?php
-            $product_num = 24;
+            $product_num = 3;
             $product_all = $product->get_all_product($filter, $page, $type, $product_num, $priceStart, $priceEnd);
-            $amount_all_product = $product->get_amount_all_product($filter, $type);
+            $amount_all_product = $product->get_amount_all_product($filter, $type, $priceStart, $priceEnd);
             $result = $amount_all_product->fetch_assoc();
             $product_count = $result['totalRow'];
             ?>
@@ -294,6 +293,7 @@ if (!isset($_GET['typeName'])) {
                                 <div class="total-products">
                                     <p><span><?php echo $product_count ?></span> Sản Phẩm</p>
                                 </div>
+
                                 <!-- Sorting -->
                                 <div class="product-sorting d-flex">
                                     <p>lọc theo:</p>
@@ -301,10 +301,10 @@ if (!isset($_GET['typeName'])) {
                                     <select name="select" id="sortByselect">
                                         <option value="0" <?php echo ($filter == 0) ? 'selected="selected"' : '' ?>>Tất cả</option>
 
-                                        <?php if ($filter == "category") {
+                                        <?php if ($filter == "c") {
                                         ?>
                                             <option value="c" selected="selected"><?php echo $categorySelected ?></option>
-                                        <?php } else if ($filter == "brand") {
+                                        <?php } else if ($filter == "b") {
                                         ?>
                                             <option value="b" selected="selected"><?php echo $brandSelected ?></option>
                                         <?php } ?>
@@ -388,7 +388,7 @@ if (!isset($_GET['typeName'])) {
                                         </div>
                                         <!-- Product Description -->
                                         <div class="product-description">
-                                            <?php if ($filter == "category" || $filter == "brand") { ?>
+                                            <?php if ($filter == "c" || $filter == "b") { ?>
                                             <?php } else { ?>
                                                 <span class="category"><?php echo $result['catName'] ?></span>
                                             <?php } ?>
@@ -412,102 +412,22 @@ if (!isset($_GET['typeName'])) {
                             }
                         }
                         ?>
-
-                    </div>
-
-                    <div class="row">
-                        <a class="list-Product"></a>
                     </div>
                 </div>
-
-                <!-- <div id="xemthem">Xem Thêm</div> -->
-                <!-- <style>
-                    .col-sm-6 {
-                        float: left;
-                    }
-                    .essence-btn,
-                    .wishlist-btn,
-                    .compare-btn {
-                        min-width: auto;
-                    }
-                    .single-product-wrapper .product-img {
-                        height: auto;
-                    }
-                    .single-product-wrapper .product-img .product-badge {
-                        height: 19px;
-                        background-color: #000000;
-                        color: #ffffff;
-                        font-family: "Ubuntu", sans-serif;
-                        font-weight: 700;
-                        font-size: 10px;
-                        padding: 0px 4px;
-                        display: inline-block;
-                        line-height: 20px;
-                        position: absolute;
-                        top: 6px;
-                        left: 7px;
-                        z-index: 10;
-                    }
-                    .essence-btn,
-                    .wishlist-btn,
-                    .compare-btn {
-                        display: inline-block;
-                        min-width: 120px;
-                        height: 35px;
-                        color: #ffffff;
-                        border: none;
-                        border-radius: 0;
-                        padding: 0 12px;
-                        text-transform: uppercase;
-                        font-size: 9px;
-                        line-height: 39px;
-                        background-color: #0315ff;
-                        letter-spacing: 1.5px;
-                        font-weight: 600;
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
-                        margin: 22px 0px 7px;
-                    }
-                    /* @media (min-width: 1200px) {
-                        .col-lg-4 {
-                            width: 33%;
-                        }
-                    } */
-                    .pagination {
-                        display: inline-block;
-                    }
-                    .pagination a {
-                        color: black;
-                        float: left;
-                        padding: 8px 16px;
-                        text-decoration: none;
-                        transition: background-color .3s;
-                        border: 1px solid #ddd;
-                    }
-                    .pagination a.active {
-                        background-color: #4CAF50;
-                        color: white;
-                        border: 1px solid #4CAF50;
-                    }
-                    .pagination a:hover:not(.active) {
-                        background-color: #ddd;
-                    }
-                </style> -->
 
                 <!-- Pagination -->
                 <ul class="pagination">
                     <?php
                     if ($product_count >= $product_num) {
                         $product_button = ceil(($product_count) / $product_num);
-                        $query = $_SERVER['QUERY_STRING'];
-                        $query_string = substr($query, -1, 2);
-                        $page_now = (int)$query_string;
+
+                        $page_now = $page;
                         if ($page_now == 0) {
                             $page_now = (int)$query_string + 1;
                         }
-                        $page_now = $_GET['page'];
                         if ($page_now != 1) {
                             $page_now_index = $page_now - 1;
-                            echo '<li class="page-item"><a class="page-link" href="products-' . $filter . '-' . $page_now_index . '-' . $type . '.html">❮</a></li>';
+                            echo '<li class="page-item"><a class="page-link" href="' . $typeName . '-f' . $filter . 'p' . $page_now_index . 't' . $type . 's' . $priceStart . 'e' . $priceEnd . '.html">❮</a></li>';
                             // << previous
                         }
                     ?>
@@ -516,22 +436,22 @@ if (!isset($_GET['typeName'])) {
                         for ($i = 1; $i <= $product_button; $i++) {
                             if ($i == 1) {
                         ?>
-                                <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-right:0px"><a class="page-link" href="products-<?php echo $filter ?>-<?php echo $i ?>-<?php echo $type ?>.html"><?php echo $i ?></a></li>
+                                <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-right:0px"><a class="page-link" href="<?php echo $typeName ?>-f<?php echo $filter ?>p<?php echo $i ?>t<?php echo $type ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $i ?></a></li>
                                 <?php
                             } else {
                                 if ($i == $page_now) {
                                     if ($i == $max + 1) {
                                 ?>
-                                        <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-left:0px"><a class="page-link" href="products-<?php echo $filter ?>-<?php echo $i ?>-<?php echo $type ?>.html"><?php echo $i ?></a></li>
+                                        <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-left:0px"><a class="page-link" href="<?php echo $typeName ?>-f<?php echo $filter ?>p<?php echo $i ?>t<?php echo $type ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $i ?></a></li>
                                     <?php
                                     } else {
                                     ?>
-                                        <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="products-<?php echo $filter ?>-<?php echo $i ?>-<?php echo $type ?>.html"><?php echo $i ?></a></li>
+                                        <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="<?php echo $typeName ?>-f<?php echo $filter ?>p<?php echo $i ?>t<?php echo $type ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $i ?></a></li>
                                     <?php
                                     }
                                 } else {
                                     ?>
-                                    <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="products-<?php echo $filter ?>-<?php echo $i ?>-<?php echo $type ?>.html"><?php echo $i ?></a></li>
+                                    <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="<?php echo $typeName ?>-f<?php echo $filter ?>p<?php echo $i ?>t<?php echo $type ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $i ?></a></li>
                     <?php
                                 }
                             }
@@ -539,7 +459,7 @@ if (!isset($_GET['typeName'])) {
                         }
                         if ($page_now != $max) {
                             $page_now_index = $page_now + 1;
-                            echo '<li class="page-item"><a class="page-link" href="products-' . $filter . '-' . $page_now_index . '-' . $type . '.html">❯</a></li>';
+                            echo '<li class="page-item"><a class="page-link" href="' . $typeName . '-f' . $filter . 'p' . $page_now_index . 't' . $type . 's' . $priceStart . 'e' . $priceEnd . '.html">❯</a></li>';
                             // >> next
                         }
                     }
@@ -549,27 +469,25 @@ if (!isset($_GET['typeName'])) {
         </div>
     </div>
 </section>
-<a id="showFilterPannel" href="#"><i class="fa fa-filter">
+<a id="showFilterPannel" class="d-md-none d-sm-block" href="#">
+    <i class="fa fa-filter">
         <p style="color: #fff;">Lọc</p>
     </i></a>
 <!-- ##### Shop Grid Area End ##### -->
+
 
 <?php
 include 'inc/bs-modal.php';
 include 'inc/footer.php';
 ?>
-
-
 <script src="js/function.js"></script>
 <script type="text/javascript">
-    var filter = <?php echo $filter ?>;
+    var filter = "<?php echo $filter ?>";
     $(document).on("click", ".nice-select .option:not(.disabled)", function(t) {
         var s = $(this),
             n = s.closest(".nice-select");
         if (s.data("value") != filter) {
-            if (s.data("value") == "c" || s.data("value") == "b") {} else {
-                window.location.replace(getAbsolutePath() + s.data("value") + "-1-0s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html");
-            }
+            window.location.replace("san-pham-" + "f" + s.data("value") + "p1t0s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html");
         }
     })
 </script>
@@ -590,6 +508,8 @@ include 'inc/footer.php';
 <script src="js/audio-message.js"></script>
 <script src="js/price_range_script.js"></script>
 <script>
+    var typeNamePath = "<?php echo $typeName ?>",
+        typePath = "<?php echo $type ?>";
     // get and set range value url
     $(function() {
         $("#slider-range").slider({

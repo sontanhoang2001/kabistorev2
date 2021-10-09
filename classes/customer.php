@@ -117,7 +117,7 @@ class customer
 				Session::set('avatar', $value['avatar']);
 				$extra = Session::get('REQUEST_URI');
 				if ($value['phone'] == null) {
-					header("Location: editprofile.html");
+					header("Location: profile.html");
 				} else {
 					if ($extra == "") {
 						header("Location: index.html");
@@ -166,7 +166,7 @@ class customer
 				Session::set('avatar', $value_select['avatar']);
 				$extra = Session::get('REQUEST_URI');
 				if ($value_select['phone'] == null) {
-					header("Location: editprofile.html");
+					header("Location: profile.html");
 				} else {
 					if ($extra == "") {
 						header("Location: index.html");
@@ -191,7 +191,7 @@ class customer
 			Session::set('customer_username', $socialUser_name);
 			$extra = Session::get('REQUEST_URI');
 			if ($value['phone'] == null) {
-				header("Location: editprofile.html");
+				header("Location: profile.html");
 			} else {
 				if ($extra == "") {
 					header("Location: index.html");

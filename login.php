@@ -4,13 +4,7 @@ include 'lib/Social-Network-API/facebook_source.php';
 // include 'lib/Social-Network-API/google_source.php';
 //Social-Network-API
 
-$login_check = Session::get('customer_login');
-if ($login_check) {
-  header('Location:index.php');
-}
-?>
-
-<?php
+echo $extra = Session::get('REQUEST_URI');
 $login_check = Session::get('customer_login');
 if ($login_check) {
   header('Location:index.php');

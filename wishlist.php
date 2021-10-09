@@ -20,12 +20,6 @@ if ($login_check == false) {
 // }
 ?>
 
-<?php
-// if (!isset($_GET['id'])) {
-// 	echo "<meta http-equiv='refresh' content='0;URL=?id=live'>";
-// }
-?>
-
 <link rel="stylesheet" href="css/cart.css">
 <link rel="stylesheet" href="css/message.css">
 <link rel="stylesheet" href="css/pagination.css">
@@ -39,7 +33,7 @@ if ($login_check == false) {
 	</div>
 	<div class="cart">
 		<?php
-		$product_num = 24;
+		$product_num = 6;
 		$customer_id = Session::get('customer_id');
 		$get_wishlist = $product->get_wishlist($customer_id, $page, $product_num);
 		$get_wishlist_all_product = $product->get_wishlist_all_product($customer_id);

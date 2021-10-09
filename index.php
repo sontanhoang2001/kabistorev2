@@ -147,7 +147,7 @@ if ($login_check) {
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span class="category"><?php echo $result['catName'] ?></span>
-                                        <a href="details/<?php echo $result['productId'] ?>/<?php echo $seo ?>.html">
+                                        <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) ?>.html">
                                             <div class="product-name"><?php echo $result['productName'] ?></div>
                                         </a>
                                         <p class="product-price">
@@ -182,15 +182,16 @@ if ($login_check) {
                         $show_category_img = $cat->show_category_img();
                         if ($show_category_img) {
                             while ($result = $show_category_img->fetch_assoc()) {
+                                $catName = $result['catName'];
                         ?>
                                 <!-- Single Product -->
                                 <div class="single-product-wrapper">
 
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <a href="products-category-1-<?php echo $result['catId'] ?>.html">
+                                        <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $result['catId'] ?>smem.html">
                                             <img src="admin/uploads/<?php echo $result['image'] ?>" alt="">
-                                            <h5 class="categories_name"><?php echo $result['catName']; ?></h5>
+                                            <h5 class="categories_name"><?php echo $catName; ?></h5>
                                         </a>
                                         <!-- Product Badge -->
                                     </div>
@@ -209,7 +210,7 @@ if ($login_check) {
             </div>
         </div>
         <div class="view-all">
-            <button onclick="window.location.href='products-0-1-0.html'" class="btn-view-all">XEM THÊM <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+            <button onclick="window.location.href='/san-pham-f0p1t0smem.html'" class="btn-view-all">XEM THÊM <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
         </div>
     </div>
     <!-- START PROMOTION -->

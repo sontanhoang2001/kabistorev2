@@ -1,18 +1,12 @@
 <?php
-
-include 'lib/session.php';
-Session::init();
-include 'lib/database.php';
-include 'helpers/format.php';
-include 'helpers/helpers.php';
-
-
 // spl_autoload_register(function ($class) {
 //     include_once "classes/" . $class . ".php";
 // });
-
-include_once "lib/Database.php";
-include_once "helpers/Format.php";
+include_once 'lib/session.php';
+Session::init();
+include_once "lib/database.php";
+include_once "helpers/format.php";
+include_once 'helpers/helpers.php';
 include_once "classes/cart.php";
 include_once "classes/user.php";
 include_once "classes/customer.php";

@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 								<!-- Single Item -->
 								<li data-toggle="collapse" data-target="#category">
 									<!-- Widget Title -->
-									<h6 class="widget-title mb-4">Loại Sản Phẩm</h6>
+									<h6 class="widget-title2 mb-2">Loại Sản Phẩm</h6>
 									<!-- <a href="#">Tất cả</a> -->
 									<ul class="sub-menu collapse show" id="category">
 										<?php
@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												$catId = $result['catId'];
 												$catName = $result['catName'];
 										?>
-												<li><a class="<?php echo ($filter == "category" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="products-category-1-<?php echo $catId ?>.html"><?php echo $catName ?></a></li>
+												<li><a class="<?php echo ($filter == "c" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html"><?php echo $catName ?></a></li>
 										<?php
 											}
 										} ?>
@@ -213,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 								<!-- Single Item -->
 								<li data-toggle="collapse" data-target="#brand">
 									<!-- Widget Title -->
-									<h6 class="widget-title mb-4">Thương hiệu</h6>
+									<h6 class="widget-title mb-2">Thương hiệu</h6>
 									<!-- <a href="#">Tất cả</a> -->
 									<ul class="sub-menu collapse show" id="brand">
 										<?php
@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												$brandId = $result['brandId'];
 												$brandName = $result['brandName']
 										?>
-												<li><a class="<?php echo ($filter == "brand" && $type == $brandId) ? 'font-weight-bold' . $brandSelected = $brandName : ''; ?>" href="products-brand-1-<?php echo $brandId ?>.html"><?php echo $brandName ?></a></li>
+												<li><a class="<?php echo ($filter == "b" && $type == $brandId) ? 'font-weight-bold' . $brandSelected = $brandName : ''; ?>" href="<?php echo  $fm->vn_to_str($brandName) ?>-fbp1t<?php echo $brandId ?>smem.html"><?php echo $brandName ?></a></li>
 										<?php
 											}
 										} ?>
@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												?>
 												<li>
 													<img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
-                                                    <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-shopping-cart"></i></a>
+													<a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-shopping-cart"></i></a>
 												</li>
 											</ul>
 											<!-- Product Badge -->
@@ -454,13 +454,13 @@ include 'inc/footer.php';
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="js/flyto.js"></script>
 <script>
-    // var productId;
-    // var localbutton;
-    <?php $number_cart = session::get('number_cart'); ?>
-    var limitCart = <?php echo (!$number_cart) ? 0 : session::get('number_cart') ?>;
-    $('#wrapper_product').flyto({
-        target: '#cart-img',
-        button: '.add_to_cart'
-    });
+	// var productId;
+	// var localbutton;
+	<?php $number_cart = session::get('number_cart'); ?>
+	var limitCart = <?php echo (!$number_cart) ? 0 : session::get('number_cart') ?>;
+	$('#wrapper_product').flyto({
+		target: '#cart-img',
+		button: '.add_to_cart'
+	});
 </script>
 <script src="js/ajax_wishlist-and-cart.js"></script>

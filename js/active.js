@@ -109,31 +109,31 @@
     }
 
     // :: Slider Range Price Active Code
-    $('.slider-range-price').each(function () {
-        var min = jQuery(this).data('min');
-        var max = jQuery(this).data('max');
-        var unit = jQuery(this).data('unit');
-        var value_min = jQuery(this).data('value-min');
-        var value_max = jQuery(this).data('value-max');
-        var label_result = jQuery(this).data('label-result');
-        var t = $(this);
-        $(this).slider({
-            range: true,
-            min: min,
-            max: max,
-            values: [value_min, value_max],
-            slide: function (event, ui) {
-                var result = label_result + " " + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(ui.values[0]) + ' - ' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(ui.values[1]);
-                // console.log(t);
-                t.closest('.slider-range').find('.range-price').html(result);
-                var priceStart = ui.values[0];
-                var priceEnd = ui.values[1];
+    // $('.slider-range-price').each(function () {
+    //     var min = jQuery(this).data('min');
+    //     var max = jQuery(this).data('max');
+    //     var unit = jQuery(this).data('unit');
+    //     var value_min = jQuery(this).data('value-min');
+    //     var value_max = jQuery(this).data('value-max');
+    //     var label_result = jQuery(this).data('label-result');
+    //     var t = $(this);
+    //     $(this).slider({
+    //         range: true,
+    //         min: min,
+    //         max: max,
+    //         values: [value_min, value_max],
+    //         slide: function (event, ui) {
+    //             var result = label_result + " " + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(ui.values[0]) + ' - ' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(ui.values[1]);
+    //             // console.log(t);
+    //             t.closest('.slider-range').find('.range-price').html(result);
+    //             var priceStart = ui.values[0];
+    //             var priceEnd = ui.values[1];
 
-                // var url = "products-0-1-0-" + priceStart + "-" + priceEnd+ ".html";
-                // $(location).attr('href', url);
-            }
-        });
-    });
+    //             // var url = "products-0-1-0-" + priceStart + "-" + priceEnd+ ".html";
+    //             // $(location).attr('href', url);
+    //         }
+    //     });
+    // });
 
     // :: Favorite Button Active Code
     // var favme = $(".favme");

@@ -1,97 +1,318 @@
+<style>
+    .new_footer_area {
+        background: #fbfbfd;
+    }
+
+
+    .new_footer_top {
+        padding: 120px 0px 270px;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    .new_footer_area .footer_bottom {
+        padding-top: 5px;
+        padding-bottom: 50px;
+    }
+
+    .footer_bottom {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 20px;
+        color: #7f88a6;
+        padding: 27px 0px;
+    }
+
+    .new_footer_top .company_widget p {
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 28px;
+        color: #6a7695;
+        margin-bottom: 20px;
+    }
+
+    .new_footer_top .company_widget .f_subscribe_two .btn_get {
+        border-width: 1px;
+        margin-top: 20px;
+    }
+
+    .btn_get_two:hover {
+        background: transparent;
+        color: #5e2ced;
+    }
+
+    .btn_get:hover {
+        color: #fff;
+        background: #6754e2;
+        border-color: #6754e2;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    /* a:hover,
+    a:focus,
+    .btn:hover,
+    .btn:focus,
+    button:hover,
+    button:focus {
+        text-decoration: none;
+        outline: none;
+    } */
+
+
+
+    .new_footer_top .f_widget.about-widget .f_list li a:hover {
+        color: #5e2ced;
+    }
+
+    .new_footer_top .f_widget.about-widget .f_list li {
+        margin-bottom: 11px;
+    }
+
+    .f_widget.about-widget .f_list li:last-child {
+        margin-bottom: 0px;
+    }
+
+    .f_widget.about-widget .f_list li {
+        margin-bottom: 15px;
+    }
+
+    .f_widget.about-widget .f_list {
+        margin-bottom: 0px;
+    }
+
+    .new_footer_top .f_social_icon a {
+        width: 44px;
+        height: 44px;
+        line-height: 43px;
+        background: transparent;
+        border: 1px solid #e2e2eb;
+        font-size: 24px;
+    }
+
+    .f_social_icon a {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        font-size: 14px;
+        line-height: 45px;
+        color: #858da8;
+        display: inline-block;
+        background: #ebeef5;
+        text-align: center;
+        -webkit-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+
+    .ti-facebook:before {
+        content: "\e741";
+    }
+
+    .ti-twitter-alt:before {
+        content: "\e74b";
+    }
+
+    .ti-vimeo-alt:before {
+        content: "\e74a";
+    }
+
+    .ti-pinterest:before {
+        content: "\e731";
+    }
+
+    .btn_get_two {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        background: #5e2ced;
+        border-color: #5e2ced;
+        color: #fff;
+    }
+
+    .btn_get_two:hover {
+        background: transparent;
+        color: #5e2ced;
+    }
+
+    .new_footer_top .f_social_icon a:hover {
+        background: #5e2ced;
+        border-color: #5e2ced;
+        color: white;
+    }
+
+    .new_footer_top .f_social_icon a+a {
+        margin-left: 4px;
+    }
+
+    .new_footer_top .f-title {
+        margin-bottom: 30px;
+        color: #263b5e;
+    }
+
+    .f_600 {
+        font-weight: 600;
+    }
+
+    .f_size_18 {
+        font-size: 18px;
+    }
+
+    /* h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #4b505e;
+    } */
+
+    .new_footer_top .f_widget.about-widget .f_list li a {
+        color: #6a7695;
+    }
+
+
+    .new_footer_top .footer_bg {
+        position: absolute;
+        bottom: 0;
+        background: url("http://droitthemes.com/html/saasland/img/seo/footer_bg.png") no-repeat scroll center 0;
+        width: 100%;
+        height: 266px;
+    }
+
+    .new_footer_top .footer_bg .footer_bg_one {
+        background: url("https://1.bp.blogspot.com/-mvKUJFGEc-k/XclCOUSvCnI/AAAAAAAAUAE/jnBSf6Fe5_8tjjlKrunLBXwceSNvPcp3wCLcBGAsYHQ/s1600/volks.gif") no-repeat center center;
+        width: 330px;
+        height: 105px;
+        background-size: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 30%;
+        -webkit-animation: myfirst 22s linear infinite;
+        animation: myfirst 22s linear infinite;
+    }
+
+    .new_footer_top .footer_bg .footer_bg_two {
+        background: url("https://1.bp.blogspot.com/-hjgfxUW1o1g/Xck--XOdlxI/AAAAAAAAT_4/JWYFJl83usgRFMvRfoKkSDGd--_Sv04UQCLcBGAsYHQ/s1600/cyclist.gif") no-repeat center center;
+        width: 88px;
+        height: 100px;
+        background-size: 100%;
+        bottom: 0;
+        left: 38%;
+        position: absolute;
+        -webkit-animation: myfirst 30s linear infinite;
+        animation: myfirst 30s linear infinite;
+    }
+
+
+
+    @-moz-keyframes myfirst {
+        0% {
+            left: -25%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    @-webkit-keyframes myfirst {
+        0% {
+            left: -25%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    @keyframes myfirst {
+        0% {
+            left: -25%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    /*************footer End*****************/
+</style>
 <div class="fixed" id="message"></div>
 <!-- ##### Footer Area Start ##### -->
-<footer class="footer_area clearfix">
-    <div class="container">
-        <div class="row">
-            <!-- Single Widget Area -->
-            <div class="col-12 col-md-6">
-                <div class="single_widget_area d-flex mb-30">
-                    <!-- Logo -->
-                    <div class="footer-logo">
-                        <a href="#"><img class="nav-brand-image2" src="img/core-img/logo2.png" alt=""></a>
+
+
+
+<footer class="new_footer_area bg_color">
+    <div class="new_footer_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="f_widget company_widget wow fadeInLeft" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                        <h3 class="f-title f_600 t_color f_size_18">Get in Touch</h3>
+                        <p>Don’t miss any updates of our new templates and extensions.!</p>
+                        <form action="#" class="f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
+                            <input type="text" name="EMAIL" class="form-control memail" placeholder="Email">
+                            <button class="btn btn_get btn_get_two" type="submit">Subscribe</button>
+                            <p class="mchimp-errmessage" style="display: none;"></p>
+                            <p class="mchimp-sucmessage" style="display: none;"></p>
+                        </form>
                     </div>
-                    <!-- Footer Menu -->
-                    <div class="footer_menu col-md-6">
-                        <ul>
-                            <li><a href="shop.html">Shop</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Liên hệ</a></li>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
+                        <h3 class="f-title f_600 t_color f_size_18">Download</h3>
+                        <ul class="list-unstyled f_list">
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Android App</a></li>
+                            <li><a href="#">ios App</a></li>
+                            <li><a href="#">Desktop</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">My tasks</a></li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <!-- Single Widget Area -->
-            <div class="col-12 col-md-6">
-                <div class="single_widget_area mb-30">
-                    <ul class="footer_widget_menu">
-                        <li><a href="#">Tình Trạng đơn hàng</a></li>
-                        <li><a href="#">Thanh toán</a></li>
-                        <li><a href="#">Vận chuyển và giao hàng</a></li>
-                        <li><a href="#">Hướng dẫn</a></li>
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                        <li><a href="#">Điều khoản sử dụng</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-end">
-            <!-- Single Widget Area -->
-            <div class="col-12 col-md-6 d-none d-sm-block">
-                <p>Liên hệ với chúng tôi thông qua địa chỉ:</p>
-                <p><span class="glyphicon glyphicon-map-marker"></span> Khóm 2, TT. Vũng Liêm</p>
-                <p><span class="glyphicon glyphicon-phone"></span> +09 21 843 042</p>
-                <p><span class="glyphicon glyphicon-envelope"></span> hoangsonytb123@gmail.com</p>
-                <!-- Single Widget Area -->
-                <div class="single_widget_area">
-                    <div class="footer_social_area">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                <div class="col-lg-3 col-md-6">
+                    <div class="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInLeft;">
+                        <h3 class="f-title f_600 t_color f_size_18">Help</h3>
+                        <ul class="list-unstyled f_list">
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Term &amp; conditions</a></li>
+                            <li><a href="#">Reporting</a></li>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Support Policy</a></li>
+                            <li><a href="#">Privacy</a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="col-md-4 d-none d-sm-block">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15712.366199359074!2d106.18537190217526!3d10.091584468669756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a00d8feaf41705%3A0x70d113d48b272939!2zVE0gVEVBIC0gVHLDoCBT4buvYSAmIENow6ggxJDDoGkgTG9hbg!5e0!3m2!1svi!2s!4v1596645312399!5m2!1svi!2s" width="100%" height="220px" frameborder="0" style="border:10;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                </div>
-
-                <div class="col-sm-12 d-md-none">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15712.366199359074!2d106.18537190217526!3d10.091584468669756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a00d8feaf41705%3A0x70d113d48b272939!2zVE0gVEVBIC0gVHLDoCBT4buvYSAmIENow6ggxJDDoGkgTG9hbg!5e0!3m2!1svi!2s!4v1596645312399!5m2!1svi!2s" width="103%" height="220px" frameborder="0" style="border:10;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                </div> -->
-            <!-- Single Widget Area -->
-            <div class="col-12 col-md-6 d-md-none">
-                <br>
-                <p>Liên hệ với chúng tôi thông qua địa chỉ:</p>
-                <p><span class="glyphicon glyphicon-map-marker"></span> Khóm 2, TT. Vũng Liêm</p>
-                <p><span class="glyphicon glyphicon-phone"></span> +09 21 843 042</p>
-                <p><span class="glyphicon glyphicon-envelope"></span> hoangsonytb123@gmail.com</p>
-                <!-- Single Widget Area -->
-                <div class="single_widget_area">
-                    <div class="footer_social_area">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                <div class="col-lg-3 col-md-6">
+                    <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
+                        <h3 class="f-title f_600 t_color f_size_18">Team Solutions</h3>
+                        <div class="f_social_icon">
+                            <a href="#" class="fab fa-facebook"></a>
+                            <a href="#" class="fab fa-twitter"></a>
+                            <a href="#" class="fab fa-linkedin"></a>
+                            <a href="#" class="fab fa-pinterest"></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="row mt-5">
-            <div class="col-md-12 text-center">
-                <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Bản quyền &copy;<script>
-                        document.write(new Date().getFullYear());
-                    </script> Tất cả các quyền | Trang web được thực hiện bởi <a href="https://colorlib.com" target="_blank">BibiOne Studios</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
+        <div class="footer_bg">
+            <div class="footer_bg_one"></div>
+            <div class="footer_bg_two"></div>
+        </div>
+    </div>
+    <div class="footer_bottom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-sm-7">
+                    <p class="mb-0 f_400">© cakecounter Inc.. 2019 All rights reserved.</p>
+                </div>
+                <div class="col-lg-6 col-sm-5 text-right">
+                    <p>Made with <i class="icon_heart"></i> in <a href="#">CakeCounter</a></p>
+                </div>
             </div>
         </div>
-
     </div>
 </footer>
 <!-- ##### Footer Area End ##### -->

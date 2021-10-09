@@ -1,6 +1,6 @@
 <?php
 include 'inc/header.php';
-// include 'inc/slider.php';
+
 
 if (!isset($_GET['proid']) || $_GET['proid'] == NULL) {
 	echo "<script> window.location = '404.php' </script>";
@@ -12,6 +12,8 @@ $login_check = Session::get('customer_login');
 if ($login_check) {
 	$customer_id = Session::get('customer_id');
 } else {
+	$actual_link = $_SERVER['REQUEST_URI'];
+	Session::set('REQUEST_URI', $actual_link);
 	$customer_id = 0;
 }
 

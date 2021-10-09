@@ -12,14 +12,10 @@ Options All -Indexes
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php  -f
 RewriteRule ^details/([0-9]*)/([a-zA-Z0-9_-]+)\.html$ details.php?proid=$1&key=$2
-RewriteRule ^san-pham/f([a-zA-Z0-9_-]+)p([0-9]*)t([0-9]*)s([a-zA-Z0-9_-]+)e([a-zA-Z0-9_-]+)\.html$ products.php?filter=$1&page=$2&type=$3&priceStart=$4&priceEnd=$5
 RewriteRule ^([a-zA-Z0-9_-]+)-f([a-zA-Z0-9_-]+)p([0-9]*)t([0-9]*)s([a-zA-Z0-9_-]+)e([a-zA-Z0-9_-]+)\.html$ products.php?typeName=$1&filter=$2&page=$3&type=$4&priceStart=$5&priceEnd=$6
 
 RewriteRule ^orderdetails-([0-9]*)\.html$ orderdetails.php?page=$1
 RewriteRule ^wishlist-([0-9]*)\.html$ wishlist.php?page=$1
-
-
-
 
 
 RewriteRule ^(.*)\.html$  $1.php [NC,L]
