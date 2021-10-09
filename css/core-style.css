@@ -1881,7 +1881,7 @@ img {
 .widget .catagories-menu .sub-menu li>a:hover {
     color: #0315ff;
 }
-
+/* 
 .widget.price .ui-slider-handle {
     background-color: #000000;
     border: none;
@@ -1890,15 +1890,15 @@ img {
     width: 4px;
     height: 15px;
     margin: 0;
-}
-
+} */
+/* 
 .widget.price .ui-slider-range.ui-corner-all.ui-widget-header {
     background-color: #0315ff;
-}
+} */
 
-.widget.price .ui-slider-horizontal {
+/* .widget.price .ui-slider-horizontal {
     height: 5px;
-}
+} */
 
 .widget.price .range-price {
     font-size: 12px;

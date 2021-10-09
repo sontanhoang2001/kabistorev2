@@ -16,9 +16,9 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])  &
     $priceStart = 0;
     $priceEnd = 0;
 } else {
-    $filter = $_GET['filter'];
-    $page = $_GET['page'];
-    $type = $_GET['type'];
+    echo $filter = $_GET['filter'];
+    echo $page = $_GET['page'];
+    echo $type = $_GET['type'];
 
     if ($_GET['priceStart'] == "m") {
         $priceStart = 0;
@@ -33,6 +33,11 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])  &
     }
 }
 
+if (!isset($_GET['typeName'])) {
+    $typeName = 0;
+} else {
+    echo $typeName = $_GET['typeName'];
+}
 
 // if (!isset($_GET['page'])) {
 //     echo "<meta http-equiv='refresh' content='0;URL=?page=1'>";
@@ -155,7 +160,6 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])  &
                             <div class="catagories-menu">
                                 <h6 class="widget-title mb-4">Lọc sản phẩm</h6>
                                 <hr>
-
 
                                 <!-- ##### Single Widget ##### -->
                                 <div class="widget price mb-50">
@@ -549,7 +553,6 @@ if (!isset($_GET['filter']) && !isset($_GET['page']) && !isset($_GET['type'])  &
         <p style="color: #fff;">Lọc</p>
     </i></a>
 <!-- ##### Shop Grid Area End ##### -->
-
 
 <?php
 include 'inc/bs-modal.php';
