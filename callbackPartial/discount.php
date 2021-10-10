@@ -1,12 +1,17 @@
 <?php
-include 'lib/session.php';
-include_once "classes/cart.php";
+include '../lib/session.php';
+include_once "../classes/cart.php";
 
 Session::init();
 $fm = new Format();
 $ct = new cart();
 $case = $_POST['case'];
 $promoCode = $_POST['promoCode'];
+
+$get_price_ship = $ct->get_price_ship();
+while ($result_price = $get_price_ship->fetch_assoc()) {
+    $price_ship = $result_price['price'];
+}
 
 // case = 0 đi lên server
 // case = 1 cập nhật lại 1 phần của tổng tiền
@@ -18,7 +23,6 @@ switch ($case) {
         $discount = session::get('discountMoney');
         // unset($_SESSION['discountMoney']);
 
-        $price_ship = 5000;
         $subtotal = Session::get('sum');
         $ship = Session::get('ship');
 

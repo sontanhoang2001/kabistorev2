@@ -181,7 +181,6 @@ if ($login_check) {
 												<option value="3">Size: X</option>
 												<option value="2">Size: M</option>
 												<option value="1" selected="selected">Size: S</option>
-												<option value="0">Size: Không</option>
 											</select>
 										<?php } else { ?>
 											<select name="select" id="productSize" class="mr-2">

@@ -11,7 +11,6 @@ if ($login_check == false) {
 }
 
 // BỎ CÁC CHỨC NĂNG NÀY BỞI VÌ ĐÃ THAY THẾ BẰNG AJAX
-
 // if (isset($_GET['cartid'])) {
 //     $cartid = $_GET['cartid'];
 //     $delcart = $ct->del_product_cart($cartid);

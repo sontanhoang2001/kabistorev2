@@ -21,7 +21,7 @@ $('a#remove-cart').each(function (index, val) {
             success: function (data) {
                 // Xóa row cart
                 // Cập nhật lại tổng tiền subtotal
-                $(cartWrapIndex).css("display","none");
+                $(cartWrapIndex).css("display", "none");
                 if (data == 0) {
                     $(".promoCode").remove();
                     $(".subtotal").remove();
@@ -220,7 +220,7 @@ function CheckPostPromotion(status, type, data) {
         case 2:
             $("#success-promo").css("display", "none")
             resetDiscount();
-            $("#error-promo").html('<b>Thông báo!</b> Rất tiết mã giảm giá này đã hết hạn');
+            $("#error-promo").html('<b>Thông báo!</b> Rất tiết mã giảm giá này đã hết hạn vài giờ trước.');
             $('#error-promo').show().delay(4000).fadeOut(1000);
             // Xóa code giảm giá nhập sai
             $('#promotion_code').val("");
@@ -232,7 +232,11 @@ function CheckPostPromotion(status, type, data) {
             // Thành công
             promotiontAllow = 1;
             $.each(JSON.parse(data), function (key, val) {
-                $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn ' + val[0].deadlinedate);
+                if(val[0].deadlinedate != "0 giờ"){
+                    $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn ' + val[0].deadlinedate + '.');
+                } else {
+                    $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn khoảng vài phút nữa. Hãy nhanh tay lên nào!');
+                }
             });
 
             if (type == 1) {
@@ -241,7 +245,7 @@ function CheckPostPromotion(status, type, data) {
 
             $.ajax({
                 type: "POST",
-                url: "ajax_discount.php",
+                url: "~/../callbackPartial/discount.php",
                 data: {
                     'case': 1,
                     'promoCode': promoCode
@@ -260,7 +264,7 @@ function checkPromotionCode(promoCode, type) {
     if (promoCode != "") {
         $.ajax({
             type: "POST",
-            url: "ajax_discount.php",
+            url: "~/../callbackPartial/discount.php",
             data: {
                 'case': 0,
                 'promoCode': promoCode
@@ -283,7 +287,7 @@ function resetDiscount() {
     audioError.play();
     $.ajax({
         type: "POST",
-        url: "ajax_discount.php",
+        url: "~/../callbackPartial/discount.php",
         data: {
             'case': 2,
             'promoCode': promoCode

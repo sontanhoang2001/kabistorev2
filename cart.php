@@ -140,10 +140,13 @@ if ($login_check == false) {
 		?>
 
 		<?php
+		$get_price_ship = $ct->get_price_ship();
+		while ($result_price = $get_price_ship->fetch_assoc()) {
+			$price_ship = $result_price['price'];
+		}
 		$i = 0;
 		$subtotal = 0;
 		$ship = 0;
-		$price_ship = 5000;
 		// Khởi tạo session cho mỗi lần truy cập
 		$disable_check_out = 0;
 		$customer_id = Session::get('customer_id');
@@ -243,7 +246,7 @@ if ($login_check == false) {
 																									Session::set('sum', $subtotal);
 																									Session::set('ship', $ship);
 																									?></span></li>
-					<li class="totalRow"><span class="label">phí giao hàng tạm:</span><span class="value"><?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></span></li>
+					<li class="totalRow"><span class="label">phí giao hàng:</span><span class="value"><?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></span></li>
 					<li class="totalRow final"><span class="label">Tổng Cộng:</span><span class="value"><?php
 																										// $vat = $subtotal * 0.1;
 																										$grandTotal = $subtotal + $ship;
@@ -299,7 +302,7 @@ include 'inc/footer.php';
 	var promoCode = "";
 </script>
 <script src="js/cart.js"></script>
-<script src="js/ajax_wishlist-and-cart.js"></script>
+<!-- <script src="js/ajax_wishlist-and-cart.js"></script> -->
 
 <script>
 </script>

@@ -188,6 +188,15 @@ class cart
 	// 	header('Location:cart.php');
 	// }
 
+	public function get_price_ship()
+	{
+		$query = "SELECT priceshippingId, name_service, price FROM tbl_priceshipping";
+		$price_ship = $this->db->select($query);
+		if ($price_ship) {
+			return $price_ship;
+		}
+	}
+
 	public function discount($promo_code)
 	{
 		$query_select = "SELECT promotionsName, `condition`, discountMoney, `start_date`, `end_date` FROM tbl_promotions WHERE promotionsCode = '$promo_code'";
@@ -241,7 +250,7 @@ class cart
 					}
 				} else {
 					//khuyến mãi hết hạn
-					$Response = ['status' => 2, 'a' => $timestamp];
+					$Response = ['status' => 2];
 					$return_json[][] = $Response;
 					return json_encode($return_json);
 				}
@@ -373,7 +382,7 @@ class cart
 		$lng = $data['maps_maplng'];
 		// $geocoder = $data['geocoder'];
 		$note_address = $data['note'];
-		$timestamp = $this->fm->formatDateTimeMysql();
+		$sId = session_id();
 		$discount = session::get('discountMoney');
 
 		// Tìm cart = customer_id
@@ -402,10 +411,10 @@ class cart
 			return json_encode($return_json);
 		} else {
 			//insert address
-			$query = "INSERT INTO tbl_address (maps_maplat, maps_maplng, note_address, date_create, customer_id) VALUES ('$lat','$lng','$note_address','$timestamp','$customer_id')";
+			$query = "INSERT INTO tbl_address (maps_maplat, maps_maplng, note_address, sId, customer_id) VALUES ('$lat','$lng','$note_address','$sId','$customer_id')";
 			$insertAddress = $this->db->insert($query);
 			if ($insertAddress) {
-				$query = "SELECT address_id FROM tbl_address WHERE date_create = '$timestamp' AND customer_id = '$customer_id'";
+				$query = "SELECT address_id FROM tbl_address WHERE sId = '$sId' AND customer_id = '$customer_id'";
 				$selectAddress = $this->db->select($query);
 				if ($selectAddress) {
 					$result = $selectAddress->fetch_assoc();

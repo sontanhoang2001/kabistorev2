@@ -50,6 +50,12 @@ class Format
       echo date_format($date, "d-m-Y H:i:s");
    }
 
+   public function formatDateVN($date)
+   {
+      $date = date_create($date);
+      echo date_format($date, "d-m-Y");
+   }
+
 
    public function textShorten($text, $limit = 400)
    {

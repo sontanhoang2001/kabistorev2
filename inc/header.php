@@ -113,9 +113,9 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                                 <?php if (Session::get('customer_login') == true) { ?>
                                     <div class="row">
                                         <div class="col-12 mb-4" id="user-infor">
-                                            <div class="mx-auto" style="width: 130px;">
+                                            <div class="mx-auto">
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <span><a href="profile.html"><img class="avatar img-thumbnail border-1 avatar-nav" src="upload/<?php echo (Session::get('avatar') == null) ? "default-user-image.jpg" : Session::get('avatar') ?>" /></a></span>
+                                                    <span><a href="profile.html"><img style="width: 115px; height: 115px; " class="avatar img-thumbnail border-1 avatar-nav" src="<?php echo (session::get('account_type') == 0) ?  "upload/avatars/" . session::get('avatar')  : session::get('avatar') ?>" /></a></span>
                                                 </div>
                                             </div>
                                         </div>

@@ -29,7 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
         <div class="e-navlist e-navlist--active-bg">
           <ul class="nav">
             <li class="nav-item"><a class="nav-link px-2 active" href="./overview.html"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Tổng quát</span></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="./users.html"><i class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
+            <?php if (session::get('account_type') == 0) { ?>
+              <li class="nav-item"><a class="nav-link px-2" href="./users.html"><i class="fa fa-fw fa-th mr-1"></i><span>Đổi mật khẩu</span></a></li>
+            <?php } ?>
             <li class="nav-item"><a class="nav-link px-2" href="./settings.html"><i class="fa fa-fw fa-cog mr-1"></i><span>Cài đặt</span></a></li>
           </ul>
         </div>
@@ -55,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
                         <div class="col-12 col-sm-auto mb-3">
                           <div class="mx-auto" style="width: 140px;">
                             <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                              <span><img style="height: 142px;" class="avatar img-thumbnail border-1" src="upload/avatars/<?php echo $result['avatar']; ?>" /></span>
+                              <span><img style="height: 142px;" class="avatar img-thumbnail border-1" src="<?php echo (session::get('account_type') == 0) ?  "upload/avatars/" . $result['avatar'] : session::get('avatar') ?>" /></span>
                             </div>
                           </div>
                         </div>
@@ -63,18 +65,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
                           <div class="text-center text-sm-left mb-2 mb-sm-0">
                             <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $result['name']; ?></h4>
                             <p class="mb-0"><?php echo $result['email']; ?></p>
-                            <div class="text-muted"><small>Last seen 2 hours ago</small></div>
+                            <div class="text-muted">Số dư: <small>330 xu</small></div>
                             <div class="mt-2">
-                              <label class="btn btn-primary"><input type="file" name="avatar" hidden>
-                                <i class="fa fa-fw fa-camera"></i>
-                                <span>Chọn ảnh</span></input>
-                              </label>
-                              <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
+                              <?php if (session::get('account_type') == 0) { ?>
+                                <label class="btn btn-primary"><input type="file" name="avatar" hidden>
+                                  <i class="fa fa-fw fa-camera"></i>
+                                  <span>Chọn ảnh</span></input>
+                                </label>
+                                <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
+                              <?php } else { ?>
+                                <a href="https://www.facebook.com/me">
+                                  <label class="btn btn-primary">
+                                    <i class="fa fa-fw fa-camera"></i>
+                                    <span>Cập nhật</span></input>
+                                  </label>
+                                </a>
+                              <?php }  ?>
                             </div>
                           </div>
                           <div class="text-center text-sm-right">
                             <span class="badge badge-secondary">Khách hàng thông minh</span>
-                            <div class="text-muted"><small>Gia nhập 09 Dec 2017</small></div>
+                            <div class="text-muted"><small>Gia nhập <?php echo $fm->formatDateVN($result['date_Joined']) ?></small></div>
                           </div>
                         </div>
                       </div>

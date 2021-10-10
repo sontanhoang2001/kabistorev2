@@ -101,8 +101,6 @@ class customer
 			$password = mysqli_real_escape_string($this->db->link, $data->password);
 			$account_type = mysqli_real_escape_string($this->db->link, $data->type);
 
-
-
 			if ($username == '' || $password == '') {
 				return json_encode($result_json[][] = ['status' => 0, 'content' => 0]);
 			} else {
@@ -221,6 +219,7 @@ class customer
 		$socialUser_id = mysqli_real_escape_string($this->db->link, $socialUser['id']);
 		$socialUser_name = mysqli_real_escape_string($this->db->link, $socialUser['name']);
 		$socialUser_email = mysqli_real_escape_string($this->db->link, $socialUser['email']);
+		$accessToken = mysqli_real_escape_string($this->db->link, md5($accessToken));
 
 		$check_loginFromSocial = "SELECT id, username, name, password FROM tbl_customer WHERE username='$socialUser_id'";
 		$result_check = $this->db->select($check_loginFromSocial);
@@ -269,7 +268,6 @@ class customer
 		} else {
 			$value = $result_check->fetch_assoc();
 			$customer_id = $value['id'];
-
 
 			Session::set('customer_login', true);
 			Session::set('account_type', 1);

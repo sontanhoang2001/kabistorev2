@@ -31,7 +31,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
 //     header('Location:success.php');
 // }
 ?>
-
+<link rel="stylesheet" type="text/css" href="css/map.css">
 
 <div class="container-fluid pt-4">
     <h1 class="projTitle">Thanh Toán an toàn<span>-và</span> đơn giản</h1>
@@ -63,7 +63,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                         <div class="col-12 col-sm-auto mb-3">
                                             <div class="mx-auto" style="width: 140px;">
                                                 <div class="d-flex justify-content-center align-items-center rounded" style="height: 120px; background-color: rgb(233, 236, 239);">
-                                                    <span><img class="avatar img-thumbnail border-1" src="upload/<?php echo $result['avatar']; ?>" /></span>
+                                                    <span><img class="avatar img-thumbnail border-1" src="upload/avatars/<?php echo $result['avatar']; ?>" /></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,7 +124,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         <div class="form-group">
                             <div class="row pt-2">
                                 <div class="col-md-12 col-xs-12">
-                                    <label for="address"><i class="fa fa-pencil" aria-hidden="true"></i> Ghi chú thêm:</label>
+                                    <label for="address"><i class="fa fa-pencil" aria-hidden="true"></i> Ghi chú địa chỉ cụ thể:</label>
                                     <input type="text" class="form-control" id="note" name="note">
                                 </div>
                             </div>
@@ -140,24 +140,27 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         </div>
                     </div>
                 </div>
+                <?php unset($_SESSION['cart_payment']);
+                $i = 1;
+                $subtotal = 0;
+                $ship = 0;
+                $price_ship = 5000;
+                $customer_id = Session::get('customer_id');
+                $get_product_cart = $ct->get_product_cart($customer_id);
+                $num_rows = mysqli_num_rows($get_product_cart);
+                ?>
                 <div class="col-md-5">
                     <div class="right-panel border">
                         <div class="header">Thông tin đơn hàng</div>
-                        <p>2 sản phẩm</p>
+                        <p><?php echo $num_rows ?> sản phẩm</p>
                         <?php
-                        unset($_SESSION['cart_payment']);
-                        $i = 1;
-                        $subtotal = 0;
-                        $ship = 0;
-                        $price_ship = 5000;
-                        $customer_id = Session::get('customer_id');
-                        $get_product_cart = $ct->get_product_cart($customer_id);
                         if ($get_product_cart) {
                             while ($result = $get_product_cart->fetch_assoc()) {
                                 $cartId = $result['cartId'];
                                 $productName = $result['productName'];
                                 $price = $result['price'];
                                 $quantity = $result['quantity'];
+                                $productSize = $result['productSize'];
                         ?>
                                 <div class="row item" id="<?php echo "c" . $cartId ?>">
                                     <div class="col-4 align-self-center">
@@ -166,7 +169,31 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                     <div class="col-8">
                                         <div class="row text-muted itemCode">#QUE-007544-002</div>
                                         <div class="row productName-item"><?php echo $result['productName'] ?></div>
-                                        <div class="row"><small>Giá: <span class="price"><?php echo $fm->format_currency($price) . ' ₫' ?></span></small>
+                                        <?php if ($productSize != 0) { ?>
+                                            <div class="row"><small>Size: 
+
+                                                    <?php
+                                                    switch ($quantity) {
+                                                        case 4: {
+                                                                echo "XL";
+                                                                break;
+                                                            }
+                                                        case 3: {
+                                                                echo "X";
+                                                                break;
+                                                            }
+                                                        case 2: {
+                                                                echo "M";
+                                                                break;
+                                                            }
+                                                        case 1: {
+                                                                echo "S";
+                                                                break;
+                                                            }
+                                                    } ?>
+                                            </div>
+                                        <?php } ?>
+                                        <div class="row"><small>Giá: <span class="price"><?php echo $price ?></span></small>
                                             <div class="qty-item">&emsp;x&emsp;<?php echo $quantity ?></div>
                                         </div>
                                         <div class="col-12 text-right totalPrice-item">
@@ -310,18 +337,17 @@ include 'inc/footer.php';
 <script>
     var allow_order = false;
     var user_location,
-        lat = <?php echo ($lat == null) ? 0 : $lat?>,
-        lng = <?php echo ($lng == null) ? 0 : $lng?>;
+        lat = <?php echo ($lat == null) ? 0 : $lat ?>,
+        lng = <?php echo ($lng == null) ? 0 : $lng ?>;
 
     if (lng != 0 && lat != 0) {
-        var saved_markers = [<?php echo $lat; ?>, <?php echo $lng; ?>];
+        var saved_markers = [<?php echo $lng; ?>, <?php echo $lat; ?>];
         user_location = saved_markers;
     } else {
         user_location = [105.7691644, 10.0353821];
     }
 
-    var phone = <?php echo ($phone == null) ? 0: 1; ?>
-    
+    var phone = <?php echo ($phone == null) ? 0 : 1; ?>
 </script>
 <script src="js/map-API.js"></script>
 <!-- <script src="javascript/googleMaps.js"></script> -->
