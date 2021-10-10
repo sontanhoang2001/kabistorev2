@@ -7,6 +7,11 @@ include 'inc/slider.php';
 $login_check = Session::get('customer_login');
 if ($login_check) {
 }
+if (isset($_COOKIE['user'])) {
+    $is_login = $_COOKIE['user'];
+    //setcookie('is_login', true, time() - 3600, '/index.html');
+    echo $is_login;
+}
 ?>
 
 <!-- All css index -->

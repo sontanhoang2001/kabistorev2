@@ -2,6 +2,7 @@
 $filepath = realpath(dirname(__FILE__));
 include_once($filepath . '/../lib/database.php');
 include_once($filepath . '/../helpers/format.php');
+include_once($filepath . '/../lib/session.php');
 ?>
 
 
@@ -19,6 +20,7 @@ class customer
 	{
 		$this->db = new Database();
 		$this->fm = new Format();
+		Session::init();
 	}
 	public function insert_binhluan()
 	{
@@ -42,67 +44,65 @@ class customer
 		}
 	}
 
-	public function insert_customer($date)
+	public function insert_customer($data)
 	{
-		$username = mysqli_real_escape_string($this->db->link, $date['username']);
-		$pass1 = mysqli_real_escape_string($this->db->link, $date['password1']);
-		$pass2 = mysqli_real_escape_string($this->db->link, $date['password2']);
-		$password2 = mysqli_real_escape_string($this->db->link, md5($date['password2']));
+		// 0 các trường ko được bỏ trống
+		// 1 đăng ký thành công
+		// 2 đăng ký tài khoản không thành công
+		// 3 tài khoản này đã tồn tại
+		// 4 mật khẩu nhập lại không chính xác
+		// 5 tên đăng nhập sai cú pháp
+		// 6 mật khẩu sai cú pháp
+		$username = mysqli_real_escape_string($this->db->link, $data['username']);
+		$pass1 = mysqli_real_escape_string($this->db->link, $data['password1']);
+		$pass2 = mysqli_real_escape_string($this->db->link, $data['password2']);
+		$password2 = mysqli_real_escape_string($this->db->link, md5($data['password2']));
 
 		if ($username == "" || $pass1 == "" || $pass2 == "") {
-			$alert = '<p style="color: red;">Cách trường không được bỏ trống!</p>';
-			return $alert;
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			if ($pass2 == $pass1) {
-				$parttenUsername = "/^[A-Za-z0-9_\.]{6,32}$/";
-				$parttenPassword = "/^([A-Z]){1}([\w_\.!@#$%^&*()]+){5,31}$/";
+				$parttenUsername = "/^[a-z0-9_-]{3,16}$/";
+				$parttenPassword = "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/";
 				if (!preg_match($parttenUsername, $username)) {
-					$alert = '<p style="color: red;">- Tên đăng nhập bạn vừa nhập không đúng định dạng!
-					<br> + Tên đăng nhập bao gồm các ký tự chữ cái, chữ số, dấu gạch dưới, dấu chấm
-					<br> + Độ dài 6-32 ký tự
-					<br> + VD: canthofood123456@
-					</p>';
-					return $alert;
+					return json_encode($result_json[] = ['status' => 5]);
 				} elseif (!preg_match($parttenPassword, $pass2)) {
-					$alert = '<p style="color: red;">- Mật khẩu bạn vừa nhập không đúng định dạng!
-					<br> + Mật khẩu bao gồm các ký chữ cái, chữ số, ký tự đặc biệt, dấu chấm
-					<br> + Bắt đầu bằng ký tự in hoa
-					<br> + Độ dài 6-32 ký tự
-					<br> + VD: canthofood123456@
-					</p>';
-					return $alert;
+					return json_encode($result_json[] = ['status' => 6]);
 				} else {
 					$check_username = "SELECT username FROM tbl_customer WHERE username='$username' LIMIT 1";
 					$result_check = $this->db->select($check_username);
 					if ($result_check) {
-						$alert = '<p style="color: red;">Tên đăng nhập đã tồn tại vui lòng thử lại!</p>';
-						return $alert;
+						return json_encode($result_json[] = ['status' => 3]);
 					} else {
 						$query = "INSERT INTO tbl_customer(username,password) VALUES('$username','$password2') ";
 						$result = $this->db->insert($query);
 						if ($result) {
-							$alert = '<p style="color: #7fad39;">Bạn đã đăng ký tài khoản thành công!</p>';
-							return $alert;
+							return json_encode($result_json[] = ['status' => 1]);
 						} else {
-							$alert = '<p style="color: red;">Bạn đã đăng ký tài khoản không thành công!</p>';
-							return $alert;
+							return json_encode($result_json[] = ['status' => 2]);
 						}
 					}
 				}
 			} else {
-				$alert = '<p style="color: red;">Mật khẩu nhập lại của bạn không chính xác!</p>';
-				return $alert;
+				return json_encode($result_json[] = ['status' => 4]);
 			}
 		}
 	}
-
-	public function login_customer($date)
+	public function login_cookie($data)
 	{
-		$username =  $date['username'];
-		$password = md5($date['password']);
+		// 0 tên đnăg nhập và mất khẩu không được bỏ trống
+		// 1 thành công
+		// 2 tên đăng nhập hoặc mật khẩu sai
+		if (isset($_COOKIE['user'])) {
+			$is_login = $_COOKIE['user'];
+			//setcookie('is_login', true, time() - 3600, '/index.html');
+			echo $is_login;
+		}
+
+		$username =  $data['username'];
+		$password = md5($data['password']);
 		if ($username == '' || $password == '') {
-			$alert = "<span class='error'>Tên đăng nhập và mật khẩu không được để trống!</span>";
-			return $alert;
+			return json_encode($result_json[][] = ['status' => 0, 'content' => 0]);
 		} else {
 			$check_login = "SELECT id, username, name, avatar, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
 			$result_check = $this->db->select($check_login);
@@ -117,21 +117,71 @@ class customer
 				Session::set('avatar', $value['avatar']);
 				$extra = Session::get('REQUEST_URI');
 				if ($value['phone'] == null) {
-					header("Location: profile.html");
+					$header = "profile.html";
 				} else {
 					if ($extra == "") {
-						header("Location: index.html");
+						$header = "index.html";
 					} else {
-						header("Location: $extra");
+						$header = $extra;
 					}
 				}
-
 				$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
 				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
 				session::set('number_cart', (int)$check_quantity_cart['countCart']);
+				return json_encode($result_json[] = ['status' => 1, 'url' => $header]);
 			} else {
-				$alert = "<span style='color: red;'>Tên đăng nhập hoặc mặt khẩu không đúng!</span>";
-				return $alert;
+				return json_encode($result_json[] = ['status' => 2, 'content' => 0]);
+			}
+		}
+	}
+
+
+	public function login_customer($date)
+	{
+		// 0 tên đnăg nhập và mất khẩu không được bỏ trống
+		// 1 thành công
+		// 2 tên đăng nhập hoặc mật khẩu sai
+
+		$username =  $date['username'];
+		$password = md5($date['password']);
+		if ($username == '' || $password == '') {
+			return json_encode($result_json[][] = ['status' => 0, 'content' => 0]);
+		} else {
+			$check_login = "SELECT id, username, name, avatar, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
+			$result_check = $this->db->select($check_login);
+			if ($result_check != false) {
+
+				$value = $result_check->fetch_assoc();
+				$customer_id = $value['id'];
+				Session::set('customer_login', true);
+				Session::set('customer_id', $customer_id);
+				Session::set('customer_username', $value['username']);
+				Session::set('customer_name', $value['name']);
+				Session::set('avatar', $value['avatar']);
+				$extra = Session::get('REQUEST_URI');
+				if ($value['phone'] == null) {
+					$header = "profile.html";
+				} else {
+					if ($extra == "") {
+						$header = "index.html";
+					} else {
+						$header = $extra;
+					}
+				}
+				$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
+				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
+				session::set('number_cart', (int)$check_quantity_cart['countCart']);
+
+				$allowLogin = "true";
+				$name = 'user';
+				$value = md5($allowLogin);
+				$expire = time() + 3600;
+				$path = '/index.html';
+				setcookie($name, $value, $expire, $path);
+
+				return json_encode($result_json[] = ['status' => 1, 'url' => $header]);
+			} else {
+				return json_encode($result_json[] = ['status' => 2, 'content' => 0]);
 			}
 		}
 	}
