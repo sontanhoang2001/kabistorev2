@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
         $lng = $result['maps_maplng'];
         $lat = $result['maps_maplat'];
     ?>
-        <form class="form" novalidate="" action="" method="post" enctype="multipart/form-data">
+        <form id="f_profile" method="POST" enctype="multipart/form-data">
           <div class="col">
             <div class="row">
               <div class="col mb-3">
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
                         <div class="col-12 col-sm-auto mb-3">
                           <div class="mx-auto" style="width: 140px;">
                             <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                              <span><img class="avatar img-thumbnail border-1" src="upload/<?php echo $result['avatar']; ?>" /></span>
+                              <span><img style="height: 142px;" class="avatar img-thumbnail border-1" src="upload/avatars/<?php echo $result['avatar']; ?>" /></span>
                             </div>
                           </div>
                         </div>
@@ -90,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
                             }
                             ?></h5>
                         </legend>
-
                         <div class="row">
                           <div class="col-md-6 col-sm-12">
                             <label>Họ và tên</label>
@@ -98,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
                               <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user"></i></span>
                               </div>
-                              <input type="text" name="name" class="form-control" placeholder="Nhập họ tên để tiện xưng hô" aria-label="fullname" aria-describedby="basic-addon1" value="<?php echo $result['name']; ?>">
+                              <input type="text" name="fullName" class="form-control" placeholder="Nhập họ tên để tiện xưng hô" aria-label="fullname" aria-describedby="basic-addon1" value="<?php echo $result['name']; ?>">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
@@ -115,23 +114,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
                           <div class="col-md-6 col-sm-12">
                             <!-- Multiple Radios (inline) -->
                             <div class="form-group">
-                              <label class=" control-label" for="gender">Giới tính</label>
+                              <label class="control-label" for="gender">Giới tính</label>
                               <div class="mt-1">
-                                <label class="radio-inline mr-3" for="gender-0">
-                                  <input type="radio" name="gender" id="Gender-0" value="0" <?php echo ($result['gender'] == 0) ? "checked='checked'" : '' ?>>
-                                  Nam
-                                </label>
-                                <label class="radio-inline mr-3" for="gender-1">
-                                  <input type="radio" name="gender" id="gender-1" value="1" <?php echo ($result['gender'] == 1) ? "checked='checked'" : '' ?>>
-                                  Nữ
-                                </label>
-                                <label class="radio-inline mr-3" for="gender-2">
-                                  <input type="radio" name="gender" id="gender-2" value="2" <?php echo ($result['gender'] == 2) ? "checked='checked'" : '' ?>>
-                                  khác
-                                </label>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="0" <?php echo ($result['gender'] == 0) ? "checked='checked'" :  "" ?>>
+                                  <label class="form-check-label" for="inlineRadio">Nam</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="1" <?php echo ($result['gender'] == 1) ? "checked='checked'" :  "" ?>>
+                                  <label class="form-check-label" for="inlineRadio">Nữ</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="2" <?php echo ($result['gender'] == 2) ? "checked='checked'" :  "" ?>>
+                                  <label class="form-check-label" for="inlineRadio">Khác</label>
+                                </div>
                               </div>
                             </div>
                           </div>
+
                           <div class="col-md-6 col-sm-12">
                             <label>Điện thoại +(84)</label>
                             <div class="input-group mb-3">
@@ -178,8 +178,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
                                                 <div id="map"></div>
                                             </div> -->
                                 <div class="form-group">
-                                  <input class="col-md-6" type="hidden" class="form-control" name="maps_maplat" id="lat" readonly="readonly">
-                                  <input class="col-md-6" type="hidden" class="form-control" name="maps_maplng" id="lng" readonly="readonly">
+                                  <input class="col-md-6" type="hidden" class="form-control" name="maps_maplat" id="lat" readonly="readonly" value="<?php echo $lat ?>">
+                                  <input class="col-md-6" type="hidden" class="form-control" name="maps_maplng" id="lng" readonly="readonly" value="<?php echo $lng ?>">
                                   <input class="col-md-12" type="hidden" class="form-control" name="geocoder" id="geocoding" readonly="readonly">
                                 </div>
                               </div>
@@ -196,14 +196,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
                           </div>
                         </div>
 
-
                         <div class="row">
                           <div class="col d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit" name="save" class="btn btn-success"><a><span class="glyphicon glyphicon-floppy-disk"></span> Cập nhật</a></button>
                           </div>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -215,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
     ?>
 
     <div class="col-12 col-md-3 mb-3">
-      <form method="get" action="offlinepayment.php ">
+      <form method="get" action="cart.html ">
         <div class="card mb-3">
           <div class="card-body">
             <div class="px-xl-3">
@@ -259,7 +257,7 @@ include 'inc/footer.php';
     lng = <?php echo ($lng == null) ? 0 : $lng ?>;
 
   if (lng != 0 && lat != 0) {
-    var saved_markers = [<?php echo $lat; ?>, <?php echo $lng; ?>];
+    var saved_markers = [<?php echo $lng; ?>, <?php echo $lat; ?>];
     user_location = saved_markers;
   } else {
     user_location = [105.7691644, 10.0353821];

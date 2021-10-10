@@ -232,14 +232,14 @@ class customer
 
 	public function update_customers($data, $id)
 	{
-		$name = mysqli_real_escape_string($this->db->link, $data['name']);
+		$fullName = mysqli_real_escape_string($this->db->link, $data['fullName']);
 		$gender = mysqli_real_escape_string($this->db->link, $data['gender']);
 		$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
 		$date_of_birth = mysqli_real_escape_string($this->db->link, $data['date_of_birth']);
 		$phone = mysqli_real_escape_string($this->db->link, $data['phone']);
 		$email = mysqli_real_escape_string($this->db->link, $data['email']);
-		$address = mysqli_real_escape_string($this->db->link, $data['address']);
-		$note = mysqli_real_escape_string($this->db->link, $data['note']);
+		$maps_maplat = mysqli_real_escape_string($this->db->link, $data['maps_maplat']);
+		$maps_maplng = mysqli_real_escape_string($this->db->link, $data['maps_maplng']);
 
 
 		$file_name = $_FILES['avatar']['name'];
@@ -248,7 +248,7 @@ class customer
 		$file_ext = strtolower(end($div));
 		$unique_image = substr(md5($id . " " . $file_name), 0, 32) . '.' . $file_ext;
 		//Thư mục bạn sẽ lưu file upload
-		$target_dir    = "admin/uploads/avatars/" . $unique_image;
+		$target_dir    = "upload/avatars/" . $unique_image;
 		//Vị trí file lưu tạm trong server
 		$target_file   = $target_dir;
 		$update_target_dir = $unique_image;
@@ -256,7 +256,7 @@ class customer
 		$allowUpload   = true;
 		//Lấy phần mở rộng của file
 		$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-		$maxfilesize   = 2100000; //(bytes) 2100000byte = 2mb
+		$maxfilesize   = 1000000; //(bytes) 2100000byte = 1mb
 
 		////Những loại file được phép upload
 		$allowtypes    = array('jpg', 'png', 'jpeg', 'gif', null);
@@ -291,7 +291,7 @@ class customer
 			$allowUpload = false;
 		}
 
-		$files = glob("admin/uploads/avatars/$avatarold"); // get all file names
+		$files = glob("upload/avatars/$avatarold"); // get all file names
 		foreach ($files as $file) { // iterate files
 
 			if (is_file($file))
@@ -307,8 +307,8 @@ class customer
 			move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
 		}
 
-		if ($name == "" || $gender == "" || $date_of_birth == "" || $phone == "" || $email == "" || $address == "" || $note == "") {
-			$alert = '<p style="color: #7fad39;">Các trường không được bỏ trống!</p>';
+		if ($fullName == "" || $gender == "" || $date_of_birth == "" || $phone == "" || $email == "" || $maps_maplat == "" || $maps_maplng == "") {
+			$alert = '<p style="color: red;">Các trường không được bỏ trống!</p>';
 			return $alert;
 		} else {
 			$patternPhone = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
@@ -335,10 +335,10 @@ class customer
 				return $alert;
 			} else {
 				if ($allowUpload == false) {
-					$query = "UPDATE tbl_customer SET name='$name',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',address='$address', note='$note' WHERE id ='$id'";
+					$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
 					$result = $this->db->insert($query);
 				} else {
-					$query = "UPDATE tbl_customer SET name='$name',gender='$gender',avatar='$update_target_dir',date_of_birth= '$date_of_birth',phone='$phone',email='$email',address='$address', note='$note' WHERE id ='$id'";
+					$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',avatar='$update_target_dir',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
 					$result = $this->db->insert($query);
 				}
 
@@ -346,16 +346,11 @@ class customer
 					$alert = '<p style="color: #7fad39;">Bạn đã cập nhật thông tin thành công!</p>';
 					return $alert;
 				} else {
-					$alert = '<p style="color: #7fad39;">Bạn đã cập nhật thông tin không thành công!</p>';
+					$alert = '<p style="color: red;">Bạn đã cập nhật thông tin không thành công!</p>';
 					return $alert;
 				}
 			}
 		}
-	}
-
-
-	public function update_customers_location()
-	{
 	}
 
 

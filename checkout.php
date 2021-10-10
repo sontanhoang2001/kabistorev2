@@ -42,7 +42,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
             <span id="payment"><span id="number-circle">2</span> Thanh toán</span>
             <span id="payment"><span id="number-circle">3</span> Hoàn tất</span>
         </div>
-        <form id="f_order" method="POST" action="" enctype="multipart/form-data">
+        <form id="f_order" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-7">
                     <div class="left-panel border">
@@ -277,11 +277,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 <div class="alert alert-danger" id="error-payment-methods2">
                                     <strong>Cảnh báo!</strong> Thanh toán Visa đang được nâng cấp. Vui lòng chọn phương thức khác. <a href="#" class="alert-link">Sửa lỗi</a>.
                                 </div>
-                                <?php
-                                if (isset($insertOrder)) {
-                                ?>
-                                <?php
-                                } ?>
                             </div>
                             <p class="text-muted text-center">Thông tin thanh toán sẽ được mã hóa</p>
                         </div>
