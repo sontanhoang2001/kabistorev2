@@ -32,16 +32,18 @@ switch ($case) {
         Session::set('grandTotal', $grandTotal);
 
         // nếu grandTotal = 0 thì không cho chuyển trang checkout
-        if($grandTotal == 0){
+        if ($grandTotal == 0) {
             Session::set('payment', false);
             echo 0;
         } else {
-        echo '
+            echo '
                 <ul>
                     <li class="totalRow"><span class="label">Tạm Tính:</span><span class="value">' . $fm->format_currency($subtotal) . " ₫" . '</span></li>
                     <li class="totalRow"><span class="label">phí giao hàng:</span><span class="value">' . "+ " . $fm->format_currency($ship) . " ₫" . '</span></li>
                     <li class="totalRow final"><span class="label">Tổng Cộng:</span><span class="value">' . $fm->format_currency($grandTotal) . " ₫" . '</span></li>
-                    <li class="totalRow"><a href="checkout" class="btn continue">Vào thanh Toán</a></li>
+                    <li class="totalRow">
+						<button type="submit" id="btn_checkout" name="cartcheckout" class="btn success-cart">Xác nhận giỏ hàng</button>
+					</li>
                     <li class="errorRow"></li>
                 </ul>
             ';

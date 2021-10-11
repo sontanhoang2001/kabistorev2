@@ -232,7 +232,7 @@ function CheckPostPromotion(status, type, data) {
             // Thành công
             promotiontAllow = 1;
             $.each(JSON.parse(data), function (key, val) {
-                if(val[0].deadlinedate != "0 giờ"){
+                if (val[0].deadlinedate != "0 giờ") {
                     $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn ' + val[0].deadlinedate + '.');
                 } else {
                     $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn khoảng vài phút nữa. Hãy nhanh tay lên nào!');
@@ -335,7 +335,6 @@ $('#f_promo').submit(function (e) {
 var error_promotionCode_index = 1;
 $('#f_cart').submit(function (e) {
     if (promotiontAllow == 0 || disable_check_out == 1) {
-        e.preventDefault();
         audioError.play();
         $(".errorRow").append('<div class="alert alert-danger" id="error-orderCart_' + error_promotionCode_index + '"><strong>Cảnh báo!</strong> Bạn có 1 sản phẩm đang hết hàng. Vui lòng chỉnh sửa lại. <a href="#location-group" class="alert-link">Sửa lỗi</a>.</div>');
         $("#error-orderCart_" + error_promotionCode_index).show().delay(3000).fadeOut(1000).queue(function () {
@@ -343,7 +342,6 @@ $('#f_cart').submit(function (e) {
         });
     } else if (promotiontAllow == 0) {
         audioError.play();
-        e.preventDefault();
         $(".errorRow").append('<div class="alert alert-danger" id="error-orderCart_' + error_promotionCode_index + '"><strong>Cảnh báo!</strong> Vui lòng nhấn kiểm tra mã giảm giá! <a href="#location-group" class="alert-link">Sửa lỗi</a>.</div>');
         $("#error-orderCart_" + error_promotionCode_index).show().delay(3000).fadeOut(1000).queue(function () {
             $(this).remove();

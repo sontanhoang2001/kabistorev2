@@ -170,7 +170,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                         <div class="row text-muted itemCode">#QUE-007544-002</div>
                                         <div class="row productName-item"><?php echo $result['productName'] ?></div>
                                         <?php if ($productSize != 0) { ?>
-                                            <div class="row"><small>Size: 
+                                            <div class="row"><small>Size:
 
                                                     <?php
                                                     switch ($quantity) {
