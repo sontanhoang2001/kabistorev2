@@ -1,15 +1,12 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    include_once '../lib/session.php';
-    include_once '../helpers/format.php';
-    include_once "../classes/customer.php";
 
-    Session::init();
-    $fm = new Format();
+    include '../lib/session.php';
+    include_once "../classes/customer.php";
     $cs = new customer();
+    Session::init();
+    $customer_id = Session::get('customer_id');
 
     $formData = $_POST['formData'];
-
-    $customer_id = Session::get('customer_id');
-    $UpdateCustomers = $cs->update_customers($formData, $customer_id);
+    echo $UpdateCustomers = $cs->update_customers($formData, $customer_id);
 }

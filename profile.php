@@ -97,19 +97,18 @@ if ($login_check == false) {
                         <a class="nav-link" data-toggle="tab" href="#changepassword">Đổi mật khẩu</a>
                       </li>
                     </ul>
-
                     <div class="tab-content">
                       <div id="profile" class="container tab-pane active">
-                        <form id="f_profile" method="POST" enctype="multipart/form-data">
+                        <form id="f_profile" class="profile-validation" novalidate method="POST" enctype="multipart/form-data">
                           <!-- Form Name -->
-                          <div class="row">
+                          <div class="row mt-4">
                             <div class="col-md-6 col-sm-12">
-                              <label>Họ và tên</label>
+                              <label for="fullName">Họ và tên</label>
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" name="fullName" class="form-control" placeholder="Nhập họ tên để tiện xưng hô" aria-label="fullname" aria-describedby="basic-addon1" value="<?php echo $result['name']; ?>">
+                                <input type="text" name="fullName" id="fullName" class="form-control" aria-label="fullname" aria-describedby="basic-addon1" value="<?php echo $result['name']; ?>" required>
                               </div>
                               <div class="error mb-2" id="error-fullname">Họ và tên không được bỏ trống! hãy ghi tên để chúng tôi dễ xưng hô với bạn.</div>
                             </div>
@@ -153,7 +152,9 @@ if ($login_check == false) {
                                 </div>
                                 <input type="number" name="phone" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="0<?php echo $result['phone']; ?>">
                               </div>
-                              <div class="error mb-2" id="error-phone">Số điện thoại không được bỏ trống!!!</div>
+                              <div class="error mb-2" id="error-phone1">Số điện thoại không được bỏ trống!!!</div>
+                              <div class="error mb-2" id="error-phone2">Số điện thoại sai cú pháp!!!</div>
+
                             </div>
                           </div>
                           <div class="row">
@@ -165,7 +166,9 @@ if ($login_check == false) {
                                 </div>
                                 <input type="email" name="email" class="form-control" aria-label="email" aria-describedby="basic-addon1" value="<?php echo $result['email']; ?>">
                               </div>
-                              <div class="error mb-2" id="error-email">Email không được bỏ trống!!!</div>
+                              <div class="error mb-2" id="error-email1">Email không được bỏ trống!!!</div>
+                              <div class="error mb-2" id="error-email2">Email bạn vừa nhập sai cú pháp!!!<br>
+                                VD: kabistore@mail.com</div>
                             </div>
                           </div>
 
@@ -214,46 +217,59 @@ if ($login_check == false) {
                               <button class="btn btn-primary" type="submit" name="save"><a><span class="glyphicon glyphicon-floppy-disk"></span> Cập nhật</a></button>
                             </div>
                           </div>
+                          <div id="error-submit-1" class="mt-50"></div>
                         </form>
                       </div>
 
                       <div id="changepassword" class="container tab-pane fade"><br>
-                        <div class="row">
-                          <div class="col-md-6 col-sm-12">
-                            <label>Họ và tên</label>
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user"></i></span>
+                        <form id="f_changePassword" method="POST" enctype="multipart/form-data">
+                          <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                              <label>Mật khẩu cũ</label>
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1"> <i class="fa fa-clock-o"></i></span>
+                                </div>
+                                <input type="password" name="passwordold" class="form-control">
                               </div>
-                              <input type="text" name="fullName" class="form-control" placeholder="Nhập họ tên để tiện xưng hô" aria-label="fullname" aria-describedby="basic-addon1" value="<?php echo $result['name']; ?>">
+                              <div class="error mb-2" id="error-passwordold">Bạn chưa nhập mật khẩu cũ!!!.</div>
+
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                              <label>Mật khẩu mới</label>
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1"> <i class="fa fa-key"></i></span>
+                                </div>
+                                <input type="password" name="passwordnew1" class="form-control">
+                              </div>
+                              <div class="error mb-2" id="error-passwordnew1-1">Bạn chưa nhập mật khẩu mới!!!</div>
+                              <div class="error mb-2" id="error-passwordnew1-2">Mật khẩu của bạn sai cú pháp!!!<br>
+                                + VD: nguyenvanteo123456</div>
+
                             </div>
                           </div>
-                          <div class="col-md-6 col-sm-12">
-                            <label>Mật khẩu mới</label>
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-birthday-cake"></i></span>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>Xác nhận mật khẩu mới</label>
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"> <i class="fa fa-key"></i></span>
+                                </div>
+                                <input type="password" name="passwordnew2" class="form-control">
                               </div>
-                              <input type="date" name="date_of_birth" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $result['date_of_birth']; ?>">
+                              <div class="error mb-2" id="error-passwordnew2-1">Bạn chưa nhập mật khẩu mới!!!</div>
+                              <div class="error mb-2" id="error-passwordnew2-2">Nhập lại mật khẩu chưa trùng khớp!!!</div>
+
                             </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <label>Xác nhận mật khẩu mới</label>
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-phone"></i></span>
-                              </div>
-                              <input type="number" name="phone" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="0<?php echo $result['phone']; ?>">
+                          <div class="row">
+                            <div class="col d-flex justify-content-end">
+                              <button class="btn btn-primary" type="submit" class="btn btn-success"><a><span class="glyphicon glyphicon-floppy-disk"></span> Cập nhật</a></button>
                             </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col d-flex justify-content-end">
-                            <button class="btn btn-primary" type="submit" name="save" class="btn btn-success"><a><span class="glyphicon glyphicon-floppy-disk"></span> Cập nhật</a></button>
-                          </div>
-                        </div>
+                          <div id="error-submit-2" class="mt-50"></div>
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -292,6 +308,26 @@ if ($login_check == false) {
   </div>
 </div>
 
+
+<script>
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('profile-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
 <?php
 include 'inc/footer.php';
 ?>
@@ -320,4 +356,5 @@ include 'inc/footer.php';
 <script src="js/customer.js"></script>
 <script>
   updateProfile();
+  changePassword();
 </script>

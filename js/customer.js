@@ -287,44 +287,179 @@ function updateProfile() {
     $('input[name="phone"]').keyup(function () {
         if ($(this).val() == "" || $(this).val() == 0) {
             data_right = false;
-            $("#error-phone").show();
+            $("#error-phone1").show();
         } else {
             data_right = true;
-            $("#error-phone").fadeOut();
+            $("#error-phone1").fadeOut();
+        }
+
+        const regexPhoneNumber = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
+        if ($(this).val().match(regexPhoneNumber)) {
+            data_right = true;
+            $("#error-phone2").fadeOut();
+        } else {
+            data_right = false;
+            // phone sai cú pháp
+            $("#error-phone2").show();
         }
     });
 
     $('input[name="email"]').keyup(function () {
         if ($(this).val() == "") {
             data_right = false;
-            $("#error-email").show();
+            $("#error-email1").show();
         } else {
             data_right = true;
-            $("#error-email").fadeOut();
+            $("#error-email1").fadeOut();
+        }
+
+        const regexPhoneNumber = /^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/;
+        if ($(this).val().match(regexPhoneNumber)) {
+            data_right = true;
+            $("#error-email2").fadeOut();
+        } else {
+            data_right = false;
+            // phone sai cú pháp
+            $("#error-email2").show();
         }
     });
-
 
     $('#f_profile').submit(function (e) {
         e.preventDefault();
         var formData = {
-            fullname: $('input[name="fullName"]').val(),
-            dateOfBirth: $('input[name="date_of_birth"]').val(),
+            fullName: $('input[name="fullName"]').val(),
+            date_of_birth: $('input[name="date_of_birth"]').val(),
             gender: $('input[name="gender"]:checked').val(),
             phone: $('input[name="phone"]').val(),
-            email: $('input[name="email"]').val()
+            email: $('input[name="email"]').val(),
+            maps_maplat: $('input[name="maps_maplat"]').val(),
+            maps_maplng: $('input[name="maps_maplng"]').val()
         }
-
 
         if (data_right == true) {
-            alert("tre");
+            $.ajax({
+                type: "POST",
+                url: "~/../callbackPartial/updateProfile.php",
+                dataType: "JSON",
+                data: {
+                    "formData": formData
+                },
+                success: function (data) {
+                    var res = JSON.parse(JSON.stringify(data))
+                    var Status = res.status;
+                    switch (Status) {
+                        case 0: {
+                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Cập nhật thông tin thất bại!!!</div>');
+                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                        case 1: {
+                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Bạn đã cập nhật thông tin thành công!</div>');
+                            $("#error-submit" + messageIndex).show().delay(10000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                        case 2: {
+                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Các trường không được bỏ trống!!!</div>');
+                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                        case 3: {
+                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Số điện thoại sai cú pháp!!!</div>');
+                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                        case 4: {
+                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Email sai cú pháp!!!</div>');
+                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                    }
+                },
+                error: function (data) {
+                    $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
+                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
+                        $(this).remove();
+                    });
+                }
+            });
+            messageIndex++;
+        }
+    });
+}
+
+
+function changePassword() {
+    var data_right = true;
+
+    $('input[name="passwordold"]').keyup(function () {
+        if ($(this).val() == "") {
+            data_right = false;
+            // fullName không được bỏ trống
+            $("#error-passwordold").show();
+        } else {
+            data_right = true;
+            $("#error-passwordold").fadeOut();
+        }
+    });
+
+    $('input[name="passwordnew1"]').keyup(function () {
+        if ($(this).val() == "" || $(this).val() == 0) {
+            data_right = false;
+            $("#error-passwordnew1-1").show();
+        } else {
+            data_right = true;
+            $("#error-passwordnew1-1").fadeOut();
         }
 
+        if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(this) == false) {
+            data_right = false;
+            // password sai cú pháp
+            $("#error-passwordnew1-2").show().delay(3000).fadeOut(1000);
+        } else {
+            data_right = false;
+            // phone sai cú pháp
+            $("#error-passwordnew1-2").show();
+        }
+    });
+
+    $('input[name="passwordnew2"]').keyup(function () {
+        if ($(this).val() == "") {
+            data_right = false;
+            $("#error-passwordnew2-1").show();
+        } else {
+            if ($(this).val() != $('input[name="passwordnew1"]').val()) {
+                data_right = false;
+                $("#error-passwordnew2-2").show();
+            } else {
+                data_right = true;
+                $("#error-passwordnew2-1").fadeOut();
+                $("#error-passwordnew2-2").fadeOut();
+            }
+        }
+    });
+
+    $('#f_changePassword').submit(function (e) {
+        e.preventDefault();
+        var formData = {
+            passwordold: $('input[name="passwordold"]').val(),
+            passwordnew1: $('input[name="passwordnew1"]').val(),
+            passwordnew2: $('input[name="passwordnew2"]').val()
+        }
 
         // if (data_right == true) {
         //     $.ajax({
         //         type: "POST",
-        //         url: "~/../callbackPartial/register.php",
+        //         url: "~/../callbackPartial/updateProfile.php",
         //         dataType: "JSON",
         //         data: {
         //             "formData": formData
@@ -334,47 +469,35 @@ function updateProfile() {
         //             var Status = res.status;
         //             switch (Status) {
         //                 case 0: {
-        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập hoặc mật khẩu Không được bỏ trống!!!</div>');
+        //                     $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Cập nhật thông tin thất bại!!!</div>');
         //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
         //                         $(this).remove();
         //                     });
         //                     break;
         //                 }
         //                 case 1: {
-        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Bạn đã đăng ký tài khoản thành công! <a href="login.html">Đăng nhập ngay</a></div>');
-        //                     $("#error-submit" + messageIndex).show();
+        //                     $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Bạn đã cập nhật thông tin thành công!</div>');
+        //                     $("#error-submit" + messageIndex).show().delay(10000).fadeOut(1000).queue(function () {
+        //                         $(this).remove();
+        //                     });
         //                     break;
         //                 }
         //                 case 2: {
-        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Đăng ký tài khoản không thành công!!!</div>');
+        //                     $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Các trường không được bỏ trống!!!</div>');
         //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
         //                         $(this).remove();
         //                     });
         //                     break;
         //                 }
         //                 case 3: {
-        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tài khoản này đã tồn tại!!!</div>');
+        //                     $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Số điện thoại sai cú pháp!!!</div>');
         //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
         //                         $(this).remove();
         //                     });
         //                     break;
         //                 }
         //                 case 4: {
-        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu nhập lại không chính xác!!!</div>');
-        //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-        //                         $(this).remove();
-        //                     });
-        //                     break;
-        //                 }
-        //                 case 5: {
-        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập sai cú pháp!!!</div>');
-        //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-        //                         $(this).remove();
-        //                     });
-        //                     break;
-        //                 }
-        //                 case 6: {
-        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu sai cú pháp!!!</div>');
+        //                     $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Email sai cú pháp!!!</div>');
         //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
         //                         $(this).remove();
         //                     });
@@ -383,7 +506,7 @@ function updateProfile() {
         //             }
         //         },
         //         error: function (data) {
-        //             $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
+        //             $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
         //             $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
         //                 $(this).remove();
         //             });
@@ -391,7 +514,6 @@ function updateProfile() {
         //     });
         //     messageIndex++;
         // }
-
     });
 }
 

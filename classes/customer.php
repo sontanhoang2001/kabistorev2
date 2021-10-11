@@ -432,6 +432,12 @@ class customer
 
 	public function update_customers($data, $id)
 	{
+		// 0 thất bại
+		// 1 thành công
+		// 2 các trường ko được bỏ trống
+		// 3 số điện thoại sai cú pháp
+		// 4 email sai cú pháp
+
 		$fullName = mysqli_real_escape_string($this->db->link, $data['fullName']);
 		$gender = mysqli_real_escape_string($this->db->link, $data['gender']);
 		$date_of_birth = mysqli_real_escape_string($this->db->link, $data['date_of_birth']);
@@ -440,43 +446,23 @@ class customer
 		$maps_maplat = mysqli_real_escape_string($this->db->link, $data['maps_maplat']);
 		$maps_maplng = mysqli_real_escape_string($this->db->link, $data['maps_maplng']);
 
-
 		if ($fullName == "" || $gender == "" || $date_of_birth == "" || $phone == "" || $email == "" || $maps_maplat == "" || $maps_maplng == "") {
-			$alert = '<p style="color: red;">Các trường không được bỏ trống!</p>';
-			return $alert;
+			return  json_encode($result_json[] = ['status' => 2]);
 		} else {
 			$patternPhone = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
 			$parttenEmail = "/^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
-			$year_of_birth = date('Y', strtotime($date_of_birth));
-			$date = getdate();
-			$yearnow =  $date['year'];
-			if (($yearnow - $year_of_birth) < 12) {
-				$alert = '<p style="color: red;">- Năm sinh của bạn phải trên 12 tuổi</p>';
-				return $alert;
-			} elseif (!preg_match($patternPhone, $phone)) {
-				$alert = '<p style="color: red;">- Số điện thoại bạn vừa nhập không đúng định dạng!
-				 <br> + Bắt bộc phải có Ký tự @
-				 <br> + Nhóm ký tự trước @ có 6-32 ký tự
-				 <br> + Nhóm ký tự sau @ là domain một hoặc nhiều cấp
-				 </p>';
-				return $alert;
+			if (!preg_match($patternPhone, $phone)) {
+				return  json_encode($result_json[] = ['status' => 3]);
 			} elseif (!preg_match($parttenEmail, $email)) {
-				$alert = '<p style="color: red;">- Email bạn vừa nhập không đúng định dạng!
-				<br> + Bắt bộc phải có Ký tự @
-				<br> + Nhóm ký tự trước @ có 6-32 ký tự
-				<br> + Nhóm ký tự sau @ là domain một hoặc nhiều cấp
-				</p>';
-				return $alert;
+				return  json_encode($result_json[] = ['status' => 4]);
 			} else {
-					$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
-					$result = $this->db->insert($query);
+				$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
+				$result = $this->db->insert($query);
 
 				if ($result) {
-					$alert = '<p style="color: #7fad39;">Bạn đã cập nhật thông tin thành công!</p>';
-					return $alert;
+					return  json_encode($result_json[] = ['status' => 1]);
 				} else {
-					$alert = '<p style="color: red;">Bạn đã cập nhật thông tin không thành công!</p>';
-					return $alert;
+					return  json_encode($result_json[] = ['status' => 0]);
 				}
 			}
 		}
