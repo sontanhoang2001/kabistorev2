@@ -144,7 +144,7 @@
 <div class="swiper mySwiper">
   <div class="swiper-wrapper">
     <div class="swiper-slide">
-      <img class="img-fluid" src="https://scontent.fvca1-2.fna.fbcdn.net/v/t1.6435-9/241359287_106841691739964_7580451974362248265_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=o9pS8g_yq9kAX8e-4xY&_nc_ht=scontent.fvca1-2.fna&oh=5eab4123b2a80e6e4f970fc6877542cb&oe=616302B3" width="1366" height="768" alt="Second slide">
+      <img class="img-fluid" src="https://scontent.fvca1-2.fna.fbcdn.net/v/t1.6435-9/241359287_106841691739964_7580451974362248265_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=GRHGhVb9vS4AX8CkyZB&_nc_ht=scontent.fvca1-2.fna&oh=14a62ee9632d2a7e3b73d4e1afada526&oe=618A8FB3" width="1366" height="768" alt="Second slide">
       <div class="container">
         <div class="carousel-caption text-left">
           <h2 class="display-4 sm-display-4 font-weight-bold">Hãy ở nhà</h2>

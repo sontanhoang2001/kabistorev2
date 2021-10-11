@@ -1,13 +1,6 @@
 <?php
 include 'inc/header.php';
 include 'inc/slider.php';
-
-$login_check = Session::get('customer_login');
-if (!$login_check) {
-    if (isset($_COOKIE['is_login'])) {
-        $cs->login_cookie();
-    }
-}
 ?>
 
 <!-- All css index -->

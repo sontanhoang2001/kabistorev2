@@ -96,23 +96,49 @@ class customer
 		if (isset($_COOKIE['is_login'])) {
 			$is_login = $_COOKIE['is_login'];
 			$data = json_decode($is_login);
-			$username = $data->username;
-			$password = $data->password;
+
+			$username = mysqli_real_escape_string($this->db->link, $data->username);
+			$password = mysqli_real_escape_string($this->db->link, $data->password);
+			$account_type = mysqli_real_escape_string($this->db->link, $data->type);
+
+
 
 			if ($username == '' || $password == '') {
 				return json_encode($result_json[][] = ['status' => 0, 'content' => 0]);
 			} else {
-				$check_login = "SELECT id, username, name, avatar, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
-				$result_check = $this->db->select($check_login);
-				if ($result_check != false) {
+				switch ($account_type) {
+					case 0: {
+							$check_login = "SELECT id, username, name, avatar, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
+							$result_check = $this->db->select($check_login);
+							break;
+						}
+					case 1: {
+							$check_login = "SELECT id, username, name, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
+							$result_check = $this->db->select($check_login);
+							break;
+						}
+				}
 
+				if ($result_check != false) {
 					$value = $result_check->fetch_assoc();
 					$customer_id = $value['id'];
 					Session::set('customer_login', true);
 					Session::set('customer_id', $customer_id);
 					Session::set('customer_username', $value['username']);
 					Session::set('customer_name', $value['name']);
-					Session::set('avatar', $value['avatar']);
+
+					switch ($account_type) {
+						case 0: {
+								Session::set('account_type', 0);
+								Session::set('avatar', $value['avatar']);
+								break;
+							}
+						case 1: {
+								Session::set('account_type', 1);
+								Session::set('avatar', "https://graph.facebook.com/" . $username . "/picture?type=normal");
+								break;
+							}
+					}
 					$extra = Session::get('REQUEST_URI');
 					if ($value['phone'] == null) {
 						$header = "profile.html";
@@ -123,6 +149,7 @@ class customer
 							$header = $extra;
 						}
 					}
+
 					$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
 					$check_quantity_cart = $this->db->select($query)->fetch_assoc();
 					session::set('number_cart', (int)$check_quantity_cart['countCart']);
@@ -131,6 +158,7 @@ class customer
 					return json_encode($result_json[] = ['status' => 2, 'content' => 0]);
 				}
 			}
+			$this->connection->close();
 		}
 	}
 
@@ -153,6 +181,7 @@ class customer
 				$value = $result_check->fetch_assoc();
 				$customer_id = $value['id'];
 				Session::set('customer_login', true);
+				Session::set('account_type', 0);
 				Session::set('customer_id', $customer_id);
 				Session::set('customer_username', $value['username']);
 				Session::set('customer_name', $value['name']);
@@ -173,7 +202,7 @@ class customer
 
 
 				$name = 'is_login';
-				$value = json_encode($result_cookie[] = ['username' => $username, 'password' => $password]);
+				$value = json_encode($result_cookie[] = ['username' => $username, 'password' => $password, 'type' => 0]);
 				$expire = time() + 3600;
 				$path = '/index.html';
 				setcookie($name, $value, $expire, $path);
@@ -183,36 +212,35 @@ class customer
 				return json_encode($result_json[] = ['status' => 2, 'content' => 0]);
 			}
 		}
+		$this->connection->close();
 	}
 
 	//Hàm login sau khi mạng xã hội trả dữ liệu về
-	function loginFromSocialCallBack($socialUser)
+	function loginFromSocialCallBack($socialUser, $accessToken)
 	{
-		$socialUser_id = $socialUser['id'];
-		$socialUser_name = $socialUser['name'];
-		$socialUser_email = $socialUser['email'];
+		$socialUser_id = mysqli_real_escape_string($this->db->link, $socialUser['id']);
+		$socialUser_name = mysqli_real_escape_string($this->db->link, $socialUser['name']);
+		$socialUser_email = mysqli_real_escape_string($this->db->link, $socialUser['email']);
 
-		// echo $_SESSION['fb_user_name'] = $fb_user->getProperty('name');
-		// echo $_SESSION['fb_user_email'] = $fb_user->getProperty('email');
-		// echo $_SESSION['fb_user_pic'] = $picture['url'];
-
-		$check_loginFromSocial = "SELECT id, username FROM tbl_customer WHERE username='$socialUser_id'";
+		$check_loginFromSocial = "SELECT id, username, name, password FROM tbl_customer WHERE username='$socialUser_id'";
 		$result_check = $this->db->select($check_loginFromSocial);
 
+		// kiểm tra đăng ký thì insert
 		if ($result_check == false) {
-			$insert_customerSocial = "INSERT INTO tbl_customer(username, name, email) VALUES('$socialUser_id', '$socialUser_name', '$socialUser_email')";
+			$insert_customerSocial = "INSERT INTO tbl_customer(username, name, email, password) VALUES('$socialUser_id', '$socialUser_name', '$socialUser_email', '$accessToken')";
 			$insert_customer = $this->db->insert($insert_customerSocial);
 
 			if ($insert_customer) {
-				$select_loginFromSocial = "SELECT id, username, name, avatar, phone FROM tbl_customer WHERE username='$socialUser_id'";
+				$select_loginFromSocial = "SELECT id, username, name, phone, password FROM tbl_customer WHERE username='$socialUser_id'";
 				$result = $this->db->select($select_loginFromSocial);
 				$value_select = $result->fetch_assoc();
 
 				Session::set('customer_login', true);
+				Session::set('account_type', 1);
 				Session::set('customer_id', $value_select['id']);
-				Session::set('customer_username', $socialUser_name);
+				Session::set('customer_username', $socialUser_id);
 				Session::set('customer_name', $value_select['name']);
-				Session::set('avatar', $value_select['avatar']);
+				Session::set('avatar', "https://graph.facebook.com/" . $socialUser_id . "/picture?type=normal");
 				$extra = Session::get('REQUEST_URI');
 				if ($value_select['phone'] == null) {
 					header("Location: profile.html");
@@ -224,20 +252,38 @@ class customer
 					}
 				}
 
+				$name = 'is_login';
+				$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value_select['password'], 'type' => 1]);
+				$expire = time() + 3600;
+				$path = '/index.html';
+				setcookie($name, $value, $expire, $path);
+
 				$customer_id = $value_select['id'];
 				$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
 				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
 				session::set('number_cart', (int)$check_quantity_cart['countCart']);
+				return "Liên kết với Facebook thành công!";
 			} else {
-				return "đăng nhập Facebook thất bại";
+				return "Liên kết với Facebook thất bại!";
 			}
 		} else {
 			$value = $result_check->fetch_assoc();
 			$customer_id = $value['id'];
 
+
 			Session::set('customer_login', true);
+			Session::set('account_type', 1);
 			Session::set('customer_id', $customer_id);
-			Session::set('customer_username', $socialUser_name);
+			Session::set('customer_username', $socialUser_id);
+			Session::set('customer_name', $value['name']);
+			Session::set('avatar', "https://graph.facebook.com/" . $socialUser_id . "/picture?type=normal");
+
+			$name = 'is_login';
+			$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value['password'], 'type' => 1]);
+			$expire = time() + 3600;
+			$path = '/index.html';
+			setcookie($name, $value, $expire, $path);
+
 			$extra = Session::get('REQUEST_URI');
 			if ($value['phone'] == null) {
 				header("Location: profile.html");
@@ -252,24 +298,9 @@ class customer
 			$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
 			$check_quantity_cart = $this->db->select($query)->fetch_assoc();
 			session::set('number_cart', (int)$check_quantity_cart['countCart']);
+			return "Đăng nhập Facebook thành công!";
 		}
-		// $result = mysqli_query($con, "Select `id`,`username`,`email`,`fullname` from `user` WHERE `email` ='" . $socialUser['email'] . "'");
-		// if ($result->num_rows == 0) {
-		//     $result = mysqli_query($con, "INSERT INTO `user` (`fullname`,`email`, `status`, `created_time`, `last_updated`) VALUES ('" . $socialUser['name'] . "', '" . $socialUser['email'] . "', 1, " . time() . ", '" . time() . "');");
-		//     if (!$result) {
-		//         echo mysqli_error($con);
-		//         exit;
-		//     }
-		//     $result = mysqli_query($con, "Select `id`,`username`,`email`,`fullname` from `user` WHERE `email` ='" . $socialUser['email'] . "'");
-		// }
-		// if ($result->num_rows > 0) {
-		//     $user = mysqli_fetch_assoc($result);
-		//     if (session_status() == PHP_SESSION_NONE) {
-		//         session_start();
-		//     }
-		//     $_SESSION['current_user'] = $user;
-		//     header('Location: ./login.php');
-		// }
+		$this->connection->close();
 	}
 
 	public function show_customers($id)

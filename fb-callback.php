@@ -65,7 +65,7 @@ if (!empty($fbUser)) {
     Session::init();
     include_once "classes/customer.php";
     $cs = new customer();
-    $customer = $cs->loginFromSocialCallBack($fbUser);
+    echo $customer = $cs->loginFromSocialCallBack($fbUser, $accessToken->getValue());
 }
 
 // echo '<img src="https://graph.facebook.com/2972570506406872/picture?type=normal">';

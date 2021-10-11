@@ -24,6 +24,14 @@ $product = new product();
 $bra = new brand();
 
 
+if (isset($_SESSION['customer_login'])) {
+    $login_check = Session::get('customer_login');
+} else {
+    if (isset($_COOKIE['is_login'])) {
+        $cs->login_cookie();
+    }
+}
+
 
 //Loout
 if (isset($_GET['customer_id'])) {
