@@ -8,9 +8,7 @@ include 'inc/slider.php';
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-<style>
 
-</style>
 
 <!-- API Voice Robot -->
 <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=5CJ9DfAD"></script>

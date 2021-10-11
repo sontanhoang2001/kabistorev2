@@ -196,7 +196,6 @@ function register() {
             password2: this.password2.value
         }
 
-        console.log(data_right);
         if (data_right == true) {
             $.ajax({
                 type: "POST",
@@ -267,6 +266,132 @@ function register() {
             });
             messageIndex++;
         }
+    });
+}
+
+
+function updateProfile() {
+    var data_right = true;
+
+    $('input[name="fullName"]').keyup(function () {
+        if ($(this).val() == "") {
+            data_right = false;
+            // fullName không được bỏ trống
+            $("#error-fullname").show();
+        } else {
+            data_right = true;
+            $("#error-fullname").fadeOut();
+        }
+    });
+
+    $('input[name="phone"]').keyup(function () {
+        if ($(this).val() == "" || $(this).val() == 0) {
+            data_right = false;
+            $("#error-phone").show();
+        } else {
+            data_right = true;
+            $("#error-phone").fadeOut();
+        }
+    });
+
+    $('input[name="email"]').keyup(function () {
+        if ($(this).val() == "") {
+            data_right = false;
+            $("#error-email").show();
+        } else {
+            data_right = true;
+            $("#error-email").fadeOut();
+        }
+    });
+
+
+    $('#f_profile').submit(function (e) {
+        e.preventDefault();
+        var formData = {
+            fullname: $('input[name="fullName"]').val(),
+            dateOfBirth: $('input[name="date_of_birth"]').val(),
+            gender: $('input[name="gender"]:checked').val(),
+            phone: $('input[name="phone"]').val(),
+            email: $('input[name="email"]').val()
+        }
+
+
+        if (data_right == true) {
+            alert("tre");
+        }
+
+
+        // if (data_right == true) {
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "~/../callbackPartial/register.php",
+        //         dataType: "JSON",
+        //         data: {
+        //             "formData": formData
+        //         },
+        //         success: function (data) {
+        //             var res = JSON.parse(JSON.stringify(data))
+        //             var Status = res.status;
+        //             switch (Status) {
+        //                 case 0: {
+        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập hoặc mật khẩu Không được bỏ trống!!!</div>');
+        //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+        //                         $(this).remove();
+        //                     });
+        //                     break;
+        //                 }
+        //                 case 1: {
+        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Bạn đã đăng ký tài khoản thành công! <a href="login.html">Đăng nhập ngay</a></div>');
+        //                     $("#error-submit" + messageIndex).show();
+        //                     break;
+        //                 }
+        //                 case 2: {
+        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Đăng ký tài khoản không thành công!!!</div>');
+        //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+        //                         $(this).remove();
+        //                     });
+        //                     break;
+        //                 }
+        //                 case 3: {
+        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tài khoản này đã tồn tại!!!</div>');
+        //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+        //                         $(this).remove();
+        //                     });
+        //                     break;
+        //                 }
+        //                 case 4: {
+        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu nhập lại không chính xác!!!</div>');
+        //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+        //                         $(this).remove();
+        //                     });
+        //                     break;
+        //                 }
+        //                 case 5: {
+        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập sai cú pháp!!!</div>');
+        //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+        //                         $(this).remove();
+        //                     });
+        //                     break;
+        //                 }
+        //                 case 6: {
+        //                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu sai cú pháp!!!</div>');
+        //                     $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+        //                         $(this).remove();
+        //                     });
+        //                     break;
+        //                 }
+        //             }
+        //         },
+        //         error: function (data) {
+        //             $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
+        //             $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
+        //                 $(this).remove();
+        //             });
+        //         }
+        //     });
+        //     messageIndex++;
+        // }
+
     });
 }
 

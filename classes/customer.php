@@ -308,17 +308,184 @@ class customer
 		return $result;
 	}
 
+	// public function update_customers($data, $id)
+	// {
+	// 	$fullName = mysqli_real_escape_string($this->db->link, $data['fullName']);
+	// 	$gender = mysqli_real_escape_string($this->db->link, $data['gender']);
+	// 	$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
+	// 	$date_of_birth = mysqli_real_escape_string($this->db->link, $data['date_of_birth']);
+	// 	$phone = mysqli_real_escape_string($this->db->link, $data['phone']);
+	// 	$email = mysqli_real_escape_string($this->db->link, $data['email']);
+	// 	$maps_maplat = mysqli_real_escape_string($this->db->link, $data['maps_maplat']);
+	// 	$maps_maplng = mysqli_real_escape_string($this->db->link, $data['maps_maplng']);
+
+	// 	$file_name = $_FILES['avatar']['name'];
+	// 	//dinh dang ten file
+	// 	$div = explode('.', $file_name);
+	// 	$file_ext = strtolower(end($div));
+	// 	$unique_image = substr(md5($id . " " . $file_name), 0, 32) . '.' . $file_ext;
+	// 	//Thư mục bạn sẽ lưu file upload
+	// 	$target_dir    = "upload/avatars/" . $unique_image;
+	// 	//Vị trí file lưu tạm trong server
+	// 	$target_file   = $target_dir;
+	// 	$update_target_dir = $unique_image;
+
+	// 	$allowUpload   = true;
+	// 	//Lấy phần mở rộng của file
+	// 	$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+	// 	$maxfilesize   = 1000000; //(bytes) 2100000byte = 1mb
+
+	// 	////Những loại file được phép upload
+	// 	$allowtypes    = array('jpg', 'png', 'jpeg', 'gif', null);
+
+	// 	if (isset($_POST["save"])) {
+	// 		//Kiểm tra xem có phải là ảnh
+	// 		$check = ($_FILES["avatar"]["tmp_name"]);
+	// 		if ($check != false) {
+	// 			//echo "Đây là file ảnh - " . $check["mime"] . ".";
+	// 			$allowUpload = true;
+	// 		} else {
+	// 			//echo "Không phải file ảnh.";
+	// 			$allowUpload = false;
+	// 		}
+	// 	}
+
+	// 	// Kiểm tra nếu file đã tồn tại thì không cho phép ghi đè
+	// 	if (file_exists($target_file)) {
+	// 		//echo "File đã tồn tại.";
+	// 		$allowUpload = false;
+	// 	}
+	// 	// // Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+	// 	if ($_FILES["avatar"]["size"] > $maxfilesize) {
+	// 		$alert = "<span class='success'>Không được upload ảnh lớn hơn 2MB.</span>";
+	// 		return $alert;
+	// 		$allowUpload = false;
+	// 	}
+
+	// 	// Kiểm tra kiểu file
+	// 	if (!in_array($imageFileType, $allowtypes)) {
+	// 		echo "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
+	// 		$allowUpload = false;
+	// 	}
+
+	// 	$files = glob("upload/avatars/$avatarold"); // get all file names
+	// 	foreach ($files as $file) { // iterate files
+
+	// 		if (is_file($file))
+	// 			if ($_FILES["avatar"]["tmp_name"] == null) {
+	// 				break;
+	// 			} else {
+	// 				unlink($file); // delete file
+	// 			}
+	// 	}
+
+	// 	// Check if $uploadOk is set to 0 by an error
+	// 	if ($allowUpload) {
+	// 		move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+	// 	}
+
+	// 	if ($fullName == "" || $gender == "" || $date_of_birth == "" || $phone == "" || $email == "" || $maps_maplat == "" || $maps_maplng == "") {
+	// 		$alert = '<p style="color: red;">Các trường không được bỏ trống!</p>';
+	// 		return $alert;
+	// 	} else {
+	// 		$patternPhone = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
+	// 		$parttenEmail = "/^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
+	// 		$year_of_birth = date('Y', strtotime($date_of_birth));
+	// 		$date = getdate();
+	// 		$yearnow =  $date['year'];
+	// 		if (($yearnow - $year_of_birth) < 12) {
+	// 			$alert = '<p style="color: red;">- Năm sinh của bạn phải trên 12 tuổi</p>';
+	// 			return $alert;
+	// 		} elseif (!preg_match($patternPhone, $phone)) {
+	// 			$alert = '<p style="color: red;">- Số điện thoại bạn vừa nhập không đúng định dạng!
+	// 			 <br> + Bắt bộc phải có Ký tự @
+	// 			 <br> + Nhóm ký tự trước @ có 6-32 ký tự
+	// 			 <br> + Nhóm ký tự sau @ là domain một hoặc nhiều cấp
+	// 			 </p>';
+	// 			return $alert;
+	// 		} elseif (!preg_match($parttenEmail, $email)) {
+	// 			$alert = '<p style="color: red;">- Email bạn vừa nhập không đúng định dạng!
+	// 			<br> + Bắt bộc phải có Ký tự @
+	// 			<br> + Nhóm ký tự trước @ có 6-32 ký tự
+	// 			<br> + Nhóm ký tự sau @ là domain một hoặc nhiều cấp
+	// 			</p>';
+	// 			return $alert;
+	// 		} else {
+	// 			if ($allowUpload == false) {
+	// 				$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
+	// 				$result = $this->db->insert($query);
+	// 			} else {
+	// 				$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',avatar='$update_target_dir',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
+	// 				$result = $this->db->insert($query);
+	// 			}
+
+	// 			if ($result) {
+	// 				$alert = '<p style="color: #7fad39;">Bạn đã cập nhật thông tin thành công!</p>';
+	// 				return $alert;
+	// 			} else {
+	// 				$alert = '<p style="color: red;">Bạn đã cập nhật thông tin không thành công!</p>';
+	// 				return $alert;
+	// 			}
+	// 		}
+	// 	}
+	// }
+
 	public function update_customers($data, $id)
 	{
 		$fullName = mysqli_real_escape_string($this->db->link, $data['fullName']);
 		$gender = mysqli_real_escape_string($this->db->link, $data['gender']);
-		$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
 		$date_of_birth = mysqli_real_escape_string($this->db->link, $data['date_of_birth']);
 		$phone = mysqli_real_escape_string($this->db->link, $data['phone']);
 		$email = mysqli_real_escape_string($this->db->link, $data['email']);
 		$maps_maplat = mysqli_real_escape_string($this->db->link, $data['maps_maplat']);
 		$maps_maplng = mysqli_real_escape_string($this->db->link, $data['maps_maplng']);
 
+
+		if ($fullName == "" || $gender == "" || $date_of_birth == "" || $phone == "" || $email == "" || $maps_maplat == "" || $maps_maplng == "") {
+			$alert = '<p style="color: red;">Các trường không được bỏ trống!</p>';
+			return $alert;
+		} else {
+			$patternPhone = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
+			$parttenEmail = "/^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
+			$year_of_birth = date('Y', strtotime($date_of_birth));
+			$date = getdate();
+			$yearnow =  $date['year'];
+			if (($yearnow - $year_of_birth) < 12) {
+				$alert = '<p style="color: red;">- Năm sinh của bạn phải trên 12 tuổi</p>';
+				return $alert;
+			} elseif (!preg_match($patternPhone, $phone)) {
+				$alert = '<p style="color: red;">- Số điện thoại bạn vừa nhập không đúng định dạng!
+				 <br> + Bắt bộc phải có Ký tự @
+				 <br> + Nhóm ký tự trước @ có 6-32 ký tự
+				 <br> + Nhóm ký tự sau @ là domain một hoặc nhiều cấp
+				 </p>';
+				return $alert;
+			} elseif (!preg_match($parttenEmail, $email)) {
+				$alert = '<p style="color: red;">- Email bạn vừa nhập không đúng định dạng!
+				<br> + Bắt bộc phải có Ký tự @
+				<br> + Nhóm ký tự trước @ có 6-32 ký tự
+				<br> + Nhóm ký tự sau @ là domain một hoặc nhiều cấp
+				</p>';
+				return $alert;
+			} else {
+					$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
+					$result = $this->db->insert($query);
+
+				if ($result) {
+					$alert = '<p style="color: #7fad39;">Bạn đã cập nhật thông tin thành công!</p>';
+					return $alert;
+				} else {
+					$alert = '<p style="color: red;">Bạn đã cập nhật thông tin không thành công!</p>';
+					return $alert;
+				}
+			}
+		}
+	}
+
+
+	public function update_avatar($data, $id)
+	{
+		$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
 
 		$file_name = $_FILES['avatar']['name'];
 		//dinh dang ten file
@@ -385,51 +552,19 @@ class customer
 			move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
 		}
 
-		if ($fullName == "" || $gender == "" || $date_of_birth == "" || $phone == "" || $email == "" || $maps_maplat == "" || $maps_maplng == "") {
-			$alert = '<p style="color: red;">Các trường không được bỏ trống!</p>';
-			return $alert;
-		} else {
-			$patternPhone = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
-			$parttenEmail = "/^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
-			$year_of_birth = date('Y', strtotime($date_of_birth));
-			$date = getdate();
-			$yearnow =  $date['year'];
-			if (($yearnow - $year_of_birth) < 12) {
-				$alert = '<p style="color: red;">- Năm sinh của bạn phải trên 12 tuổi</p>';
-				return $alert;
-			} elseif (!preg_match($patternPhone, $phone)) {
-				$alert = '<p style="color: red;">- Số điện thoại bạn vừa nhập không đúng định dạng!
-				 <br> + Bắt bộc phải có Ký tự @
-				 <br> + Nhóm ký tự trước @ có 6-32 ký tự
-				 <br> + Nhóm ký tự sau @ là domain một hoặc nhiều cấp
-				 </p>';
-				return $alert;
-			} elseif (!preg_match($parttenEmail, $email)) {
-				$alert = '<p style="color: red;">- Email bạn vừa nhập không đúng định dạng!
-				<br> + Bắt bộc phải có Ký tự @
-				<br> + Nhóm ký tự trước @ có 6-32 ký tự
-				<br> + Nhóm ký tự sau @ là domain một hoặc nhiều cấp
-				</p>';
-				return $alert;
-			} else {
-				if ($allowUpload == false) {
-					$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
-					$result = $this->db->insert($query);
-				} else {
-					$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',avatar='$update_target_dir',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
-					$result = $this->db->insert($query);
-				}
-
-				if ($result) {
-					$alert = '<p style="color: #7fad39;">Bạn đã cập nhật thông tin thành công!</p>';
-					return $alert;
-				} else {
-					$alert = '<p style="color: red;">Bạn đã cập nhật thông tin không thành công!</p>';
-					return $alert;
-				}
-			}
-		}
+		// if ($allowUpload == false) {
+		// 	$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
+		// 	$result = $this->db->insert($query);
+		// 	if ($result) {
+		// 		$alert = '<p style="color: #7fad39;">Bạn đã cập nhật thông tin thành công!</p>';
+		// 		return $alert;
+		// 	} else {
+		// 		$alert = '<p style="color: red;">Bạn đã cập nhật thông tin không thành công!</p>';
+		// 		return $alert;
+		// 	}
+		// }
 	}
+
 
 
 	public function update_customers_password($customer_id, $passold, $passnew1, $passnew2)
