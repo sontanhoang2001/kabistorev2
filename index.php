@@ -1,16 +1,12 @@
 <?php
-
 include 'inc/header.php';
 include 'inc/slider.php';
-?>
-<?php
+
 $login_check = Session::get('customer_login');
-if ($login_check) {
-}
-if (isset($_COOKIE['user'])) {
-    $is_login = $_COOKIE['user'];
-    //setcookie('is_login', true, time() - 3600, '/index.html');
-    echo $is_login;
+if (!$login_check) {
+    if (isset($_COOKIE['is_login'])) {
+        $cs->login_cookie();
+    }
 }
 ?>
 

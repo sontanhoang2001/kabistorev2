@@ -88,49 +88,48 @@ class customer
 			}
 		}
 	}
-	public function login_cookie($data)
+	public function login_cookie()
 	{
 		// 0 tên đnăg nhập và mất khẩu không được bỏ trống
 		// 1 thành công
 		// 2 tên đăng nhập hoặc mật khẩu sai
-		if (isset($_COOKIE['user'])) {
-			$is_login = $_COOKIE['user'];
-			//setcookie('is_login', true, time() - 3600, '/index.html');
-			echo $is_login;
-		}
+		if (isset($_COOKIE['is_login'])) {
+			$is_login = $_COOKIE['is_login'];
+			$data = json_decode($is_login);
+			$username = $data->username;
+			$password = $data->password;
 
-		$username =  $data['username'];
-		$password = md5($data['password']);
-		if ($username == '' || $password == '') {
-			return json_encode($result_json[][] = ['status' => 0, 'content' => 0]);
-		} else {
-			$check_login = "SELECT id, username, name, avatar, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
-			$result_check = $this->db->select($check_login);
-			if ($result_check != false) {
-
-				$value = $result_check->fetch_assoc();
-				$customer_id = $value['id'];
-				Session::set('customer_login', true);
-				Session::set('customer_id', $customer_id);
-				Session::set('customer_username', $value['username']);
-				Session::set('customer_name', $value['name']);
-				Session::set('avatar', $value['avatar']);
-				$extra = Session::get('REQUEST_URI');
-				if ($value['phone'] == null) {
-					$header = "profile.html";
-				} else {
-					if ($extra == "") {
-						$header = "index.html";
-					} else {
-						$header = $extra;
-					}
-				}
-				$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
-				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
-				session::set('number_cart', (int)$check_quantity_cart['countCart']);
-				return json_encode($result_json[] = ['status' => 1, 'url' => $header]);
+			if ($username == '' || $password == '') {
+				return json_encode($result_json[][] = ['status' => 0, 'content' => 0]);
 			} else {
-				return json_encode($result_json[] = ['status' => 2, 'content' => 0]);
+				$check_login = "SELECT id, username, name, avatar, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
+				$result_check = $this->db->select($check_login);
+				if ($result_check != false) {
+
+					$value = $result_check->fetch_assoc();
+					$customer_id = $value['id'];
+					Session::set('customer_login', true);
+					Session::set('customer_id', $customer_id);
+					Session::set('customer_username', $value['username']);
+					Session::set('customer_name', $value['name']);
+					Session::set('avatar', $value['avatar']);
+					$extra = Session::get('REQUEST_URI');
+					if ($value['phone'] == null) {
+						$header = "profile.html";
+					} else {
+						if ($extra == "") {
+							$header = "index.html";
+						} else {
+							$header = $extra;
+						}
+					}
+					$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
+					$check_quantity_cart = $this->db->select($query)->fetch_assoc();
+					session::set('number_cart', (int)$check_quantity_cart['countCart']);
+					return json_encode($result_json[] = ['status' => 1, 'url' => $header]);
+				} else {
+					return json_encode($result_json[] = ['status' => 2, 'content' => 0]);
+				}
 			}
 		}
 	}
@@ -172,9 +171,9 @@ class customer
 				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
 				session::set('number_cart', (int)$check_quantity_cart['countCart']);
 
-				$allowLogin = "true";
-				$name = 'user';
-				$value = md5($allowLogin);
+
+				$name = 'is_login';
+				$value = json_encode($result_cookie[] = ['username' => $username, 'password' => $password]);
 				$expire = time() + 3600;
 				$path = '/index.html';
 				setcookie($name, $value, $expire, $path);

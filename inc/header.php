@@ -29,6 +29,7 @@ $bra = new brand();
 if (isset($_GET['customer_id'])) {
     $customer_id = $_GET['customer_id'];
     // $delCart = $ct->del_all_data_cart($customer_id);
+    setcookie('is_login', '', time() - 3600, '/index.html');
     Session::destroy();
 }
 
