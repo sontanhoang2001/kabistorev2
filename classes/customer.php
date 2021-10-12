@@ -466,130 +466,138 @@ class customer
 				}
 			}
 		}
+		$this->connection->close();
 	}
 
 
 	public function update_avatar($data, $id)
 	{
 		$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
+		$id = mysqli_real_escape_string($this->db->link, $id);
 
 		$file_name = $_FILES['avatar']['name'];
-		//dinh dang ten file
-		$div = explode('.', $file_name);
-		$file_ext = strtolower(end($div));
-		$unique_image = substr(md5($id . " " . $file_name), 0, 32) . '.' . $file_ext;
-		//Thư mục bạn sẽ lưu file upload
-		$target_dir    = "upload/avatars/" . $unique_image;
-		//Vị trí file lưu tạm trong server
-		$target_file   = $target_dir;
-		$update_target_dir = $unique_image;
+		if ($file_name != null) {
+			//dinh dang ten file
+			$div = explode('.', $file_name);
+			$file_ext = strtolower(end($div));
+			$unique_image = substr(md5($id . " " . $file_name), 0, 32) . '.' . $file_ext;
+			//Thư mục bạn sẽ lưu file upload
+			$target_dir    = "upload/avatars/" . $unique_image;
+			//Vị trí file lưu tạm trong server
+			$target_file   = $target_dir;
+			$update_target_dir = $unique_image;
 
-		$allowUpload   = true;
-		//Lấy phần mở rộng của file
-		$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-		$maxfilesize   = 1000000; //(bytes) 2100000byte = 1mb
+			$allowUpload   = true;
+			//Lấy phần mở rộng của file
+			$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+			$maxfilesize   = 1000000; //(bytes) 2100000byte = 1mb
 
-		////Những loại file được phép upload
-		$allowtypes    = array('jpg', 'png', 'jpeg', 'gif', null);
+			////Những loại file được phép upload
+			$allowtypes    = array('jpg', 'png', 'jpeg', 'gif', null);
 
-		if (isset($_POST["save"])) {
-			//Kiểm tra xem có phải là ảnh
-			$check = ($_FILES["avatar"]["tmp_name"]);
-			if ($check != false) {
-				//echo "Đây là file ảnh - " . $check["mime"] . ".";
-				$allowUpload = true;
-			} else {
-				//echo "Không phải file ảnh.";
+			if (isset($_POST["save"])) {
+				//Kiểm tra xem có phải là ảnh
+				$check = ($_FILES["avatar"]["tmp_name"]);
+				if ($check != false) {
+					//echo "Đây là file ảnh - " . $check["mime"] . ".";
+					$allowUpload = true;
+				} else {
+					//echo "Không phải file ảnh.";
+					$allowUpload = false;
+				}
+			}
+
+			// Kiểm tra nếu file đã tồn tại thì không cho phép ghi đè
+			if (file_exists($target_file)) {
+				//echo "File đã tồn tại.";
 				$allowUpload = false;
 			}
-		}
+			// // Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+			if ($_FILES["avatar"]["size"] > $maxfilesize) {
+				$alert = "<p class='alert-danger'>Không được upload ảnh lớn hơn 2MB.</p>";
 
-		// Kiểm tra nếu file đã tồn tại thì không cho phép ghi đè
-		if (file_exists($target_file)) {
-			//echo "File đã tồn tại.";
-			$allowUpload = false;
-		}
-		// // Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
-		if ($_FILES["avatar"]["size"] > $maxfilesize) {
-			$alert = "<span class='success'>Không được upload ảnh lớn hơn 2MB.</span>";
+				return $alert;
+				$allowUpload = false;
+			}
+
+			// Kiểm tra kiểu file
+			if (!in_array($imageFileType, $allowtypes)) {
+				return "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
+				$allowUpload = false;
+			}
+
+			$files = glob("upload/avatars/$avatarold"); // get all file names
+			foreach ($files as $file) { // iterate files
+
+				if (is_file($file))
+					if ($_FILES["avatar"]["tmp_name"] == null) {
+						break;
+					} else {
+						unlink($file); // delete file
+					}
+			}
+
+			// Check if $uploadOk is set to 0 by an error
+			if ($allowUpload) {
+				move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+			}
+
+			$query = "UPDATE tbl_customer SET avatar='$update_target_dir' WHERE id ='$id'";
+			$result = $this->db->insert($query);
+
+			if ($result) {
+				Session::set('avatar', $update_target_dir);
+				$alert = '<p class="alert-success">Bạn đã cập nhật avatar thành công!</p>';
+				return $alert;
+			} else {
+				$alert = '<p class="alert-danger">Bạn đã cập nhật avatar không thành công!</p>';
+				return $alert;
+			}
+		} else {
+			$alert = '<p class="alert-danger">Avatar đang tồn tại!</p>';
 			return $alert;
-			$allowUpload = false;
 		}
-
-		// Kiểm tra kiểu file
-		if (!in_array($imageFileType, $allowtypes)) {
-			echo "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
-			$allowUpload = false;
-		}
-
-		$files = glob("upload/avatars/$avatarold"); // get all file names
-		foreach ($files as $file) { // iterate files
-
-			if (is_file($file))
-				if ($_FILES["avatar"]["tmp_name"] == null) {
-					break;
-				} else {
-					unlink($file); // delete file
-				}
-		}
-
-		// Check if $uploadOk is set to 0 by an error
-		if ($allowUpload) {
-			move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
-		}
-
-		// if ($allowUpload == false) {
-		// 	$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
-		// 	$result = $this->db->insert($query);
-		// 	if ($result) {
-		// 		$alert = '<p style="color: #7fad39;">Bạn đã cập nhật thông tin thành công!</p>';
-		// 		return $alert;
-		// 	} else {
-		// 		$alert = '<p style="color: red;">Bạn đã cập nhật thông tin không thành công!</p>';
-		// 		return $alert;
-		// 	}
-		// }
+		$this->connection->close();
 	}
 
 
 
-	public function update_customers_password($customer_id, $passold, $passnew1, $passnew2)
+	public function update_customers_password($customer_id, $data)
 	{
-		$pass_old = mysqli_real_escape_string($this->db->link, md5($passold));
-		$pass_new1 = mysqli_real_escape_string($this->db->link, md5($passnew1));
-		$pass_new2 = mysqli_real_escape_string($this->db->link, md5($passnew2));
+		// 0 Mật khẩu cũ, mật khẩu mới và nhập lại mật khẩu không được phét bỏ trống
+		// 1 Đổi mật khẩu thành công
+		// 2 Mật khẩu bạn vừa nhập không đúng định dạng
+		// 3 Mật khẩu cũ bạn vừa nhập ko đúng
+		// 4 Xác nhận mật khẩu ko chính xác
+		$passold = $data['passwordold'];
+		$passnew1 = $data['passwordnew1'];
+		$passnew2 = $data['passwordnew2'];
+		$pass_old = mysqli_real_escape_string($this->db->link, md5($data['passwordold']));
+		$pass_new1 = mysqli_real_escape_string($this->db->link, md5($data['passwordnew1']));
+		$pass_new2 = mysqli_real_escape_string($this->db->link, md5($data['passwordnew2']));
 
 		if (empty($passold) || empty($passnew1) || empty($passnew2)) {
-			$alert = '<p style="color: red;">Mật khẩu cũ, mật khẩu mới và nhập lại mật khẩu không được phét bỏ trống!</p>';
-			return $alert;
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			if ($pass_new2 == $pass_new1) {
-				$partten = "/^([A-Z]){1}([\w_\.!@#$%^&*()]+){5,31}$/";
+				$partten = "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/";
 				if (!preg_match($partten, $passnew2)) {
-					$alert = '<p style="color: red;">- Mật khẩu bạn vừa nhập không đúng định dạng!
-					<br> + Mật khẩu bao gồm các ký chữ cái, chữ số, ký tự đặc biệt, dấu chấm
-					<br> + Bắt đầu bằng ký tự in hoa
-					<br> + Độ dài 6-32 ký tự
-					</p>';
-					return $alert;
+					return json_encode($result_json[] = ['status' => 2]);
 				} else {
 					$query = "SELECT id, password FROM tbl_customer WHERE id  = '$customer_id' AND password = '$pass_old' LIMIT 1";
 					$result = $this->db->select($query);
 					if ($result != false) {
 						$query = "UPDATE tbl_customer SET password = '$pass_new2' where id = '$customer_id' LIMIT 1 ";
 						$query = $this->db->insert($query);
-						$alert = '<p style="color: #7fad39;">Bạn đã đổi mật khẩu thành công!</p>';
-						return $alert;
+						return json_encode($result_json[] = ['status' => 1]);
 					} else {
-						$alert = '<p style="color: red;">Mật khẩu cũ của bạn đã nhập không đúng!</p>';
-						return $alert;
+						return json_encode($result_json[] = ['status' => 3]);
 					}
 				}
 			} else {
-				$alert = '<p style="color: red;">Mật khẩu nhập lại của bạn không chính xác!</p>';
-				return $alert;
+				return json_encode($result_json[] = ['status' => 4]);
 			}
-			$this->link = null;
+			$this->connection->close();
 		}
 	}
 }

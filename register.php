@@ -83,7 +83,7 @@ if ($login_check) {
         </div>
         <div class="error  mb-2" id="error-password3">Xác nhận mật khẩu không khớp!!!</div>
         <div class="checkbox">
-          <label><input type="checkbox" onclick="showPasswordRegister()"> Hiện mật khẩu</label>
+          <label><input type="checkbox" onclick="showPasswords()"> Hiện mật khẩu</label>
         </div>
         <button type="submit" name="submit" class="btn btn-primary btn-block" id="submit"> Tạo tài khoản </button>
         <div class="mt-2">

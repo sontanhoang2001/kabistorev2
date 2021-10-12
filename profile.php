@@ -16,6 +16,15 @@ if ($login_check == false) {
 //   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
 //   $UpdateCustomers = $cs->update_customers($_POST, $id); // hàm check catName khi submit lên
 // }
+$id = Session::get('customer_id');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
+  if ($_FILES['avatar']['name'] != null) {
+    $UpdateCustomers = $cs->update_avatar($_POST, $id); // hàm check catName khi submit lên
+  }
+}
+
+
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/map.css">
@@ -29,7 +38,7 @@ if ($login_check == false) {
           <ul class="nav">
             <li class="nav-item"><a class="nav-link px-2 active" href="./overview.html"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Tổng quát</span></a></li>
             <?php if (session::get('account_type') == 0) { ?>
-              <li class="nav-item"><a class="nav-link px-2" href="changepassword.html"><i class="fa fa-fw fa-th mr-1"></i><span>Đổi mật khẩu</span></a></li>
+              <li class="nav-item"><a class="nav-link px-2" href="profile.html#changepassword"><i class="fa fa-fw fa-th mr-1"></i><span>Đổi mật khẩu</span></a></li>
             <?php } ?>
             <li class="nav-item"><a class="nav-link px-2" href="./settings.html"><i class="fa fa-fw fa-cog mr-1"></i><span>Cài đặt</span></a></li>
           </ul>
@@ -49,7 +58,7 @@ if ($login_check == false) {
           <div class="row">
             <div class="col mb-3">
               <div class="card">
-                <div class="card-body">
+                <div class="card-body bg-light shadow">
                   <div class="e-profile">
                     <div class="row">
                       <div class="col-12 col-sm-auto mb-3">
@@ -66,11 +75,16 @@ if ($login_check == false) {
                           <div class="text-muted">Số dư: <small>330 xu</small></div>
                           <div class="mt-2">
                             <?php if (session::get('account_type') == 0) { ?>
-                              <label class="btn btn-primary"><input type="file" name="avatar" hidden>
-                                <i class="fa fa-fw fa-camera"></i>
-                                <span>Chọn ảnh</span></input>
-                              </label>
-                              <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
+                              <form id="f_avatar" method="POST" enctype="multipart/form-data">
+                                <label class="btn btn-primary"><input type="file" name="avatar" hidden>
+                                  <i class="fa fa-fw fa-camera"></i>
+                                  <span>Chọn ảnh</span></input>
+                                </label>
+                                <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
+                                <?php if (isset($UpdateCustomers)) {
+                                  echo $UpdateCustomers;
+                                } ?>
+                              </form>
                             <?php } else { ?>
                               <a href="https://www.facebook.com/me">
                                 <label class="btn btn-primary">
@@ -80,6 +94,7 @@ if ($login_check == false) {
                               </a>
                             <?php }  ?>
                           </div>
+
                         </div>
                         <div class="text-center text-sm-right">
                           <span class="badge badge-secondary">Khách hàng thông minh</span>
@@ -241,12 +256,11 @@ if ($login_check == false) {
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-key"></i></span>
                                 </div>
-                                <input type="password" name="passwordnew1" class="form-control">
+                                <input type="password" name="passwordnew1" id="password1" class="form-control">
                               </div>
                               <div class="error mb-2" id="error-passwordnew1-1">Bạn chưa nhập mật khẩu mới!!!</div>
                               <div class="error mb-2" id="error-passwordnew1-2">Mật khẩu của bạn sai cú pháp!!!<br>
                                 + VD: nguyenvanteo123456</div>
-
                             </div>
                           </div>
                           <div class="row">
@@ -256,12 +270,14 @@ if ($login_check == false) {
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"> <i class="fa fa-key"></i></span>
                                 </div>
-                                <input type="password" name="passwordnew2" class="form-control">
+                                <input type="password" name="passwordnew2" id="password2" class="form-control">
                               </div>
                               <div class="error mb-2" id="error-passwordnew2-1">Bạn chưa nhập mật khẩu mới!!!</div>
                               <div class="error mb-2" id="error-passwordnew2-2">Nhập lại mật khẩu chưa trùng khớp!!!</div>
-
                             </div>
+                          </div>
+                          <div class="checkbox">
+                            <label><input type="checkbox" onclick="showPasswords()"> Hiện mật khẩu</label>
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
@@ -357,4 +373,5 @@ include 'inc/footer.php';
 <script>
   updateProfile();
   changePassword();
+  uploadAvatar();
 </script>
