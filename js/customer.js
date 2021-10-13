@@ -542,6 +542,131 @@ function changePassword() {
     });
 }
 
+
+function checkSendMail() {
+    var data_right = false;
+
+    $('input[name="passwordold"]').keyup(function () {
+        if ($(this).val() == "") {
+            data_right = false;
+            $("#error-passwordold").show();
+        } else {
+            data_right = true;
+            $("#error-passwordold").fadeOut();
+        }
+    });
+
+    $('input[name="passwordnew1"]').keyup(function () {
+        if ($(this).val() == "") {
+            data_right = false;
+            $("#error-passwordnew1-1").show();
+        } else {
+            data_right = true;
+            $("#error-passwordnew1-1").fadeOut();
+        }
+
+        if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(this) == false) {
+            data_right = false;
+            // password sai cú pháp
+            $("#error-passwordnew1-2").show().delay(3000).fadeOut(1000);
+        } else {
+            data_right = false;
+            // phone sai cú pháp
+            $("#error-passwordnew1-2").show();
+        }
+    });
+
+    $('input[name="passwordnew2"]').keyup(function () {
+        if ($(this).val() == "") {
+            data_right = false;
+            $("#error-passwordnew2-1").show();
+        } else {
+            if ($(this).val() != $('input[name="passwordnew1"]').val()) {
+                data_right = false;
+                $("#error-passwordnew2-2").show();
+            } else {
+                data_right = true;
+                $("#error-passwordnew2-1").fadeOut();
+                $("#error-passwordnew2-2").fadeOut();
+            }
+        }
+    });
+
+    $('#f_changePassword').submit(function (e) {
+        e.preventDefault();
+        var formData = {
+            passwordold: $('input[name="passwordold"]').val()
+        }
+
+        if (formData.passwordold == "") {
+            data_right = false;
+            $("#error-passwordold").show();
+        } else {
+            data_right = true;
+            $("#error-passwordold").fadeOut();
+        }
+
+        if (data_right == true) {
+            $.ajax({
+                type: "POST",
+                url: "~/../callbackPartial/changePassword.php",
+                dataType: "JSON",
+                data: {
+                    "formData": formData
+                },
+                success: function (data) {
+                    var res = JSON.parse(JSON.stringify(data))
+                    var Status = res.status;
+                    switch (Status) {
+                        case 0: {
+                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu cũ, mật khẩu mới và xác nhận mật khẩu không được phét bỏ trống!!!</div>');
+                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                        case 1: {
+                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Đổi mật khẩu thành công!</div>');
+                            $("#error-submit" + messageIndex).show().delay(10000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                        case 2: {
+                            $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu bạn vừa nhập không đúng định dạng!!!</div>');
+                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                        case 3: {
+                            $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu cũ bạn vừa nhập ko đúng!!!</div>');
+                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                        case 4: {
+                            $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Xác nhận mật khẩu ko chính xác!!!</div>');
+                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
+                                $(this).remove();
+                            });
+                            break;
+                        }
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                    $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
+                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
+                        $(this).remove();
+                    });
+                }
+            });
+            messageIndex++;
+        }
+    });
+}
 function uploadAvatar() {
     $('input[name="avatar"]').change(function (e) {
         $('#f_avatar').submit();
