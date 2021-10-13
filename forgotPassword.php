@@ -1,7 +1,7 @@
 <?php
 include 'inc/header.php';
 include 'lib/Social-Network-API/facebook_source.php';
-include 'lib/PHPMailer/functions.php';
+include 'callbackPartial/sendMailForgotPassword.php';
 // include 'lib/Social-Network-API/google_source.php';
 //Social-Network-API
 
@@ -12,10 +12,10 @@ if ($login_check) {
 ?>
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sendEmail'])) {
-  // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-  $checkSendMail = checkSendMail($_POST); // hàm check catName khi submit lên
-}
+// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sendEmail'])) {
+//   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
+//   $checkSendMail = checkSendMail($_POST); // hàm check catName khi submit lên
+// }
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/login-client.css">
@@ -25,28 +25,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sendEmail'])) {
   <div class="card login-form">
     <div class="card-body bg-light shadow">
       <h3 class="card-title text-center">Khôi phục mật khẩu</h3>
-      <form method="POST" id="f_login" name="f_sendMail" enctype="multipart/form-data">
+      <div id="error-submit" class="text-center alert-danger"></div>
+      <form method="POST" id="f_sendMail" enctype="multipart/form-data">
         <div class="card-text">
-          <?php
-          if (isset($checkSendMail)) {
-            echo $checkSendMail;
-          }
-          ?>
-          <div id="error-submit"></div>
-
-          <!--
-			    <div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
-          <!-- to error: add class "has-danger" -->
-
           <div class="form-group mt-4">
             <label for="email">Email khôi phục</label>
             <input type="email" class="form-control form-control-sm" name="email" id="email" require>
           </div>
         </div>
-        <div class="error mb-2" id="error-email1">Email không được bỏ trống!!!</div>
+        <div class="error mb-2" id="error-email1">Bạn chưa điền email!!!</div>
         <div class="error mb-2" id="error-email2">Email sai định dạng!!!</div>
         <button type="submit" class="btn btn-primary btn-block" name="sendEmail">Gửi xác nhận</button>
       </form>
+
       <div class="text-center mt-3">
         <div class="small">Chúng tôi sẽ gửi mật khẩu cho bạn một các dễ dàng qua email của bạn.</div>
       </div>
@@ -88,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sendEmail'])) {
           </div>
         </div>
         <div class="sign-up">
-          <a href="register.html" class="ml-2">Đăng ký</a> |<a href="register.html" class="ml-2">Đăng nhập</a>
+          <a href="register.html" class="ml-2">Đăng ký</a> |<a href="login.html" class="ml-2">Đăng nhập</a>
         </div>
       </div>
       </form>
@@ -98,8 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sendEmail'])) {
 <?php
 include 'inc/footer.php';
 ?>
-<script src="js/login.js"></script>
 <script src="js/customer.js"></script>
 <script>
-  login();
+  checkSendMail();
 </script>

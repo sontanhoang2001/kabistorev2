@@ -469,7 +469,6 @@ class customer
 		$this->connection->close();
 	}
 
-
 	public function update_avatar($data, $id)
 	{
 		$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
@@ -560,8 +559,6 @@ class customer
 		$this->connection->close();
 	}
 
-
-
 	public function update_customers_password($customer_id, $data)
 	{
 		// 0 Mật khẩu cũ, mật khẩu mới và nhập lại mật khẩu không được phét bỏ trống
@@ -596,6 +593,33 @@ class customer
 				}
 			} else {
 				return json_encode($result_json[] = ['status' => 4]);
+			}
+			$this->connection->close();
+		}
+	}
+
+
+	public function findEmailForgot($email)
+	{
+		// 0 email ko được phét bỏ trống
+		// 1 đã lấy thông tin thành công
+		// 2 email ko tồn tại trọng hệ thống
+
+		$email = mysqli_real_escape_string($this->db->link, $email);
+
+		if (empty($email)) {
+			return json_encode($result_json[] = ['status' => 0, 'name' => 0, 'password' => 0]);
+		} else {
+			$query = "SELECT name, password FROM tbl_customer WHERE email = '$email'  LIMIT 1";
+			$result = $this->db->select($query);
+			if ($result) {
+				while ($infor = $result->fetch_assoc()) {
+					$name = $infor['name'];
+					$password = $infor['password'];
+				}
+				return json_encode($result_json[] = ['status' => 1, 'name' => $name, 'password' => $password]);
+			} else {
+				return json_encode($result_json[] = ['status' => 2, 'name' => 0, 'password' => 0]);
 			}
 			$this->connection->close();
 		}
