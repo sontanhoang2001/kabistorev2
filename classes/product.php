@@ -31,7 +31,7 @@ class product
 	public function search_product($search_text)
 	{
 		$search_text = $this->fm->validation($search_text); //gọi ham validation từ file Format để ktra
-		$query = "SELECT productId, productName, seo, product_soldout, old_price, price, image FROM tbl_product WHERE productName LIKE '%$search_text%'";
+		$query = "SELECT productId, productName, product_soldout, old_price, price, image FROM tbl_product WHERE productName LIKE '%$search_text%'";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -418,7 +418,7 @@ class product
 			switch ($filter) {
 				case 0: {
 						// lấy tất cả sản phẩm select = 0
-						$query = "SELECT productId, productName, seo, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
 						WHERE tbl_product.price BETWEEN '$priceStart' and '$priceEnd'
@@ -429,7 +429,7 @@ class product
 					}
 				case 1: {
 						// Lấy Sản phẩm bán nhiều nhất select = 2
-						$query = "SELECT productId, productName, seo, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
 						WHERE tbl_product.price BETWEEN '$priceStart' and '$priceEnd'
@@ -440,7 +440,7 @@ class product
 					}
 				case 2: {
 						// Lấy tất cả Sản phẩm khuyến mãi select = 3
-						$query = "SELECT productId, productName, seo, product_soldout, tbl_category.catName, price, old_price, image
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, price, old_price, image
 						FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
@@ -459,7 +459,7 @@ class product
 			switch ($filter) {
 				case "c": {
 						// Tìm theo loại sản phẩm
-						$query = "SELECT tbl_product.productId, tbl_product.productName,tbl_product.seo, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
+						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
 						FROM tbl_product
 						inner join tbl_category on tbl_product.catId = tbl_category.catId
 						where tbl_category.catId = '$catId' AND tbl_product.price BETWEEN '$priceStart' AND '$priceEnd'
@@ -469,7 +469,7 @@ class product
 						break;
 					}
 				case "b": {
-						$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.seo, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
+						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
 						where tbl_brand.brandId = '$brandId' AND tbl_product.price BETWEEN '$priceStart' AND '$priceEnd'
@@ -568,7 +568,7 @@ class product
 	// Lấy Sản phẩm nổi bật (index)
 	public function get_all_product_Featured()
 	{
-		$query = "SELECT p.productId, p.productName, p.seo, p.type, p.old_price, p.price, p.image, p.size, c.catName
+		$query = "SELECT p.productId, p.productName, p.type, p.product_soldout, p.old_price, p.price, p.image, p.size, c.catName
 		FROM tbl_product as p
 		INNER JOIN tbl_category as c
 		ON p.catId = c.catId

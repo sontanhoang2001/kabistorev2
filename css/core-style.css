@@ -1511,7 +1511,7 @@ img {
 .single_product_details_area .single_product_desc {
     position: relative;
     z-index: 1;
-    padding: 35px 5%;
+    padding: 10px 5%;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -2043,7 +2043,7 @@ img {
     background-color: #f6f6f6;
     border-radius: 0;
     border: none;
-    margin: 0px 0px 0px -26px;
+    margin: 0px 0px 0px -40px;
 }
 
 span.current {

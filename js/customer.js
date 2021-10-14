@@ -580,6 +580,9 @@ function checkSendMail() {
         }
 
         if (data_right == true) {
+            var sendEmail = $('button[name="sendEmail');
+            $(sendEmail).text("Đang xử lý...");
+            $(sendEmail).prop('disabled', 'true');
             $.ajax({
                 type: "POST",
                 url: "~/../callbackPartial/sendMailForgotPassword.php",
@@ -592,6 +595,8 @@ function checkSendMail() {
                     var Status = res.status;
                     switch (Status) {
                         case 0: {
+                            $(sendEmail).text("Gửi xác nhận");
+                            $(sendEmail).removeAttr('disabled');
                             $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Hệ thống lỗi!!!</div>');
                             $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
                                 $(this).remove();
@@ -605,6 +610,8 @@ function checkSendMail() {
                             break;
                         }
                         case 2: {
+                            $(sendEmail).text("Gửi xác nhận");
+                            $(sendEmail).removeAttr('disabled');
                             $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Email xác nhận không tồn tại trong hệ thống!!!</div>');
                             $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
                                 $(this).remove();
@@ -612,13 +619,16 @@ function checkSendMail() {
                             break;
                         }
                         case 3: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Mật khẩu cũ bạn vừa nhập ko đúng!!!</div>');
+                            $(sendEmail).text("Gửi xác nhận");
+                            $(sendEmail).removeAttr('disabled');                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Mật khẩu cũ bạn vừa nhập ko đúng!!!</div>');
                             $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
                                 $(this).remove();
                             });
                             break;
                         }
                         case 4: {
+                            $(sendEmail).text("Gửi xác nhận");
+                            $(sendEmail).removeAttr('disabled');
                             $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Bạn chưa nhập email xác nhận!!!</div>');
                             $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
                                 $(this).remove();

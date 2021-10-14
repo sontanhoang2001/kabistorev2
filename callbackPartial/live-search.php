@@ -6,12 +6,14 @@ if (isset($_POST['searchText'])) {
     include_once "../classes/product.php";
     $product = new product();
     $fm = new Format();
+    $seo = "-re-nhat-can-tho";
 
     $search_text = $_POST['searchText'];
     $live_search = $product->live_search($search_text);
 
     if ($live_search) {
         while ($result = $live_search->fetch_assoc()) {
+            $productName = $result['productName'];
             $img = $result['image'];
             $price = $result['price'];
             $old_price = $result['old_price'];
@@ -20,9 +22,9 @@ if (isset($_POST['searchText'])) {
                 echo
                 "
                 <li>
-                    <a href='details.php?proid=" . $result['productId'] . "' class='link-product-result'>
+                    <a href='details/" . $result['productId'] . '/' . $fm->vn_to_str($productName) . $seo . ".html' class='link-product-result'>
                         <img class='img-result' src='admin/uploads/" . $img . "'>
-                        <p class='name-product-result'>" . $result['productName'] . "</p>
+                        <p class='name-product-result'>" . $productName . "</p>
                         <span class='price-result'>" . $fm->format_currency($price) . '₫' . "</span>
                         <cite class='cite-result'>" . $fm->format_currency($old_price) . '₫' . "</cite>
                         <i class='per-result'>" . '-' . $per . '%' . "</i>
@@ -32,7 +34,7 @@ if (isset($_POST['searchText'])) {
                 echo
                 "
                 <li>
-                    <a href='details.php?proid=" . $result['productId'] . "' class='link-product-result'>
+                    <a href='details/" . $result['productId'] . '/' . $fm->vn_to_str($productName) . $seo . ".html' class='link-product-result'>
                         <img class='img-result' src='admin/uploads/" . $img . "'>
                         <p class='name-product-result'>" . $result['productName'] . "</p>
                         <span class='price-result'>" . $fm->format_currency($price) . '₫' . "</span>

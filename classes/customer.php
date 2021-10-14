@@ -87,6 +87,8 @@ class customer
 				return json_encode($result_json[] = ['status' => 4]);
 			}
 		}
+		$this->connection->close();
+
 	}
 	public function login_cookie()
 	{
@@ -306,6 +308,8 @@ class customer
 		$query = "SELECT username, name, avatar, date_of_birth, gender, phone, email, maps_maplat, maps_maplng, date_Joined FROM tbl_customer WHERE id='$id' ";
 		$result = $this->db->select($query);
 		return $result;
+		$this->connection->close();
+
 	}
 
 	// public function update_customers($data, $id)
@@ -608,18 +612,19 @@ class customer
 		$email = mysqli_real_escape_string($this->db->link, $email);
 
 		if (empty($email)) {
-			return json_encode($result_json[] = ['status' => 0, 'name' => 0, 'password' => 0]);
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
-			$query = "SELECT name, password FROM tbl_customer WHERE email = '$email'  LIMIT 1";
+			$query = "SELECT username, name, password FROM tbl_customer WHERE email = '$email'  LIMIT 1";
 			$result = $this->db->select($query);
 			if ($result) {
 				while ($infor = $result->fetch_assoc()) {
+					$username = $infor['username'];
 					$name = $infor['name'];
 					$password = $infor['password'];
 				}
-				return json_encode($result_json[] = ['status' => 1, 'name' => $name, 'password' => $password]);
+				return json_encode($result_json[] = ['status' => 1, 'username' => $username, 'name' => $name, 'password' => $password]);
 			} else {
-				return json_encode($result_json[] = ['status' => 2, 'name' => 0, 'password' => 0]);
+				return json_encode($result_json[] = ['status' => 2]);
 			}
 			$this->connection->close();
 		}

@@ -57,15 +57,19 @@ try {
     exit;
 }
 
+
 $fbUser = $fb_response->getGraphUser();
 
 if (!empty($fbUser)) {
     // include 'lib/Social-Network-API/function.php';
-    include 'lib/session.php';
-    Session::init();
+    // include 'lib/session.php';
+    // Session::init();
+
+
     include_once "classes/customer.php";
     $cs = new customer();
     echo $customer = $cs->loginFromSocialCallBack($fbUser, $accessToken->getValue());
 }
+
 
 // echo '<img src="https://graph.facebook.com/2972570506406872/picture?type=normal">';

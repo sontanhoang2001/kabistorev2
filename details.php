@@ -259,34 +259,37 @@ if ($login_check) {
 				<div class="row">
 					<div class="col-12">
 						<?php
-						$get_product_details = $product->get_details($productid);
-						if ($get_product_details) {
-							while ($result_details = $get_product_details->fetch_assoc()) {
+						// $get_product_details = $product->get_details($productid);
+						// if ($get_product_details) {
+						// 	while ($result_details = $get_product_details->fetch_assoc()) {
 
 						?>
-								<div class=" descriptionBox mt-4">
+						<!-- <div class=" descriptionBox mt-4">
 									<p><?php echo $result_details['product_desc'] ?></p>
-								</div>
+								</div> -->
 						<?php
-							}
-						}
+						// 	}
+						// }
 						?>
+
+						<div class="mt-4 fb-post" data-href="https://www.facebook.com/ilovekabistore/posts/117390824018384/" data-width="750" data-show-text="true" data-lazy="true"></div>
 					</div>
 				</div>
 			</div>
 			<div id="menu1" class="container tab-pane fade"><br>
 				<div class="row">
 					<div class="col-12">
-						<div class="fb-comments" data-href="https://webcuatoi.vn/kabistore/details.php?proid=<?php echo $productid; ?>" data-width="100%" data-numposts="10"></div>
+						<div class="fb-comments" data-href="https://webcuatoi.vn/kabistore/details.php?proid=<?php echo $productid; ?>" data-width="100%" data-numposts="10" data-lazy="true" data-mobile="true"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 </body>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=633481687507433&autoLogAppEvents=1" nonce="VT6UQdfg"></script>
 
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="YyQ5Kwly"></script>
 
 
 <?php

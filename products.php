@@ -1,6 +1,6 @@
 <?php
 include 'inc/header.php';
-Session::set('REQUEST_URI', getRequestUrl()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
+
 
 $login_check = Session::get('customer_login');
 if ($login_check) {
@@ -38,7 +38,7 @@ if (!isset($_GET['typeName'])) {
 } else {
     $typeName = $_GET['typeName'];
 }
-
+Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 ?>
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/message.css">
@@ -278,6 +278,7 @@ if (!isset($_GET['typeName'])) {
                 </div>
             </div>
             <?php
+            $seo = "-re-nhat-can-tho";
             $product_num = 3;
             $product_all = $product->get_all_product($filter, $page, $type, $product_num, $priceStart, $priceEnd);
             $amount_all_product = $product->get_amount_all_product($filter, $type, $priceStart, $priceEnd);
@@ -300,7 +301,6 @@ if (!isset($_GET['typeName'])) {
 
                                     <select name="select" id="sortByselect">
                                         <option value="0" <?php echo ($filter == 0) ? 'selected="selected"' : '' ?>>Tất cả</option>
-
                                         <?php if ($filter == "c") {
                                         ?>
                                             <option value="c" selected="selected"><?php echo $categorySelected ?></option>
@@ -321,7 +321,6 @@ if (!isset($_GET['typeName'])) {
                             while ($result = $product_all->fetch_assoc()) {
                                 $productId = $result['productId'];
                                 $product_img =  "admin/uploads/" . $result['image'];
-                                $seo = $result['seo'];
                         ?>
                                 <!-- Single Product -->
                                 <div class="col-6 col-sm-6 col-lg-4">
@@ -331,7 +330,8 @@ if (!isset($_GET['typeName'])) {
                                         <div class="product-img page-product">
                                             <img src="<?php echo $product_img ?>" alt="">
                                             <ul class="card-button-shop">
-                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+
+                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                                 <?php
                                                 $wishlist_check = $product->wishlist_check($customer_id, $productId);
                                                 $login_check = Session::get('customer_login');
@@ -392,7 +392,7 @@ if (!isset($_GET['typeName'])) {
                                             <?php } else { ?>
                                                 <span class="category"><?php echo $result['catName'] ?></span>
                                             <?php } ?>
-                                            <a href="details/<?php echo $result['productId'] ?>/<?php echo $seo ?>.html">
+                                            <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
                                                 <div class="product-name page-product"><?php echo $result['productName'] ?></div>
                                             </a>
                                             <p class="product-price">

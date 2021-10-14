@@ -1,6 +1,7 @@
 <?php
 include 'inc/header.php';
 include 'inc/slider.php';
+// echo session::get('accessToken');
 ?>
 
 <!-- All css index -->
@@ -62,11 +63,11 @@ include 'inc/slider.php';
                 <div class="wrapper" id="wrapper_product">
                     <div class="carousel-product owl-carousel">
                         <?php
+                        $seo = "-re-nhat-can-tho";
                         $get_all_product_Featured = $product->get_all_product_Featured();
                         if ($get_all_product_Featured) {
                             while ($result = $get_all_product_Featured->fetch_assoc()) {
                                 $productId = $result['productId'];
-                                $seo = $result['seo'];
                                 $product_img =  "admin/uploads/" . $result['image'];
                         ?>
                                 <!-- Single Product -->
@@ -75,7 +76,7 @@ include 'inc/slider.php';
                                     <div class="product-img">
                                         <img src="<?php echo $product_img ?>">
                                         <ul class="card-button-shop">
-                                            <li><a data-tip="Chi tiết" href="details.php?proid=<?php echo $productId ?>"><i class="fa fa-eye"></i></a></li>
+                                            <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                             <?php
                                             $wishlist_check = $product->wishlist_check($customer_id, $productId);
                                             $login_check = Session::get('customer_login');
@@ -139,7 +140,7 @@ include 'inc/slider.php';
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span class="category"><?php echo $result['catName'] ?></span>
-                                        <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) ?>.html">
+                                        <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
                                             <div class="product-name"><?php echo $result['productName'] ?></div>
                                         </a>
                                         <p class="product-price">
@@ -150,7 +151,7 @@ include 'inc/slider.php';
                                             }
                                             ?>
                                             <?php echo $fm->format_currency($result['price']) . " " . "₫" ?>
-                                        <div class="sell-out">Đã bán 78</div>
+                                        <div class="sell-out">Đã bán <?php echo $result['product_soldout'] ?></div>
                                         </p>
                                     </div>
                                 </div>

@@ -426,6 +426,11 @@ li.nav-item.active {
     width: 100%;
 } */
 
+div#wrapper_product {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
 .single-product-wrapper .favme {
     cursor: pointer;
     color: #ccc;

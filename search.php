@@ -257,11 +257,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 					</div>
 					<div class="row" id="wrapper_product">
 						<?php
+						$seo = "-re-nhat-can-tho";
 						if ($product_all) {
 							while ($result = $product_all->fetch_assoc()) {
 								$productId = $result['productId'];
 								$product_img =  "admin/uploads/" . $result['image'];
-								$seo = $result['seo'];
 						?>
 								<!-- Single Product -->
 								<div class="col-6 col-sm-6 col-lg-4">
@@ -271,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 										<div class="product-img page-product">
 											<img src="<?php echo $product_img ?>" alt="">
 											<ul class="card-button-shop">
-												<li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+												<li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
 												<?php
 												$wishlist_check = $product->wishlist_check($customer_id, $productId);
 												$login_check = Session::get('customer_login');
@@ -329,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 										</div>
 										<!-- Product Description -->
 										<div class="product-description">
-											<a href="details/<?php echo $result['productId'] ?>/<?php echo $seo ?>.html">
+											<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName'])  . $seo ?>.html">
 												<div class="product-name page-product"><?php echo $result['productName'] ?></div>
 											</a>
 											<p class="product-price">
@@ -353,88 +353,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 						?>
 					</div>
 				</div>
-
-				<!-- <style>
-                    .col-sm-6 {
-                        float: left;
-                    }
-
-                    .essence-btn,
-                    .wishlist-btn,
-                    .compare-btn {
-                        min-width: auto;
-                    }
-
-                    .single-product-wrapper .product-img {
-                        height: auto;
-                    }
-
-                    .single-product-wrapper .product-img .product-badge {
-                        height: 19px;
-                        background-color: #000000;
-                        color: #ffffff;
-                        font-family: "Ubuntu", sans-serif;
-                        font-weight: 700;
-                        font-size: 10px;
-                        padding: 0px 4px;
-                        display: inline-block;
-                        line-height: 20px;
-                        position: absolute;
-                        top: 6px;
-                        left: 7px;
-                        z-index: 10;
-                    }
-
-                    .essence-btn,
-                    .wishlist-btn,
-                    .compare-btn {
-                        display: inline-block;
-                        min-width: 120px;
-                        height: 35px;
-                        color: #ffffff;
-                        border: none;
-                        border-radius: 0;
-                        padding: 0 12px;
-                        text-transform: uppercase;
-                        font-size: 9px;
-                        line-height: 39px;
-                        background-color: #0315ff;
-                        letter-spacing: 1.5px;
-                        font-weight: 600;
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
-                        margin: 22px 0px 7px;
-                    }
-
-                    /* @media (min-width: 1200px) {
-                        .col-lg-4 {
-                            width: 33%;
-                        }
-                    } */
-
-                    .pagination {
-                        display: inline-block;
-                    }
-
-                    .pagination a {
-                        color: black;
-                        float: left;
-                        padding: 8px 16px;
-                        text-decoration: none;
-                        transition: background-color .3s;
-                        border: 1px solid #ddd;
-                    }
-
-                    .pagination a.active {
-                        background-color: #4CAF50;
-                        color: white;
-                        border: 1px solid #4CAF50;
-                    }
-
-                    .pagination a:hover:not(.active) {
-                        background-color: #ddd;
-                    }
-                </style> -->
-
 			</div>
 		</div>
 	</div>

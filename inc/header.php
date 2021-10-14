@@ -60,7 +60,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <!-- Title  -->
     <title>Vũng Liêm Now - Giao hàng siêu tốc</title>
 
-    <!-- <base href="http://192.168.1.7/"> -->
+    <!-- <base href="http://192.168.1.8/"> -->
     <base href="https://webcuatoi.vn/">
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/icon-web.ico">

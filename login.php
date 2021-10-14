@@ -15,6 +15,8 @@ if ($login_check) {
 //   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
 //   $login_Customer = $cs->login_customer($_POST); // hàm check catName khi submit lên
 // }
+
+
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/login-client.css">
@@ -102,7 +104,6 @@ if ($login_check) {
 <?php
 include 'inc/footer.php';
 ?>
-<script src="js/login.js"></script>
 <script src="js/customer.js"></script>
 <script>
   login();
