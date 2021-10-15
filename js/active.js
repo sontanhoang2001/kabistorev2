@@ -7,6 +7,10 @@
 // const loader = document.querySelector(".loader-wrapper")
 // loader.className += "hidden";
 
+$('#goBack').click(function (event) {
+    event.preventDefault();
+    history.back(1);
+});
 
 
 (function ($) {

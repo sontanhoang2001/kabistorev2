@@ -393,9 +393,16 @@ class product
 	}
 	//Kết thúc Backend
 
-	public function getproduct_featheread()
+	// public function getproduct_featheread()
+	// {
+	// 	$query = "SELECT * FROM tbl_product where type = '0' order by productId desc LIMIT 4 ";
+	// 	$result = $this->db->select($query);
+	// 	return $result;
+	// }
+
+	public function get_all_product_rank()
 	{
-		$query = "SELECT * FROM tbl_product where type = '0' order by productId desc LIMIT 4 ";
+		$query = "SELECT productId, image FROM tbl_product where type = '1' order by productId desc LIMIT 25 ";
 		$result = $this->db->select($query);
 		return $result;
 	}

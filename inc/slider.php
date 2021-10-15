@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
 
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
 <!-- Demo styles -->
+
 <style>
   .swiper {
     width: 100%;
@@ -17,7 +15,6 @@
     text-align: center;
     font-size: 18px;
     background: #fff;
-
     /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;
@@ -31,10 +28,6 @@
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
-  }
-
-  .swiper-wrapper {
-    margin-left: 14px;
   }
 
   .swiper-slide img {
@@ -104,7 +97,6 @@
     .swiper-rtl .swiper-button-prev {
       right: 28px !important;
     } */
-
   .swiper-pagination-bullet-active {
     background: #fff !important;
     width: 1rem !important;
@@ -145,32 +137,26 @@
   <div class="swiper-wrapper">
     <div class="swiper-slide">
       <img class="img-fluid" src="https://scontent.fvca1-2.fna.fbcdn.net/v/t1.6435-9/241359287_106841691739964_7580451974362248265_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=GRHGhVb9vS4AX8CkyZB&_nc_ht=scontent.fvca1-2.fna&oh=14a62ee9632d2a7e3b73d4e1afada526&oe=618A8FB3" width="1366" height="768" alt="Second slide">
-      <div class="container">
-        <div class="carousel-caption text-left">
-          <h2 class="display-4 sm-display-4 font-weight-bold">Hãy ở nhà</h2>
-          <p class="lead font-weight-bold">Sức khỏe là vàng, ở nhà an toàn cùng Vũng Liêm Now.</p>
-          <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="#" role="button">Khám ngay</a></p>
-        </div>
+      <div class="carousel-caption text-left">
+        <h2 class="display-4 sm-display-4 font-weight-bold">Hãy ở nhà</h2>
+        <p class="lead font-weight-bold">Sức khỏe là vàng, ở nhà an toàn cùng Vũng Liêm Now.</p>
+        <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="#" role="button">Khám ngay</a></p>
       </div>
     </div>
     <div class="swiper-slide">
       <img class="img-fluid" src="https://source.unsplash.com/random/1366x768?sig=234" width="1366" height="768" alt="Second slide">
-      <div class="container">
-        <div class="carousel-caption text-left">
-          <h2 class="display-4 font-weight-bold">SLIDE TWO</h2>
-          <p class="lead font-weight-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-          <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="#" role="button">Call to Action</a></p>
-        </div>
+      <div class="carousel-caption text-left">
+        <h2 class="display-4 font-weight-bold">SLIDE TWO</h2>
+        <p class="lead font-weight-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="#" role="button">Call to Action</a></p>
       </div>
     </div>
     <div class="swiper-slide">
       <img class="img-fluid" src="https://source.unsplash.com/random/1366x768?sig=234" width="1366" height="768" alt="Second slide">
-      <div class="container">
-        <div class="carousel-caption text-left">
-          <h2 class="display-4 font-weight-bold">SLIDE TWO</h2>
-          <p class="lead font-weight-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-          <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="#" role="button">Call to Action</a></p>
-        </div>
+      <div class="carousel-caption text-left">
+        <h2 class="display-4 font-weight-bold">SLIDE TWO</h2>
+        <p class="lead font-weight-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="#" role="button">Call to Action</a></p>
       </div>
     </div>
 

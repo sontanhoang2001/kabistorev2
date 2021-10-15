@@ -348,6 +348,33 @@ img {
 
 /* End Search */
 
+/* goBack */
+
+#goBack {
+    background-color: #d0021b;
+    border-radius: 0;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 40px;
+    right: 60px;
+    bottom: 110px;
+}
+
+@media only screen and (max-width: 767px) {
+    #goBack {
+        bottom: 80px;
+        right: 30px;
+    }
+}
+
+
+
+/* goBack */
+
 /* ScrollUp */
 
 #scrollUp {
@@ -567,7 +594,6 @@ img {
         height: 40px;
         padding: 0 10px 0 30px;
     }
-    
 }
 
 .header_area .search-area form input:focus {
@@ -1881,6 +1907,7 @@ img {
 .widget .catagories-menu .sub-menu li>a:hover {
     color: #0315ff;
 }
+
 /* 
 .widget.price .ui-slider-handle {
     background-color: #000000;
@@ -1891,6 +1918,7 @@ img {
     height: 15px;
     margin: 0;
 } */
+
 /* 
 .widget.price .ui-slider-range.ui-corner-all.ui-widget-header {
     background-color: #0315ff;

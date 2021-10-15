@@ -337,90 +337,224 @@ include 'inc/slider.php';
 
     <!-- <div class="testprin">day nè</div> -->
 
-    <div class="container">
-        <h2 class="pt-4"><i class="fa fa-camera-retro" aria-hidden="true"></i> Hoạt Động</h2>
-        <p>Những bức ảnh tuyệt vời từ hoạt động của chúng tôi</p>
-        <!-- <h1>Hoạt Động</h1> -->
 
-        <div class="gallery" id="gallery">
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,care" alt=""></div>
+
+
+    <?php
+    // $get_all_product_rank = $product->get_all_product_rank();
+    // if ($show_promotion) {
+    //     while ($result = $get_all_product_rank->fetch_assoc()) {
+    //         $img_array[] =  $result['image'];
+    //     }
+    // }
+    ?>
+    <div class="container-fluid">
+        <div class="px-lg-5">
+
+            <div class="container">
+                <h2 class="pt-4"><i class="fa fa-trophy"></i> Xếp hạng cao nhất</h2>
+                <p>Xếp hạng dựa trên số lượt tìm kiếm và đánh giá của khách hàng</p>
             </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,studied" alt=""></div>
+
+            <!-- For demo purpose -->
+            <div class="row py-5">
+                <div class="col-lg-12 mx-auto">
+                    <div class="text-white p-5 shadow-sm rounded banner">
+                        <h1 class="display-4">Bootstrap 4 photo gallery</h1>
+                        <p class="lead">Bootstrap photogallery snippet.</p>
+                        <p class="lead">Snippet by <a href="https://bootstrapious.com/snippets" class="text-reset">
+                                Bootstrapious</a>, Images by <a href="https://unsplash.com" class="text-reset">Unsplash</a>.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,substance" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,choose" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,past" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,lamp" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,yet" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,eight" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,crew" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,event" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,instrument" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,practical" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,pass" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,bigger" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,number" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,feature" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,line" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,railroad" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,pride" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,too" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,bottle" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,base" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,cell" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,bag" alt=""></div>
-            </div>
-            <div class="gallery-item">
-                <div class="content"><img src="https://source.unsplash.com/random/?tech,card" alt=""></div>
+            <!-- End -->
+
+            <div class="row">
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Blorange</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
+                                <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">And She Realized</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                                <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">DOSE Juice</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
+                                <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-5.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Pineapple</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
+                                <div class="badge badge-primary px-3 rounded-pill font-weight-normal">New</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                                <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-7.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Teal Gameboy</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
+                                <div class="badge badge-info px-3 rounded-pill font-weight-normal">Hot</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-8.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Color in Guatemala.</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
+                                <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
+                                <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                                <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
+                <!-- Gallery item -->
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
+                        <div class="p-4">
+                            <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
+                                <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+
             </div>
         </div>
-        <hr>
     </div>
+
 
     <script>
         var gallery = document.querySelector('#gallery');
@@ -452,6 +586,8 @@ include 'inc/slider.php';
                 });
             }
         });
+
+
         window.addEventListener('resize', resizeAll);
         gallery.querySelectorAll('.gallery-item').forEach(function(item) {
             item.addEventListener('click', function() {
@@ -513,84 +649,10 @@ include 'inc/slider.php';
     </main>
     <!--Main layout-->
 
-
-
     <!-- ##### New Arrivals Area End ##### -->
 
-    <!-- <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v7.0&appId=2524995901113133&autoLogAppEvents=1"></script>
-	
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-			<div class="fb-comments" data-href="https://www.facebook.com/photo.php?fbid=2498426717137072&set=a.1453659248280496&type=3&theater" data-numposts="5" data-width=""></div>
-			</div>
-		</div>
-	</div> -->
 
 </body>
-
-<!--
-
- <div class="main">
-    <div class="content">
-    	<div class="content_top">
-    		<div class="heading">
-    		<h3>Sản phẩm nối bật</h3>
-    		</div>
-    		<div class="clear"></div>
-    	</div>
-	      <div class="section group">
-	      	<?php
-                $product_featheread = $product->getproduct_featheread();
-                if ($product_featheread) {
-                    while ($result = $product_featheread->fetch_assoc()) {
-
-                ?>
-				<div class="grid_1_of_4 images_1_of_4">
-					 <a href="details.php?proid=<?php echo $result['productId'] ?>"><img src="admin/uploads/<?php echo $result['image'] ?>" alt="" /></a>
-					 <h2><?php echo $result['productName'] ?></h2>
-					 <p><?php echo $fm->textShorten($result['product_desc'], 50) ?></p>
-					 <p><span class="price"><?php echo $fm->format_currency($result['price']) . " " . "VND" ?></span></p>
-				     <div class="button"><span><a href="details.php?proid=<?php echo $result['productId'] ?>" class="details">Chi tiết</a></span></div>
-				</div>
-				<?php
-                    }
-                }
-                ?>
-			</div>
-			<div class="content_bottom">
-    		<div class="heading">
-    		<h3>Sản phẩm mới</h3>
-    		</div>
-    		<div class="clear"></div>
-    	</div>
-			<div class="section group">
-			<?php
-            $product_new = $product->getproduct_new();
-            if ($product_new) {
-                while ($result_new = $product_new->fetch_assoc()) {
-
-            ?>
-				<div class="grid_1_of_4 images_1_of_4">
-					 <a href="details.php"><img src="admin/uploads/<?php echo $result_new['image'] ?>" alt="" /></a>
-					 <h2><?php echo $result_new['productName'] ?></h2>
-					 <p><?php echo $fm->textShorten($result_new['product_desc'], 50) ?></p>
-					 <p><span class="price"><?php echo $fm->format_currency($result_new['price']) . " VND" ?></span></p>
-				     <div class="button"><span><a href="details.php?proid=<?php echo $result_new['productId'] ?>" class="details">Chi tiết</a></span></div>
-				</div>
-			<?php
-                }
-            }
-            ?>
-			</div>
-    </div>
- </div>
- !-->
-<!-- <div class="alert-box success notification">Successful Alert !!!</div>
-    <div class="alert-box failure notification">Failure Alert !!!</div>
-    <div class="alert-box warning notification">Warning Alert !!!</div> -->
-
 
 <!-- js -->
 <script src="js/carousel.js"></script>

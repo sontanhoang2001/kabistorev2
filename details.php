@@ -259,20 +259,20 @@ if ($login_check) {
 				<div class="row">
 					<div class="col-12">
 						<?php
-						// $get_product_details = $product->get_details($productid);
-						// if ($get_product_details) {
-						// 	while ($result_details = $get_product_details->fetch_assoc()) {
+						$get_product_details = $product->get_details($productid);
+						if ($get_product_details) {
+							while ($result_details = $get_product_details->fetch_assoc()) {
 
 						?>
-						<!-- <div class=" descriptionBox mt-4">
+								<div class=" descriptionBox mt-4">
 									<p><?php echo $result_details['product_desc'] ?></p>
-								</div> -->
+								</div>
 						<?php
-						// 	}
-						// }
+							}
+						}
 						?>
 
-						<div class="mt-4 fb-post" data-href="https://www.facebook.com/ilovekabistore/posts/117390824018384/" data-width="750" data-show-text="true" data-lazy="true"></div>
+						<!-- <div class="mt-4 fb-post" data-href="https://www.facebook.com/ilovekabistore/posts/117390824018384/" data-width="750" data-show-text="true" data-lazy="true"></div> -->
 					</div>
 				</div>
 			</div>
@@ -285,7 +285,7 @@ if ($login_check) {
 			</div>
 		</div>
 	</div>
-	<!-- <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up" aria-hidden="true"></i></a> -->
+	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i class="fa fa-arrow-left"></i></a>
 </body>
 
 <div id="fb-root"></div>
