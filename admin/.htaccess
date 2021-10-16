@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+#RewriteRule ^(.*)\.php$ $1.html [NC,L]
+#RewriteRule ^(.*)\.html$  $1.php [NC,L]
+
+
+#https://youtu.be/Qavbzr22OKs
+Options All -Indexes
+
+
+RewriteRule ^(.*)\.html$  $1.php [NC,L]
