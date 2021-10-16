@@ -71,7 +71,7 @@ include 'inc/slider.php';
                                 $product_img =  "admin/uploads/" . $result['image'];
                         ?>
                                 <!-- Single Product -->
-                                <div class="single-product-wrapper" data-id-1="<?php echo $productId ?>">
+                                <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                     <!-- Product Image -->
                                     <div class="product-img">
                                         <img src="<?php echo $product_img ?>">
@@ -139,9 +139,9 @@ include 'inc/slider.php';
                                     </div>
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <span class="category"><?php echo $result['catName'] ?></span>
+                                        <span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
                                         <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-                                            <div class="product-name"><?php echo $result['productName'] ?></div>
+                                            <div class="text-dark"><?php echo $result['productName'] ?></div>
                                         </a>
                                         <p class="product-price">
                                             <?php if ($old_price != 0) {
@@ -350,208 +350,181 @@ include 'inc/slider.php';
     ?>
     <div class="container-fluid">
         <div class="px-lg-5">
-
             <div class="container">
                 <h2 class="pt-4"><i class="fa fa-trophy"></i> Xếp hạng cao nhất</h2>
                 <p>Xếp hạng dựa trên số lượt tìm kiếm và đánh giá của khách hàng</p>
-            </div>
 
-            <!-- For demo purpose -->
-            <div class="row py-5">
-                <div class="col-lg-12 mx-auto">
-                    <div class="text-white p-5 shadow-sm rounded banner">
-                        <h1 class="display-4">Bootstrap 4 photo gallery</h1>
-                        <p class="lead">Bootstrap photogallery snippet.</p>
-                        <p class="lead">Snippet by <a href="https://bootstrapious.com/snippets" class="text-reset">
-                                Bootstrapious</a>, Images by <a href="https://unsplash.com" class="text-reset">Unsplash</a>.
-                        </p>
+                <div class="row mt-5">
+                    <div class="wrapper" id="wrapper_product">
+                        <div class="carousel-product owl-carousel">
+                            <?php
+                            $seo = "-re-nhat-can-tho";
+                            $get_all_product_Featured = $product->get_all_product_rank();
+                            if ($get_all_product_Featured) {
+                                while ($result = $get_all_product_Featured->fetch_assoc()) {
+                                    $productId = $result['productId'];
+                                    $product_img =  "admin/uploads/" . $result['image'];
+                            ?>
+                                    <!-- Single Product -->
+
+                                    <div id="single-product-wrapper"  class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
+                                        <!-- Product Image -->
+                                        <div class="product-img">
+                                            <img src="<?php echo $product_img ?>">
+                                            <ul class="card-button-shop">
+                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+                                                <?php
+                                                $wishlist_check = $product->wishlist_check($customer_id, $productId);
+                                                $login_check = Session::get('customer_login');
+                                                if ($login_check) {
+                                                    if ($wishlist_check) {
+                                                ?>
+                                                        <li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" href="<?php echo $productId ?>"></a></li>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" href="<?php echo $productId ?>"></i></a></li>
+                                                    <?php
+                                                    }
+                                                } else {
+                                                    ?>
+                                                    <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" href="<?php echo $productId ?>"></a></li>
+                                                <?php
+                                                }
+                                                ?>
+                                                <li>
+                                                    <img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                    <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+                                                </li>
+                                                <!-- <a class="add_to_cart" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a> -->
+                                            </ul>
+
+                                            <!-- <button id="add_to_cart_effect_<?php echo $productId ?>" class="button add_to_cart_effect" type="button">
+                                            <img class="icon" src="assets/images/cart-sm.png" alt="cart icon" />
+                                            Add to cart
+                                        </button> -->
+
+                                            <!-- Product Badge -->
+                                            <?php
+                                            $old_price = $result['old_price'];
+                                            $price = $result['price'];
+                                            if ($old_price != 0) {
+                                                $per = round($temp = (($price * 100) / $old_price) - 100);
+                                                echo '<div class="product-badge offer-badge"><span>';
+                                                echo $per . " %";
+                                                echo '</span></div>';
+                                            }
+                                            ?>
+                                            <!-- Favourite -->
+                                            <!-- <div class="product-favourite">
+                                                    <?php
+                                                    $result['productId'];
+                                                    $customer_id = Session::get('customer_id');
+                                                    $wishlist_check = $product->wishlist_check($customer_id, $result['productId']);
+
+                                                    $login_check = Session::get('customer_login');
+                                                    if ($login_check) {
+                                                        if ($wishlist_check) {
+                                                            echo '<a href="#" class="favme active fa fa-heart"></a>';
+                                                        } else {
+                                                            echo '<a href="#" class="favme fa fa-heart"></a>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div> -->
+                                        </div>
+                                        <!-- Product Description -->
+                                        <div class="product-description ml-4 mr-4">
+                                            <span class="small text-muted"><?php echo $result['catName'] ?></span>
+                                            <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+                                                <div class="text-dark"><?php echo $result['productName'] ?></div>
+
+                                            </a>
+                                            <p class="product-price">
+                                                <?php if ($old_price != 0) {
+                                                ?>
+                                                    <span class="old-price"><?php echo $fm->format_currency($old_price) . " " . "VND" ?></span>&nbsp;
+                                                <?php
+                                                }
+                                                ?>
+                                                <?php echo $fm->format_currency($result['price']) . " " . "₫" ?>
+                                            <div class="sell-out">Đã bán <?php echo $result['product_soldout'] ?></div>
+                                            </p>
+                                        </div>
+                                    </div>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-5 text-center"><a href="san-pham-f0p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
+        </div>
+        <div class="row">
+
+            <!-- Gallery item -->
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
+                    <div class="p-4">
+                        <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
+                        <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                            <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                            <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- End -->
 
-            <div class="row">
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
-                            </div>
+            <!-- Gallery item -->
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
+                    <div class="p-4">
+                        <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                        <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                            <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
+                            <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
                         </div>
                     </div>
                 </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Blorange</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                                <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">And She Realized</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">DOSE Juice</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
-                                <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-5.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Pineapple</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                                <div class="badge badge-primary px-3 rounded-pill font-weight-normal">New</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-7.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Teal Gameboy</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
-                                <div class="badge badge-info px-3 rounded-pill font-weight-normal">Hot</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-8.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Color in Guatemala.</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                                <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                                <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
-                        <div class="p-4">
-                            <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                            <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
-                                <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-
             </div>
+            <!-- End -->
+
+            <!-- Gallery item -->
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
+                    <div class="p-4">
+                        <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                        <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                            <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                            <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End -->
+
+            <!-- Gallery item -->
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
+                    <div class="p-4">
+                        <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                        <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                            <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
+                            <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End -->
         </div>
     </div>
 

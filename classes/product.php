@@ -402,7 +402,11 @@ class product
 
 	public function get_all_product_rank()
 	{
-		$query = "SELECT productId, image FROM tbl_product where type = '1' order by productId desc LIMIT 25 ";
+		$query = "SELECT p.productId, p.productName, p.type, p.product_soldout, p.old_price, p.price, p.image, p.size, c.catName
+		FROM tbl_product as p
+		INNER JOIN tbl_category as c
+		ON p.catId = c.catId
+		where type = '1' LIMIT 25";
 		$result = $this->db->select($query);
 		return $result;
 	}
