@@ -24,19 +24,27 @@ class category
 		//mysqli gọi 2 biến. (catName and link) biến link -> gọi conect db từ file db
 
 		if (empty($catName)) {
-			$alert = "<span class='error'>Category must be not empty</span>";
-			return $alert;
+			// 0 catName ko đc bỏ trống
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
-			$query = "INSERT INTO tbl_category(catName) VALUES('$catName') ";
-			$result = $this->db->insert($query);
-			if ($result) {
-				$alert = "<span class='success'>Insert Category Successfully</span>";
-				return $alert;
+			$check = "SELECT catName FROM tbl_category WHERE catName = '$catName'";
+			$resultCheck = $this->db->select($check);
+			if ($resultCheck) {
+				// 3 catName đã tồn tại
+				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				$alert = "<span class='error'>Insert Category NOT Success</span>";
-				return $alert;
+				$query = "INSERT INTO tbl_category(catName) VALUES('$catName') ";
+				$result = $this->db->insert($query);
+				if ($result) {
+					// 1 thêm thành công
+					return json_encode($result_json[] = ['status' => 1]);
+				} else {
+					// 2 thêm thất bại
+					return json_encode($result_json[] = ['status' => 2]);
+				}
 			}
 		}
+		$this->connection->close();
 	}
 	// hiển thị loại sản phẩm
 	public function show_category()
@@ -60,36 +68,34 @@ class category
 
 
 
-	public function update_category($catName, $id)
+	public function update_category($catID, $catName)
 	{
+		$catID = mysqli_real_escape_string($this->db->link, $catID);
 		$catName = $this->fm->validation($catName); //gọi ham validation từ file Format để ktra
 		$catName = mysqli_real_escape_string($this->db->link, $catName);
-		$id = mysqli_real_escape_string($this->db->link, $id);
 		if (empty($catName)) {
-			$alert = "<span class='error'>Category must be not empty</span>";
-			return $alert;
+			// 0 catName ko đc bỏ trống
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
-			$query = "UPDATE tbl_category SET catName= '$catName' WHERE catId = '$id' ";
+			$query = "UPDATE tbl_category SET catName= '$catName' WHERE catId = '$catID'";
 			$result = $this->db->update($query);
 			if ($result) {
-				$alert = "<span class='success'>Category Update Successfully</span>";
-				return $alert;
+				// 1 Cập nhật thành công
+				return json_encode($result_json[] = ['status' => 1]);
 			} else {
-				$alert = "<span class='error'>Update Category NOT Success</span>";
-				return $alert;
+				// 1 Cập nhật thất bại
+				return json_encode($result_json[] = ['status' => 2]);
 			}
 		}
 	}
 	public function del_category($id)
 	{
-		$query = "DELETE FROM tbl_category where catId = '$id' ";
+		$query = "DELETE FROM tbl_category where catId = '$id'";
 		$result = $this->db->delete($query);
 		if ($result) {
-			$alert = "<span class='success'>Category Deleted Successfully</span>";
-			return $alert;
+			return json_encode($result_json[] = ['status' => 1]);
 		} else {
-			$alert = "<span class='success'>Category Deleted Not Success</span>";
-			return $alert;
+			return json_encode($result_json[] = ['status' => 0]);
 		}
 	}
 

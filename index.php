@@ -10,6 +10,8 @@ include 'inc/slider.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 
+<link rel="stylesheet" href="css/toaster/bootstrap-toaster.css" />
+
 
 <!-- API Voice Robot -->
 <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=5CJ9DfAD"></script>
@@ -666,3 +668,15 @@ include 'inc/slider.php';
 </script> -->
 <script src="js/ajax_wishlist-and-cart.js"></script>
 <script src="js/function.js"></script>
+<script src="js/toaster/bootstrap-toaster.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let toast = {
+            title: "Success",
+            message: "Tên loại sản phẩm này đã tồn tại trong hệ thống!!!",
+            status: TOAST_STATUS.SUCCESS,
+            timeout: 590000
+        }
+        Toast.create(toast);
+    });
+</script>

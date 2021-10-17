@@ -3,13 +3,7 @@
 <?php
 // gọi class category
 $cat = new category();
-if (!isset($_GET['delid']) || $_GET['delid'] == NULL) {
-	// echo "<script> window.location = 'catlist.php' </script>";
 
-} else {
-	$id = $_GET['delid']; // Lấy catid trên host
-	$delCat = $cat->del_category($id); // hàm check delete Name khi submit lên
-}
 ?>
 
 
@@ -17,19 +11,16 @@ if (!isset($_GET['delid']) || $_GET['delid'] == NULL) {
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+	<h1 class="h3 mb-2 text-gray-800">Quản lý loại sản phẩm</h1>
 	<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-		For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+		For more information about DataTables.
+		<br><a  href="catAdd"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm loại sản phẩm</a>.
+	</p>
 
 	<!-- DataTales Example -->
-	<div class="card shadow mb-4">
+	<div class="card shadow mb-4 mt-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các loại sản phẩm</h6>
-			<?php
-			if (isset($delCat)) {
-				echo $delCat;
-			}
-			?>
 		</div>
 
 		<div class="card-body">
@@ -42,40 +33,37 @@ if (!isset($_GET['delid']) || $_GET['delid'] == NULL) {
 							<th>Tùy chọn</th>
 						</tr>
 					</thead>
-					<tfoot>
-						<tr>
-							<th>No.</th>
-							<th>Loại sản phẩm</th>
-							<th>Tùy chọn</th>
-						</tr>
-					</tfoot>
+					<!-- <tfoot>
+                        <tr>
+                            <th>No.</th>
+                            <th>Loại sản phẩm</th>
+                            <th>Tùy chọn</th>
+                        </tr>
+                    </tfoot> -->
 					<tbody>
 						<?php
 						$show_cat = $cat->show_category();
 						if ($show_cat) {
 							$i = 0;
+							$tr_index = 2;
+
 							while ($result = $show_cat->fetch_assoc()) {
 								$i++;
-
+								$categoryID = $result['catId'];
 						?>
 								<tr class="odd gradeX">
 									<td><?php echo $i; ?></td>
 									<td><?php echo $result['catName']; ?></td>
-
 									<td>
-
-										<a href="catEdit.php?catid=<?php echo $result['catId']; ?>" class="btn btn-warning btn-icon-split">
-											<span class="icon text-white-50">
-												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-											</span>
-											<span class="text">Sửa</span>
+										<a id="editCategory" data-id="<?php echo $categoryID ?>" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#myModal" contenteditable="false">
+											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 										</a>
-										<a onclick="return confirm('Bạn có thật sự muốn xóa???')" href="?delid=<?php echo $result['catId'] ?>" class="btn btn-danger btn-icon-split">
-											<span class="icon text-white-50">
-												<i class="fas fa-trash"></i>
-											</span>
-											<span class="text">Xóa</span>
+										<a id="delCategory" data-id="<?php echo $categoryID ?>" class="btn btn-danger btn-circle">
+											<i class="fas fa-trash"></i>
 										</a>
+										<!-- <a id="delCategory" onclick="return confirm('Bạn có thật sự muốn xóa???')" href="?delid=<?php echo $result['catId'] ?>" class="btn btn-danger btn-circle">
+                                            <i class="fas fa-trash"></i>
+                                        </a> -->
 									</td>
 								</tr>
 						<?php
@@ -87,10 +75,40 @@ if (!isset($_GET['delid']) || $_GET['delid'] == NULL) {
 			</div>
 		</div>
 	</div>
-
 </div>
 <!-- /.container-fluid -->
-
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Cập nhật loại sản phẩm</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- <div class="modal-body"></div> -->
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">No.</label>
+						<input type="text" class="form-control" id="noModel" readonly>
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">Loại sản phẩm:</label>
+						<input class="form-control" id="categoryNameModel"></input>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+				<button type="button" id="updateCategory" class="btn btn-primary">Lưu thay đổi</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <?php include 'inc/footer.php'; ?>
+<script src="js/ajax.js"></script>
+<script>
+	update_del_Category();
+</script>

@@ -1,6 +1,24 @@
 <?php
-include '../../classes/category.php';
-$cat = new category();
-
-$categoryID = $_POST['categoryID']; // Lấy catid trên host
-echo $delCat = $cat->del_category($categoryID); // hàm check delete Name khi submit lên
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include '../../classes/category.php';
+    $cat = new category();
+    $case = $_POST['case'];
+    switch ($case) {
+        case 1: {
+                $categoryName = $_POST['categoryName'];
+                echo $insertCat = $cat->insert_category($categoryName);
+                break;
+            }
+        case 2: {
+                $categoryID = $_POST['categoryID'];
+                $categoryName =  $_POST['categoryName'];
+                echo $updateCat = $cat->update_category($categoryID, $categoryName);
+                break;
+            }
+        case 3: {
+                $categoryID = $_POST['categoryID'];
+                echo $delCat = $cat->del_category($categoryID);
+                break;
+            }
+    }
+}

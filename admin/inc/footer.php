@@ -18,9 +18,12 @@
     <!-- End of Content Wrapper -->
 
     </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -41,6 +44,18 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+
+    <!-- Include Plugin JS file -->
+    <script src="../js/nice-toast/nice-toast-js.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.niceToast.setup({
+                position: "bottom-right",
+                timeout: 5000,
+            });
+        });
+    </script>
 
     </body>
 

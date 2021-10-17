@@ -32,6 +32,31 @@ header("Cache-Control: max-age=2592000");
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="../../css/message.css"> -->
+
+    <!-- <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css"> -->
+    <!-- Include Plugin CSS file -->
+    <link href="../css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />
+    <!-- <style>
+        .lead {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        .container {
+            margin: 150px auto;
+            max-width: 960px;
+        }
+
+        .btn {
+            padding: 1.25rem;
+            border: 0;
+            border-radius: 3px;
+            background-color: #4F46E5;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style> -->
 
 
 </head>
