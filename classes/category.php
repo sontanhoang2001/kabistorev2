@@ -41,7 +41,7 @@ class category
 	// hiển thị loại sản phẩm
 	public function show_category()
 	{
-		$query = "SELECT * FROM tbl_category order by catId asc ";
+		$query = "SELECT * FROM tbl_category order by catId desc";
 		$result = $this->db->select($query);
 		return $result;
 	}

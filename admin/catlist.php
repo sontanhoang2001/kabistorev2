@@ -17,58 +17,80 @@ if (!isset($_GET['delid']) || $_GET['delid'] == NULL) {
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Thêm Danh mục sản phẩm</h1>
-		<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-	</div>
+	<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+	<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+		For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
-	<!-- Content Row -->
-	<div class="row">
-		<!-- Earnings (Monthly) Card Example -->
-		<div class="col-xl-6 col-md-12 mb-12">
-			<div class="card border-left-success shadow h-100 py-2">
-				<div class="card-body">
-					<div class="box round first grid">
-						<h2>Danh mục sản phẩm</h2>
-						<div class="block">
-							<?php
-							if (isset($delCat)) {
-								echo $delCat;
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các loại sản phẩm</h6>
+			<?php
+			if (isset($delCat)) {
+				echo $delCat;
+			}
+			?>
+		</div>
+
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered display datatable table-striped" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Loại sản phẩm</th>
+							<th>Tùy chọn</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>No.</th>
+							<th>Loại sản phẩm</th>
+							<th>Tùy chọn</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						<?php
+						$show_cat = $cat->show_category();
+						if ($show_cat) {
+							$i = 0;
+							while ($result = $show_cat->fetch_assoc()) {
+								$i++;
+
+						?>
+								<tr class="odd gradeX">
+									<td><?php echo $i; ?></td>
+									<td><?php echo $result['catName']; ?></td>
+
+									<td>
+
+										<a href="catEdit.php?catid=<?php echo $result['catId']; ?>" class="btn btn-warning btn-icon-split">
+											<span class="icon text-white-50">
+												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+											</span>
+											<span class="text">Sửa</span>
+										</a>
+										<a onclick="return confirm('Bạn có thật sự muốn xóa???')" href="?delid=<?php echo $result['catId'] ?>" class="btn btn-danger btn-icon-split">
+											<span class="icon text-white-50">
+												<i class="fas fa-trash"></i>
+											</span>
+											<span class="text">Xóa</span>
+										</a>
+									</td>
+								</tr>
+						<?php
 							}
-							?>
-							<table class="data display datatable table-striped" id="example">
-								<thead>
-									<tr>
-										<th>No.</th>
-										<th>Category name</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									$show_cat = $cat->show_category();
-									if ($show_cat) {
-										$i = 0;
-										while ($result = $show_cat->fetch_assoc()) {
-											$i++;
-
-									?>
-											<tr class="odd gradeX">
-												<td><?php echo $i; ?></td>
-												<td><?php echo $result['catName']; ?></td>
-												<td><a class="btn btnn btn-warning" href="catEdit.php?catid=<?php echo $result['catId']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> &nbsp; <a class="btn btnn btn-danger" onclick="return confirm('Are you sure???')" href="?delid=<?php echo $result['catId'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Detale</a></td>
-											</tr>
-									<?php
-										}
-									}
-									?>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
+						}
+						?>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+
 </div>
+<!-- /.container-fluid -->
+
+
+
 <?php include 'inc/footer.php'; ?>
