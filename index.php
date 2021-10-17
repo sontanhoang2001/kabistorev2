@@ -10,7 +10,6 @@ include 'inc/slider.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 
-<link rel="stylesheet" href="css/toaster/bootstrap-toaster.css" />
 
 
 <!-- API Voice Robot -->
@@ -76,7 +75,7 @@ include 'inc/slider.php';
                                 <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img src="<?php echo $product_img ?>">
+                                        <img data-src="<?php echo $product_img ?>" class="lazy">
                                         <ul class="card-button-shop">
                                             <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                             <?php
@@ -99,14 +98,14 @@ include 'inc/slider.php';
                                             }
                                             ?>
                                             <li>
-                                                <img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                <img style="width: 1px;" class="lazy img-clone" data-src="<?php echo $product_img ?>" alt="cart icon" />
                                                 <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                             </li>
                                             <!-- <a class="add_to_cart" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a> -->
                                         </ul>
 
                                         <!-- <button id="add_to_cart_effect_<?php echo $productId ?>" class="button add_to_cart_effect" type="button">
-                                            <img class="icon" src="assets/images/cart-sm.png" alt="cart icon" />
+                                            <img class="icon" data-src="assets/images/cart-sm.png" alt="cart icon" />
                                             Add to cart
                                         </button> -->
 
@@ -185,7 +184,7 @@ include 'inc/slider.php';
                                     <!-- Product Image -->
                                     <div class="product-img">
                                         <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $result['catId'] ?>smem.html">
-                                            <img src="admin/uploads/<?php echo $result['image'] ?>" alt="">
+                                            <img data-src="admin/uploads/<?php echo $result['image'] ?>" class="lazy">
                                             <h5 class="categories_name"><?php echo $catName; ?></h5>
                                         </a>
                                         <!-- Product Badge -->
@@ -369,10 +368,10 @@ include 'inc/slider.php';
                             ?>
                                     <!-- Single Product -->
 
-                                    <div id="single-product-wrapper"  class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
+                                    <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                         <!-- Product Image -->
                                         <div class="product-img">
-                                            <img src="<?php echo $product_img ?>">
+                                            <img data-src="<?php echo $product_img ?>" class="lazy">
                                             <ul class="card-button-shop">
                                                 <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                                 <?php
@@ -395,14 +394,14 @@ include 'inc/slider.php';
                                                 }
                                                 ?>
                                                 <li>
-                                                    <img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                    <img style="width: 1px;" class="lazy img-clone" data-src="<?php echo $product_img ?>" alt="cart icon" />
                                                     <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                                 </li>
                                                 <!-- <a class="add_to_cart" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a> -->
                                             </ul>
 
                                             <!-- <button id="add_to_cart_effect_<?php echo $productId ?>" class="button add_to_cart_effect" type="button">
-                                            <img class="icon" src="assets/images/cart-sm.png" alt="cart icon" />
+                                            <img class="icon" data-src="assets/images/cart-sm.png" alt="cart icon" />
                                             Add to cart
                                         </button> -->
 
@@ -470,7 +469,7 @@ include 'inc/slider.php';
 
             <!-- Gallery item -->
             <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
+                <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" class="lazy img-fluid card-img-top" lazy>
                     <div class="p-4">
                         <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
                         <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
@@ -485,7 +484,7 @@ include 'inc/slider.php';
 
             <!-- Gallery item -->
             <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
+                <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" class="lazy img-fluid card-img-top" lazy>
                     <div class="p-4">
                         <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
                         <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
@@ -500,7 +499,7 @@ include 'inc/slider.php';
 
             <!-- Gallery item -->
             <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
+                <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" class="lazy img-fluid card-img-top" lazy>
                     <div class="p-4">
                         <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
                         <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
@@ -515,7 +514,7 @@ include 'inc/slider.php';
 
             <!-- Gallery item -->
             <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
+                <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" class="lazy img-fluid card-img-top">
                     <div class="p-4">
                         <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
                         <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
@@ -529,6 +528,7 @@ include 'inc/slider.php';
             <!-- End -->
         </div>
     </div>
+
 
 
     <script>
@@ -625,8 +625,6 @@ include 'inc/slider.php';
     <!--Main layout-->
 
     <!-- ##### New Arrivals Area End ##### -->
-
-
 </body>
 
 <!-- js -->
@@ -668,15 +666,20 @@ include 'inc/slider.php';
 </script> -->
 <script src="js/ajax_wishlist-and-cart.js"></script>
 <script src="js/function.js"></script>
-<script src="js/toaster/bootstrap-toaster.min.js"></script>
+
+<!-- cdnjs -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
 <script>
-    $(document).ready(function() {
-        let toast = {
-            title: "Success",
-            message: "Tên loại sản phẩm này đã tồn tại trong hệ thống!!!",
-            status: TOAST_STATUS.SUCCESS,
-            timeout: 590000
-        }
-        Toast.create(toast);
+    $(function() {
+        $('.lazy').Lazy({
+            // your configuration goes here
+            scrollDirection: 'vertical',
+            effect: 'fadeIn',
+            visibleOnly: true,
+            onError: function(element) {
+                console.log('error loading ' + element.data('src'));
+            }
+        });
     });
 </script>
