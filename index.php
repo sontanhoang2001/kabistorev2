@@ -676,6 +676,8 @@ include 'inc/slider.php';
             // your configuration goes here
             scrollDirection: 'vertical',
             effect: 'fadeIn',
+            // effectTime: 1000,
+            // threshold: 0,
             visibleOnly: true,
             onError: function(element) {
                 console.log('error loading ' + element.data('src'));

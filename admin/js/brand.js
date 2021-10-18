@@ -1,8 +1,4 @@
-var indexCountMessage = 0;
-
-// Toast.setMaxCount(6);
-
-function add_Category() {
+function add_Brand() {
 
     $("input[name='catName']").keyup(function (event) {
 
@@ -30,38 +26,39 @@ function add_Category() {
                     switch (Status) {
                         case 0: {
                             var message = "Bạn chưa nhập loại sản phẩm!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: Lỗi!');
-                            toast.change(message + '...', 2000);
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 1: {
                             $("input[name='catName']").val("");
                             var message = "Thêm loại sản phẩm thành công!";
-                            let toast = $.niceToast.success('<strong>Success</strong>: Thành công!');
-                            toast.change(message + '...', 2000);
+                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                            toast.change('Đã được thêm vào danh sách...', 3000);
                             break;
                         }
                         case 2: {
                             var message = "Thêm loại sản phẩm thất bại!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: Lỗi!');
-                            toast.change(message + '...', 2000);
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 3: {
                             var message = "Tên loại sản phẩm này đã tồn tại!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: Lỗi!');
-                            toast.change(message + '...', 2000);
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         default: {
-                            var message = "Lỗi máy chủ!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: Lỗi!');
-                            toast.change(message + '...', 2000);
+                            var message = "Error máy chủ!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                         }
                     }
                 }, error: function (data) {
-                    let toast = $.niceToast.error('<strong>Error</strong>: Lỗi!');
-                    toast.change(message + '...', 2000);
+                    var message = "Error máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
 
             });
@@ -136,30 +133,35 @@ function update_del_Category() {
                     console.log(data);
                     switch (Status) {
                         case 0: {
-                            $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Bạn chưa nhập tên loại sản phẩm!!!</div>');
-                            $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                            var message = "Bạn chưa nhập tên loại sản phẩm!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 1: {
                             $("#myModal .close").click()
                             $('tbody tr td').eq((tr_index * 3) + 1).text(categoryName);
-                            $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Cập nhật loại sản phẩm thành công!</div>');
-                            $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                            var message = "Cập nhật loại sản phẩm thành công!";
+                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                            toast.change('Đã Lưu và thay đổi...', 3000);
                             break;
                         }
                         case 2: {
-                            $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Cập nhật loại sản phẩm thất bại!!!</div>');
-                            $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                            var message = "Cập nhật loại sản phẩm thất bại!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         default: {
-                            $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Lỗi máy chủ!!!</div>');
-                            $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                            var message = "Lỗi máy chủ!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                         }
                     }
                 }, error: function (data) {
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Lỗi máy chủ!!!</div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
             });
         }
@@ -182,26 +184,29 @@ function update_del_Category() {
                 Status = JSON.parse(data).status;
                 switch (Status) {
                     case 0: {
-                        $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Đã xóa 1 loại sản phẩm thất bại!!!</div>');
-                        $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        var message = "Đã xóa 1 loại sản phẩm thất bại!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
                         break;
                     }
                     case 1: {
                         $("tr.gradeX").eq(tr_index).css("display", "none");
-                        $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa 1 loại sản phẩm thành công!</div>');
-                        $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        var message = "Xóa 1 loại sản phẩm thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã loại bỏ khỏi bảng...', 3000);
                         break;
                     }
                     default: {
-                        $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Lỗi máy chủ!!!</div>');
-                        $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
                     }
                 }
             }, error: function (data) {
-                $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Lỗi máy chủ!!!</div>');
-                $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
             }
         });
-        indexCountMessage++;
     });
 }

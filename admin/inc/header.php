@@ -103,9 +103,23 @@ header("Cache-Control: max-age=2592000");
                 </a>
                 <div id="category" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Chỉ sửa doanh mục:</h6>
-                        <a class="collapse-item" href="catAdd"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm danh mục</a>
-                        <a class="collapse-item" href="catList"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                        <h6 class="collapse-header">Quản lý doanh mục:</h6>
+                        <a class="collapse-item" href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm danh mục</a>
+                        <a class="collapse-item" href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#brand" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fa fa-university" aria-hidden="true"></i>
+                    <span>Thương hiệu</span>
+                </a>
+                <div id="brand" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý thương hiệu:</h6>
+                        <a class="collapse-item" href="add-brand"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm thương hiệu</a>
+                        <a class="collapse-item" href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
                     </div>
                 </div>
             </li>

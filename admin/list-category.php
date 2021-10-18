@@ -14,7 +14,7 @@ $cat = new category();
 	<h1 class="h3 mb-2 text-gray-800">Quản lý loại sản phẩm</h1>
 	<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
 		For more information about DataTables.
-		<br><a  href="catAdd"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm loại sản phẩm</a>.
+		<br><a href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm loại sản phẩm</a>.
 	</p>
 
 	<!-- DataTales Example -->
@@ -55,10 +55,10 @@ $cat = new category();
 									<td><?php echo $i; ?></td>
 									<td><?php echo $result['catName']; ?></td>
 									<td>
-										<a id="editCategory" data-id="<?php echo $categoryID ?>" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#myModal" contenteditable="false">
+										<a id="editCategory" data-id="<?php echo $categoryID ?>" class="btn" data-toggle="modal" data-target="#myModal" contenteditable="false">
 											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 										</a>
-										<a id="delCategory" data-id="<?php echo $categoryID ?>" class="btn btn-danger btn-circle">
+										<a id="delCategory" data-id="<?php echo $categoryID ?>" class="btn">
 											<i class="fas fa-trash"></i>
 										</a>
 										<!-- <a id="delCategory" onclick="return confirm('Bạn có thật sự muốn xóa???')" href="?delid=<?php echo $result['catId'] ?>" class="btn btn-danger btn-circle">
@@ -107,8 +107,36 @@ $cat = new category();
 	</div>
 </div>
 
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delModal">
+	Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModallLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="delModallLabel">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
 <?php include 'inc/footer.php'; ?>
-<script src="js/ajax.js"></script>
+<script src="js/category.js"></script>
 <script>
 	update_del_Category();
 </script>

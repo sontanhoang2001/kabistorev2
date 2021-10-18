@@ -47,7 +47,13 @@ $cat = new category();
                             </form>
                         </div>
                     </div>
+                    <div class="text-right">
+                        
+                        <a href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem danh sách</a>
+                    </div>
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -58,7 +64,7 @@ $cat = new category();
 
 
 <?php include 'inc/footer.php'; ?>
-<script src="js/ajax.js"></script>
+<script src="js/category.js"></script>
 <script>
     add_Category();
 </script>
