@@ -26,21 +26,28 @@ class brand
 		//mysqli gọi 2 biến. (catName and link) biến link -> gọi conect db từ file db
 
 		if (empty($brandName)) {
-			$alert = "<span class='error'>Brand must be not empty</span>";
-			return $alert;
+			// 0 brandName đang bỏ trống
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
-			$query = "INSERT INTO tbl_brand(brandName) VALUES('$brandName') ";
-			$result = $this->db->insert($query);
-			if ($result) {
-				$alert = "<span class='success'>Insert brand Successfully</span>";
-				return $alert;
+			$check = "SELECT brandName FROM tbl_brand WHERE brandName = '$brandName'";
+			$result_check = $this->db->select($check);
+			if ($result_check) {
+				// brandName đã tồn tại
+				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				$alert = "<span class='error'>Insert brand NOT Success</span>";
-				return $alert;
+				$query = "INSERT INTO tbl_brand(brandName) VALUES('$brandName') ";
+				$result = $this->db->insert($query);
+				if ($result) {
+					// thành công
+					return json_encode($result_json[] = ['status' => 1]);
+				} else {
+					// thất bại
+					return json_encode($result_json[] = ['status' => 2]);
+				}
 			}
 		}
 	}
-	
+
 	public function show_brand()
 	{
 		$query = "SELECT * FROM tbl_brand order by brandId desc";
@@ -76,36 +83,46 @@ class brand
 		$result = $this->db->select($query);
 		return $result;
 	}
-	public function update_brand($brandName, $id)
+	public function update_brand($brandId, $brandName)
 	{
-		$brandName = $this->fm->validation($brandName); //gọi ham validation từ file Format để ktra
+		$brandName = $this->fm->validation($brandName);
 		$brandName = mysqli_real_escape_string($this->db->link, $brandName);
-		$id = mysqli_real_escape_string($this->db->link, $id);
+		$brandId = mysqli_real_escape_string($this->db->link, $brandId);
 		if (empty($brandName)) {
-			$alert = "<span class='error'>Brand must be not empty</span>";
-			return $alert;
+			// brandName ko đã bỏ trống
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
-			$query = "UPDATE tbl_brand SET brandName= '$brandName' WHERE brandId = '$id' ";
-			$result = $this->db->update($query);
-			if ($result) {
-				$alert = "<span class='success'>Brand Update Successfully</span>";
-				return $alert;
+			$check = "SELECT brandName FROM tbl_brand WHERE brandName = '$brandName'";
+			$result_check = $this->db->select($check);
+			if ($result_check) {
+				// brandName đã tồn tại
+				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				$alert = "<span class='error'>Update Brand NOT Success</span>";
-				return $alert;
+				$query = "UPDATE tbl_brand SET brandName= '$brandName' WHERE brandId = '$brandId' ";
+				$result = $this->db->update($query);
+				if ($result) {
+					// thành công
+					return json_encode($result_json[] = ['status' => 1]);
+				} else {
+					// thất bại
+					return json_encode($result_json[] = ['status' => 2]);
+				}
 			}
 		}
 	}
-	public function del_brand($id)
+
+	public function del_brand($brandId)
 	{
-		$query = "DELETE FROM tbl_brand where brandId = '$id' ";
+		$brandId = $this->fm->validation($brandId);
+		$brandId = mysqli_real_escape_string($this->db->link, $brandId);
+		$query = "DELETE FROM tbl_brand where brandId = '$brandId' ";
 		$result = $this->db->delete($query);
 		if ($result) {
-			$alert = "<span class='success'>Brand Deleted Successfully</span>";
-			return $alert;
+			// thành công
+			return json_encode($result_json[] = ['status' => 1]);
 		} else {
-			$alert = "<span class='success'>Brand Deleted Not Success</span>";
-			return $alert;
+			// thất bại
+			return json_encode($result_json[] = ['status' => 0]);
 		}
 	}
 }

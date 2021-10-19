@@ -60,10 +60,8 @@ function add_Category() {
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                     toast.change('Vui lòng thử lại...', 3500);
                 }
-
             });
         }
-        indexCountMessage++;
     });
 }
 
@@ -71,6 +69,7 @@ function add_Category() {
 function update_del_Category() {
     var categoryID;
     var categoryNameOld;
+    // lấy dữ liệu row table hiện tại
     $(".btn[data-target='#myModal']").click(function () {
         categoryID = $(this).attr("data-id");
         var columnHeadings = $("thead th").map(function () {
@@ -100,10 +99,13 @@ function update_del_Category() {
     // });
 
 
+
+
+
+
     var tr_index;
     $('table tr').click(function () {
         tr_index = $(this).index();
-        console.log(tr_index);
     });
 
 
@@ -130,7 +132,6 @@ function update_del_Category() {
                 },
                 success: function (data) {
                     Status = JSON.parse(data).status;
-                    console.log(data);
                     switch (Status) {
                         case 0: {
                             var message = "Bạn chưa nhập tên loại sản phẩm!";
@@ -139,7 +140,7 @@ function update_del_Category() {
                             break;
                         }
                         case 1: {
-                            $("#myModal .close").click()
+                            $("#myModal .close").click();
                             $('tbody tr td').eq((tr_index * 3) + 1).text(categoryName);
                             var message = "Cập nhật loại sản phẩm thành công!";
                             let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
@@ -150,6 +151,12 @@ function update_del_Category() {
                             var message = "Cập nhật loại sản phẩm thất bại!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
+                            break;
+                        }
+                        case 3: {
+                            var message = "Loại sản phẩm vừa nhập đã tồn tại!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng nhập lại...', 3500);
                             break;
                         }
                         default: {
@@ -165,48 +172,63 @@ function update_del_Category() {
                 }
             });
         }
-        indexCountMessage++;
+    });
+
+
+
+    // lấy dữ liệu row table hiện tại
+    $(".btn[data-target='#delModal']").click(function () {
+        categoryID = $(this).attr("data-id");
+        var columnHeadings = $("thead th").map(function () {
+            return $(this).text();
+        }).get();
+        columnHeadings.pop();
+        var columnValues = $(this).parent().siblings().map(function () {
+            return $(this).text();
+        }).get();
+        $("#delNoModel").val(columnValues[0]);
+        $("#delCategoryNameModel").val(columnValues[1]);
+        categoryNameOld = columnValues[1];
     });
 
     // xóa loại sản phẩm
-    // $("table tr a#delCategory").click(function (event) {
-    //     tr_index = $(this).index();
-    //     var categoryID = $(this).attr("data-id");
-    //     event.preventDefault();
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "~/../callbackPartial/category.php",
-    //         data: {
-    //             case: 3,
-    //             categoryID: categoryID
-    //         },
-    //         success: function (data) {
-    //             Status = JSON.parse(data).status;
-    //             switch (Status) {
-    //                 case 0: {
-    //                     var message = "Đã xóa 1 loại sản phẩm thất bại!";
-    //                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-    //                     toast.change('Vui lòng thử lại...', 3500);
-    //                     break;
-    //                 }
-    //                 case 1: {
-    //                     $("tr.gradeX").eq(tr_index).css("display", "none");
-    //                     var message = "Xóa 1 loại sản phẩm thành công!";
-    //                     let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-    //                     toast.change('Đã loại bỏ khỏi bảng...', 3000);
-    //                     break;
-    //                 }
-    //                 default: {
-    //                     var message = "Lỗi máy chủ!";
-    //                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-    //                     toast.change('Vui lòng thử lại...', 3500);
-    //                 }
-    //             }
-    //         }, error: function (data) {
-    //             var message = "Lỗi máy chủ!";
-    //             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-    //             toast.change('Vui lòng thử lại...', 3500);
-    //         }
-    //     });
-    // });
+    $("#delSubmit").click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/category.php",
+            data: {
+                case: 3,
+                categoryID: categoryID
+            },
+            success: function (data) {
+                Status = JSON.parse(data).status;
+                switch (Status) {
+                    case 0: {
+                        var message = "Đã xóa 1 loại sản phẩm thất bại!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 1: {
+                        $("#delModal .close").click();
+                        $("tr.gradeX").eq(tr_index).css("display", "none");
+                        var message = "Xóa 1 loại sản phẩm thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã loại bỏ khỏi bảng...', 3000);
+                        break;
+                    }
+                    default: {
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                    }
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
+    });
 }

@@ -1,26 +1,24 @@
 ﻿<?php include 'inc/header.php'; ?>
-<?php include '../classes/category.php';  ?>
+<?php include '../classes/brand.php';  ?>
 <?php
 // gọi class category
-$cat = new category();
-
+$brand = new brand();
 ?>
-
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Quản lý loại sản phẩm</h1>
+	<h1 class="h3 mb-2 text-gray-800">Quản lý thương hiệu</h1>
 	<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
 		For more information about DataTables.
-		<br><a href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm loại sản phẩm</a>.
+		<br><a href="add-brand"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm thương hiệu</a>.
 	</p>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4 mt-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các loại sản phẩm</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các thương hiệu</h6>
 		</div>
 
 		<div class="card-body">
@@ -29,31 +27,29 @@ $cat = new category();
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th>Loại sản phẩm</th>
+							<th>thương hiệu</th>
 							<th>Tùy chọn</th>
 						</tr>
 					</thead>
 					<!-- <tfoot>
                         <tr>
                             <th>No.</th>
-                            <th>Loại sản phẩm</th>
+                            <th>thương hiệu</th>
                             <th>Tùy chọn</th>
                         </tr>
                     </tfoot> -->
 					<tbody>
 						<?php
-						$show_cat = $cat->show_category();
-						if ($show_cat) {
+						$show_brand = $brand->show_brand();
+						if ($show_brand) {
 							$i = 0;
-							$tr_index = 2;
-
-							while ($result = $show_cat->fetch_assoc()) {
+							while ($result = $show_brand->fetch_assoc()) {
 								$i++;
-								$categoryID = $result['catId'];
+								$categoryID = $result['brandId'];
 						?>
 								<tr class="odd gradeX">
 									<td><?php echo $i; ?></td>
-									<td><?php echo $result['catName']; ?></td>
+									<td><?php echo $result['brandName']; ?></td>
 									<td>
 										<a id="editCategory" data-id="<?php echo $categoryID ?>" class="btn" data-toggle="modal" data-target="#myModal" contenteditable="false">
 											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -61,9 +57,6 @@ $cat = new category();
 										<a id="delCategory" data-id="<?php echo $categoryID ?>" class="btn" data-toggle="modal" data-target="#delModal">
 											<i class="fas fa-trash"></i>
 										</a>
-										<!-- <a id="delCategory" onclick="return confirm('Bạn có thật sự muốn xóa???')" href="?delid=<?php echo $result['catId'] ?>" class="btn btn-danger btn-circle">
-                                            <i class="fas fa-trash"></i>
-                                        </a> -->
 									</td>
 								</tr>
 						<?php
@@ -81,7 +74,7 @@ $cat = new category();
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Cập nhật loại sản phẩm</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Cập nhật thương hiệu</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -94,14 +87,14 @@ $cat = new category();
 						<input type="text" class="form-control" id="noModel" readonly>
 					</div>
 					<div class="form-group">
-						<label for="message-text" class="col-form-label">Loại sản phẩm:</label>
-						<input class="form-control" id="categoryNameModel"></input>
+						<label for="message-text" class="col-form-label">thương hiệu:</label>
+						<input class="form-control" id="brandNameModel"></input>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-				<button type="button" id="updateCategory" class="btn btn-primary">Lưu thay đổi</button>
+				<button type="button" id="updateBrand" class="btn btn-primary">Lưu thay đổi</button>
 			</div>
 		</div>
 	</div>
@@ -112,7 +105,7 @@ $cat = new category();
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="delModallLabel">Xóa loại sản phẩm</h5>
+				<h5 class="modal-title" id="delModallLabel">Xóa thương hiệu</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -124,8 +117,8 @@ $cat = new category();
 						<input type="text" class="form-control" id="delNoModel" readonly>
 					</div>
 					<div class="form-group">
-						<label for="message-text" class="col-form-label">Loại sản phẩm:</label>
-						<input class="form-control" id="delCategoryNameModel"></input>
+						<label for="message-text" class="col-form-label">thương hiệu:</label>
+						<input class="form-control" id="delBrandNameModel"></input>
 					</div>
 				</form>
 			</div>
@@ -137,7 +130,7 @@ $cat = new category();
 	</div>
 </div>
 <?php include 'inc/footer.php'; ?>
-<script src="js/category.js"></script>
+<script src="js/brand.js"></script>
 <script>
-	update_del_Category();
+	update_del_Brand();
 </script>

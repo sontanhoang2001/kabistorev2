@@ -77,14 +77,21 @@ class category
 			// 0 catName ko đc bỏ trống
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
-			$query = "UPDATE tbl_category SET catName= '$catName' WHERE catId = '$catID'";
-			$result = $this->db->update($query);
-			if ($result) {
-				// 1 Cập nhật thành công
-				return json_encode($result_json[] = ['status' => 1]);
+			$check = "SELECT catName FROM tbl_category WHERE catName = '$catName'";
+			$resultCheck = $this->db->select($check);
+			if ($resultCheck) {
+				// 3 catName đã tồn tại
+				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				// 1 Cập nhật thất bại
-				return json_encode($result_json[] = ['status' => 2]);
+				$query = "UPDATE tbl_category SET catName= '$catName' WHERE catId = '$catID'";
+				$result = $this->db->update($query);
+				if ($result) {
+					// 1 Cập nhật thành công
+					return json_encode($result_json[] = ['status' => 1]);
+				} else {
+					// 1 Cập nhật thất bại
+					return json_encode($result_json[] = ['status' => 2]);
+				}
 			}
 		}
 	}

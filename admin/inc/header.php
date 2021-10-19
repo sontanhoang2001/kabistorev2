@@ -98,7 +98,7 @@ header("Cache-Control: max-age=2592000");
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#category" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                <i class="fa fa-book" aria-hidden="true"></i>
                     <span>Loại sản phẩm</span>
                 </a>
                 <div id="category" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -112,7 +112,7 @@ header("Cache-Control: max-age=2592000");
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#brand" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fa fa-university" aria-hidden="true"></i>
+                    <i class="fa fa-university" aria-hidden="true"></i>
                     <span>Thương hiệu</span>
                 </a>
                 <div id="brand" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -120,6 +120,34 @@ header("Cache-Control: max-age=2592000");
                         <h6 class="collapse-header">Quản lý thương hiệu:</h6>
                         <a class="collapse-item" href="add-brand"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm thương hiệu</a>
                         <a class="collapse-item" href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#warehouse" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fa fa-truck" aria-hidden="true"></i>
+                    <span>Kho hàng</span>
+                </a>
+                <div id="warehouse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý kho:</h6>
+                        <a class="collapse-item" href="list-warehouse"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách kho</a>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#slider" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fa fa-television" aria-hidden="true"></i>
+                    <span>Slider</span>
+                </a>
+                <div id="slider" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý slider:</h6>
+                        <a class="collapse-item" href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm slider</a>
+                        <a class="collapse-item" href="list-slider"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
                     </div>
                 </div>
             </li>

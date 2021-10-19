@@ -1,6 +1,6 @@
 function add_Brand() {
 
-    $("input[name='catName']").keyup(function (event) {
+    $("input[name='brandName']").keyup(function (event) {
 
         if ($(this).val().length == 0) {
             $("button[name='submit']").attr("disabled", true);
@@ -11,40 +11,40 @@ function add_Brand() {
 
     $(document).submit(function (event) {
         event.preventDefault();
-        var categoryName = $("input[name='catName']").val();
-        if (categoryName != "") {
+        var brandName = $("input[name='brandName']").val();
+        if (brandName != "") {
             $.ajax({
                 type: "POST",
-                url: "~/../callbackPartial/category.php",
+                url: "~/../callbackPartial/brand.php",
                 data: {
                     case: 1,
-                    categoryName: categoryName
+                    brandName: brandName
                 },
                 success: function (data) {
                     Status = JSON.parse(data).status;
                     console.log(Status);
                     switch (Status) {
                         case 0: {
-                            var message = "Bạn chưa nhập loại sản phẩm!";
+                            var message = "Bạn chưa nhập tên thương hiệu!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 1: {
-                            $("input[name='catName']").val("");
-                            var message = "Thêm loại sản phẩm thành công!";
+                            $("input[name='brandName']").val("");
+                            var message = "Thêm tên thương hiệu thành công!";
                             let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                             toast.change('Đã được thêm vào danh sách...', 3000);
                             break;
                         }
                         case 2: {
-                            var message = "Thêm loại sản phẩm thất bại!";
+                            var message = "Thêm tên thương hiệu thất bại!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 3: {
-                            var message = "Tên loại sản phẩm này đã tồn tại!";
+                            var message = "Tên thương hiệu này đã tồn tại!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
                             break;
@@ -60,19 +60,18 @@ function add_Brand() {
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                     toast.change('Vui lòng thử lại...', 3500);
                 }
-
             });
         }
-        indexCountMessage++;
     });
 }
 
 
-function update_del_Category() {
-    var categoryID;
-    var categoryNameOld;
+function update_del_Brand() {
+    var brandId;
+    var brandNameOld;
+    // lấy dữ liệu row table hiện tại
     $(".btn[data-target='#myModal']").click(function () {
-        categoryID = $(this).attr("data-id");
+        brandID = $(this).attr("data-id");
         var columnHeadings = $("thead th").map(function () {
             return $(this).text();
         }).get();
@@ -92,8 +91,8 @@ function update_del_Category() {
         // $('.modal-body').html(modalBody);
 
         $("#noModel").val(columnValues[0]);
-        $("#categoryNameModel").val(columnValues[1]);
-        categoryNameOld = columnValues[1];
+        $("#brandNameModel").val(columnValues[1]);
+        brandNameOld = columnValues[1];
     });
     // $('.modal-footer .btn-primary').click(function() {
     //     $('form[name="modalForm"]').submit();
@@ -103,53 +102,58 @@ function update_del_Category() {
     var tr_index;
     $('table tr').click(function () {
         tr_index = $(this).index();
-        console.log(tr_index);
     });
 
 
-    $("#categoryNameModel").keyup(function (event) {
+    $("#brandNameModel").keyup(function (event) {
         if ($(this).val().length == 0) {
-            $("#updateCategory").attr("disabled", true);
+            $("#updateBrand").attr("disabled", true);
         } else {
-            $("#updateCategory").removeAttr("disabled");
+            $("#updateBrand").removeAttr("disabled");
         }
     });
 
-    // Cập nhật loại sản phẩm
-    $("#updateCategory").click(function (event) {
+    // Cập nhật tên thương hiệu
+    $("#updateBrand").click(function (event) {
         event.preventDefault();
-        var categoryName = $("#categoryNameModel").val();
-        if (categoryName != categoryNameOld) {
+        var brandName = $("#brandNameModel").val();
+        if (brandName != brandNameOld) {
             $.ajax({
                 type: "POST",
-                url: "~/../callbackPartial/category.php",
+                url: "~/../callbackPartial/brand.php",
                 data: {
                     case: 2,
-                    categoryID: categoryID,
-                    categoryName: categoryName
+                    brandID: brandID,
+                    brandName: brandName
                 },
                 success: function (data) {
-                    Status = JSON.parse(data).status;
                     console.log(data);
+                    Status = JSON.parse(data).status;
                     switch (Status) {
                         case 0: {
-                            var message = "Bạn chưa nhập tên loại sản phẩm!";
+                            var message = "Bạn chưa nhập tên thương hiệu!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 1: {
-                            $("#myModal .close").click()
-                            $('tbody tr td').eq((tr_index * 3) + 1).text(categoryName);
-                            var message = "Cập nhật loại sản phẩm thành công!";
+                            $("#myModal .close").click();
+                            $('tbody tr td').eq((tr_index * 3) + 1).text(brandName);
+                            var message = "Cập nhật tên thương hiệu thành công!";
                             let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                             toast.change('Đã Lưu và thay đổi...', 3000);
                             break;
                         }
                         case 2: {
-                            var message = "Cập nhật loại sản phẩm thất bại!";
+                            var message = "Cập nhật tên thương hiệu thất bại!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
+                            break;
+                        }
+                        case 3: {
+                            var message = "Tên thương hiệu vừa nhập đã tồn tại!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng nhập lại...', 3500);
                             break;
                         }
                         default: {
@@ -165,35 +169,49 @@ function update_del_Category() {
                 }
             });
         }
-        indexCountMessage++;
     });
 
-    // xóa loại sản phẩm
-    $("table tr a#delCategory").click(function (event) {
-        tr_index = $(this).index();
-        var categoryID = $(this).attr("data-id");
+
+    // lấy dữ liệu row table hiện tại
+    $(".btn[data-target='#delModal']").click(function () {
+        brandID = $(this).attr("data-id");
+        var columnHeadings = $("thead th").map(function () {
+            return $(this).text();
+        }).get();
+        columnHeadings.pop();
+        var columnValues = $(this).parent().siblings().map(function () {
+            return $(this).text();
+        }).get();
+        $("#delNoModel").val(columnValues[0]);
+        $("#delBrandNameModel").val(columnValues[1]);
+       brandNameOld = columnValues[1];
+    });
+
+    // xóa tên thương hiệu
+    $("#delSubmit").click(function (event) {
         event.preventDefault();
         $.ajax({
             type: "POST",
-            url: "~/../callbackPartial/category.php",
+            url: "~/../callbackPartial/brand.php",
             data: {
                 case: 3,
-                categoryID: categoryID
+                brandID: brandID
             },
             success: function (data) {
                 Status = JSON.parse(data).status;
                 switch (Status) {
                     case 0: {
-                        var message = "Đã xóa 1 loại sản phẩm thất bại!";
+                        var message = "Xóa tên thương hiệu thất bại!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
                         break;
                     }
                     case 1: {
+                        $("#delModal .close").click();
                         $("tr.gradeX").eq(tr_index).css("display", "none");
-                        var message = "Xóa 1 loại sản phẩm thành công!";
+                        var message = "Xóa tên thương hiệu thành công!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        toast.change('Đã loại bỏ khỏi bảng...', 3000);
+                        toast.change('Đã bỏ khỏi bảng...', 3000);
                         break;
                     }
                     default: {

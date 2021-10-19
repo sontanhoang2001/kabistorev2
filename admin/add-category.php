@@ -1,26 +1,6 @@
 ﻿<?php
 include 'inc/header.php';
-include '../classes/category.php';  ?>
-<?php
-// gọi class category
-$cat = new category();
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-//     $catName = $_POST['catName'];
-//     $insertCat = $cat->insert_category($catName); // hàm check catName khi submit lên
-// }
-
-// if (!isset($_GET['delid']) || $_GET['delid'] == NULL) {
-//     // echo "<script> window.location = 'catlist.php' </script>";
-
-// } else {
-//     $id = $_GET['delid']; // Lấy catid trên host
-//     $delCat = $cat->del_category($id); // hàm check delete Name khi submit lên
-// }
 ?>
-
-
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -48,8 +28,8 @@ $cat = new category();
                         </div>
                     </div>
                     <div class="text-right">
-                        
-                        <a href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem danh sách</a>
+
+                        <a href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem danh sách đã thêm</a>
                     </div>
 
                 </div>

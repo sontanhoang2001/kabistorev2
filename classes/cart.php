@@ -482,6 +482,8 @@ class cart
 		$get_cart_ordered_detail = $this->db->select($query);
 		return $get_cart_ordered_detail;
 	}
+
+	// Đơn đặt hàng
 	public function get_inbox_cart()
 	{
 		$query = "SELECT id, tbl_product.productId, tbl_product.productName, tbl_product.price , date_order, customer_id, quantity, status

@@ -6,18 +6,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     switch ($case) {
         case 1: {
                 $brandName = $_POST['brandName'];
-                $insertBrand = $brand->insert_brand($brandName);
+                echo $insertBrand = $brand->insert_brand($brandName);
                 break;
             }
         case 2: {
-                $categoryID = $_POST['categoryID'];
-                $categoryName =  $_POST['categoryName'];
-                echo $updateCat = $cat->update_category($categoryID, $categoryName);
+                $brandId = $_POST['brandID'];
+                $brandName =  $_POST['brandName'];
+                echo $updateBrand = $brand->update_brand($brandId, $brandName);
                 break;
             }
         case 3: {
-                $categoryID = $_POST['categoryID'];
-                echo $delCat = $cat->del_category($categoryID);
+                $brandId = $_POST['brandID'];
+                echo $delbrand = $brand->del_brand($brandId);
                 break;
             }
     }
