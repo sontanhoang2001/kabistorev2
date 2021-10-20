@@ -7,7 +7,8 @@ $ct = new cart();
 $fm = new format();
 
 ?>
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="LMMRbqRK"></script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -54,16 +55,15 @@ $fm = new format();
 
 							while ($result = $list_order->fetch_assoc()) {
 								$i++;
-								$orderID = $result['id'];
+								$orderId = $result['id'];
+								$productId = $result['productId'];
 
 						?>
 								<tr class="odd gradeX">
-									<td><?php echo $i; ?></td>
+									<td><?php echo $i ?></td>
 									<td><?php echo (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
 									<td>
-										<a href=""><i class="fa fa-book" aria-hidden="true"></i>
-										</a>
-										<?php echo $result['productName'] ?>
+										<a href="#" class="btn" data-productid="<?php echo $productId ?>" data-toggle="modal" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
 									</td>
 									<td><?php echo $result['quantity'] ?></td>
 									<td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
@@ -77,11 +77,11 @@ $fm = new format();
 										<?php
 										if ($result['status'] == 0) {
 										?>
-											<a href="#" data-status="0" data-orderID="<?php echo $orderID ?>" class="btn" data-toggle="modal" data-target="#statusModal0"><i class="fa fa-clock-o" aria-hidden="true"></i> Chờ duyệt...</a>
+											<a href="#" data-status="0" data-orderid="<?php echo $orderId ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal0"><i class="fa fa-clock-o" aria-hidden="true"></i> Chờ duyệt...</a>
 										<?php
 										} elseif ($result['status'] == 1) {
 										?>
-											<a href="#" data-status="1" data-orderID="<?php echo $orderID ?>" class="btn" data-toggle="modal" data-target="#statusModal1"><i class="fa fa-truck" aria-hidden="true"></i> Đang giao...</a>
+											<a href="#" data-orderid="<?php echo $orderId ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal1"><i class="fa fa-truck" aria-hidden="true"></i> Đang giao...</a>
 										<?php
 										}
 										?>
@@ -98,11 +98,13 @@ $fm = new format();
 	</div>
 </div>
 <!-- /.container-fluid -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+<!-- product Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Cập nhật Đơn hàng</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Thông tin sản phẩm</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -111,22 +113,36 @@ $fm = new format();
 			<div class="modal-body">
 				<form>
 					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">Trạng thái</label>
-						<input type="text" class="form-control" id="noModel" readonly>
+						<div class="fb-post" data-href="https://www.facebook.com/ilovekabistore/posts/117394317351368" data-width="470	" data-show-text="true" data-lazy="true"></div>
 					</div>
 					<div class="form-group">
-						<label for="message-text" class="col-form-label">Đơn hàng:</label>
-						<input class="form-control" id="categoryNameModel"></input>
+						<label for="recipient-name" class="col-form-label">Mã đơn hàng</label>
+						<input type="text" class="form-control" id="noModel" readonly value="345641313493">
 					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">Tên sản phẩm</label>
+						<input type="text" class="form-control" id="noModel" readonly value="Bánh quy bơ">
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">Giá</label>
+						<input type="text" class="form-control" id="noModel" readonly value="19k">
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">Đại lý</label>
+						<input type="text" class="form-control" id="noModel" readonly value="Bobo Shop">
+					</div>
+
 				</form>
 			</div>
 			<div class="modal-footer">
+				<button type="button" id="copyProductCode" class="btn btn-primary">Copy mã sp</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-				<button type="button" id="updateCategory" class="btn btn-primary">Lưu thay đổi</button>
 			</div>
 		</div>
 	</div>
 </div>
+<!-- Load Facebook SDK for JavaScript -->
+
 
 <!-- customer Modal -->
 <!-- <div class="modal fade" id="acceptModal" tabindex="-1" role="dialog" aria-labelledby="acceptModallLabel" aria-hidden="true">
@@ -214,6 +230,7 @@ $fm = new format();
 		</div>
 	</div>
 </div>
+
 <?php include 'inc/footer.php'; ?>
 <script src="js/order.js"></script>
 <script>

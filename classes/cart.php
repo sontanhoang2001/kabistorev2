@@ -494,6 +494,7 @@ class cart
 		on a.address_id = o.address_id
         inner join tbl_customer as c
 		on o.customer_id = c.id
+		Where o.status = '0' OR o.status = '1'
         ORDER BY a.date_create DESC";
 		$get_inbox_order = $this->db->select($query);
 		return $get_inbox_order;

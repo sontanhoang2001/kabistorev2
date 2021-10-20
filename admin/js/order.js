@@ -1,14 +1,25 @@
 
 function order() {
-    var orderID, status;
+    var orderId, status, productId, quantity;
     // lấy dữ liệu row table hiện tại
     $(".btn[data-target='#statusModal0']").click(function () {
         status = $(this).attr("data-status");
-        orderID = $(this).attr("data-orderID");
+        orderId = $(this).attr("data-orderid");
+        productId = $(this).attr("data-productid");
     });
     $(".btn[data-target='#statusModal1']").click(function () {
         status = $(this).attr("data-status");
-        orderID = $(this).attr("data-orderID");
+        orderId = $(this).attr("data-orderid");
+        productId = $(this).attr("data-productid");
+
+        var columnHeadings = $("thead th").map(function () {
+            return $(this).text();
+        }).get();
+        columnHeadings.pop();
+        var columnValues = $(this).parent().siblings().map(function () {
+            return $(this).text();
+        }).get();
+        quantity = columnValues[3];
     });
 
 
@@ -37,33 +48,49 @@ function order() {
         }
     });
 
-    // chỗ này tí thêm function rồi bắt ajax
     // Cập nhật trạng thái đơn hàng
+    // chấp nhận đơn hàng : 1
+    // hủy đơn : 3
     $("#updateStatusBtn0").click(function (event) {
-        alert(statusOrder);
         event.preventDefault();
         $.ajax({
             type: "POST",
             url: "~/../callbackPartial/order.php",
             data: {
-                case: 2,
-                categoryID: categoryID,
-                categoryName: categoryName
+                case: 1,
+                orderId: orderId,
+                num_status: statusOrder
             },
             success: function (data) {
-                Status = JSON.parse(data).status;
-                
+                var Status = JSON.parse(data).status;
+                var acctionMessage;
+                if (statusOrder == 1) {
+                    acctionMessage = "Chấp nhận đơn hàng ";
+                } else if (statusOrder == 3) {
+                    acctionMessage = "Hủy đơn hàng ";
+                }
+
                 switch (Status) {
                     case 0: {
-                        var message = "Cập nhật !";
+                        var message = acctionMessage + " thất bại!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
                         break;
                     }
                     case 1: {
-                        $("#myModal .close").click();
-                        $('tbody tr td').eq((tr_index * 3) + 1).text(categoryName);
-                        var message = "Cập nhật loại sản phẩm thành công!";
+                        // nếu là 1 thì đổi thẻ a
+                        // nếu là 2 thì ẩn row
+                        if (statusOrder == 1) {
+                            // đổi thẻ a
+                            tr_index = tr_index + 1;
+                            $('tbody tr td').eq((tr_index * 6) + tr_index - 1).empty().append('<a href="#" data-status="1" data-orderid="' + orderId + '" data-productid="' + productId + '" class="btn" data-toggle="modal" data-target="#statusModal1"><i class="fa fa-truck" aria-hidden="true"></i> Đang giao...</a>');
+                            $("#statusModal0 .close").click();
+                        } else if (statusOrder == 3) {
+                            // $('tbody tr').eq(tr_index).css("display", "none");
+                            $('tbody tr').eq(tr_index).fadeOut(2000);
+                            $("#statusModal0 .close").click();
+                        }
+                        var message = acctionMessage + " thành công!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                         toast.change('Đã Lưu và thay đổi...', 3000);
                         break;
@@ -83,30 +110,46 @@ function order() {
     });
 
     // Cập nhật trạng thái đơn hàng
+    // Đã đơn hàng : 2
+    // hủy đơn, khách ko nhận hàng : 3
     $("#updateStatusBtn1").click(function (event) {
-        alert(statusOrder);
         event.preventDefault();
+        if (statusOrder == 2) {
+            var num_case = 2;
+        } else if (statusOrder == 4) {
+            var num_case = 1;
+        }
         $.ajax({
             type: "POST",
             url: "~/../callbackPartial/order.php",
             data: {
-                case: 2,
-                categoryID: categoryID,
-                categoryName: categoryName
+                case: num_case,
+                orderId: orderId,
+                num_status: statusOrder,
+                orderId: orderId,
+                productId: productId,
+                quantity: quantity
             },
             success: function (data) {
-                Status = JSON.parse(data).status;
+                var Status = JSON.parse(data).status;
+                var acctionMessage;
+                if (statusOrder == 2) {
+                    acctionMessage = "Đã chọn giao hàng";
+                } else if (statusOrder == 4) {
+                    acctionMessage = "Hủy đơn hàng ";
+                }
+
                 switch (Status) {
                     case 0: {
-                        var message = "Bạn chưa nhập tên loại sản phẩm!";
+                        var message = acctionMessage + " thất bại!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
                         break;
                     }
                     case 1: {
-                        $("#myModal .close").click();
-                        $('tbody tr td').eq((tr_index * 3) + 1).text(categoryName);
-                        var message = "Cập nhật loại sản phẩm thành công!";
+                        $('tbody tr').eq(tr_index).fadeOut(2000);
+                        $("#statusModal1 .close").click();
+                        var message = acctionMessage + " thành công!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                         toast.change('Đã Lưu và thay đổi...', 3000);
                         break;

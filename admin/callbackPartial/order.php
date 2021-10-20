@@ -5,15 +5,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $case = $_POST['case'];
     switch ($case) {
         case 1: {
-                $orderID = $_POST['orderID'];
+                $orderId = $_POST['orderId'];
                 $num_status = $_POST['num_status'];
-                echo $insertCat = $ct->order_status($orderID, $num_status);
+                echo $order_status = $ct->order_status($orderId, $num_status);
                 break;
             }
         case 2: {
-                $productID = $_POST['productID'];
-                $categoryName =  $_POST['categoryName'];
-                echo $updateCat = $ct->delivered($productID, $proid, $qty);
+                $orderId =  $_POST['orderId'];
+                $productId = $_POST['productId'];
+                $quantity = $_POST['quantity'];
+                echo $updateCat = $ct->delivered($orderId, $productId, $quantity);
                 break;
             }
     }
