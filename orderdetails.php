@@ -84,10 +84,10 @@ if ($login_check == false) {
 
 
 								<div class=""><i class="fa fa-money" aria-hidden="true"></i>
-									<p class="p-price"><?php echo $fm->format_currency($result['price']) . ' ₫' ?></p>
+									<p class="p-price"><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></p>
 								</div>
 								<?php
-								if ($status == '0') {
+								if ($status == 0) {
 								?>
 									<td>
 										<div class="status-order float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo 'Đang chờ xác nhận...'; ?></div>
@@ -96,7 +96,7 @@ if ($login_check == false) {
 								} elseif ($status == 1) {
 								?>
 									<td>
-										<div class="status-order float-right">Chờ nhận hàng...</div>
+										<div class="status-order float-right"><i class="fa fa-truck" aria-hidden="true"></i> Chờ nhận hàng...</div>
 									</td>
 								<?php
 								} else {

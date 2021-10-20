@@ -63,7 +63,7 @@ if (isset($_GET['delid'])) {
 					?>
 							<tr class="odd gradeX">
 								<td><?php echo $i; ?></td>
-								<td><?php echo (date('d-m-Y h:m:s',strtotime($result['date_order']))); ?></td>
+								<td><?php echo (date('d-m-Y h:m:s',strtotime($result['date_create']))); ?></td>
 								<td><?php echo $result['productName'] ?> </td>
 								<td><?php echo $result['quantity'] ?></td>
 								<td><?php echo $fm->format_currency($result['price']) . ' VNĐ' ?></td>
@@ -74,7 +74,7 @@ if (isset($_GET['delid'])) {
 									if ($result['status'] == 0) {
 									?>
 
-										<a href="?shiftid=<?php echo $result['id'] ?>&qty=<?php echo $result['quantity'] ?>&proid=<?php echo $result['productId'] ?>&time=<?php echo $result['date_order'] ?>"><i class="fa fa-clock-o" aria-hidden="true"></i> Confirm...
+										<a href="?shiftid=<?php echo $result['id'] ?>&qty=<?php echo $result['quantity'] ?>&proid=<?php echo $result['productId'] ?>&time=<?php echo $result['date_create'] ?>"><i class="fa fa-clock-o" aria-hidden="true"></i> Confirm...
 										<?php
 									} elseif ($result['status'] == 1) {
 										?>

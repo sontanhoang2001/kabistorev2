@@ -464,7 +464,7 @@ class cart
 	public function get_cart_ordered($customer_id, $page, $product_num)
 	{
 		$index_page = ($page - 1) * $product_num;
-		$query = "SELECT p.productName, p.product_code, p.image, p.old_price, p.price, o.id, o.address_id, o.quantity, o.totalPayment, o.status, a.date_create
+		$query = "SELECT p.productName, p.product_code, p.image, o.id, o.address_id, o.quantity, o.totalPayment, o.status, a.date_create
 		FROM tbl_order as o
 		inner join tbl_product as p on o.productId = p.productId
         inner join tbl_address as a on o.address_id = a.address_id
@@ -484,15 +484,19 @@ class cart
 	}
 
 	// Đơn đặt hàng
-	public function get_inbox_cart()
+	public function get_inbox_order()
 	{
-		$query = "SELECT id, tbl_product.productId, tbl_product.productName, tbl_product.price , date_order, customer_id, quantity, status
-		FROM tbl_order
-		inner join tbl_product
-		on tbl_order.productId = tbl_product.productId
-		order by date_order desc";
-		$get_inbox_cart = $this->db->select($query);
-		return $get_inbox_cart;
+		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, a.date_create
+		FROM tbl_order as o
+		inner join tbl_product as p
+		on p.productId = o.productId
+        inner join tbl_address as a
+		on a.address_id = o.address_id
+        inner join tbl_customer as c
+		on o.customer_id = c.id
+        ORDER BY a.date_create DESC";
+		$get_inbox_order = $this->db->select($query);
+		return $get_inbox_order;
 	}
 
 	// chọn giao hàng admin
@@ -510,21 +514,12 @@ class cart
 			while ($result = $get_select->fetch_assoc()) {
 				$soluong_new = $result['product_remain'] - $qty;
 				$qty_soldout = $result['product_soldout'] + $qty;
-
-				$query_soluong = "UPDATE tbl_product SET
-
-					product_remain = '$soluong_new',product_soldout = '$qty_soldout' WHERE productId = '$proid'";
+				$query_soluong = "UPDATE tbl_product SET product_remain = '$soluong_new',product_soldout = '$qty_soldout' WHERE productId = '$proid'";
 				$result = $this->db->update($query_soluong);
 			}
 		}
 
-		$query = "UPDATE tbl_order SET
-
-			status = '1'
-
-			WHERE id = '$id' AND date_order = '$time'";
-
-
+		$query = "UPDATE tbl_order SET status = '1' WHERE id = '$id' AND date_order = '$time'";
 		$result = $this->db->update($query);
 		if ($result) {
 			$msg = "<span class='success'> Cập nhật thành công</span> ";
@@ -552,6 +547,7 @@ class cart
 			return $msg;
 		}
 	}
+	
 	// xác nhận đã giao hàng customer
 	public function shifted_confirm($id, $cusId)
 	{
