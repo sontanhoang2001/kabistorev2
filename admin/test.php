@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -51,4 +51,39 @@
 
 
 
+ -->
 
+
+<?php
+include "../lib/Snoopy.class.php";
+require "../lib/simple_html_dom.php";
+
+// $actual_link = substr($_SERVER['PHP_SELF'], 13);
+
+$_SESSION['is_login'] = true;
+$snoopy = new Snoopy;
+$snoopy->fetch("https://www.facebook.com/ilovekabistore/posts/117394317351368");
+
+$asp =  $snoopy->results;
+// Create DOM from URL or file
+
+$html = str_get_html($asp);
+
+// Find all links
+
+
+$slides_href = $html->find("div.slide a");
+$slides_img = $html->find("div.slide a img");
+$tin_tuyen_sinh_href_first = $html->find("div div div.news-content div.css_tintuc_tbox div a.css_tintuc_link_btitle");
+$tin_tuyen_sinh_title_first = $html->find("div.news-content div.css_tintuc_tbox div a");
+$tin_tuyen_sinh_img_first = $html->find("div div div.news-content div.css_tintuc_tbox div img");
+$tin_tuyen_sinh_content_first = $html->find("div div div.news-content div.css_tintuc_tbox div p");
+$tin_tuyen_sinh_href = $html->find("div.css_tintuc_box a.css_tintuc_link_title");
+$tin_tuyen_sinh_title = $html->find("div.css_tintuc_box a.css_tintuc_link_title p.other-news");
+$tin_tuyen_sinh_img = $html->find("div.css_tintuc_box a.css_tintuc_link_title div img");
+
+?>
+<!-- <base href="https://aptech.cusc.vn/"> -->
+
+<?php
+echo $html;

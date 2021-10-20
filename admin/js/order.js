@@ -42,56 +42,87 @@ function order() {
     $("#updateStatusBtn0").click(function (event) {
         alert(statusOrder);
         event.preventDefault();
-        // $.ajax({
-        //     type: "POST",
-        //     url: "~/../callbackPartial/category.php",
-        //     data: {
-        //         case: 2,
-        //         categoryID: categoryID,
-        //         categoryName: categoryName
-        //     },
-        //     success: function (data) {
-        //         Status = JSON.parse(data).status;
-        //         switch (Status) {
-        //             case 0: {
-        //                 var message = "Bạn chưa nhập tên loại sản phẩm!";
-        //                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-        //                 toast.change('Vui lòng thử lại...', 3500);
-        //                 break;
-        //             }
-        //             case 1: {
-        //                 $("#myModal .close").click();
-        //                 $('tbody tr td').eq((tr_index * 3) + 1).text(categoryName);
-        //                 var message = "Cập nhật loại sản phẩm thành công!";
-        //                 let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-        //                 toast.change('Đã Lưu và thay đổi...', 3000);
-        //                 break;
-        //             }
-        //             case 2: {
-        //                 var message = "Cập nhật loại sản phẩm thất bại!";
-        //                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-        //                 toast.change('Vui lòng thử lại...', 3500);
-        //                 break;
-        //             }
-        //             case 3: {
-        //                 var message = "Loại sản phẩm vừa nhập đã tồn tại!";
-        //                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-        //                 toast.change('Vui lòng nhập lại...', 3500);
-        //                 break;
-        //             }
-        //             default: {
-        //                 var message = "Lỗi máy chủ!";
-        //                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-        //                 toast.change('Vui lòng thử lại...', 3500);
-        //             }
-        //         }
-        //     }, error: function (data) {
-        //         var message = "Lỗi máy chủ!";
-        //         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-        //         toast.change('Vui lòng thử lại...', 3500);
-        //     }
-        // });
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/order.php",
+            data: {
+                case: 2,
+                categoryID: categoryID,
+                categoryName: categoryName
+            },
+            success: function (data) {
+                Status = JSON.parse(data).status;
+                
+                switch (Status) {
+                    case 0: {
+                        var message = "Cập nhật !";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 1: {
+                        $("#myModal .close").click();
+                        $('tbody tr td').eq((tr_index * 3) + 1).text(categoryName);
+                        var message = "Cập nhật loại sản phẩm thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã Lưu và thay đổi...', 3000);
+                        break;
+                    }
+                    default: {
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                    }
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
+    });
 
+    // Cập nhật trạng thái đơn hàng
+    $("#updateStatusBtn1").click(function (event) {
+        alert(statusOrder);
+        event.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/order.php",
+            data: {
+                case: 2,
+                categoryID: categoryID,
+                categoryName: categoryName
+            },
+            success: function (data) {
+                Status = JSON.parse(data).status;
+                switch (Status) {
+                    case 0: {
+                        var message = "Bạn chưa nhập tên loại sản phẩm!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 1: {
+                        $("#myModal .close").click();
+                        $('tbody tr td').eq((tr_index * 3) + 1).text(categoryName);
+                        var message = "Cập nhật loại sản phẩm thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã Lưu và thay đổi...', 3000);
+                        break;
+                    }
+                    default: {
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                    }
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
     });
 
 

@@ -111,7 +111,7 @@ $fm = new format();
 			<div class="modal-body">
 				<form>
 					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">No.</label>
+						<label for="recipient-name" class="col-form-label">Trạng thái</label>
 						<input type="text" class="form-control" id="noModel" readonly>
 					</div>
 					<div class="form-group">
@@ -170,7 +170,7 @@ $fm = new format();
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label for="recipient-name" class="col-form-label">No.</label>
+					<label for="recipient-name" class="col-form-label">Trạng thái</label>
 					<select class="form-control" id="statusOrder0">
 						<option value="0">-Chọn trạng thái-</option>
 						<option value="1">Chấp nhận đơn hàng</option>
@@ -199,7 +199,7 @@ $fm = new format();
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label for="recipient-name" class="col-form-label">No.</label>
+					<label for="recipient-name" class="col-form-label">Trạng thái</label>
 					<select class="form-control" id="statusOrder1">
 						<option value="0">-Chọn trạng thái-</option>
 						<option value="2">Đã giao hàng</option>

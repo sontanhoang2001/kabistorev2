@@ -499,13 +499,27 @@ class cart
 		return $get_inbox_order;
 	}
 
-	// chọn giao hàng admin
-	public function shifted($id, $proid, $qty, $time)
+	// Status 1: chấp nhận đơn hàng -> bắt đầu giao hàng
+	// Status 3: hủy đơn hàng
+	// Status 4: giao hàng thất bại
+	public function order_status($id, $num_status)
+	{
+		$id = mysqli_real_escape_string($this->db->link, $id);
+		$query = "UPDATE tbl_order SET status = '$num_status' WHERE id = '$id'";
+		$result = $this->db->update($query);
+		if ($result) {
+			return json_encode($result_json[] = ['status' => 1]);
+		} else {
+			return json_encode($result_json[] = ['status' => 0]);
+		}
+	}
+
+	// Status 2: Đã giao hàng thành công
+	public function delivered($id, $proid, $qty)
 	{
 		$id = mysqli_real_escape_string($this->db->link, $id);
 		$proid = mysqli_real_escape_string($this->db->link, $proid);
 		$qty = mysqli_real_escape_string($this->db->link, $qty);
-		$time = mysqli_real_escape_string($this->db->link, $time);
 
 		$query_select = "SELECT * FROM tbl_product WHERE productId='$proid'";
 		$get_select = $this->db->select($query_select);
@@ -519,16 +533,50 @@ class cart
 			}
 		}
 
-		$query = "UPDATE tbl_order SET status = '1' WHERE id = '$id' AND date_order = '$time'";
+		$query = "UPDATE tbl_order SET status = '2' WHERE id = '$id'";
 		$result = $this->db->update($query);
 		if ($result) {
-			$msg = "<span class='success'> Cập nhật thành công</span> ";
-			return $msg;
+			// Cập nhật thành công
+			return json_encode($result_json[] = ['status' => 1]);
 		} else {
-			$msg = "<span class='erorr'> Cập nhật thành công</span> ";
-			return $msg;
+			// Cập nhật thất bại
+			return json_encode($result_json[] = ['status' => 0]);
 		}
 	}
+
+
+
+
+	// chọn giao hàng admin
+	// public function shifted($id, $proid, $qty, $time)
+	// {
+	// 	$id = mysqli_real_escape_string($this->db->link, $id);
+	// 	$proid = mysqli_real_escape_string($this->db->link, $proid);
+	// 	$qty = mysqli_real_escape_string($this->db->link, $qty);
+	// 	$time = mysqli_real_escape_string($this->db->link, $time);
+
+	// 	$query_select = "SELECT * FROM tbl_product WHERE productId='$proid'";
+	// 	$get_select = $this->db->select($query_select);
+
+	// 	if ($get_select) {
+	// 		while ($result = $get_select->fetch_assoc()) {
+	// 			$soluong_new = $result['product_remain'] - $qty;
+	// 			$qty_soldout = $result['product_soldout'] + $qty;
+	// 			$query_soluong = "UPDATE tbl_product SET product_remain = '$soluong_new',product_soldout = '$qty_soldout' WHERE productId = '$proid'";
+	// 			$result = $this->db->update($query_soluong);
+	// 		}
+	// 	}
+
+	// 	$query = "UPDATE tbl_order SET status = '1' WHERE id = '$id' AND date_order = '$time'";
+	// 	$result = $this->db->update($query);
+	// 	if ($result) {
+	// 		$msg = "<span class='success'> Cập nhật thành công</span> ";
+	// 		return $msg;
+	// 	} else {
+	// 		$msg = "<span class='erorr'> Cập nhật thành công</span> ";
+	// 		return $msg;
+	// 	}
+	// }
 
 	// xóa order của admin
 	public function del_shifted($id, $time)
@@ -540,14 +588,14 @@ class cart
 
 		$result = $this->db->update($query);
 		if ($result) {
-			$msg = "<span class='success'> Xóa Đơn hàng thành công</span> ";
+			$msg = "<span class='success'> Xóa Đơn hàng thành công</span>";
 			return $msg;
 		} else {
 			$msg = "<span class='erorr'> Xóa Đơn hàng thất bạithành công</span> ";
 			return $msg;
 		}
 	}
-	
+
 	// xác nhận đã giao hàng customer
 	public function shifted_confirm($id, $cusId)
 	{
