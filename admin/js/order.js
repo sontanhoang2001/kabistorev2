@@ -170,20 +170,74 @@ function order() {
 
 
 
-    // lấy dữ liệu row table hiện tại
-    // $(".btn[data-target='#delModal']").click(function () {
-    //     categoryID = $(this).attr("data-id");
-    //     var columnHeadings = $("thead th").map(function () {
-    //         return $(this).text();
-    //     }).get();
-    //     columnHeadings.pop();
-    //     var columnValues = $(this).parent().siblings().map(function () {
-    //         return $(this).text();
-    //     }).get();
-    //     $("#delNoModel").val(columnValues[0]);
-    //     $("#delCategoryNameModel").val(columnValues[1]);
-    //     categoryNameOld = columnValues[1];
-    // });
+    // lấy dữ liệu row table hiện tại cho productModal
+    $(".btn[data-target='#productModal']").click(function () {
+        productId = $(this).attr("data-productid");
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/product.php",
+            data: {
+                case: 1,
+                productId: productId
+            },
+            success: function (data) {
+                var res = JSON.parse(data),
+                    Status = res.status,
+                    productName = res.productName,
+                    product_code = res.product_code,
+                    product_remain = res.product_remain,
+                    price = res.price;
+
+                // console.log(Status, productName, product_code, product_remain, price);
+
+                if (Status != 0) {
+                    switch (Status) {
+                        case 1: {
+                            $('#facebookPluginModel').attr("data-href", "https://www.facebook.com/ilovekabistore/posts/" + product_code);
+                            // FB load ajax
+                            FB.XFBML.parse();
+
+                            $('#productCodeModel').val(product_code);
+                            $('#productNameModel').val(productName);
+                            $('#priceModel').val(currency_vn(price));
+                            $('#remainModel').val(product_remain);
+                            $('#productDetaild').attr("href", "../details/" + productId + "/view.html");
+
+                            $("#delModal .close").click();
+                            var message = "Lấy thông tin sản phẩm thành công!";
+                            $.niceToast.setup({
+                                position: "top-right",
+                                timeout: 1000,
+                            });
+                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                            $.niceToast.setup({
+                                position: "bottom-right",
+                                timeout: 5000,
+                            });
+                            $('#productModal').modal('show');
+                            break;
+                        }
+                        default: {
+                            var message = "Lỗi máy chủ!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                        }
+                    }
+                } else {
+                    var message = "Lấy thông tin sản phẩm thất bại!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
+    });
+
+
+
 
     // xóa loại sản phẩm
     // $("#delSubmit").click(function (event) {

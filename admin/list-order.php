@@ -63,7 +63,7 @@ $fm = new format();
 									<td><?php echo $i ?></td>
 									<td><?php echo (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
 									<td>
-										<a href="#" class="btn" data-productid="<?php echo $productId ?>" data-toggle="modal" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
+										<a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
 									</td>
 									<td><?php echo $result['quantity'] ?></td>
 									<td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
@@ -113,29 +113,52 @@ $fm = new format();
 			<div class="modal-body">
 				<form>
 					<div class="form-group">
-						<div class="fb-post" data-href="https://www.facebook.com/ilovekabistore/posts/117394317351368" data-width="470	" data-show-text="true" data-lazy="true"></div>
+						<div id="facebookPluginModel" class="fb-post" data-href="" data-width="470	" data-show-text="true" data-lazy="true"></div>
 					</div>
 					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">Mã đơn hàng</label>
-						<input type="text" class="form-control" id="noModel" readonly value="345641313493">
+						<label for="recipient-name" class="col-form-label">Mã sản phẩm</label>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"> <i class="fa fa-qrcode" aria-hidden="true"></i></span>
+							</div>
+							<input type="text" class="form-control" id="productCodeModel" readonly>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="recipient-name" class="col-form-label">Tên sản phẩm</label>
-						<input type="text" class="form-control" id="noModel" readonly value="Bánh quy bơ">
-					</div>
-					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">Giá</label>
-						<input type="text" class="form-control" id="noModel" readonly value="19k">
-					</div>
-					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">Đại lý</label>
-						<input type="text" class="form-control" id="noModel" readonly value="Bobo Shop">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"> <i class="fa fa-font" aria-hidden="true"></i></span>
+							</div>
+							<input type="text" class="form-control" id="productNameModel" readonly value="Bánh quy bơ">
+						</div>
 					</div>
 
+					<div class="row mt-4">
+						<div class="col-md-6 col-sm-12">
+							<label for="recipient-name" class="col-form-label">Giá bán</label>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1"> <i class="fa fa-line-chart" aria-hidden="true"></i></span>
+								</div>
+								<input type="text" class="form-control" id="priceModel" readonly value="19k">
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<label for="recipient-name" class="col-form-label">Số lượng trong kho</label>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1"> <i class="fa fa-truck" aria-hidden="true"></i></span>
+								</div>
+								<input type="text" class="form-control" id="remainModel" readonly value="19k">
+							</div>
+						</div>
+					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="copyProductCode" class="btn btn-primary">Copy mã sp</button>
+				<button type="button" id="copyProductName" class="btn btn-primary" onclick="pasteFind('#productNameModel');">group</button>
+				<a href="#" id="productDetaild" class="btn btn-info">Chi tiết</a>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
 			</div>
 		</div>
@@ -233,6 +256,7 @@ $fm = new format();
 
 <?php include 'inc/footer.php'; ?>
 <script src="js/order.js"></script>
+<script src="js/helpers.js"></script>
 <script>
 	order();
 </script>

@@ -755,6 +755,13 @@ class product
 		$result = $this->db->select($query);
 		return $result;
 	}
+
+	public function viewProductOrderAdmin($productid)
+	{
+		$query = "SELECT product_code, productName ,product_remain, price FROM tbl_product where productId = '$productid'";
+		$result = $this->db->select($query);
+		return $result;
+	}
 }
 
 ?>
