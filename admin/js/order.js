@@ -237,46 +237,74 @@ function order() {
     });
 
 
+    // Load customer info
+    $(".btn[data-target='#customerModal']").click(function (event) {
+        event.preventDefault();
+        var customerId = $(this).attr("data-customerid");
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/customer.php",
+            data: {
+                customerId: customerId
+            },
+            success: function (data) {
+                var res = JSON.parse(data),
+                    Status = res.status,
+                    username = res.username,
+                    name = res.name,
+                    avatar = res.avatar,
+                    date_of_birth = res.date_of_birth,
+                    gender = res.gender,
+                    phone = res.phone,
+                    email = res.email,
+                    cusMaps_maplat = res.maps_maplat,
+                    cusMaps_maplng = res.maps_maplng,
+                    date_Joined = res.date_Joined;
 
+                switch (Status) {
+                    case 0: {
+                        var message = "load thông tin khách hàng thất bại!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 1: {
+                        // var message = "Đã load thông tin khách hàng!";
+                        // let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        // toast.change('Đã loại bỏ khỏi bảng...', 3000);
+                        var lng = cusMaps_maplat, lat = cusMaps_maplng;
+                        // lấy tên vị trí bản đồ
+                        getGeocoding(lat, lng);
+                        $("#cusAvatar").attr("src", "../upload/avatars/" + avatar);
+                        $("#cusName").text(name);
+                        $("#cusUserName").text(username);
+                        $("#cusDate_of_birth").text(date_of_birth);
+                        $("#cusGender").text(gender);
+                        if (gender == 0) {
+                            $("#cusGender").text("nam");
+                        } else if (gender == 1) {
+                            $("#cusGender").text("nữ");
 
-    // xóa loại sản phẩm
-    // $("#delSubmit").click(function (event) {
-    //     event.preventDefault();
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "~/../callbackPartial/category.php",
-    //         data: {
-    //             case: 3,
-    //             categoryID: categoryID
-    //         },
-    //         success: function (data) {
-    //             Status = JSON.parse(data).status;
-    //             switch (Status) {
-    //                 case 0: {
-    //                     var message = "Đã xóa 1 loại sản phẩm thất bại!";
-    //                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-    //                     toast.change('Vui lòng thử lại...', 3500);
-    //                     break;
-    //                 }
-    //                 case 1: {
-    //                     $("#delModal .close").click();
-    //                     $("tr.gradeX").eq(tr_index).css("display", "none");
-    //                     var message = "Xóa 1 loại sản phẩm thành công!";
-    //                     let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-    //                     toast.change('Đã loại bỏ khỏi bảng...', 3000);
-    //                     break;
-    //                 }
-    //                 default: {
-    //                     var message = "Lỗi máy chủ!";
-    //                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-    //                     toast.change('Vui lòng thử lại...', 3500);
-    //                 }
-    //             }
-    //         }, error: function (data) {
-    //             var message = "Lỗi máy chủ!";
-    //             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-    //             toast.change('Vui lòng thử lại...', 3500);
-    //         }
-    //     });
-    // });
+                        } else if (gender == 2) {
+                            $("#cusGender").text("khác");
+
+                        }
+                        $("#cusPhone").text(phone);
+                        $("#cusEmail").text(email);
+                        $("#cusDate_Joined").text(date_Joined);
+                        break;
+                    }
+                    default: {
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                    }
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
+    });
 }

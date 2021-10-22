@@ -668,16 +668,16 @@ include 'inc/slider.php';
 <script src="js/function.js"></script>
 
 <!-- cdnjs -->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
+<script type="text/javascript" src="js/lazy/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="js/lazy/jquery.lazy.plugins.min.js"></script>
 <script>
     $(function() {
         $('.lazy').Lazy({
             // your configuration goes here
             scrollDirection: 'vertical',
             effect: 'fadeIn',
-            // effectTime: 1000,
-            // threshold: 0,
+            effectTime: 1000,
+            threshold: 0,
             visibleOnly: true,
             onError: function(element) {
                 console.log('error loading ' + element.data('src'));

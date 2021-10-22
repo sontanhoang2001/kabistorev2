@@ -88,7 +88,6 @@ class customer
 			}
 		}
 		$this->connection->close();
-
 	}
 	public function login_cookie()
 	{
@@ -309,7 +308,6 @@ class customer
 		$result = $this->db->select($query);
 		return $result;
 		$this->connection->close();
-
 	}
 
 	// public function update_customers($data, $id)

@@ -486,7 +486,7 @@ class cart
 	// Đơn đặt hàng
 	public function get_inbox_order()
 	{
-		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, a.date_create
+		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, a.date_create, a.address_id
 		FROM tbl_order as o
 		inner join tbl_product as p
 		on p.productId = o.productId
