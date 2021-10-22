@@ -111,7 +111,7 @@ function order() {
 
     // Cập nhật trạng thái đơn hàng
     // Đã đơn hàng : 2
-    // hủy đơn, khách ko nhận hàng : 3
+    // hủy đơn, khách ko nhận hàng : 4
     $("#updateStatusBtn1").click(function (event) {
         event.preventDefault();
         if (statusOrder == 2) {
@@ -237,9 +237,11 @@ function order() {
     });
 
 
+    var addressid, cusMaps_maplat, cusMaps_maplng;
     // Load customer info
     $(".btn[data-target='#customerModal']").click(function (event) {
         event.preventDefault();
+        addressid = $(this).attr("data-addressid");
         var customerId = $(this).attr("data-customerid");
         $.ajax({
             type: "POST",
@@ -257,9 +259,9 @@ function order() {
                     gender = res.gender,
                     phone = res.phone,
                     email = res.email,
-                    cusMaps_maplat = res.maps_maplat,
-                    cusMaps_maplng = res.maps_maplng,
                     date_Joined = res.date_Joined;
+                cusMaps_maplat = res.maps_maplat;
+                cusMaps_maplng = res.maps_maplng;
 
                 switch (Status) {
                     case 0: {
@@ -274,7 +276,10 @@ function order() {
                         // toast.change('Đã loại bỏ khỏi bảng...', 3000);
                         var lng = cusMaps_maplat, lat = cusMaps_maplng;
                         // lấy tên vị trí bản đồ
-                        getGeocoding(lat, lng);
+                        getGeocodingInfo(lat, lng);
+                        $("#googlemapAddressSave").attr("href", "https://maps.google.com/?q=" + lng + "," + lat);
+
+
                         $("#cusAvatar").attr("src", "../upload/avatars/" + avatar);
                         $("#cusName").text(name);
                         $("#cusUserName").text(username);
@@ -307,4 +312,61 @@ function order() {
             }
         });
     });
+
+    // load map order address
+    $("#btnOrderAddress").click(function () {
+        alert(addressid);
+        alert(cusMaps_maplat, cusMaps_maplng);
+        mapSave(cusMaps_maplng, cusMaps_maplat);
+
+        // #googlemapOrderAddress
+
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/order.php",
+            data: {
+                case: 3,
+                addressid: addressid
+            },
+            success: function (data) {
+                var res = JSON.parse(data),
+                    Status = res.status,
+                    order_maplat = res.maps_maplat,
+                    order_maplng = res.maps_maplng,
+                    note_address = res.note_address;
+
+                    console.log(order_maplat, order_maplng, note_address);
+
+                switch (Status) {
+                    case 0: {
+                        var message = "load vị trí giao hàng thất bại!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 1: {
+                        var lng = cusMaps_maplat, lat = cusMaps_maplng;
+                        // lấy tên vị trí bản đồ
+                        getGeocodingInfo(lat, lng);
+                        $("#googlemapAddressSave").attr("href", "https://maps.google.com/?q=" + lng + "," + lat);
+
+                        $("#cusAvatar").attr("src", "../upload/avatars/" + avatar);
+                        $("#cusName").text(name);
+                        break;
+                    }
+                    default: {
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                    }
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
+    });
+
+
 }

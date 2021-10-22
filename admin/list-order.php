@@ -8,14 +8,6 @@ $fm = new format();
 
 ?>
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
-<style>
-	#map {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 100%;
-	}
-</style>
 </head>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="LMMRbqRK"></script>
@@ -67,18 +59,18 @@ $fm = new format();
 								$i++;
 								$orderId = $result['id'];
 								$productId = $result['productId'];
-
+								$address_id = $result['address_id'];
 						?>
 								<tr class="odd gradeX">
 									<td><?php echo $i ?></td>
-									<td>ID: <?php echo $result['address_id'] . "<br>" . (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
+									<td>ID: <?php echo $address_id . "<br>" . (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
 									<td>
 										<a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
 									</td>
 									<td><?php echo $result['quantity'] ?></td>
 									<td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
 									<td>
-										<a href="#" data-customerid="<?php echo $result['customer_id'] ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['name'] ?></a>
+										<a href="#" data-addressid="<?php echo $address_id ?>" data-customerid="<?php echo $result['customer_id'] ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['name'] ?></a>
 									</td>
 									<td>
 
@@ -175,6 +167,10 @@ $fm = new format();
 <!-- Load Facebook SDK for JavaScript -->
 
 <style>
+	a.mapboxgl-ctrl-logo {
+		display: none !important;
+	}
+
 	.customerModal {
 		width: 700px;
 		min-height: 400px;
@@ -185,6 +181,17 @@ $fm = new format();
 			width: 400px;
 			min-height: 400px;
 		}
+	}
+
+	#map {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.panelmapOrderAddress {
+		margin-top: 300px;
 	}
 </style>
 
@@ -206,13 +213,13 @@ $fm = new format();
 						<a class="nav-link active" data-toggle="pill" href="#info">Thông tin</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="pill" href="#orderAddress">Đơn hàng</a>
+						<a class="nav-link" id="btnOrderAddress" data-toggle="pill" href="#orderAddress">Vị trí giao hàng</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" data-toggle="pill" href="#orderHistory">Lịch sử mua hàng</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="pill" href="#addressSaved">Địa chỉ đăng ký</a>
+						<a class="nav-link" data-toggle="pill" href="#customerBlacklist">Danh sách đen</a>
 					</li>
 				</ul>
 
@@ -245,6 +252,8 @@ $fm = new format();
 								<div class="col-md-5">
 									<div class="py-3">
 										<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ đăng ký</span> <span class="bottom" id="geocoding">Đang tìm vị trí...</span> </div>
+										<a id="googlemapAddressSave" href="#" target="_blank">Xem với Google map</a>
+
 										<div class="mt-4"> <span class="d-block head font-weight-bold"><i class="fa fa-phone-square" aria-hidden="true"></i> Số điện thoại</span> <span class="bottom" id="cusPhone">718 (702)-9876</span> </div>
 										<div class="mt-4"> <span class="d-block head font-weight-bold"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email</span> <span class="bottom" id="cusEmail">j.smith@gmail.com</span> </div>
 										<div class="mt-4"> <span class="d-block head font-weight-bold"><i class="fa fa-sign-in" aria-hidden="true"></i> Gia nhập</span> <span class="bottom" id="cusDate_Joined">j.smith@gmail.com</span> </div>
@@ -253,20 +262,30 @@ $fm = new format();
 							</div>
 
 						</div>
-
 					</div>
-					<div class="tab-pane container fade" id="orderAddress">ẻyyyyyyy</div>
-					<div class="tab-pane container fade" id="orderHistory">.oksd</div>
-					<div class="tab-pane container fade" id="addressSaved">
-
-						<div class="tab-pane container active" id="info">
-							<div class="card p-2 text-center mt-4">
-								<div class="row">
-									<div id="map"></div>
+					<div class="tab-pane container fade" id="orderAddress">
+						<div class="p-2 mt-4">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panelmapOrderAddress">
+										<div id="map"></div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="py-3">
+										<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ đăng ký</span> <span class="bottom" id="geocodingAddressSave">Đang tìm vị trí...</span> </div>
+									</div>
+									<a id="googlemapOrderAddress" href="#" target="_blank">Xem với Google map</a>
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="tab-pane container fade" id="orderHistory">
 
+					</div>
+					<div class="tab-pane container fade" id="customerBlacklist">
 					</div>
 				</div>
 			</div>
@@ -337,11 +356,11 @@ $fm = new format();
 
 <?php include 'inc/footer.php'; ?>
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
-
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
 <script src="js/map-api-admin.js"></script>
 <script src="js/order.js"></script>
 <script src="js/helpers.js"></script>
 <script>
 	order();
-	mapSave();
 </script>

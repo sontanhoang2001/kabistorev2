@@ -544,7 +544,13 @@ class cart
 			return json_encode($result_json[] = ['status' => 0]);
 		}
 	}
-
+	public function getOrderAddress($addressid)
+	{
+		$addressid = mysqli_real_escape_string($this->db->link, $addressid);
+		$query = "SELECT maps_maplat, maps_maplng, note_address FROM tbl_address WHERE address_id = '404'";
+		$result = $this->db->update($query);
+		return $result;
+	}
 
 
 

@@ -17,5 +17,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo $updateCat = $ct->delivered($orderId, $productId, $quantity);
                 break;
             }
+        case 3: {
+                $addressId = $_POST['addressid'];
+                $getOrderAddress = $ct->getOrderAddress($addressId);
+                if ($getOrderAddress) {
+                    while ($result = $getOrderAddress->fetch_assoc()) {
+                        $maps_maplat = $result['maps_maplat'];
+                        $maps_maplng = $result['maps_maplng'];
+                        $note_address = $result['note_address'];
+                    }
+                    echo json_encode($result_json[] = ['status' => 1, 'maps_maplat' => $maps_maplat, 'maps_maplng' => $maps_maplng, 'note_address' => $note_address]);
+                } else {
+                    echo json_encode($result_json[] = ['status' => 0]);
+                }
+                break;
+            }
     }
 }
