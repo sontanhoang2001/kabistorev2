@@ -495,7 +495,7 @@ class cart
         inner join tbl_customer as c
 		on o.customer_id = c.id
 		Where o.status = '0' OR o.status = '1'
-        ORDER BY a.date_create DESC";
+        ORDER BY a.address_id DESC";
 		$get_inbox_order = $this->db->select($query);
 		return $get_inbox_order;
 	}
@@ -547,7 +547,7 @@ class cart
 	public function getOrderAddress($addressid)
 	{
 		$addressid = mysqli_real_escape_string($this->db->link, $addressid);
-		$query = "SELECT maps_maplat, maps_maplng, note_address FROM tbl_address WHERE address_id = '404'";
+		$query = "SELECT maps_maplat, maps_maplng, note_address FROM tbl_address WHERE address_id = '$addressid'";
 		$result = $this->db->update($query);
 		return $result;
 	}

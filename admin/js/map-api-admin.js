@@ -6,9 +6,10 @@ async function getGeocodingInfo(lng, lat) {
     const {
         features
     } = data;
-    document.getElementById("geocoding").innerHTML = features[0].place_name;
+    document.getElementById("geocodingAddressSave").innerHTML = features[0].place_name;
     document.getElementById("geocodingAddressSave").innerHTML = features[0].place_name;
 }
+
 
 async function getGeocodingOrderMap(lng, lat) {
     const api_url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + lng + ',' + lat + '.json?access_token=pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA';
@@ -17,17 +18,17 @@ async function getGeocodingOrderMap(lng, lat) {
     const {
         features
     } = data;
-    document.getElementById("geocoding").innerHTML = features[0].place_name;
+    document.getElementById("geocodingOrderAddress").innerHTML = features[0].place_name;
     document.getElementById("geocodingAddressSave").innerHTML = features[0].place_name;
 }
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA';
 
-function mapSave(cusMaps_maplng, cusMaps_maplat) {
+function loadOrderMap(cusMaps_maplat, cusMaps_maplng) {
     const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [cusMaps_maplng, cusMaps_maplat],
+        center: [cusMaps_maplat, cusMaps_maplng],
         zoom: 14
     });
 
@@ -48,7 +49,7 @@ function mapSave(cusMaps_maplng, cusMaps_maplat) {
             showUserHeading: true
         })
     );
-    
+
 
     // Chỉ đường
     // map.addControl(
@@ -60,6 +61,6 @@ function mapSave(cusMaps_maplng, cusMaps_maplat) {
 
     // Create a default Marker and add it to the map.
     const marker1 = new mapboxgl.Marker({ color: 'red' })
-        .setLngLat([cusMaps_maplng, cusMaps_maplat])
+        .setLngLat([cusMaps_maplat, cusMaps_maplng])
         .addTo(map);
 }

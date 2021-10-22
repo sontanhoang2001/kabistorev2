@@ -193,6 +193,10 @@ $fm = new format();
 	.panelmapOrderAddress {
 		margin-top: 300px;
 	}
+
+	.mapboxgl-ctrl-bottom-right {
+		display: none
+	}
 </style>
 
 <!-- customer Modal -->
@@ -210,7 +214,7 @@ $fm = new format();
 				<!-- Nav pills -->
 				<ul class="nav nav-pills">
 					<li class="nav-item">
-						<a class="nav-link active" data-toggle="pill" href="#info">Thông tin</a>
+						<a class="nav-link active" id="btnViewInfo" data-toggle="pill" href="#info">Thông tin</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="btnOrderAddress" data-toggle="pill" href="#orderAddress">Vị trí giao hàng</a>
@@ -251,7 +255,7 @@ $fm = new format();
 								</div>
 								<div class="col-md-5">
 									<div class="py-3">
-										<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ đăng ký</span> <span class="bottom" id="geocoding">Đang tìm vị trí...</span> </div>
+										<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ đăng ký</span> <span class="bottom" id="geocodingAddressSave">Đang tìm vị trí...</span> </div>
 										<a id="googlemapAddressSave" href="#" target="_blank">Xem với Google map</a>
 
 										<div class="mt-4"> <span class="d-block head font-weight-bold"><i class="fa fa-phone-square" aria-hidden="true"></i> Số điện thoại</span> <span class="bottom" id="cusPhone">718 (702)-9876</span> </div>
@@ -264,7 +268,7 @@ $fm = new format();
 						</div>
 					</div>
 					<div class="tab-pane container fade" id="orderAddress">
-						<div class="p-2 mt-4">
+						<div class="mt-4">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="panelmapOrderAddress">
@@ -275,17 +279,32 @@ $fm = new format();
 							<div class="row">
 								<div class="col-md-12">
 									<div class="py-3">
-										<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ đăng ký</span> <span class="bottom" id="geocodingAddressSave">Đang tìm vị trí...</span> </div>
+										<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ đăng ký</span> <span class="bottom" id="geocodingOrderAddress">Đang tìm vị trí...</span> </div>
+										<a id="googlemapOrderAddress" href="#" target="_blank">Xem với Google map</a>
+
 									</div>
-									<a id="googlemapOrderAddress" href="#" target="_blank">Xem với Google map</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Ghi chú của khách hàng</label>
+										<div class="input-group ">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
+											</div>
+											<input type="text" class="form-control" id="cusNoteModel" readonly>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="tab-pane container fade" id="orderHistory">
-
+						sdgfsddg
 					</div>
 					<div class="tab-pane container fade" id="customerBlacklist">
+						dfhdfhh
 					</div>
 				</div>
 			</div>
@@ -363,4 +382,6 @@ $fm = new format();
 <script src="js/helpers.js"></script>
 <script>
 	order();
+	loadOrderMap(12.550343, 55.665957);
+	// mapSave(cusMaps_maplng, cusMaps_maplat);
 </script>

@@ -241,6 +241,8 @@ function order() {
     // Load customer info
     $(".btn[data-target='#customerModal']").click(function (event) {
         event.preventDefault();
+        // resset tab về tab đầu tiền
+        $("#btnViewInfo").click();
         addressid = $(this).attr("data-addressid");
         var customerId = $(this).attr("data-customerid");
         $.ajax({
@@ -274,10 +276,10 @@ function order() {
                         // var message = "Đã load thông tin khách hàng!";
                         // let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                         // toast.change('Đã loại bỏ khỏi bảng...', 3000);
-                        var lng = cusMaps_maplat, lat = cusMaps_maplng;
+                        var lng = cusMaps_maplng, lat = cusMaps_maplat;
                         // lấy tên vị trí bản đồ
-                        getGeocodingInfo(lat, lng);
-                        $("#googlemapAddressSave").attr("href", "https://maps.google.com/?q=" + lng + "," + lat);
+                        getGeocodingInfo(lng, lat);
+                        $("#googlemapAddressSave").attr("href", "https://maps.google.com/?q=" + lat + "," + lng);
 
 
                         $("#cusAvatar").attr("src", "../upload/avatars/" + avatar);
@@ -294,7 +296,7 @@ function order() {
                             $("#cusGender").text("khác");
 
                         }
-                        $("#cusPhone").text(phone);
+                        $("#cusPhone").text("0" + phone);
                         $("#cusEmail").text(email);
                         $("#cusDate_Joined").text(date_Joined);
                         break;
@@ -313,60 +315,65 @@ function order() {
         });
     });
 
+    var enableLoadDataOrderAddress = true;
     // load map order address
     $("#btnOrderAddress").click(function () {
-        alert(addressid);
-        alert(cusMaps_maplat, cusMaps_maplng);
-        mapSave(cusMaps_maplng, cusMaps_maplat);
+        if (enableLoadDataOrderAddress != false) {
+            $.ajax({
+                type: "POST",
+                url: "~/../callbackPartial/order.php",
+                data: {
+                    case: 3,
+                    addressid: addressid
+                },
+                success: function (data) {
+                    var res = JSON.parse(data),
+                        Status = res.status,
+                        order_maplat = res.maps_maplat,
+                        order_maplng = res.maps_maplng,
+                        note_address = res.note_address;
 
-        // #googlemapOrderAddress
+                    switch (Status) {
+                        case 0: {
+                            var message = "load vị trí giao hàng thất bại!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                            break;
+                        }
+                        case 1: {
+                            // đã load thành công cho = false để ko load nữa
+                            enableLoadDataOrderAddress = false;
 
-        $.ajax({
-            type: "POST",
-            url: "~/../callbackPartial/order.php",
-            data: {
-                case: 3,
-                addressid: addressid
-            },
-            success: function (data) {
-                var res = JSON.parse(data),
-                    Status = res.status,
-                    order_maplat = res.maps_maplat,
-                    order_maplng = res.maps_maplng,
-                    note_address = res.note_address;
+                            var lng = order_maplng, lat = order_maplat;
+                            // lấy tên vị trí bản đồ
+                            getGeocodingOrderMap(lng, lat);
+                            $('#cusNoteModel').val(note_address);
 
-                    console.log(order_maplat, order_maplng, note_address);
-
-                switch (Status) {
-                    case 0: {
-                        var message = "load vị trí giao hàng thất bại!";
-                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                        toast.change('Vui lòng thử lại...', 3500);
-                        break;
+                            // load lại order map
+                            $("#googlemapOrderAddress").attr("href", "https://maps.google.com/?q=" + lat + "," + lng);
+                            loadOrderMap(lng, lat)
+                            break;
+                        }
+                        default: {
+                            var message = "Lỗi máy chủ!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                        }
                     }
-                    case 1: {
-                        var lng = cusMaps_maplat, lat = cusMaps_maplng;
-                        // lấy tên vị trí bản đồ
-                        getGeocodingInfo(lat, lng);
-                        $("#googlemapAddressSave").attr("href", "https://maps.google.com/?q=" + lng + "," + lat);
-
-                        $("#cusAvatar").attr("src", "../upload/avatars/" + avatar);
-                        $("#cusName").text(name);
-                        break;
-                    }
-                    default: {
-                        var message = "Lỗi máy chủ!";
-                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                        toast.change('Vui lòng thử lại...', 3500);
-                    }
+                }, error: function (data) {
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
-            }, error: function (data) {
-                var message = "Lỗi máy chủ!";
-                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                toast.change('Vui lòng thử lại...', 3500);
-            }
-        });
+            });
+        }
     });
 
+
+    $('#customerModal').on('hide.bs.modal', function () {
+        enableLoadDataOrderAddress = true;
+        $('#map').remove();
+        $('.panelmapOrderAddress').append('<div id="map"></div>');
+    });
 
 }
