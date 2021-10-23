@@ -203,17 +203,7 @@ function order() {
                             $('#remainModel').val(product_remain);
                             $('#productDetaild').attr("href", "../details/" + productId + "/view.html");
 
-                            $("#delModal .close").click();
-                            var message = "Lấy thông tin sản phẩm thành công!";
-                            $.niceToast.setup({
-                                position: "top-right",
-                                timeout: 1000,
-                            });
-                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                            $.niceToast.setup({
-                                position: "bottom-right",
-                                timeout: 5000,
-                            });
+                            // $("#delModal .close").click();
                             $('#productModal').modal('show');
                             break;
                         }
@@ -237,14 +227,14 @@ function order() {
     });
 
 
-    var addressid, cusMaps_maplat, cusMaps_maplng;
+    var addressid, cusMaps_maplat, cusMaps_maplng, customerId;
     // Load customer info
     $(".btn[data-target='#customerModal']").click(function (event) {
         event.preventDefault();
         // resset tab về tab đầu tiền
         $("#btnViewInfo").click();
         addressid = $(this).attr("data-addressid");
-        var customerId = $(this).attr("data-customerid");
+        customerId = $(this).attr("data-customerid");
         $.ajax({
             type: "POST",
             url: "~/../callbackPartial/customer.php",
@@ -273,9 +263,6 @@ function order() {
                         break;
                     }
                     case 1: {
-                        // var message = "Đã load thông tin khách hàng!";
-                        // let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        // toast.change('Đã loại bỏ khỏi bảng...', 3000);
                         var lng = cusMaps_maplng, lat = cusMaps_maplat;
                         // lấy tên vị trí bản đồ
                         getGeocodingInfo(lng, lat);
@@ -370,8 +357,60 @@ function order() {
     });
 
 
+    var enableLoadDataOrderHistory = true;
+    $("#btnOrderHistory").click(function () {
+        if (enableLoadDataOrderHistory != false) {
+            $.ajax({
+                type: "POST",
+                url: "~/../callbackPartial/order.php",
+                data: {
+                    case: 4,
+                    customerId: customerId
+                },
+                success: function (data) {
+                    var res = JSON.parse(data),
+                        Status = res.status,
+                        numOrderSuccess = res.numOrderSuccess,
+                        numOrderWait = res.numOrderWait,
+                        numOrderError = res.numOrderError,
+                        numOrderScoreBad = res.numOrderScoreBad;
+
+                    switch (Status) {
+                        case 0: {
+                            var message = "Load lịch sử đơn hàng thất bại!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                            break;
+                        }
+                        case 1: {
+                            // đã load thành công cho = false để ko load nữa
+                            enableLoadDataOrderHistory = false;
+                            $('#numOrderSuccess').text(numOrderSuccess + " đơn");
+                            $('#numOrderWait').text(numOrderWait + " đơn");
+                            $('#numOrderError').text(numOrderError + " đơn");
+                            $('#numOrderScoreBad').text(numOrderScoreBad + " đơn");
+                            break;
+                        }
+                        default: {
+                            var message = "Lỗi máy chủ!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                        }
+                    }
+                }, error: function (data) {
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
+                }
+            });
+        }
+    });
+
+
     $('#customerModal').on('hide.bs.modal', function () {
         enableLoadDataOrderAddress = true;
+        enableLoadDataOrderHistory = true;
+
         $('#map').remove();
         $('.panelmapOrderAddress').append('<div id="map"></div>');
     });

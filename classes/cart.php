@@ -552,6 +552,50 @@ class cart
 		return $result;
 	}
 
+	// đếm khách hàng đã mua bao nhiêu đơn hàng
+	public function getCountOrderSuccess($customerId)
+	{
+		$customerId = mysqli_real_escape_string($this->db->link, $customerId);
+		$query = "SELECT DISTINCT
+		(SELECT COUNT(id) FROM tbl_order WHERE customer_id = '6' and status = '2') as numOrderSuccess,
+		(SELECT COUNT(id) FROM tbl_order WHERE customer_id = '6' and status = '1') as numOrderWait,
+	    (SELECT COUNT(id) FROM tbl_order WHERE customer_id = '6' and status = '3') as numOrderError,
+		(SELECT COUNT(id) FROM tbl_order WHERE customer_id = '6' and status = '4') as numOrderScoreBad
+		FROM tbl_order";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+
+
+	public function get_list_delivered($cusId)
+	{
+		if ($cusId == 0) {
+			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, a.date_create, a.address_id
+			FROM tbl_order as o
+			inner join tbl_product as p
+			on p.productId = o.productId
+			inner join tbl_address as a
+			on a.address_id = o.address_id
+			inner join tbl_customer as c
+			on o.customer_id = c.id
+			Where o.status = '2'
+			ORDER BY a.address_id DESC";
+		} else {
+			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, a.date_create, a.address_id
+			FROM tbl_order as o
+			inner join tbl_product as p
+			on p.productId = o.productId
+			inner join tbl_address as a
+			on a.address_id = o.address_id
+			inner join tbl_customer as c
+			on o.customer_id = c.id
+			Where o.status = '2' AND o.customer_id = '$cusId'
+			ORDER BY a.address_id DESC";
+		}
+		$get_list_delivered = $this->db->select($query);
+		return $get_list_delivered;
+	}
 
 
 	// chọn giao hàng admin

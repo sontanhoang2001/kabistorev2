@@ -32,5 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
                 break;
             }
+        case 4: {
+                $customerId = $_POST['customerId'];
+                $getCountOrderSuccess = $ct->getCountOrderSuccess($customerId);
+                if ($getCountOrderSuccess) {
+                    while ($result = $getCountOrderSuccess->fetch_assoc()) {
+                        $numOrderSuccess = $result['numOrderSuccess'];
+                        $numOrderWait = $result['numOrderWait'];
+                        $numOrderError = $result['numOrderError'];
+                        $numOrderScoreBad = $result['numOrderScoreBad'];
+                    }
+                    echo json_encode($result_json[] = ['status' => 1, 'numOrderSuccess' => $numOrderSuccess, 'numOrderWait' => $numOrderWait, 'numOrderError' => $numOrderError, 'numOrderScoreBad' => $numOrderScoreBad]);
+                } else {
+                    echo json_encode($result_json[] = ['status' => 0]);
+                }
+                break;
+            }
     }
 }
