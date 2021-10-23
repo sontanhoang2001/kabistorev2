@@ -16,7 +16,7 @@ $fm = new format();
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Quản lý Đơn hàng</h1>
+	<h1 class="h3 mb-2 text-gray-800">Đơn hàng thành công</h1>
 	<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
 		For more information about DataTables.
 		<br><a href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm Đơn hàng</a>.
@@ -25,7 +25,7 @@ $fm = new format();
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4 mt-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các Đơn hàng</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các Đơn hàng giao thành công</h6>
 		</div>
 
 		<div class="card-body">
@@ -39,7 +39,6 @@ $fm = new format();
 							<th>SL</th>
 							<th>T.Toán</th>
 							<th>Khách hàng</th>
-							<th>Trạng thái đơn hàng</th>
 						</tr>
 					</thead>
 					<!-- <tfoot>
@@ -51,19 +50,25 @@ $fm = new format();
                     </tfoot> -->
 					<tbody>
 						<?php
-						$list_order = $ct->get_inbox_order();
-						if ($list_order) {
+						if (isset($_GET['cusId'])) {
+							$cusId = $_GET['cusId'];
+						} else {
+							$cusId = 0;
+						}
+						echo $cusId;
+						$status = 2;
+						$list_delivered = $ct->get_list_statusDetails($cusId, $status);
+						if ($list_delivered) {
 							$i = 0;
-							while ($result = $list_order->fetch_assoc()) {
+							while ($result = $list_delivered->fetch_assoc()) {
 								$i++;
 								$orderId = $result['id'];
 								$productId = $result['productId'];
 								$address_id = $result['address_id'];
-								$status = $result['status'];
 						?>
 								<tr class="odd gradeX">
 									<td><?php echo $i ?></td>
-									<td>ID: <?php echo $address_id . "<br>" . (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
+									<td><a href="#" data-orderid="<?php echo $address_id ?>" onclick="pasteFindByAttr(this)"><i class="fa fa-clipboard" aria-hidden="true"></i></a> ID: <?php echo $address_id . "<br>" . (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
 									<td>
 										<a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
 									</td>
@@ -71,19 +76,6 @@ $fm = new format();
 									<td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
 									<td>
 										<a href="#" data-addressid="<?php echo $address_id ?>" data-customerid="<?php echo $result['customer_id'] ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['name'] ?></a>
-									</td>
-									<td>
-										<?php
-										if ($status == 0) {
-										?>
-											<a href="#" data-status="0" data-orderid="<?php echo $orderId ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal0"><i class="fa fa-clock-o" aria-hidden="true"></i> Chờ duyệt...</a>
-										<?php
-										} elseif ($status == 1) {
-										?>
-											<a href="#" data-orderid="<?php echo $orderId ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal1"><i class="fa fa-truck" aria-hidden="true"></i> Đang giao...</a>
-										<?php
-										}
-										?>
 									</td>
 								</tr>
 						<?php
@@ -260,6 +252,7 @@ $fm = new format();
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 					<div class="tab-pane container fade" id="orderAddress">
@@ -301,39 +294,37 @@ $fm = new format();
 								<div class="col-md-6 border-right no-gutters">
 									<div class="py-3">
 										<h4 class="text-secondary">Đã mua thành công</h4>
-										<div class="allergy"><i class="fa fa-check-circle-o" aria-hidden="true"></i>
+										<div class="allergy"><a href="#" id="hrefOrderListDelivered" target="_blank" rel="noopener noreferrer" style="color: green;"><i class="fa fa-check-circle-o" aria-hidden="true"></i></a>
 											<span id="numOrderSuccess">0</span>
 										</div>
 									</div>
 									<div class="py-3">
-										<h4 class="text-secondary">Đang chờ</h4>
-										<div class="allergy"><i class="fa fa-times-circle" aria-hidden="true"></i>
-											<span id="numOrderWait">0</span>
+										<h4 class="text-secondary">Đang chờ giao hàng</h4>
+										<div class="allergy"><a href="#" id="hrefOrderWaitDelivery" target="_blank" rel="noopener noreferrer"><i class="fa fa-truck" aria-hidden="true"></i></a>
+											<span id="numOrderWaitDelivery">0</span>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6 border-right no-gutters">
 									<div class="py-3">
 										<h4 class="text-secondary" id="cusName">Mua thất bại</h4>
-										<div class="allergy"><i class="fa fa-times-circle" aria-hidden="true"></i>
+										<div class="allergy"><a href="#" id="hrefOrderError" target="_blank" rel="noopener noreferrer" style="color: red;"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
 											<span id="numOrderError">0</span>
 										</div>
 									</div>
 									<div class="py-3">
 										<h4 class="text-secondary">Điểm xấu</h4>
-										<div class="allergy"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+										<div class="allergy"><a href="#" id="hrefOrderScoreBad" target="_blank" rel="noopener noreferrer" style="color: red;"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
 											<span id="numOrderScoreBad">Không có</span>
 										</div>
 									</div>
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" id="delSubmit">f</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 			</div>
 		</div>

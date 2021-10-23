@@ -38,11 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($getCountOrderSuccess) {
                     while ($result = $getCountOrderSuccess->fetch_assoc()) {
                         $numOrderSuccess = $result['numOrderSuccess'];
-                        $numOrderWait = $result['numOrderWait'];
+                        $numOrderWaitDelivery = $result['numOrderWaitDelivery'];
                         $numOrderError = $result['numOrderError'];
                         $numOrderScoreBad = $result['numOrderScoreBad'];
                     }
-                    echo json_encode($result_json[] = ['status' => 1, 'numOrderSuccess' => $numOrderSuccess, 'numOrderWait' => $numOrderWait, 'numOrderError' => $numOrderError, 'numOrderScoreBad' => $numOrderScoreBad]);
+                    echo json_encode($result_json[] = ['status' => 1, 'numOrderSuccess' => $numOrderSuccess, 'numOrderWaitDelivery' => $numOrderWaitDelivery, 'numOrderError' => $numOrderError, 'numOrderScoreBad' => $numOrderScoreBad]);
                 } else {
                     echo json_encode($result_json[] = ['status' => 0]);
                 }

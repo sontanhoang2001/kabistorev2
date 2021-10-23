@@ -29,7 +29,7 @@ include 'inc/header.php';
                     </div>
                     <div class="text-right">
 
-                        <a href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem danh sách đã thêm</a>
+                        <a href="category-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem danh sách đã thêm</a>
                     </div>
 
                 </div>

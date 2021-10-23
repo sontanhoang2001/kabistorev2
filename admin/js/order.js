@@ -268,8 +268,13 @@ function order() {
                         getGeocodingInfo(lng, lat);
                         $("#googlemapAddressSave").attr("href", "https://maps.google.com/?q=" + lat + "," + lng);
 
-
-                        $("#cusAvatar").attr("src", "../upload/avatars/" + avatar);
+                        if (avatar != null) {
+                            $("#cusAvatar").attr("src", "../upload/avatars/" + avatar);
+                        } else if (username.length > 14) {
+                            $("#cusAvatar").attr("src", "https://graph.facebook.com/" + username + "/picture?type=normal");
+                        } else {
+                            $("#cusAvatar").attr("src", "../upload/avatars/default-user-image.jpg");
+                        }
                         $("#cusName").text(name);
                         $("#cusUserName").text(username);
                         $("#cusDate_of_birth").text(date_of_birth);
@@ -356,7 +361,7 @@ function order() {
         }
     });
 
-
+    // load map order history
     var enableLoadDataOrderHistory = true;
     $("#btnOrderHistory").click(function () {
         if (enableLoadDataOrderHistory != false) {
@@ -371,7 +376,7 @@ function order() {
                     var res = JSON.parse(data),
                         Status = res.status,
                         numOrderSuccess = res.numOrderSuccess,
-                        numOrderWait = res.numOrderWait,
+                        numOrderWaitDelivery = res.numOrderWaitDelivery,
                         numOrderError = res.numOrderError,
                         numOrderScoreBad = res.numOrderScoreBad;
 
@@ -386,9 +391,14 @@ function order() {
                             // đã load thành công cho = false để ko load nữa
                             enableLoadDataOrderHistory = false;
                             $('#numOrderSuccess').text(numOrderSuccess + " đơn");
-                            $('#numOrderWait').text(numOrderWait + " đơn");
+                            $('#numOrderWaitDelivery').text(numOrderWaitDelivery + " đơn");
                             $('#numOrderError').text(numOrderError + " đơn");
                             $('#numOrderScoreBad').text(numOrderScoreBad + " đơn");
+
+                            $("#hrefOrderListDelivered").attr("href", "delivered-list?cusId=" + customerId);
+                            $("#hrefOrderWaitDelivery").attr("href", "delivered-list?cusId=" + customerId);
+                            $("#hrefOrderError").attr("href", "delivered-list?cusId=" + customerId);
+                            $("#hrefOrderScoreBad").attr("href", "delivered-list?cusId=" + customerId);
                             break;
                         }
                         default: {
@@ -413,6 +423,13 @@ function order() {
 
         $('#map').remove();
         $('.panelmapOrderAddress').append('<div id="map"></div>');
+        $("#cusName").text("Không xác định");
+        $("#cusDate_of_birth").text("Không xác định");
+        $("#cusGender").text("Không xác định");
+        $("#cusGender").text("Không xác định");
+        $("#cusPhone").text("Không xác định");
+        $("#cusEmail").text("Không xác định");
+        $("#cusAvatar").attr("src", "../upload/avatars/default-user-image.jpg");
     });
 
 }

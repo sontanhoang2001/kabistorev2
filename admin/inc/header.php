@@ -105,11 +105,10 @@ header("Cache-Control: max-age=2592000");
                 <div id="order" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý đơn hàng:</h6>
-                        <a class="collapse-item" href="list-order"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Đơn hàng</a>
-                        <a class="collapse-item" href="list-delivered"><i class="fa fa-check-square-o" aria-hidden="true"></i> Đã giao hàng</a>
-                        <a class="collapse-item" href="list-delOrder"><i class="fa fa-trash" aria-hidden="true"></i> Đã hủy</a>
-                        <a class="collapse-item" href="list-delivered"><i class="fa fa-window-close" aria-hidden="true"></i> Đơn thất bại</a>
-
+                        <a class="collapse-item" href="order-list"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Đơn hàng</a>
+                        <a class="collapse-item" href="delivered-list"><i class="fa fa-check-square-o" aria-hidden="true"></i> Đã giao hàng</a>
+                        <a class="collapse-item" href="delOrder-list"><i class="fa fa-trash" aria-hidden="true"></i> Đã hủy</a>
+                        <a class="collapse-item" href="orderFailed-list"><i class="fa fa-window-close" aria-hidden="true"></i> Đơn thất bại</a>
                     </div>
                 </div>
             </li>
@@ -130,62 +129,18 @@ header("Cache-Control: max-age=2592000");
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <h6 class="collapse-header">Quản lý san phẩm</h6>
+                        <a class="collapse-item" href="add-product">Thêm sản phẩm</a>
+                        <a class="collapse-item" href="product-list">Ds sản phẩm</a>
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Sản phẩm
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#category" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa fa-book" aria-hidden="true"></i>
-                    <span>Loại sản phẩm</span>
-                </a>
-                <div id="category" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý doanh mục:</h6>
+                        <h6 class="collapse-header"><i class="fa fa-book" aria-hidden="true"></i> Loại sản phẩm:</h6>
                         <a class="collapse-item" href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm danh mục</a>
-                        <a class="collapse-item" href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#brand" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa fa-university" aria-hidden="true"></i>
-                    <span>Thương hiệu</span>
-                </a>
-                <div id="brand" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý thương hiệu:</h6>
+                        <a class="collapse-item" href="category-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds danh mục</a>
+                        <h6 class="collapse-header"><i class="fa fa-university" aria-hidden="true"></i> Thương hiệu:</h6>
                         <a class="collapse-item" href="add-brand"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm thương hiệu</a>
-                        <a class="collapse-item" href="list-category"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#warehouse" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa fa-truck" aria-hidden="true"></i>
-                    <span>Kho hàng</span>
-                </a>
-                <div id="warehouse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý kho:</h6>
-                        <a class="collapse-item" href="list-warehouse"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách kho</a>
+                        <a class="collapse-item" href="category-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds thương hiệu</a>
+                        <h6 class="collapse-header"><i class="fa fa-truck" aria-hidden="true"></i> Kho hàng:</h6>
+                        <a class="collapse-item" href="warehouse-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds kho hàng</a>
                     </div>
                 </div>
             </li>
