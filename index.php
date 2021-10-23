@@ -70,6 +70,9 @@ include 'inc/slider.php';
                             while ($result = $get_all_product_Featured->fetch_assoc()) {
                                 $productId = $result['productId'];
                                 $product_img =  "admin/uploads/" . $result['image'];
+                                // $product_img =  json_decode($result['image']);
+                                // echo $product_img = $product_img[0]->image;
+
                         ?>
                                 <!-- Single Product -->
                                 <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
