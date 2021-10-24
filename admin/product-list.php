@@ -4,14 +4,6 @@
 <?php
 $pd = new product();
 $fm = new Format();
-if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
-    // echo "<script> window.location = 'catlist.php' </script>";
-
-} else {
-    $id = $_GET['productid']; // Lấy catid trên host
-    $image = $_GET['image']; // Lấy catid trên host
-    $delProduct = $pd->del_product($id, $image); // hàm check delete Name khi submit lên
-}
 ?>
 
 <link rel="stylesheet" href="css/style.css">
@@ -69,7 +61,7 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
                             while ($result = $list_product->fetch_assoc()) {
                                 $i++;
                                 $productId = $result['productId'];
-                                $productQuantity = $result['productQuantity'];
+                                $product_remain = $result['product_remain'];
                         ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $i ?></td>
@@ -78,18 +70,17 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
 
                                     <td><a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a></td>
                                     <td>
-                                        <?php echo $productQuantity ?>
+                                        <?php echo $result['productQuantity'] ?>
                                     </td>
                                     <td>
                                         <?php echo $result['product_soldout'] ?>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-qty="<?php echo $productQuantity ?>" data-toggle="modal" data-target="#importQtyModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> <?php echo $result['product_remain'] ?></a>
+                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-qty="<?php echo $product_remain ?>" data-toggle="modal" data-target="#importQtyModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> <?php echo $product_remain ?></a>
                                     </td>
                                     <td><?php echo $fm->format_currency($result['price']) . " ₫" ?></td>
                                     <td><?php echo $result['catName'] ?></td>
                                     <td><?php echo $result['brandName'] ?></td>
-
                                     <td>
                                         <?php
                                         if ($result['type'] == 0) {
@@ -194,6 +185,15 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <label for="recipient-name" class="col-form-label">Tên sản phẩm</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-truck" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="productNameImportModal" readonly>
+                        </div>
+                    </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="recipient-name" class="col-form-label">Số lượng trong kho</label>
                         <div class="input-group mb-3">
@@ -254,11 +254,11 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <div class="font-weight-normal" id="productNameDelModel"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-danger" id="btnDelProduct">Xóa</button>
             </div>
         </div>
     </div>
