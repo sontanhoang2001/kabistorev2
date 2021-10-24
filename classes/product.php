@@ -261,34 +261,30 @@ class product
 	}
 
 	// nhập kho sản phẩm
-	public function update_quantity_product($data, $files, $id)
+	public function update_quantity_product($formData)
 	{
-		$product_more_quantity = mysqli_real_escape_string($this->db->link, $data['product_more_quantity']);
-		$product_remain = mysqli_real_escape_string($this->db->link, $data['product_remain']);
+		$productId = mysqli_real_escape_string($this->db->link, $formData['productid']);
+		$product_more_quantity = mysqli_real_escape_string($this->db->link, $formData['product_more_quantity']);
+		$product_remain = mysqli_real_escape_string($this->db->link, $formData['product_remain']);
 
 		if ($product_more_quantity == "") {
-
-			$alert = "<span class='error'>Các trường không được bỏ trống</span>";
-			return $alert;
+			// 0 Các trường ko đc bỏ trống
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$qty_total = $product_more_quantity + $product_remain;
-			//Nếu người dùng không chọn ảnh
-			$query = "UPDATE tbl_product SET
-					
-					product_remain = '$qty_total'
+			$query_warehouse = "INSERT INTO tbl_warehouse(product_id,inport_quantity) VALUES('$productId','$product_more_quantity') ";
+			$result_insert = $this->db->insert($query_warehouse);
 
-					WHERE productId = '$id'";
-		}
-		$query_warehouse = "INSERT INTO tbl_warehouse(product_id,inport_quantity) VALUES('$id','$product_more_quantity') ";
-		$result_insert = $this->db->insert($query_warehouse);
-		$result = $this->db->update($query);
+			$query = "UPDATE tbl_product SET product_remain = '$qty_total' WHERE productId = '$productId'";
+			$result = $this->db->update($query);
 
-		if ($result) {
-			$alert = "<span class='success'>Nhập hàng thành công</span>";
-			return $alert;
-		} else {
-			$alert = "<span class='error'>Nhập hàng không thành công</span>";
-			return $alert;
+			if ($result == true && $result_insert == true) {
+				// 1  thành công
+				return json_encode($result_json[] = ['status' => 1]);
+			} else {
+				// 2 thất bại
+				return json_encode($result_json[] = ['status' => 2]);
+			}
 		}
 	}
 
@@ -420,12 +416,13 @@ class product
 	}
 
 	//lấy sản phẩm productedit
-	public function getproductbyId($id)
-	{
-		$query = "SELECT * FROM tbl_product where productId = '$id' ";
-		$result = $this->db->select($query);
-		return $result;
-	}
+	// public function getproductbyId($id)
+	// {
+	// 	$query = "SELECT * FROM tbl_product where productId = '$id' ";
+	// 	$result = $this->db->select($query);
+	// 	return $result;
+	// }
+
 	//Kết thúc Backend
 
 	// public function getproduct_featheread()

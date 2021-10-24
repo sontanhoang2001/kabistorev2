@@ -146,3 +146,6 @@ if (isset($insertProduct)) {
 <!-- Load TinyMCE -->
 <?php include 'inc/footer.php'; ?>
 <script src="js/product.js"></script>
+<script>
+    add_product();
+</script>

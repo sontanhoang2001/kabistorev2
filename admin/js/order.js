@@ -12,6 +12,7 @@ function order() {
         orderId = $(this).attr("data-orderid");
         productId = $(this).attr("data-productid");
 
+        // lấy dữ liệu row vị trí hiện tại
         var columnHeadings = $("thead th").map(function () {
             return $(this).text();
         }).get();
@@ -225,6 +226,14 @@ function order() {
             }
         });
     });
+    // productModal bị ẩn
+    $('#productModal').on('hide.bs.modal', function () {
+        $('#productCodeModel').val("");
+        $('#productNameModel').val("");
+        $('#priceModel').val((""));
+        $('#remainModel').val("");
+        $('#productDetaild').attr("href", "");
+    })
 
 
     var addressid, cusMaps_maplat, cusMaps_maplng, customerId;
@@ -417,6 +426,7 @@ function order() {
     });
 
 
+    // customerModal bị ẩn
     $('#customerModal').on('hide.bs.modal', function () {
         enableLoadDataOrderAddress = true;
         enableLoadDataOrderHistory = true;

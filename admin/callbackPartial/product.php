@@ -21,8 +21,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 break;
             }
         case 2: {
+                // insert sản phẩm
                 $formData = $_POST['formData'];
                 echo $insertProduct = $product->insert_product($formData);
+                break;
+            }
+        case 3: {
+                // update thêm số lượng sản phẩm
+                $formData = $_POST['formData'];
+                echo $update_quantity_product = $product->update_quantity_product($formData);
+                break;
+            }
+        case 4: {
+                // insert sản phẩm
+                $formData = $_POST['formData'];
+                echo $insertProduct = $product->insert_product($formData);
+                break;
             }
     }
 }

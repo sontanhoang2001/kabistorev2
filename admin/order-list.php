@@ -7,6 +7,26 @@ $ct = new cart();
 $fm = new format();
 
 ?>
+<style>
+	a.mapboxgl-ctrl-logo {
+		display: none !important;
+	}
+
+	#map {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.panelmapOrderAddress {
+		margin-top: 300px;
+	}
+
+	.mapboxgl-ctrl-bottom-right {
+		display: none
+	}
+</style>
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
 </head>
 <div id="fb-root"></div>
@@ -164,39 +184,6 @@ $fm = new format();
 	</div>
 </div>
 <!-- Load Facebook SDK for JavaScript -->
-
-<style>
-	a.mapboxgl-ctrl-logo {
-		display: none !important;
-	}
-
-	.customerModal {
-		width: 700px;
-		min-height: 400px;
-	}
-
-	@media only screen and (max-width: 600px) {
-		.customerModal {
-			width: 400px;
-			min-height: 400px;
-		}
-	}
-
-	#map {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 100%;
-	}
-
-	.panelmapOrderAddress {
-		margin-top: 300px;
-	}
-
-	.mapboxgl-ctrl-bottom-right {
-		display: none
-	}
-</style>
 
 <!-- customer Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">

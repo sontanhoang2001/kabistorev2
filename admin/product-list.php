@@ -13,6 +13,9 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
     $delProduct = $pd->del_product($id, $image); // hàm check delete Name khi submit lên
 }
 ?>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="LMMRbqRK"></script>
 
@@ -41,7 +44,7 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
                             <th>Mã sản phẩm</th>
                             <th>Hình ảnh</th>
                             <th>Tên sản phẩm</th>
-                            <th>Đã nhập</th>
+                            <th>SL ban đầu</th>
                             <th>Đã bán</th>
                             <th>Trong kho</th>
                             <th>Giá</th>
@@ -66,6 +69,7 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
                             while ($result = $list_product->fetch_assoc()) {
                                 $i++;
                                 $productId = $result['productId'];
+                                $productQuantity = $result['productQuantity'];
                         ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $i ?></td>
@@ -74,18 +78,13 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
 
                                     <td><a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a></td>
                                     <td>
-                                        <a href="productmorequantity.php?productid=<?php echo $result['productId'] ?>"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-
-                                        <?php echo $result['productQuantity'] ?>
-
+                                        <?php echo $productQuantity ?>
                                     </td>
                                     <td>
                                         <?php echo $result['product_soldout'] ?>
-
                                     </td>
                                     <td>
-                                        <?php echo $result['product_remain'] ?>
-
+                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-qty="<?php echo $productQuantity ?>" data-toggle="modal" data-target="#importQtyModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> <?php echo $result['product_remain'] ?></a>
                                     </td>
                                     <td><?php echo $fm->format_currency($result['price']) . " ₫" ?></td>
                                     <td><?php echo $result['catName'] ?></td>
@@ -101,9 +100,8 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
                                         ?>
                                     </td>
                                     <td>
-                                        <a class="btn btnn btn-warning" href="productedit.php?productid=<?php echo $result['productId'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp; <a class="btn btnn btn-danger" href="?productid=<?php echo $result['productId'] ?>&image=<?php echo $result['image'] ?>" onclick="return confirm('Bạn có chắc muốn xóa??? Bạn chỉ có thể xóa khi sản phẩm chưa được bán ra, để đảm bảo dữ liệu người dùng vui lòng xóa lịch sử người dùng và thực hiện lại bước xóa sản phẩm này!');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                    </td>
-
+                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-toggle="modal" data-target="#delModal"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                         <?php
@@ -184,19 +182,59 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
     </div>
 </div>
 
-
-<!-- edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<!-- import quantity product Modal -->
+<div class="modal fade" id="importQtyModal" tabindex="-1" role="dialog" aria-labelledby="importQtyModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content customerModal">
+        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="delModallLabel">Thông tin khách hàng</h5>
+                <h5 class="modal-title" id="importQtyModalLabel">Nhập hàng</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                dfgsdg
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="recipient-name" class="col-form-label">Số lượng trong kho</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-truck" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="number" class="form-control" name="product_remainModal" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="recipient-name" class="col-form-label">Số lượng nhập thêm</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="number" name="product_more_quantity" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnImportQty">Nhập</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content editProductModal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉ sửa sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                fdgsg
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -205,10 +243,34 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
     </div>
 </div>
 
+<!-- delete Modal -->
+<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delModalLabel">Xóa sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <?php include 'inc/footer.php'; ?>
 <script src="js/order.js"></script>
+<script src="js/product.js"></script>
+
 <script src="js/helpers.js"></script>
 <script>
     order();
+    product_list();
 </script>
