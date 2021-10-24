@@ -1,7 +1,4 @@
 <?php include 'inc/header.php'; ?>
-<?php include '../classes/category.php';  ?>
-<?php include '../classes/cart.php';  ?>
-<?php include '../classes/brand.php';  ?>
 <?php include '../classes/product.php';  ?>
 <?php require_once '../helpers/format.php'; ?>
 <?php
@@ -16,6 +13,8 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
     $delProduct = $pd->del_product($id, $image); // hàm check delete Name khi submit lên
 }
 ?>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="LMMRbqRK"></script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -66,14 +65,17 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
                             $i = 0;
                             while ($result = $list_product->fetch_assoc()) {
                                 $i++;
+                                $productId = $result['productId'];
                         ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $i ?></td>
                                     <td><?php echo $result['product_code'] ?></td>
                                     <td><img src="uploads/<?php echo $result['image'] ?>" width="80"></td>
 
-                                    <td><?php echo $result['productName'] ?></td>
+                                    <td><a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a></td>
                                     <td>
+                                        <a href="productmorequantity.php?productid=<?php echo $result['productId'] ?>"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+
                                         <?php echo $result['productQuantity'] ?>
 
                                     </td>
@@ -92,16 +94,14 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
                                     <td>
                                         <?php
                                         if ($result['type'] == 0) {
-                                            echo 'Non-featurered';
+                                            echo 'Bình thường';
                                         } else {
-                                            echo 'Featured';
+                                            echo 'Hot nhất';
                                         }
-
-                                        ?></td>
-
+                                        ?>
+                                    </td>
                                     <td>
                                         <a class="btn btnn btn-warning" href="productedit.php?productid=<?php echo $result['productId'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp; <a class="btn btnn btn-danger" href="?productid=<?php echo $result['productId'] ?>&image=<?php echo $result['image'] ?>" onclick="return confirm('Bạn có chắc muốn xóa??? Bạn chỉ có thể xóa khi sản phẩm chưa được bán ra, để đảm bảo dữ liệu người dùng vui lòng xóa lịch sử người dùng và thực hiện lại bước xóa sản phẩm này!');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                        <a href="productmorequantity.php?productid=<?php echo $result['productId'] ?>"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm</a>
                                     </td>
 
                                     </td>
@@ -184,4 +184,31 @@ if (!isset($_GET['productid']) || $_GET['productid'] == NULL) {
     </div>
 </div>
 
+
+<!-- edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content customerModal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delModallLabel">Thông tin khách hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                dfgsdg
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <?php include 'inc/footer.php'; ?>
+<script src="js/order.js"></script>
+<script src="js/helpers.js"></script>
+<script>
+    order();
+</script>

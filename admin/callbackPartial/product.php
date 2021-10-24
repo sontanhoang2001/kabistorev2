@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 break;
             }
         case 2: {
-
+                $formData = $_POST['formData'];
+                echo $insertProduct = $product->insert_product($formData);
             }
-
     }
 }

@@ -5,9 +5,9 @@
 <?php
 
 $pd = new product();
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-    $insertProduct = $pd->insert_product($_POST, $_FILES);
-}
+// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+//     $insertProduct = $pd->insert_product($_POST, $_FILES);
+// }
 ?>
 
 <?php
@@ -51,7 +51,7 @@ if (isset($insertProduct)) {
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="validation3">Số lượng</label>
-                                        <input class="form-control" id="validation3" type="text" name="productQuantity" placeholder="Vd: 900" required>
+                                        <input class="form-control" id="validation3" type="number" name="productQuantity" placeholder="Vd: 900" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
@@ -98,20 +98,20 @@ if (isset($insertProduct)) {
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="validation5">Giá cũ</label>
-                                        <input class="form-control" id="validation5" type="text" name="old_price" placeholder="Vd: 900" required>
+                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
                                         <label for="validation6">Giá mới</label>
-                                        <input class="form-control" id="validation6" type="text" name="price" placeholder="Vd: 40000" required>
+                                        <input class="form-control" id="validation6" type="number" name="price" placeholder="Vd: 40000" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
                                         <label for="sel1">Nhóm ưu tiên</label>
                                         <select class="form-control" id="select" name="type">
-                                            <option>Lựa chọn</option>
+                                            <option value="null">Lựa chọn</option>
                                             <option selected value="0">Bình thường</option>
                                             <option value="1">Hot nhất</option>
                                             <option value="2">Xếp cao nhất</option>
@@ -122,15 +122,16 @@ if (isset($insertProduct)) {
 
                             <div class="form-group">
                                 <label for="inputdefault">Hình ảnh</label>
-                                <textarea name="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <textarea class="form-control" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputdefault">Mô tả sản phẩm</label>
-                                <textarea name="product_desc" class="tinymce" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <textarea class="form-control" id="product_desc" class="tinymce" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="submit" id="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                <button type="submit" name="submit" id="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                <button type="reset" class="btn btn-danger"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                             </div>
                         </form>
                     </div>
@@ -140,46 +141,8 @@ if (isset($insertProduct)) {
     </div>
 </div>
 
-
-
-
 <!-- Load TinyMCE -->
 
 <!-- Load TinyMCE -->
 <?php include 'inc/footer.php'; ?>
-
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (() => {
-        'use strict';
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation');
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms).forEach((form) => {
-            form.addEventListener('submit', (event) => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    })();
-
-
-    $(document).ready(function() {
-        var a = $('select[name="category"] option:selected').val();
-
-        var json = '["City1","City2","City3"]';
-        var arr = $.parseJSON(json);
-        console.log(arr[1]);
-    })
-
-
-    // $(document).submit(function(e) {
-    //     e.preventDefault();
-    //     alert("ok");
-    // });
-</script>
+<script src="js/product.js"></script>

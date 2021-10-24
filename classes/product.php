@@ -50,54 +50,89 @@ class product
 
 
 	// Nhập sản phẩm admin
-	public function insert_product($date, $files)
+	public function insert_product($formData)
 	{
+		$productName = mysqli_real_escape_string($this->db->link, $formData['productName']);
+		$product_code = mysqli_real_escape_string($this->db->link, $formData['product_code']);
+		$productQuantity = mysqli_real_escape_string($this->db->link, $formData['productQuantity']);
+		$category = mysqli_real_escape_string($this->db->link, $formData['category']);
+		$brand = mysqli_real_escape_string($this->db->link, $formData['brand']);
+		$old_price = mysqli_real_escape_string($this->db->link, $formData['old_price']);
+		$price = mysqli_real_escape_string($this->db->link, $formData['price']);
+		$type = mysqli_real_escape_string($this->db->link, $formData['type']);
+		$image = mysqli_real_escape_string($this->db->link, $formData['image']);
+		$product_desc = mysqli_real_escape_string($this->db->link, $formData['product_desc']);
 
-		$productName = mysqli_real_escape_string($this->db->link, $date['productName']);
-		$product_code = mysqli_real_escape_string($this->db->link, $date['product_code']);
-		$productQuantity = mysqli_real_escape_string($this->db->link, $date['productQuantity']);
-		$category = mysqli_real_escape_string($this->db->link, $date['category']);
-		$brand = mysqli_real_escape_string($this->db->link, $date['brand']);
-		$product_desc = mysqli_real_escape_string($this->db->link, $date['product_desc']);
-		$old_price = mysqli_real_escape_string($this->db->link, $date['old_price']);
-		$price = mysqli_real_escape_string($this->db->link, $date['price']);
-		$type = mysqli_real_escape_string($this->db->link, $date['type']);
-		//mysqli gọi 2 biến. (catName and link) biến link -> gọi conect db từ file db
-
-		// kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
-		$permited = array('jpg', 'jpeg', 'png', 'gif');
-		$file_name = $_FILES['image']['name'];
-		$file_size = $_FILES['image']['size'];
-		$file_temp = $_FILES['image']['tmp_name'];
-
-		$div = explode('.', $file_name);
-		$file_ext = strtolower(end($div));
-		$unique_image = substr(md5(time()), 0, 10) . '.' . $file_ext;
-		$uploaded_image = "uploads/" . $unique_image;
-
-		if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $price == "" || $type == "" || $file_name == "") {
-			$alert = "<span class='error'>Các Trường không được bỏ trống!</span>";
-			return $alert;
+		// 0 các trường ko đc bỏ trống
+		if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $price == "" || $type == "" || $image == "") {
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$query = "SELECT product_code FROM tbl_product WHERE product_code = '$product_code'";
 			$result = $this->db->select($query);
 			if ($result) {
-				$alert = "<span class='error'>Mã đơn hàng đã tồn tại!</span>";
-				return $alert;
+				// 3 Mã sản phẩm này đã tồn tại
+				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				move_uploaded_file($file_temp, $uploaded_image);
-				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type,old_price,price,image) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$old_price','$price','$unique_image') ";
+				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type,old_price,price,image) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$old_price','$price','$image') ";
 				$result = $this->db->insert($query);
 				if ($result) {
-					$alert = "<span class='success'>Bạn đã thêm sản phẩm thành công</span>";
-					return $alert;
+					// 1 thành công
+					return json_encode($result_json[] = ['status' => 1]);
 				} else {
-					$alert = "<span class='error'>Bạn đã thêm sản phẩm không thành công</span>";
-					return $alert;
+					// 2 thất bại
+					return json_encode($result_json[] = ['status' => 2]);
 				}
 			}
 		}
 	}
+
+	// public function insert_product($date, $files)
+	// {
+	// 	$productName = mysqli_real_escape_string($this->db->link, $date['productName']);
+	// 	$product_code = mysqli_real_escape_string($this->db->link, $date['product_code']);
+	// 	$productQuantity = mysqli_real_escape_string($this->db->link, $date['productQuantity']);
+	// 	$category = mysqli_real_escape_string($this->db->link, $date['category']);
+	// 	$brand = mysqli_real_escape_string($this->db->link, $date['brand']);
+	// 	$product_desc = mysqli_real_escape_string($this->db->link, $date['product_desc']);
+	// 	$old_price = mysqli_real_escape_string($this->db->link, $date['old_price']);
+	// 	$price = mysqli_real_escape_string($this->db->link, $date['price']);
+	// 	$type = mysqli_real_escape_string($this->db->link, $date['type']);
+	// 	//mysqli gọi 2 biến. (catName and link) biến link -> gọi conect db từ file db
+
+	// 	// kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
+	// 	$permited = array('jpg', 'jpeg', 'png', 'gif');
+	// 	$file_name = $_FILES['image']['name'];
+	// 	$file_size = $_FILES['image']['size'];
+	// 	$file_temp = $_FILES['image']['tmp_name'];
+
+	// 	$div = explode('.', $file_name);
+	// 	$file_ext = strtolower(end($div));
+	// 	$unique_image = substr(md5(time()), 0, 10) . '.' . $file_ext;
+	// 	$uploaded_image = "uploads/" . $unique_image;
+
+	// 	if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $price == "" || $type == "" || $file_name == "") {
+	// 		$alert = "<span class='error'>Các Trường không được bỏ trống!</span>";
+	// 		return $alert;
+	// 	} else {
+	// 		$query = "SELECT product_code FROM tbl_product WHERE product_code = '$product_code'";
+	// 		$result = $this->db->select($query);
+	// 		if ($result) {
+	// 			$alert = "<span class='error'>Mã đơn hàng đã tồn tại!</span>";
+	// 			return $alert;
+	// 		} else {
+	// 			move_uploaded_file($file_temp, $uploaded_image);
+	// 			$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type,old_price,price,image) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$old_price','$price','$unique_image') ";
+	// 			$result = $this->db->insert($query);
+	// 			if ($result) {
+	// 				$alert = "<span class='success'>Bạn đã thêm sản phẩm thành công</span>";
+	// 				return $alert;
+	// 			} else {
+	// 				$alert = "<span class='error'>Bạn đã thêm sản phẩm không thành công</span>";
+	// 				return $alert;
+	// 			}
+	// 		}
+	// 	}
+	// }
 	public function insert_slider($date, $files)
 	{
 		$sliderName = mysqli_real_escape_string($this->db->link, $date['sliderName']);
