@@ -33,9 +33,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 break;
             }
         case 4: {
-                // insert sản phẩm
+                // select data product for edit product
+                $productId = $_POST['productId'];
+                $getroductForEdit = $product->getroductForEdit($productId);
+                if ($getroductForEdit) {
+                    while ($result =  $getroductForEdit->fetch_assoc()) {
+                        $productName = $result['productName'];
+                        $product_code = $result['product_code'];
+                        $catId = $result['catId'];
+                        $brandId = $result['brandId'];
+                        $product_desc = $result['product_desc'];
+                        $type = $result['type'];
+                        $old_price = $result['old_price'];
+                        $price = $result['price'];
+                        $image = $result['image'];
+                        $size = $result['size'];
+                    }
+                    echo json_encode($result_json[] = ['status' => 1, 'product_code' => $product_code, 'productName' => $productName, 'catId' => $catId, 'brandId' => $brandId, 'product_desc' => $product_desc, 'type' => $type, 'old_price' => $old_price, 'price' => $price, 'image' => $image, 'size' => $size]);
+                } else {
+                    echo json_encode($result_json[] = ['status' => 0]);
+                }
+                break;
+            }
+        case 5: {
+                // Cập nhật sản phẩm
                 $formData = $_POST['formData'];
-                echo $insertProduct = $product->insert_product($formData);
+                echo $update_product = $product->update_product($formData);
                 break;
             }
     }

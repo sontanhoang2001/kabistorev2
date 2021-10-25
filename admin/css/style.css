@@ -20,17 +20,8 @@ table td input {
     min-height: 400px;
 }
 
-.editProductModal {
-    width: 700px;
-    min-height: 400px;
-}
-
 @media only screen and (max-width: 600px) {
     .customerModal {
-        width: 400px;
-        min-height: 400px;
-    }
-    .editProductModal {
         width: 400px;
         min-height: 400px;
     }

@@ -1,12 +1,13 @@
 <?php include 'inc/header.php'; ?>
 <?php include '../classes/product.php';  ?>
+<?php include '../classes/category.php';  ?>
+<?php include '../classes/brand.php';  ?>
 <?php require_once '../helpers/format.php'; ?>
 <?php
 $pd = new product();
 $fm = new Format();
 ?>
 
-<link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/style.css">
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="LMMRbqRK"></script>
@@ -83,15 +84,24 @@ $fm = new Format();
                                     <td><?php echo $result['brandName'] ?></td>
                                     <td>
                                         <?php
-                                        if ($result['type'] == 0) {
-                                            echo 'Bình thường';
-                                        } else {
-                                            echo 'Hot nhất';
+                                        switch ($result['type']) {
+                                            case 0: {
+                                                    echo "Bình thường";
+                                                    break;
+                                                }
+                                            case 1: {
+                                                    echo "Hot nhất";
+                                                    break;
+                                                }
+                                            case 2: {
+                                                    echo "Xếp hạng cao nhât";
+                                                    break;
+                                                }
                                         }
                                         ?>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#editModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-toggle="modal" data-target="#delModal"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
@@ -222,11 +232,10 @@ $fm = new Format();
     </div>
 </div>
 
-
 <!-- edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content editProductModal">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">Chỉ sửa sản phẩm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -234,10 +243,114 @@ $fm = new Format();
                 </button>
             </div>
             <div class="modal-body">
-                fdgsg
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="validation1">Mã sản phẩm</label>
+                                <input class="form-control" id="validation1" type="text" name="product_code" placeholder="Vd: 4583258743857..." required>
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="validation2">Tên sản phẩm</label>
+                                <input class="form-control" id="validation2" type="text" name="productName" placeholder="Vd: búp bê baby..." required>
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="sel1">Loại sản phẩm </label>
+                                        <select class="form-control" id="category" name="category">
+                                            <option value="0">Lựa chọn</option>
+                                            <?php
+                                            $cat = new category();
+                                            $catlist = $cat->show_category();
+                                            if ($catlist) {
+                                                while ($result = $catlist->fetch_assoc()) {
+
+                                            ?>
+                                                    <option value=" <?php echo $result['catId'] ?> "> <?php echo $result['catName'] ?> </option>
+
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="sel1">Thương hiệu</label>
+                                        <select class="form-control" id="brand" name="brand">
+                                            <option value="0">Lựa chọn</option>
+                                            <?php
+                                            $brand = new brand();
+                                            $brandlist = $brand->show_brand();
+                                            if ($brandlist) {
+                                                while ($result = $brandlist->fetch_assoc()) {
+                                            ?>
+                                                    <option value=" <?php echo $result['brandId'] ?> "> <?php echo $result['brandName'] ?> </option>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="sel1">Size</label>
+                                        <select class="form-control" id="size" name="size">
+                                            <option value="null">Lựa chọn</option>
+                                            <option selected value="0">Không</option>
+                                            <option value="1">Có size</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="validation5">Giá cũ</label>
+                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" required>
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="validation6">Giá mới</label>
+                                        <input class="form-control" id="validation6" type="number" name="price" placeholder="Vd: 40000" min="0" required>
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputdefault">Hình ảnh</label>
+                                <textarea class="form-control" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputdefault">Mô tả sản phẩm</label>
+                                <textarea class="form-control" id="product_desc" class="tinymce" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="sel1">Trạng thái & Xếp loại sản phẩm</label>
+                                        <select class="form-control" id="type" name="type">
+                                            <option value="null">Lựa chọn</option>
+                                            <option value="0">Bình thường</option>
+                                            <option value="1">Hot nhất</option>
+                                            <option value="2">Xếp cao nhất</option>
+                                            <option value="9">Ngưng kinh doanh</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="submit" name="submit" id="btnUpdateProduct" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
             </div>
         </div>
     </div>
@@ -266,10 +379,9 @@ $fm = new Format();
 
 
 <?php include 'inc/footer.php'; ?>
+<script src="js/helpers.js"></script>
 <script src="js/order.js"></script>
 <script src="js/product.js"></script>
-
-<script src="js/helpers.js"></script>
 <script>
     order();
     product_list();

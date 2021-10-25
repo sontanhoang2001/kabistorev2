@@ -51,7 +51,7 @@ if (isset($insertProduct)) {
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="validation3">Số lượng</label>
-                                        <input class="form-control" id="validation3" type="number" name="productQuantity" placeholder="Vd: 900" required>
+                                        <input class="form-control" id="validation3" type="number" name="productQuantity" placeholder="Vd: 900" min="1" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
@@ -98,18 +98,37 @@ if (isset($insertProduct)) {
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="validation5">Giá cũ</label>
-                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" required>
+                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
                                         <label for="validation6">Giá mới</label>
-                                        <input class="form-control" id="validation6" type="number" name="price" placeholder="Vd: 40000" required>
+                                        <input class="form-control" id="validation6" type="number" name="price" placeholder="Vd: 40000" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
-
                                     <div class="form-group col-md-4">
-                                        <label for="sel1">Nhóm ưu tiên</label>
+                                        <label for="sel1">Size</label>
+                                        <select class="form-control" id="select" name="size">
+                                            <option value="null">Lựa chọn</option>
+                                            <option selected value="0">Không</option>
+                                            <option value="1">Có size</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputdefault">Hình ảnh</label>
+                                <textarea class="form-control" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputdefault">Mô tả sản phẩm</label>
+                                <textarea class="form-control" id="product_desc" class="tinymce" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="sel1">Trạng thái & Xếp loại sản phẩm</label>
                                         <select class="form-control" id="select" name="type">
                                             <option value="null">Lựa chọn</option>
                                             <option selected value="0">Bình thường</option>
@@ -118,16 +137,6 @@ if (isset($insertProduct)) {
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputdefault">Hình ảnh</label>
-                                <textarea class="form-control" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputdefault">Mô tả sản phẩm</label>
-                                <textarea class="form-control" id="product_desc" class="tinymce" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
                             </div>
                             <div class="form-group">
                                 <button type="submit" name="submit" id="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>

@@ -40,6 +40,7 @@ function order() {
             $("#updateStatusBtn0").removeAttr("disabled");
         }
     });
+    
     $("#statusOrder1").change(function (event) {
         statusOrder = $(this).val();
         if (statusOrder == 0) {

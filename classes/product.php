@@ -183,6 +183,7 @@ class product
 		}
 	}
 
+
 	// hiểu thị slider index
 	public function show_slider()
 	{
@@ -289,100 +290,38 @@ class product
 	}
 
 	// cập nhật sản phẩm admin
-	public function update_product($data, $files, $id)
+	public function update_product($data)
 	{
-
+		$productId = mysqli_real_escape_string($this->db->link, $data['productId']);
 		$productName = mysqli_real_escape_string($this->db->link, $data['productName']);
 		$product_code = mysqli_real_escape_string($this->db->link, $data['product_code']);
-		$productQuantity = mysqli_real_escape_string($this->db->link, $data['productQuantity']);
 		$brand = mysqli_real_escape_string($this->db->link, $data['brand']);
 		$category = mysqli_real_escape_string($this->db->link, $data['category']);
 		$product_desc = mysqli_real_escape_string($this->db->link, $data['product_desc']);
 		$old_price = mysqli_real_escape_string($this->db->link, $data['old_price']);
 		$price = mysqli_real_escape_string($this->db->link, $data['price']);
 		$type = mysqli_real_escape_string($this->db->link, $data['type']);
-		//Kiem tra hình ảnh và lấy hình ảnh cho vào folder upload
-		$permited  = array('jpg', 'jpeg', 'png', 'gif');
+		$image = mysqli_real_escape_string($this->db->link, $data['image']);
 
-		$file_name = $_FILES['image']['name'];
-		$file_size = $_FILES['image']['size'];
-		$file_temp = $_FILES['image']['tmp_name'];
-
-		$div = explode('.', $file_name);
-		$file_ext = strtolower(end($div));
-		// $file_current = strtolower(current($div));
-		$unique_image = substr(md5(time()), 0, 10) . '.' . $file_ext;
-		$uploaded_image = "uploads/" . $unique_image;
-
-		if ($product_code == "" || $productName == "" || $productQuantity == "" || $brand == "" || $category == "" || $product_desc == "" || $price == "" || $type == "") {
-			$alert = "<span class='error'>Các trường không được bỏ trống</span>";
-			return $alert;
+		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $price == "" || $type == "" || $image == "") {
+			echo json_encode($result_json[] = ['status' => 0]);
 		} else {
-			if (!empty($file_name)) {
-				//Nếu người dùng chọn ảnh
-				if ($file_size > 1000480) {
-
-					$alert = "<span class='success'>Ảnh phải có kích thước dưới 2MB</span>";
-					return $alert;
-				} elseif (in_array($file_ext, $permited) === false) {
-					// echo "<span class='error'>You can upload only:-".implode(', ', $permited)."</span>";	
-					$alert = "<span class='success'>Bạn chỉ có thể tải lên:-" . implode(', ', $permited) . "</span>";
-					return $alert;
-				} else {
-					$query = "SELECT image FROM tbl_product WHERE productId = '$id'";
-					$result = $this->db->select($query);
-					$results = $result->fetch_assoc();
-					$image = $results['image'];
-
-					if ($result) {
-						$files = "../admin/uploads/$image"; // get all file names
-						if (file_exists($files)) {
-							if (file_exists($files)) {
-								unlink($files);
-								// echo "File Successfully Delete.";
-							} else {
-								// echo "File does not exists";
-							}
-						}
-						move_uploaded_file($file_temp, $uploaded_image);
-						$query = "UPDATE tbl_product SET
-							productName = '$productName',
-							product_code = '$product_code',
-							productQuantity = '$productQuantity',
-							brandId = '$brand',
-							catId = '$category', 
-							type = '$type',
-							old_price = '$old_price',
-							price = '$price',
-							image = '$unique_image',
-							product_desc = '$product_desc'
-							WHERE productId = '$id'";
-					}
-				}
-			} else {
-				//Nếu người dùng không chọn ảnh
-				$query = "UPDATE tbl_product SET
-
+			$query = "UPDATE tbl_product SET
 					productName = '$productName',
 					product_code = '$product_code',
-					productQuantity = '$productQuantity',
 					brandId = '$brand',
 					catId = '$category', 
 					type = '$type',
 					old_price = '$old_price',
 					price = '$price', 
-					
 					product_desc = '$product_desc'
+					WHERE productId = '$productId'";
 
-					WHERE productId = '$id'";
-			}
 			$result = $this->db->update($query);
 			if ($result) {
-				$alert = "<span class='success'>Sản phẩm Updated thành công</span>";
-				return $alert;
+				echo json_encode($result_json[] = ['status' => 1]);
 			} else {
-				$alert = "<span class='error'>Sản phẩm Updated không thành công</span>";
-				return $alert;
+				echo json_encode($result_json[] = ['status' => 2]);
 			}
 		}
 	}
@@ -414,6 +353,15 @@ class product
 		$result = $this->db->delete($query);
 		return $result;
 	}
+
+	// lấy sản phẩm cho edit product
+	public function getroductForEdit($id)
+	{
+		$query = "SELECT productName, product_code, catId, brandId, product_desc, type, old_price, price, image, size FROM tbl_product WHERE productId = '$id'";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
 
 	//lấy sản phẩm productedit
 	// public function getproductbyId($id)
