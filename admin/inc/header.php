@@ -123,15 +123,16 @@ header("Cache-Control: max-age=2592000");
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productPages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Sản phẩm</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="productPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý san phẩm</h6>
-                        <a class="collapse-item" href="add-product">Thêm sản phẩm</a>
-                        <a class="collapse-item" href="product-list">Ds sản phẩm</a>
+                        <a class="collapse-item" href="add-product"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm sản phẩm</a>
+                        <a class="collapse-item" href="product-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds sản phẩm</a>
+                        <a class="collapse-item" href="product-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Sp Ngừng kinh doanh</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header"><i class="fa fa-book" aria-hidden="true"></i> Loại sản phẩm:</h6>
                         <a class="collapse-item" href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm danh mục</a>

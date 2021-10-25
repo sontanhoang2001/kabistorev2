@@ -304,7 +304,7 @@ class product
 		$image = mysqli_real_escape_string($this->db->link, $data['image']);
 
 		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $price == "" || $type == "" || $image == "") {
-			echo json_encode($result_json[] = ['status' => 0]);
+			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$query = "UPDATE tbl_product SET
 					productName = '$productName',
@@ -319,34 +319,47 @@ class product
 
 			$result = $this->db->update($query);
 			if ($result) {
-				echo json_encode($result_json[] = ['status' => 1]);
+				return json_encode($result_json[] = ['status' => 1]);
 			} else {
-				echo json_encode($result_json[] = ['status' => 2]);
+				return json_encode($result_json[] = ['status' => 2]);
 			}
 		}
 	}
+
 	// Xóa sản phẩm admin
-	public function del_product($id, $image)
+	public function del_product($id)
 	{
-		$files = "../admin/uploads/$image"; // get all file names
-		$query = "DELETE FROM tbl_product where productId = '$id' ";
+		$query = "DELETE FROM tbl_product where productId = '$id'";
 		$result = $this->db->delete($query);
 		if ($result) {
-			if (file_exists($files)) {
-				if (file_exists($files)) {
-					unlink($files);
-					echo "File Successfully Delete.";
-				} else {
-					echo "File does not exists";
-				}
-			}
-			$alert = "<span class='success'>Bạn đã xóa sản phẩm thành công</span>";
-			return $alert;
+			return json_encode($result_json[] = ['status' => 1]);
 		} else {
-			$alert = "<span class='success'>Bạn đã xóa sản phẩm không thành công</span>";
-			return $alert;
+			return json_encode($result_json[] = ['status' => 0]);
 		}
+		$this->connection->close();
 	}
+
+	// public function del_product($id, $image)
+	// {
+	// 	$files = "../admin/uploads/$image"; // get all file names
+	// 	$query = "DELETE FROM tbl_product where productId = '$id' ";
+	// 	$result = $this->db->delete($query);
+	// 	if ($result) {
+	// 		if (file_exists($files)) {
+	// 			if (file_exists($files)) {
+	// 				unlink($files);
+	// 				echo "File Successfully Delete.";
+	// 			} else {
+	// 				echo "File does not exists";
+	// 			}
+	// 		}
+	// 		$alert = "<span class='success'>Bạn đã xóa sản phẩm thành công</span>";
+	// 		return $alert;
+	// 	} else {
+	// 		$alert = "<span class='success'>Bạn đã xóa sản phẩm không thành công</span>";
+	// 		return $alert;
+	// 	}
+	// }
 	public function del_wlist($proid, $customer_id)
 	{
 		$query = "DELETE FROM tbl_wishlist where productId = '$proid' AND customer_id='$customer_id' ";

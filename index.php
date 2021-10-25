@@ -78,7 +78,7 @@ include 'inc/slider.php';
                                 <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img data-src="<?php echo $product_img ?>" class="lazy">
+                                        <img src="<?php echo $product_img ?>" loading="lazy">
                                         <ul class="card-button-shop">
                                             <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                             <?php
@@ -187,7 +187,7 @@ include 'inc/slider.php';
                                     <!-- Product Image -->
                                     <div class="product-img">
                                         <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $result['catId'] ?>smem.html">
-                                            <img data-src="admin/uploads/<?php echo $result['image'] ?>" class="lazy">
+                                            <img src="admin/uploads/<?php echo $result['image'] ?>" loading="lazy">
                                             <h5 class="categories_name"><?php echo $catName; ?></h5>
                                         </a>
                                         <!-- Product Badge -->
@@ -669,22 +669,3 @@ include 'inc/slider.php';
 </script> -->
 <script src="js/ajax_wishlist-and-cart.js"></script>
 <script src="js/function.js"></script>
-
-<!-- cdnjs -->
-<script type="text/javascript" src="js/lazy/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="js/lazy/jquery.lazy.plugins.min.js"></script>
-<script>
-    $(function() {
-        $('.lazy').Lazy({
-            // your configuration goes here
-            scrollDirection: 'vertical',
-            effect: 'fadeIn',
-            effectTime: 1000,
-            threshold: 0,
-            visibleOnly: true,
-            onError: function(element) {
-                console.log('error loading ' + element.data('src'));
-            }
-        });
-    });
-</script>

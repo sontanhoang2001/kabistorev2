@@ -101,7 +101,7 @@ $fm = new Format();
                                         ?>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#editModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-toggle="modal" data-target="#delModal"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>

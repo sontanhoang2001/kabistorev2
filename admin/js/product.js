@@ -17,6 +17,24 @@ function add_product() {
         });
     })();
 
+    // Tạo review Image cho hình ảnh
+    var jsonImageArray;
+    $("#image").blur(function () {
+        $("#reviewImage img").remove();
+        var array = $(this).val().split(",");
+        var imageArrayArg = new Array();
+        $.each(array, function (i) {
+            // tạo ảnh
+            $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
+            var jsonObj = new Object();
+            jsonObj.image = array[i];
+            imageArrayArg.push(jsonObj);
+        });
+        jsonImageArray = JSON.parse(JSON.stringify(imageArrayArg));
+        // console.log(imageArrayArg[0]['image']);
+        // console.log(imageArrayArg[1]['image']);
+    });
+
     $(document).submit(function (e) {
         e.preventDefault();
         var formData = {
@@ -28,7 +46,7 @@ function add_product() {
             old_price: $("input[name=old_price]").val(),
             price: $("input[name=price]").val(),
             size: $('select[name="size"] option:selected').val(),
-            image: $("#image").val(),
+            image: jsonImageArray,
             product_desc: $("#product_desc").val(),
             type: $('select[name="type"] option:selected').val()
         };
@@ -113,7 +131,7 @@ function add_product() {
 
 function product_list() {
     // kiểm tra row index hện tai
-    var tr_index;
+    var tr_index, rowData;
     // $('table tr').click(function () {
     //     tr_index = $(this).index();
     // });
@@ -122,7 +140,10 @@ function product_list() {
     var table = $('#dataTable').DataTable();
     $('#dataTable tbody').on('click', 'tr', function () {
         tr_index = table.row(this).index();
+        rowData = table.row(this).data();
     });
+
+
 
 
     var rowImportQtyModal, productid, product_remain;
@@ -246,7 +267,6 @@ function product_list() {
                     $("#image").val(image);
                     $("#product_desc").val(product_desc);
                     $('#type option[value="' + type + '"]').attr('selected', 'selected');
-                    $("#editModal").modal('show');
                 } else {
                     var message = "Lỗi máy chủ!";
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
@@ -261,8 +281,13 @@ function product_list() {
     })
 
 
+    // Khi nhấn nút cập nhật
     $("#btnUpdateProduct").click(function () {
         // Lấy thông tin sản phẩm
+        var categoryTxt = $('select[name="category"] option:selected').text(),
+            brandTxt = $('select[name="brand"] option:selected').text(),
+            typeTxt = $('select[name="type"] option:selected').text();
+
         var formData = {
             productId: productId,
             product_code: $("input[name=product_code]").val(),
@@ -326,6 +351,32 @@ function product_list() {
                             $("#editModal .close").click()
 
                             // cập nhật dữ liệu vào bảng
+                            $('tbody tr td').eq((tr_index * 11) + tr_index + 1).empty().append(formData.product_code);
+                            $('tbody tr td').eq((tr_index * 11) + tr_index + 2).empty().append('<img src="' + formData.image + '" width="80">');
+                            $('tbody tr td').eq((tr_index * 11) + tr_index + 3).empty().append(formData.productName);
+                            $('tbody tr td').eq((tr_index * 11) + tr_index + 7).empty().append(currency_vn(formData.price));
+                            $('tbody tr td').eq((tr_index * 11) + tr_index + 8).empty().append(categoryTxt);
+                            $('tbody tr td').eq((tr_index * 11) + tr_index + 9).empty().append(brandTxt);
+                            $('tbody tr td').eq((tr_index * 11) + tr_index + 10).empty().append(typeTxt);
+
+                            // var td = '\
+                            //         <td class="sorting_1">'+ rowData[0] + '</td>\
+                            //         <td>'+ formData.product_code + '</td>\
+                            //         <td><img src="uploads/e33668a757.png" width="80"></td>\
+                            //         <td><a href="#" class="btn" data-productid="'+ formData.productId + '" data-target="#productModal">' + formData.productName + '</a></td>\
+                            //         <td>'+ rowData[4] + '</td>\
+                            //         <td>'+ rowData[5] + '</td>\
+                            //         <td>'+ rowData[6] + '</td>\
+                            //         <td>'+ currency_vn(formData.price) + '</td>\
+                            //         <td>'+ categoryTxt + '</td>\
+                            //         <td>'+ brandTxt + '</td>\
+                            //         <td>'+ typeTxt + '</td>\
+                            //         <td>\
+                            //         <a href="#" class="btn" data-productid="'+ formData.productId + '" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>\
+                            //         <a href="#" class="btn" data-productid="'+ formData.productId + '" data-toggle="modal" data-target="#delModal"><i class="fa fa-trash-o" aria-hidden="true"></i></a>\
+                            //         </td>';
+                            // $('tbody tr').eq(tr_index).append(td);
+
                             break;
                         }
                         case 2: {
@@ -344,11 +395,11 @@ function product_list() {
         }
     })
 
-
+    // Khi mở delModal
     $('.btn[data-target="#delModal"]').click(function (e) {
         e.preventDefault();
+        productId = $(this).attr("data-productid");
 
-        var productid = $(this).attr("data-productid");
         // lấy dữ liệu row vị trí hiện tại
         var columnValues = $(this).parent().siblings().map(function () {
             return $(this).text();
@@ -356,10 +407,41 @@ function product_list() {
         $('#productNameDelModel').text("Bạn có thật sự muốn xóa ' " + columnValues[3] + " ' ?");
     })
 
+    // Khi nhấn nút btnDelProduct
     $('#btnDelProduct').click(function () {
-        alert(tr_index);
-        $('tbody tr').eq(tr_index).fadeOut(1000);
-        //$delProduct = $pd -> del_product($id, $image);
-
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/product.php",
+            data: {
+                case: 6,
+                productId: productId
+            },
+            success: function (data) {
+                console.log(data);
+                var res = JSON.parse(data),
+                    Status = res.status;
+                switch (Status) {
+                    case 0: {
+                        var message = "Sản phẩm này không thể xóa!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 1: {
+                        $('#delModal .close').click();
+                        var message = "Xóa sản phẩm thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã Lưu và thay đổi...', 3500);
+                        $("#editModal .close").click()
+                        $('tbody tr').eq(tr_index).css("background-color", "hotpink").fadeOut(1000);
+                        break;
+                    }
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
     })
 }

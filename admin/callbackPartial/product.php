@@ -61,5 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo $update_product = $product->update_product($formData);
                 break;
             }
+        case 6: {
+                // Xóa sản phẩm
+                $productId = $_POST['productId'];
+                echo $delProduct = $product->del_product($productId);
+                break;
+            }
     }
 }

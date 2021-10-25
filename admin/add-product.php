@@ -118,7 +118,10 @@ if (isset($insertProduct)) {
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputdefault">Hình ảnh</label>
+                                <label for="inputdefault">Hình ảnh sản phẩm</label>
+                                <div class="form-group" id="reviewImage">
+                                    <img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="../upload/default-product350x350.jpg">
+                                </div>
                                 <textarea class="form-control" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
                             </div>
                             <div class="form-group">
