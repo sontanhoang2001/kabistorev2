@@ -228,7 +228,6 @@ function product_list() {
         $("input[name=product_more_quantity]").val("");
     })
 
-
     var productId;
     // Khi nhấn vào edit
     $('.btn[data-target="#editModal"]').click(function (e) {
@@ -281,6 +280,23 @@ function product_list() {
     })
 
 
+    // Tạo review Image cho hình ảnh
+    var jsonImageArray;
+    $("#image").blur(function () {
+        $("#reviewImage img").remove();
+        var array = $(this).val().split(",");
+        var imageArrayArg = new Array();
+        $.each(array, function (i) {
+            // tạo ảnh
+            $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
+            var jsonObj = new Object();
+            jsonObj.image = array[i];
+            imageArrayArg.push(jsonObj);
+        });
+        jsonImageArray = JSON.parse(JSON.stringify(imageArrayArg));
+    })
+
+
     // Khi nhấn nút cập nhật
     $("#btnUpdateProduct").click(function () {
         // Lấy thông tin sản phẩm
@@ -298,10 +314,11 @@ function product_list() {
             old_price: $("input[name=old_price]").val(),
             price: $("input[name=price]").val(),
             size: $('select[name="size"] option:selected').val(),
-            image: $("#image").val(),
+            image: jsonImageArray,
             product_desc: $("#product_desc").val(),
             type: $('select[name="type"] option:selected').val()
         };
+
 
         if ((Number)(formData.old_price) <= (Number)(formData.price)) {
             var message = "Giá cũ phải lớn hơn giá mới!";
@@ -337,6 +354,7 @@ function product_list() {
                 success: function (data) {
                     var res = JSON.parse(data),
                         Status = res.status;
+                        
                     switch (Status) {
                         case 0: {
                             var message = "Các trường không được bỏ trống!";

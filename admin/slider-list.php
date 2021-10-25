@@ -1,23 +1,42 @@
 ﻿<?php include 'inc/header.php';
 include '../classes/product.php';
 $product = new product();
+if (isset($_GET['type_slider']) && isset($_GET['type'])) {
+	$id = $_GET['type_slider'];
+	$type = $_GET['type'];
+	$update_type_slider = $product->update_type_slider($id, $type);
+}
+if (isset($_GET['slider_del'])) {
+	$id = $_GET['slider_del'];
+	$img = $_GET['img'];
+	$del_slider = $product->del_slider($id, $img);
+}
 ?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Quản lý thương hiệu</h1>
+	<h1 class="h3 mb-2 text-gray-800">Quản lý slider</h1>
 	<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
 		For more information about DataTables.
-		<br><a href="add-brand"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm thương hiệu</a>.
+		<br><a href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm slider</a>.
 	</p>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4 mt-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các thương hiệu</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các slider</h6>
+			<?php
+			if (isset($del_slider)) {
+				echo $del_slider;
+			}
+			if (isset($update_type_slider)) {
+				echo $update_type_slider;
+			}
+			?>
 		</div>
+
 
 		<div class="card-body">
 			<div class="table-responsive">
@@ -50,7 +69,7 @@ $product = new product();
 								<tr class="odd gradeX">
 									<td><?php echo $i; ?></td>
 									<td><?php echo $result_slider['sliderName'] ?></td>
-									<td><img src="uploads/<?php echo $result_slider['slider_image'] ?>" height="120px" width="500px" /></td>
+									<td><img src="../upload/slider/<?php echo $result_slider['slider_image'] ?>" height="120px" width="500px" /></td>
 									<td>
 										<?php
 										if ($result_slider['type'] == 1) {
@@ -66,7 +85,7 @@ $product = new product();
 
 									</td>
 									<td>
-										<a class="btn btnn btn-danger" href="?slider_del=<?php echo $result_slider['sliderId'] ?>&amp;img=<?php echo $result_slider['slider_image'] ?>" onclick="return confirm('Are you sure to Delete!');">Delete <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+										<a class="btn btnn btn-danger" href="?slider_del=<?php echo $result_slider['sliderId'] ?>&amp;img=<?php echo $result_slider['slider_image'] ?>" onclick="return confirm('Are you sure to Delete!');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 									</td>
 								</tr>
 						<?php
@@ -140,7 +159,3 @@ $product = new product();
 	</div>
 </div>
 <?php include 'inc/footer.php'; ?>
-<script src="js/brand.js"></script>
-<script>
-	update_del_Brand();
-</script>

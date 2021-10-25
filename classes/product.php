@@ -150,7 +150,7 @@ class product
 		$file_ext = strtolower(end($div));
 		// $file_current = strtolower(current($div));
 		$unique_image = substr(md5(time()), 0, 10) . '.' . $file_ext;
-		$uploaded_image = "uploads/" . $unique_image;
+		$uploaded_image = "../upload/slider/" . $unique_image;
 
 
 		if ($sliderName == "" || $type == "") {
@@ -230,17 +230,20 @@ class product
 
 	public function update_type_slider($id, $type)
 	{
-
 		$type = mysqli_real_escape_string($this->db->link, $type);
 		$query = "UPDATE tbl_slider SET type = '$type' where sliderId='$id'";
 		$result = $this->db->update($query);
-		return $result;
+		if ($result) {
+			return "Bạn đã cập nhật thành công!";;
+		} else {
+			return "Bạn đã cập nhật thất bại!";;
+		}
 	}
 
 	// xóa slider
 	public function del_slider($id, $image)
 	{
-		$files = "../admin/uploads/$image"; // get all file names
+		$files = "../upload/slider/$image"; // get all file names
 
 		$query = "DELETE FROM tbl_slider where sliderId = '$id' ";
 		$result = $this->db->delete($query);
@@ -301,7 +304,7 @@ class product
 		$old_price = mysqli_real_escape_string($this->db->link, $data['old_price']);
 		$price = mysqli_real_escape_string($this->db->link, $data['price']);
 		$type = mysqli_real_escape_string($this->db->link, $data['type']);
-		$image = mysqli_real_escape_string($this->db->link, $data['image']);
+		$image = $data['image'];
 
 		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $price == "" || $type == "" || $image == "") {
 			return json_encode($result_json[] = ['status' => 0]);
@@ -324,6 +327,7 @@ class product
 				return json_encode($result_json[] = ['status' => 2]);
 			}
 		}
+		$this->connection->close();
 	}
 
 	// Xóa sản phẩm admin

@@ -1,8 +1,10 @@
 <?php
 include '../lib/session.php';
 Session::checkSession();
+if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+    Session::destroy();
+}
 ?>
-
 <?php
 header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
@@ -156,7 +158,7 @@ header("Cache-Control: max-age=2592000");
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý slider:</h6>
                         <a class="collapse-item" href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm slider</a>
-                        <a class="collapse-item" href="list-slider"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                        <a class="collapse-item" href="slider-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
                     </div>
                 </div>
             </li>
@@ -423,7 +425,7 @@ header("Cache-Control: max-age=2592000");
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo Session::get('adminName'); ?></span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -441,7 +443,7 @@ header("Cache-Control: max-age=2592000");
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="?action=logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
