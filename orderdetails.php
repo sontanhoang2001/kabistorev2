@@ -68,6 +68,8 @@ if ($login_check == false) {
 				$date_order = $result['date_create'];
 				$date_orderTemp[$i + 1] = $date_order;
 				$quantity = $result['quantity'];
+				$product_img =  json_decode($result['image']);
+				$product_img = $product_img[0]->image;
 		?>
 				<div class="border-group text-right"><?php echo ($date_order != $date_orderTemp[$i - 1]) ? $fm->formatDateTimeP($date_order) : "" ?></div>
 				<ul class="cartWrap">
@@ -75,7 +77,7 @@ if ($login_check == false) {
 						<div class="infoWrap">
 							<div class="cartSection mwp">
 								<!-- <h5 class="numorder"><?php echo $i++; ?></h5> -->
-								<img src="admin/uploads/<?php echo $result['image'] ?>" alt="" class="itemImg" />
+								<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
 								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
 								<a href="orderdetail?orderId=<?php echo $result['id'] ?>">
 									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
@@ -83,7 +85,7 @@ if ($login_check == false) {
 								<div class="mt-1">Số lượng: <?php echo $quantity ?></div>
 
 
-								<div class=""><i class="fa fa-money" aria-hidden="true"></i>
+								<div class=""><i class="fa fa-money" aria-hidden="true"></i> 
 									<p class="p-price"><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></p>
 								</div>
 								<?php

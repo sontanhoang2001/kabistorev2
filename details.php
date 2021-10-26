@@ -153,19 +153,17 @@ include 'inc/facebookPlugin.php';
 							<img src="<?php echo $product_img->image ?>">
 						<?php
 						}  ?>
-						<img src="img/product-img/product-big-3.jpg">
 					</div>
 				</div>
 
 				<!-- Single Product Description -->
 				<div class="single_product_desc clearfix">
-
 					<span><?php echo $result_details['brandName'] ?></span>
 					<div class="fb-like" data-href="https://webcuatoi.vn/kabistore/details.php?proid=<?php echo $productid ?>" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
 					<a href="cart.html">
 						<h4><?php echo $result_details['productName'] ?></h4>
 					</a>
-					<p class="product-price"><span class="old-price mr-1"><?php echo $result_details['old_price'] . " ₫" ?></span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
+					<p class="product-price"><span class="old-price mr-1"><?php echo  $fm->format_currency($result_details['old_price']) . " ₫" ?></span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
 					<!-- <p><b>Loại sản phẩm:</b> <?php echo $result_details['catName'] ?></p> -->
 					<!-- <p class="product-desc"><?php echo $fm->textShorten($result_details['product_desc'], 150) ?></p> -->
 					<form id="cartSubmit">

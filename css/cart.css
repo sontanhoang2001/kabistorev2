@@ -218,8 +218,6 @@ h3.name-cart {
     vertical-align: middle;
 }
 
-
-
 .cart .items .cartSection .itemNumber {
     font-size: .75em;
     color: #1a9cb7;
@@ -236,7 +234,7 @@ h3.name-cart {
 
 .cart .items .cartSection p {
     display: inline-block;
-    font-size: .85em;
+    font-size: 16px;
     /* color: #777777; */
     font-family: "Montserrat", sans-serif;
 }
@@ -280,6 +278,9 @@ h3.name-cart {
     width: 10em;
     display: inline;
     padding-right: 1em;
+    width: 130px;
+    height: 120px;
+    object-fit: cover;
 }
 
 .special {
@@ -534,7 +535,6 @@ a.remove:hover {
     .cart .items .cartSection p.stockStatus-out {
         padding: 0.5em 0 0 9em;
     }
-
     .cartSection.mwp {
         width: 100% !important;
     }

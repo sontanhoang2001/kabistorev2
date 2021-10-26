@@ -35,7 +35,7 @@ if ($login_check) {
         </div>
         <div class="error mb-2" id="error-email1">Bạn chưa điền email!!!</div>
         <div class="error mb-2" id="error-email2">Email sai định dạng!!!</div>
-        <button type="submit" class="btn btn-primary btn-block" name="sendEmail">Gửi xác nhận</button>
+        <button type="submit" class="btn btn-primary btn-block" name="sendEmail" disabled>Gửi xác nhận</button>
       </form>
 
       <div class="text-center mt-3">

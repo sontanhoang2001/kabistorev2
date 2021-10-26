@@ -76,7 +76,7 @@ include 'inc/global.php';
                                 <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img src="<?php echo $product_img ?>" loading="lazy">
+                                        <img data-src="<?php echo $product_img ?>" class="lazy" loading="lazy">
                                         <ul class="card-button-shop">
                                             <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                             <?php

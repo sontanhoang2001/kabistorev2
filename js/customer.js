@@ -574,9 +574,11 @@ function checkSendMail() {
     $('input[name="email"]').keyup(function () {
         if ($(this).val() == "") {
             data_right = false;
+            $("button[name=sendEmail]").attr("disabled", "disabled");
             $("#error-email1").show();
         } else {
             data_right = true;
+            $("button[name=sendEmail]").removeAttr('disabled');
             $("#error-email1").fadeOut();
         }
 
@@ -584,9 +586,11 @@ function checkSendMail() {
         if (!pattern.test($(this).val())) {
             data_right = false;
             $("#error-email2").show();
+            $("button[name=sendEmail]").attr("disabled", "disabled");
         }
         else {
             data_right = true;
+            $("button[name=sendEmail]").removeAttr('disabled');
             $("#error-email2").fadeOut();
         }
     });
@@ -599,13 +603,14 @@ function checkSendMail() {
         if (email == "") {
             data_right = false;
             $("#error-email1").show();
+            $("button[name=sendEmail]").attr("disabled", "disabled");
         } else {
             data_right = true;
             $("#error-email1").fadeOut();
         }
 
         if (data_right == true) {
-            var sendEmail = $('button[name="sendEmail');
+            var sendEmail = $('button[name=sendEmail]');
             $(sendEmail).text("Đang xử lý...");
             $(sendEmail).prop('disabled', 'true');
             $.ajax({
@@ -616,58 +621,56 @@ function checkSendMail() {
                     "email": email
                 },
                 success: function (data) {
+                    $("button[name=sendEmail]").removeAttr('disabled');
+
                     var res = JSON.parse(JSON.stringify(data))
                     var Status = res.status;
                     switch (Status) {
                         case 0: {
                             $(sendEmail).text("Gửi xác nhận");
                             $(sendEmail).removeAttr('disabled');
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Hệ thống lỗi!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
+
+                            var message = "Hệ thống lỗi!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 1: {
                             $('#f_sendMail').css("display", "none");
                             $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-success fade show mb-1" role="alert">Bạn đã xác nhận thành công! Vui lòng kiểm tra hộp thư của bạn.</div>');
                             $("#error-submit" + messageIndex).show();
+                            var message = "Bạn đã xác nhận thành công!";
+                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                            toast.change('Vui lòng kiểm tra hộp thư của bạn!', 2000);
                             break;
                         }
                         case 2: {
                             $(sendEmail).text("Gửi xác nhận");
                             $(sendEmail).removeAttr('disabled');
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Email xác nhận không tồn tại trong hệ thống!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
+
+                            var message = "Email không tồn tại trong hệ thống!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng kiểm tra lại...', 3500);
                             break;
                         }
                         case 3: {
                             $(sendEmail).text("Gửi xác nhận");
-                            $(sendEmail).removeAttr('disabled'); $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Mật khẩu cũ bạn vừa nhập ko đúng!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 4: {
-                            $(sendEmail).text("Gửi xác nhận");
                             $(sendEmail).removeAttr('disabled');
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Bạn chưa nhập email xác nhận!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
+
+                            var message = "Email không được bỏ trống!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng kiểm nhập lại...', 3500);
                             break;
                         }
                     }
                 },
                 error: function (data) {
-                    console.log(data);
-                    $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
-                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
-                        $(this).remove();
-                    });
+                    $(sendEmail).text("Gửi xác nhận");
+                    $(sendEmail).removeAttr('disabled');
+
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
             });
             messageIndex++;

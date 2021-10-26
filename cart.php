@@ -158,12 +158,14 @@ if ($login_check == false) {
 				$productId = $result['productId'];
 				$quantity = $result['quantity'];
 				$price = $result['price'];
+				$product_img =  json_decode($result['image']);
+				$product_img = $product_img[0]->image;
 		?>
 				<ul class="cartWrap" data-id-1="<?php echo $cartId; ?>" data-id-2="<?php echo $productId ?>" data-id-3="<?php echo $result['price'] ?>">
 					<li class="items odd">
 						<div class="infoWrap">
 							<div class="cartSection">
-								<img src="admin/uploads/<?php echo $result['image'] ?>" alt="" class="itemImg" />
+								<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
 								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
 								<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								<!-- <input type="text" class="qty" id="qty1_<?php echo $cartId; ?>" value="<?php echo $quantity ?>" /> -->
