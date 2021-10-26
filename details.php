@@ -1,7 +1,5 @@
 <?php
 include 'inc/header.php';
-
-
 if (!isset($_GET['proid']) || $_GET['proid'] == NULL) {
 	echo "<script> window.location = '404.php' </script>";
 } else {
@@ -17,6 +15,7 @@ if ($login_check) {
 	$customer_id = 0;
 }
 
+include 'inc/facebookPlugin.php';
 
 
 // if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['wishlist'])) {
@@ -140,17 +139,21 @@ if ($login_check) {
 	<?php
 	$get_product_details = $product->get_details($productid);
 	if ($get_product_details) {
+		$i = 0;
 		while ($result_details = $get_product_details->fetch_assoc()) {
-			# code...
-
+			$product_imgJson =  json_decode($result_details['image']);
+			// echo count($product_img);
+			// echo $product_img[$i]->image;
 	?>
 			<section class="single_product_details_area d-flex align-items-center">
 				<!-- Single Product Thumb -->
 				<div class="single_product_thumb">
 					<div class="product_thumbnail_slides owl-carousel">
-						<img src="admin/uploads/<?php echo $result_details['image'] ?>" alt="">
-						<img src="img/product-img/product-big-2.jpg" alt="">
-						<img src="img/product-img/product-big-3.jpg" alt="">
+						<?php foreach ($product_imgJson as $product_img) { ?>
+							<img src="<?php echo $product_img->image ?>">
+						<?php
+						}  ?>
+						<img src="img/product-img/product-big-3.jpg">
 					</div>
 				</div>
 
@@ -213,11 +216,6 @@ if ($login_check) {
 								}
 							}
 							?>
-							<?php
-							if (isset($insertWishlist)) {
-								echo $insertWishlist;
-							}
-							?>
 						</div>
 						<div id="error-submit"></div>
 					</form>
@@ -228,9 +226,6 @@ if ($login_check) {
 					?>
 					</form>
 				</div>
-
-
-
 				<!-- Cart -->
 			</section>
 	<?php
@@ -239,8 +234,6 @@ if ($login_check) {
 	?>
 	<!-- ##### Single Product Details Area End ##### -->
 	</div>
-
-
 
 	<div class="container mt-3">
 		<!-- Nav tabs -->
@@ -262,7 +255,6 @@ if ($login_check) {
 						$get_product_details = $product->get_details($productid);
 						if ($get_product_details) {
 							while ($result_details = $get_product_details->fetch_assoc()) {
-
 						?>
 								<div class=" descriptionBox mt-4">
 									<p><?php echo $result_details['product_desc'] ?></p>
@@ -287,10 +279,6 @@ if ($login_check) {
 	</div>
 	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i class="fa fa-arrow-left"></i></a>
 </body>
-
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="YyQ5Kwly"></script>
-
 
 <?php
 include 'inc/footer.php';

@@ -221,9 +221,21 @@ class product
 
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
-			 order by tbl_product.productId desc ";
+								WHERE tbl_product.type != '9'
+			 order by tbl_product.productId desc";
+		$result = $this->db->select($query);
+		return $result;
+	}
 
-		// $query = "SELECT * FROM tbl_product order by productId desc ";
+	public function show_productPause()
+	{
+		$query =
+			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
+
+			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
+								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
+								WHERE tbl_product.type = '9'
+			 order by tbl_product.productId desc";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -403,7 +415,7 @@ class product
 		FROM tbl_product as p
 		INNER JOIN tbl_category as c
 		ON p.catId = c.catId
-		where type = '1' LIMIT 25";
+		where type = '2' LIMIT 25";
 		$result = $this->db->select($query);
 		return $result;
 	}

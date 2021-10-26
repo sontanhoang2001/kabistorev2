@@ -5,17 +5,6 @@ if ($login_check == false) {
   header('Location:login.php');
 }
 
-// if(!isset($_GET['proid']) || $_GET['proid'] == NULL){
-//        echo "<script> window.location = '404.php' </script>";
-
-//    }else {
-//        $id = $_GET['proid']; // Lấy productid trên host
-//    }
-// $id = Session::get('customer_id');
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
-//   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-//   $UpdateCustomers = $cs->update_customers($_POST, $id); // hàm check catName khi submit lên
-// }
 $id = Session::get('customer_id');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
@@ -23,10 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $UpdateCustomers = $cs->update_avatar($_POST, $id); // hàm check catName khi submit lên
   }
 }
-
-
 ?>
-
 <link rel="stylesheet" type="text/css" href="css/map.css">
 
 
@@ -58,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="row">
             <div class="col mb-3">
               <div class="card">
-                <div class="card-body bg-light shadow">
+                <div class="card-body">
                   <div class="e-profile">
                     <div class="row">
                       <div class="col-12 col-sm-auto mb-3">
@@ -281,7 +267,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button class="btn btn-primary" type="submit" class="btn btn-success"><a><span class="glyphicon glyphicon-floppy-disk"></span> Cập nhật</a></button>
+                              <button class="btn btn-primary" type="submit" class="btn btn-success"><a><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</a></button>
                             </div>
                           </div>
                           <div id="error-submit-2" class="mt-50"></div>

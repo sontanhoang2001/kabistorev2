@@ -51,12 +51,7 @@ function add_product() {
             type: $('select[name="type"] option:selected').val()
         };
 
-        if ($("input[name=old_price]").val() <= $("input[name=price]").val()) {
-            var message = "Giá cũ phải lớn hơn giá mới!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng chỉnh sửa lại...', 3500);
-        }
-        else if (formData.category == 0) {
+        if (formData.category == 0) {
             var message = "Bạn chưa chọn loại sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
@@ -226,7 +221,8 @@ function product_list() {
         $("input[name=product_more_quantity]").val("");
     })
 
-    var productId;
+    var productId, jsonImageArray;
+
     // Khi nhấn vào edit
     $('.btn[data-target="#editModal"]').click(function (e) {
         e.preventDefault();
@@ -275,6 +271,7 @@ function product_list() {
                         // Khởi tạo lại chuỗi json thành text
                         imageTemp = imageTemp.concat(obj_img[i]['image']) + ",";
                     });
+                    jsonImageArray = imageTemp;
                     $("#image").val(imageTemp);
                 } else {
                     var message = "Lỗi máy chủ!";
@@ -291,7 +288,6 @@ function product_list() {
 
 
     // Tạo review Image cho hình ảnh
-    var jsonImageArray;
     $("#image").blur(function () {
         $("#reviewImage img").remove();
         var array = $(this).val().split(",");
@@ -330,12 +326,7 @@ function product_list() {
         };
 
 
-        if ((Number)(formData.old_price) <= (Number)(formData.price)) {
-            var message = "Giá cũ phải lớn hơn giá mới!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng chỉnh sửa lại...', 3500);
-        }
-        else if (formData.category == 0) {
+        if (formData.category == 0) {
             var message = "Bạn chưa chọn loại sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);

@@ -362,6 +362,7 @@ img {
     width: 40px;
     right: 60px;
     bottom: 110px;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 767px) {
@@ -1537,7 +1538,7 @@ img {
 .single_product_details_area .single_product_desc {
     position: relative;
     z-index: 1;
-    padding: 10px 5%;
+    padding: 22px 5%;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {

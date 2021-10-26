@@ -1,6 +1,8 @@
 <?php
 include 'inc/header.php';
 include 'inc/slider.php';
+include 'inc/global.php';
+
 // echo session::get('accessToken');
 ?>
 
@@ -18,7 +20,6 @@ include 'inc/slider.php';
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <input id="text" type="hidden" value="Chào mừng Độ Nguyễn đã đến với Tấn Hoàng Shop"></input>
-
 <input id="voiceselection" type="hidden" value="Vietnamese Female"></input> -->
 
 
@@ -64,15 +65,12 @@ include 'inc/slider.php';
                 <div class="wrapper" id="wrapper_product">
                     <div class="carousel-product owl-carousel">
                         <?php
-                        $seo = "-re-nhat-can-tho";
                         $get_all_product_Featured = $product->get_all_product_Featured();
                         if ($get_all_product_Featured) {
                             while ($result = $get_all_product_Featured->fetch_assoc()) {
                                 $productId = $result['productId'];
-                                $product_img =  "admin/uploads/" . $result['image'];
-                                // $product_img =  json_decode($result['image']);
-                                // echo $product_img = $product_img[0]->image;
-
+                                $product_img =  json_decode($result['image']);
+                                $product_img = $product_img[0]->image;
                         ?>
                                 <!-- Single Product -->
                                 <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
@@ -180,6 +178,8 @@ include 'inc/slider.php';
                         if ($show_category_img) {
                             while ($result = $show_category_img->fetch_assoc()) {
                                 $catName = $result['catName'];
+                                $product_img =  json_decode($result['image']);
+                                $product_img = $product_img[0]->image;
                         ?>
                                 <!-- Single Product -->
                                 <div class="single-product-wrapper">
@@ -187,7 +187,7 @@ include 'inc/slider.php';
                                     <!-- Product Image -->
                                     <div class="product-img">
                                         <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $result['catId'] ?>smem.html">
-                                            <img src="admin/uploads/<?php echo $result['image'] ?>" loading="lazy">
+                                            <img src="<?php echo $product_img ?>" loading="lazy">
                                             <h5 class="categories_name"><?php echo $catName; ?></h5>
                                         </a>
                                         <!-- Product Badge -->
@@ -367,7 +367,8 @@ include 'inc/slider.php';
                             if ($get_all_product_Featured) {
                                 while ($result = $get_all_product_Featured->fetch_assoc()) {
                                     $productId = $result['productId'];
-                                    $product_img =  "admin/uploads/" . $result['image'];
+                                    $product_img =  json_decode($result['image']);
+                                    $product_img = $product_img[0]->image;
                             ?>
                                     <!-- Single Product -->
 
@@ -400,13 +401,7 @@ include 'inc/slider.php';
                                                     <img style="width: 1px;" class="lazy img-clone" data-src="<?php echo $product_img ?>" alt="cart icon" />
                                                     <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                                 </li>
-                                                <!-- <a class="add_to_cart" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a> -->
                                             </ul>
-
-                                            <!-- <button id="add_to_cart_effect_<?php echo $productId ?>" class="button add_to_cart_effect" type="button">
-                                            <img class="icon" data-src="assets/images/cart-sm.png" alt="cart icon" />
-                                            Add to cart
-                                        </button> -->
 
                                             <!-- Product Badge -->
                                             <?php
@@ -419,30 +414,12 @@ include 'inc/slider.php';
                                                 echo '</span></div>';
                                             }
                                             ?>
-                                            <!-- Favourite -->
-                                            <!-- <div class="product-favourite">
-                                                    <?php
-                                                    $result['productId'];
-                                                    $customer_id = Session::get('customer_id');
-                                                    $wishlist_check = $product->wishlist_check($customer_id, $result['productId']);
-
-                                                    $login_check = Session::get('customer_login');
-                                                    if ($login_check) {
-                                                        if ($wishlist_check) {
-                                                            echo '<a href="#" class="favme active fa fa-heart"></a>';
-                                                        } else {
-                                                            echo '<a href="#" class="favme fa fa-heart"></a>';
-                                                        }
-                                                    }
-                                                    ?>
-                                                </div> -->
                                         </div>
                                         <!-- Product Description -->
                                         <div class="product-description ml-4 mr-4">
                                             <span class="small text-muted"><?php echo $result['catName'] ?></span>
                                             <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
                                                 <div class="text-dark"><?php echo $result['productName'] ?></div>
-
                                             </a>
                                             <p class="product-price">
                                                 <?php if ($old_price != 0) {
@@ -564,7 +541,6 @@ include 'inc/slider.php';
                 });
             }
         });
-
 
         window.addEventListener('resize', resizeAll);
         gallery.querySelectorAll('.gallery-item').forEach(function(item) {

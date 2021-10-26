@@ -16,7 +16,7 @@ $fm = new Format();
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Quản lý sản phẩm</h1>
+    <h1 class="h3 mb-2 text-gray-800">Quản lý sản phẩm ngừng kinh doanh</h1>
     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
         For more information about DataTables.
         <br><a href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm Đơn hàng</a>.
@@ -25,7 +25,7 @@ $fm = new Format();
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các sản phẩm</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các sản phẩm ngừng kinh doan</h6>
         </div>
 
         <div class="card-body">
@@ -56,7 +56,7 @@ $fm = new Format();
                     </tfoot> -->
                     <tbody>
                         <?php
-                        $list_product = $pd->show_product();
+                        $list_product = $pd->show_productPause();
                         if ($list_product) {
                             $i = 0;
                             while ($result = $list_product->fetch_assoc()) {

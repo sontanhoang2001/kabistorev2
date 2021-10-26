@@ -671,7 +671,7 @@ class cart
 		FROM tbl_order as o
 		INNER JOIN tbl_address as a
 		ON a.address_id = o.address_id
-		WHERE  Month(a.date_create) BETWEEN '$month' and '$nextMonth'";
+		WHERE Month(a.date_create) BETWEEN '$month' AND '$nextMonth' AND o.status = '2'";
 		$getEarningsMonthly = $this->db->select($query);
 		if ($getEarningsMonthly) {
 			$earningsMonthly = 0;
@@ -679,6 +679,8 @@ class cart
 				$earningsMonthly =  $result['totalPayment'] + $earningsMonthly;
 			}
 			return $earningsMonthly;
+		} else {
+			return 0;
 		}
 	}
 
@@ -690,7 +692,7 @@ class cart
 		FROM tbl_order as o
 		INNER JOIN tbl_address as a
 		ON a.address_id = o.address_id
-		WHERE  a.date_create BETWEEN '$year-01-01' and '$nextYear-01-01'";
+		WHERE  a.date_create BETWEEN '$year-01-01' AND '$nextYear-01-01' AND o.status = '2'";
 		$getEarningsAnnual = $this->db->select($query);
 		if ($getEarningsAnnual) {
 			$earningsAnnual = 0;
@@ -698,6 +700,8 @@ class cart
 				$earningsAnnual =  $result['totalPayment'] + $earningsAnnual;
 			}
 			return $earningsAnnual;
+		} else {
+			return 0;
 		}
 	}
 

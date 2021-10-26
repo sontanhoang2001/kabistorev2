@@ -1,3 +1,7 @@
+img.lazy {
+    object-fit: cover;
+}
+
 table td {
     position: relative;
 }

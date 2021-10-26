@@ -23,13 +23,30 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-
-
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- lazy cdnjs  -->
+    <script type="text/javascript" src="../js/lazy/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="../js/lazy/jquery.lazy.plugins.min.js"></script>
+    <script>
+        $(function() {
+            $('.lazy').Lazy({
+                // your configuration goes here
+                scrollDirection: 'vertical',
+                effect: 'fadeIn',
+                effectTime: 1000,
+                threshold: 0,
+                visibleOnly: true,
+                onError: function(element) {
+                    console.log('error loading ' + element.data('src'));
+                }
+            });
+        });
+    </script>
 
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>

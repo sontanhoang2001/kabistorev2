@@ -67,7 +67,7 @@ $fm = new format();
                         ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $i ?></td>
-                                    <td><a href="#" data-orderid="<?php echo $address_id ?>" onclick="pasteFindByAttr(this)"><i class="fa fa-clipboard" aria-hidden="true"></i></a> ID: <?php echo $address_id . "<br>" . (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
+                                    <td><a href="#" data-orderid="<?php echo $address_id ?>" onclick="pasteFindByAttr(this, 'orderid')"><i class="fa fa-clipboard" aria-hidden="true"></i></a> ID: <?php echo $address_id . "<br>" . (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
                                     <td>
                                         <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
                                     </td>
