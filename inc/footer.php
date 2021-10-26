@@ -389,4 +389,17 @@
     });
 </script>
 
+<!-- Include Plugin JS file -->
+<script src="js/nice-toast/nice-toast-js.min.js" type="text/javascript"></script>
+
+<!-- niceToast -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.niceToast.setup({
+            position: "bottom-right",
+            timeout: 5000,
+        });
+    });
+</script>
+
 <script src="js/live-search.js"></script>

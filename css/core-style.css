@@ -372,8 +372,6 @@ img {
     }
 }
 
-
-
 /* goBack */
 
 /* ScrollUp */
@@ -2724,3 +2722,7 @@ span.current {
 /* END ERROR */
 
 /*# sourceMappingURL=core-style.css.map */
+
+.nice-toast-wrapper[class*=' bottom'] {
+    bottom: 75% !important;
+}

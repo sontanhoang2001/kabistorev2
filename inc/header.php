@@ -67,6 +67,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
+    <link href="css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Latest compiled and minified CSS & JS -->
 

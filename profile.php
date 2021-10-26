@@ -212,16 +212,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                               <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
                             </div>
                           </div>
-
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button class="btn btn-primary" type="submit" name="save"><a><span class="glyphicon glyphicon-floppy-disk"></span> Cập nhật</a></button>
+                              <button class="btn btn-primary" type="submit" id="btnUpdateInfo" name="save" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
                             </div>
                           </div>
                           <div id="error-submit-1" class="mt-50"></div>
                         </form>
                       </div>
-
                       <div id="changepassword" class="container tab-pane fade"><br>
                         <form id="f_changePassword" method="POST" enctype="multipart/form-data">
                           <div class="row">
@@ -267,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button class="btn btn-primary" type="submit" class="btn btn-success"><a><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</a></button>
+                              <button class="btn btn-primary" type="submit" id="btnUpdatePass" class="btn btn-success" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
                             </div>
                           </div>
                           <div id="error-submit-2" class="mt-50"></div>

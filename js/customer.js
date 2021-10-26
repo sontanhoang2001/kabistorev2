@@ -275,10 +275,15 @@ function updateProfile() {
 
     $('input[name="fullName"]').keyup(function () {
         if ($(this).val() == "") {
+            $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
             // fullName không được bỏ trống
             $("#error-fullname").show();
+            var message = "Bạn chưa nhập họ và tên!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
         } else {
+            $("#btnUpdateInfo").removeAttr("disabled");
             data_right = true;
             $("#error-fullname").fadeOut();
         }
@@ -286,43 +291,68 @@ function updateProfile() {
 
     $('input[name="phone"]').keyup(function () {
         if ($(this).val() == "" || $(this).val() == 0) {
+            $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
             $("#error-phone1").show();
+            var message = "Bạn chưa nhập số điện thoại!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
         } else {
+            $("#btnUpdateInfo").removeAttr("disabled");
             data_right = true;
             $("#error-phone1").fadeOut();
         }
 
         const regexPhoneNumber = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
         if ($(this).val().match(regexPhoneNumber)) {
+            $("#btnUpdateInfo").removeAttr("disabled");
             data_right = true;
             $("#error-phone2").fadeOut();
         } else {
+            $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
             // phone sai cú pháp
             $("#error-phone2").show();
+            var message = "Số điện thoại sai cú pháp!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
         }
     });
 
     $('input[name="email"]').keyup(function () {
         if ($(this).val() == "") {
+            $("#btnUpdateInfo").removeAttr("disabled");
             data_right = false;
             $("#error-email1").show();
+            var message = "Bạn chưa nhập email!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
         } else {
+            $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = true;
             $("#error-email1").fadeOut();
         }
 
         const regexPhoneNumber = /^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/;
         if ($(this).val().match(regexPhoneNumber)) {
+            $("#btnUpdateInfo").removeAttr("disabled");
             data_right = true;
             $("#error-email2").fadeOut();
         } else {
+            $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
             // phone sai cú pháp
             $("#error-email2").show();
+            var message = "Email sai cú pháp!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
         }
     });
+
+    $("#saveLocaltion").click(function () {
+        $("#btnUpdateInfo").removeAttr("disabled");
+    })
+
 
     $('#f_profile').submit(function (e) {
         e.preventDefault();
@@ -336,63 +366,62 @@ function updateProfile() {
             maps_maplng: $('input[name="maps_maplng"]').val()
         }
 
-        if (data_right == true) {
-            $.ajax({
-                type: "POST",
-                url: "~/../callbackPartial/updateProfile.php",
-                dataType: "JSON",
-                data: {
-                    "formData": formData
-                },
-                success: function (data) {
-                    var res = JSON.parse(JSON.stringify(data))
-                    var Status = res.status;
-                    switch (Status) {
-                        case 0: {
-                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Cập nhật thông tin thất bại!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
+        if (formData.maps_maplat != "" && formData.maps_maplng != "") {
+            if (data_right == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "~/../callbackPartial/updateProfile.php",
+                    dataType: "JSON",
+                    data: {
+                        "formData": formData
+                    },
+                    success: function (data) {
+                        var res = JSON.parse(JSON.stringify(data))
+                        var Status = res.status;
+                        switch (Status) {
+                            case 0: {
+                                var message = "Cập nhật thông tin thất bại!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                            case 1: {
+                                var message = "Bạn đã cập nhật thông tin thành công!";
+                                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                                toast.change('Đã lưu và thay đổi...', 3500);
+                                break;
+                            }
+                            case 2: {
+                                var message = "Các trường không được bỏ trống!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                            case 3: {
+                                var message = "Số điện thoại sai cú pháp!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                            case 4: {
+                                var message = "Email sai cú pháp!!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
                         }
-                        case 1: {
-                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Bạn đã cập nhật thông tin thành công!</div>');
-                            $("#error-submit" + messageIndex).show().delay(10000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 2: {
-                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Các trường không được bỏ trống!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 3: {
-                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Số điện thoại sai cú pháp!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 4: {
-                            $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Email sai cú pháp!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
+                    },
+                    error: function (data) {
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
                     }
-                },
-                error: function (data) {
-                    $("#error-submit-1").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
-                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
-                        $(this).remove();
-                    });
-                }
-            });
-            messageIndex++;
+                });
+            }
+        } else {
+            var message = "Bạn chưa chon vị trí giao hàng!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Nhấn vào bản đồ để chọn...', 2000);
         }
     });
 }
@@ -435,14 +464,18 @@ function changePassword() {
         if ($(this).val() == "") {
             data_right = false;
             $("#error-passwordnew2-1").show();
+            $("#btnUpdatePass").attr("disabled", "disabled");
         } else {
             if ($(this).val() != $('input[name="passwordnew1"]').val()) {
                 data_right = false;
                 $("#error-passwordnew2-2").show();
+                $("#btnUpdatePass").attr("disabled", "disabled");
+
             } else {
                 data_right = true;
                 $("#error-passwordnew2-1").fadeOut();
                 $("#error-passwordnew2-2").fadeOut();
+                $("#btnUpdatePass").removeAttr("disabled");
             }
         }
     });
@@ -493,51 +526,43 @@ function changePassword() {
                     var Status = res.status;
                     switch (Status) {
                         case 0: {
-                            $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu cũ, mật khẩu mới và xác nhận mật khẩu không được phét bỏ trống!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
+                            var message = "Các trường không được bỏ trống!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 1: {
-                            $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Đổi mật khẩu thành công!</div>');
-                            $("#error-submit" + messageIndex).show().delay(10000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
+                            var message = "Đổi mật khẩu thành công!";
+                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                            toast.change('Đã lưu và thay đổi...', 3500);
                             break;
                         }
                         case 2: {
-                            $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu bạn vừa nhập không đúng định dạng!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
+                            var message = "Mật khẩu không đúng định dạng!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 3: {
-                            $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu cũ bạn vừa nhập ko đúng!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
+                            var message = "Mật khẩu cũ vừa nhập không đúng!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                         case 4: {
-                            $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Xác nhận mật khẩu ko chính xác!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
+                            var message = "Nhập lại mật khẩu ko chính xác!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
                             break;
                         }
                     }
                 },
                 error: function (data) {
-                    console.log(data);
-                    $("#error-submit-2").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
-                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
-                        $(this).remove();
-                    });
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
             });
-            messageIndex++;
         }
     });
 }
@@ -620,7 +645,7 @@ function checkSendMail() {
                         }
                         case 3: {
                             $(sendEmail).text("Gửi xác nhận");
-                            $(sendEmail).removeAttr('disabled');                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Mật khẩu cũ bạn vừa nhập ko đúng!!!</div>');
+                            $(sendEmail).removeAttr('disabled'); $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger fade show mb-1" role="alert">Mật khẩu cũ bạn vừa nhập ko đúng!!!</div>');
                             $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
                                 $(this).remove();
                             });
@@ -650,11 +675,11 @@ function checkSendMail() {
     });
 }
 
-function uploadAvatar() {
-    $('input[name="avatar"]').change(function (e) {
-        $('#f_avatar').submit();
-    });
-}
+// function uploadAvatar() {
+//     $('input[name="avatar"]').change(function (e) {
+//         $('#f_avatar').submit();
+//     });
+// }
 
 
 //Show password
