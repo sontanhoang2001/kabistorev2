@@ -62,12 +62,16 @@ $fm = new Format();
                             while ($result = $list_product->fetch_assoc()) {
                                 $i++;
                                 $productId = $result['productId'];
+                                $image =  json_decode($result['image']);
+                                $product_img = $image[0]->image;
+
                                 $product_remain = $result['product_remain'];
+                                $product_code = $result['product_code'];
                         ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $i ?></td>
-                                    <td><?php echo $result['product_code'] ?></td>
-                                    <td><img src="uploads/<?php echo $result['image'] ?>" width="80"></td>
+                                    <td data-productcode="<?php echo $product_code ?>" onclick="pasteFindByAttr(this, 'productcode')"><?php echo $product_code ?></td>
+                                    <td><img src="<?php echo $product_img ?>" width="100px" height="100px"></td>
 
                                     <td><a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a></td>
                                     <td>

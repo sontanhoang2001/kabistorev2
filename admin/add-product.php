@@ -148,8 +148,12 @@ if (isset($insertProduct)) {
                         </form>
                     </div>
                 </div>
+                <div class="text-right">
+                    <a href="product-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem danh sách sản phẩm đã thêm</a>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 

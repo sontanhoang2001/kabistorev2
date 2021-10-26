@@ -154,7 +154,7 @@ include 'inc/slider.php';
                                             <?php
                                             }
                                             ?>
-                                            <?php echo $fm->format_currency($result['price']) . " " . "₫" ?>
+                                            <?php echo $fm->format_currency($result['price']) . " ₫" ?>
                                         <div class="sell-out">Đã bán <?php echo $result['product_soldout'] ?></div>
                                         </p>
                                     </div>

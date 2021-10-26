@@ -73,7 +73,7 @@ class product
 				// 3 Mã sản phẩm này đã tồn tại
 				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type,old_price,price,image) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$old_price','$price','$image') ";
+				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type,old_price,price,image) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$old_price','$price', '$image') ";
 				$result = $this->db->insert($query);
 				if ($result) {
 					// 1 thành công
@@ -217,7 +217,7 @@ class product
 	public function show_product()
 	{
 		$query =
-			"SELECT tbl_product.*, tbl_category.catName, tbl_brand.brandName
+			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
 
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId

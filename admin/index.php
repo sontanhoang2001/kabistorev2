@@ -1,4 +1,11 @@
-<?php include 'inc/header.php';?>
+<?php include 'inc/header.php';
+include_once('../classes/cart.php');
+include_once('../helpers/format.php');
+$ct = new cart();
+$fm = new format();
+?>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="L6upGdNR"></script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -12,6 +19,12 @@
     <!-- Content Row -->
     <div class="row">
 
+        <?php
+        $getEarningsMonthly = $ct->getEarningsMonthly();
+        $earningsMonthly = $fm->format_currency($getEarningsMonthly) .  " ₫";
+        $getEarningsAnnual = $ct->getEarningsAnnual();
+        $EarningsAnnual = $fm->format_currency($getEarningsAnnual) .  " ₫";
+        ?>
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -20,7 +33,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Earnings (Monthly)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $earningsMonthly ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -38,7 +51,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Earnings (Annual)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $EarningsAnnual ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -276,37 +289,38 @@
             <!-- Illustrations -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">FanPage</h6>
                 </div>
                 <div class="card-body">
-                    <div class="text-center">
-                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
+                    <div class="fb-page" data-href="https://www.facebook.com/ilovekabistore/" data-tabs="timeline" data-width="500" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/ilovekabistore/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ilovekabistore/">Kabi Store</a></blockquote>
                     </div>
-                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                        constantly updated collection of beautiful svg images that you can use
-                        completely free and without attribution!</p>
-                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                        unDraw &rarr;</a>
                 </div>
-            </div>
 
-            <!-- Approach -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                <!-- Approach -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
+                            CSS bloat and poor page performance. Custom CSS classes are used to create
+                            custom components and custom utility classes.</p>
+                        <p class="mb-0">Before working with this theme, you should become familiar with the
+                            Bootstrap framework, especially the utility classes.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                        custom components and custom utility classes.</p>
-                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                        Bootstrap framework, especially the utility classes.</p>
-                </div>
-            </div>
 
+            </div>
         </div>
-    </div>
 
-</div>
-<!-- /.container-fluid -->
-<?php include 'inc/footer.php';?>
+    </div>
+    <!-- /.container-fluid -->
+    <?php include 'inc/footer.php'; ?>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>

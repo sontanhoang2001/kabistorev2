@@ -9,10 +9,10 @@ function pasteFind(element) {
 }
 
 //copyToClipboard copy dữ liệu và dán vào tìm kiếm by data attr
-function pasteFindByAttr(element) {
-    var dataName = $(element).attr("data-orderid");
+function pasteFindByAttr(element, dataName) {
+    var dataName = $(element).attr("data-" + dataName);
     $('input.form-control.form-control-sm').val(dataName);
-    var message = "Copy tên sản phẩm thành công!";
+    var message = "Copy thành công!";
     let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
     toast.change('Đã dán vào khung tìm kiếm...', 3000);
 }

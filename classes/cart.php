@@ -630,33 +630,95 @@ class cart
 	// }
 
 	// xóa order của admin
-	public function del_shifted($id, $time)
-	{
-		$id = mysqli_real_escape_string($this->db->link, $id);
-		$time = mysqli_real_escape_string($this->db->link, $time);
-		$query = "DELETE FROM tbl_order 
-					  WHERE id = '$id' AND date_order = '$time' ";
+	// public function del_shifted($id, $time)
+	// {
+	// 	$id = mysqli_real_escape_string($this->db->link, $id);
+	// 	$time = mysqli_real_escape_string($this->db->link, $time);
+	// 	$query = "DELETE FROM tbl_order 
+	// 				  WHERE id = '$id' AND date_order = '$time' ";
 
-		$result = $this->db->update($query);
-		if ($result) {
-			$msg = "<span class='success'> Xóa Đơn hàng thành công</span>";
-			return $msg;
+	// 	$result = $this->db->update($query);
+	// 	if ($result) {
+	// 		$msg = "<span class='success'> Xóa Đơn hàng thành công</span>";
+	// 		return $msg;
+	// 	} else {
+	// 		$msg = "<span class='erorr'> Xóa Đơn hàng thất bạithành công</span> ";
+	// 		return $msg;
+	// 	}
+	// }
+
+	// xác nhận đã giao hàng customer
+	// public function shifted_confirm($id, $cusId)
+	// {
+	// 	$id = mysqli_real_escape_string($this->db->link, $id);
+	// 	$cusId = mysqli_real_escape_string($this->db->link, $cusId);
+	// 	$query = "UPDATE tbl_order SET
+	// 		status = '2'
+	// 		WHERE id = '$id' AND customer_id = '$cusId' ";
+	// 	$result = $this->db->update($query);
+	// 	return $result;
+	// }
+
+	public function getEarningsMonthly()
+	{
+		$month = date("m");
+		if ($month != 12) {
+			$nextMonth = $month + 1;
 		} else {
-			$msg = "<span class='erorr'> Xóa Đơn hàng thất bạithành công</span> ";
-			return $msg;
+			$nextMonth = 1;
+		}
+		$query = "SELECT o.totalPayment
+		FROM tbl_order as o
+		INNER JOIN tbl_address as a
+		ON a.address_id = o.address_id
+		WHERE  Month(a.date_create) BETWEEN '$month' and '$nextMonth'";
+		$getEarningsMonthly = $this->db->select($query);
+		if ($getEarningsMonthly) {
+			$earningsMonthly = 0;
+			while ($result = $getEarningsMonthly->fetch_assoc()) {
+				$earningsMonthly =  $result['totalPayment'] + $earningsMonthly;
+			}
+			return $earningsMonthly;
 		}
 	}
 
-	// xác nhận đã giao hàng customer
-	public function shifted_confirm($id, $cusId)
+	public function getEarningsAnnual()
 	{
-		$id = mysqli_real_escape_string($this->db->link, $id);
-		$cusId = mysqli_real_escape_string($this->db->link, $cusId);
-		$query = "UPDATE tbl_order SET
-			status = '2'
-			WHERE id = '$id' AND customer_id = '$cusId' ";
-		$result = $this->db->update($query);
-		return $result;
+		$year = date("Y");
+		$nextYear = $year + 1;
+		$query = "SELECT o.totalPayment
+		FROM tbl_order as o
+		INNER JOIN tbl_address as a
+		ON a.address_id = o.address_id
+		WHERE  a.date_create BETWEEN '$year-01-01' and '$nextYear-01-01'";
+		$getEarningsAnnual = $this->db->select($query);
+		if ($getEarningsAnnual) {
+			$earningsAnnual = 0;
+			while ($result = $getEarningsAnnual->fetch_assoc()) {
+				$earningsAnnual =  $result['totalPayment'] + $earningsAnnual;
+			}
+			return $earningsAnnual;
+		}
+	}
+
+
+	public function getEarningsAnnualOverview()
+	{
+		$year = date("Y");
+		$nextYear = $year + 1;
+		$query = "SELECT o.totalPayment
+		FROM tbl_order as o
+		INNER JOIN tbl_address as a
+		ON a.address_id = o.address_id
+		WHERE  a.date_create BETWEEN '$year-01-01' and '$nextYear-01-01'";
+		$getEarningsAnnual = $this->db->select($query);
+		if ($getEarningsAnnual) {
+			$earningsAnnual = 0;
+			while ($result = $getEarningsAnnual->fetch_assoc()) {
+				$earningsAnnual =  $result['totalPayment'] + $earningsAnnual;
+			}
+			return $earningsAnnual;
+		}
 	}
 }
 ?>

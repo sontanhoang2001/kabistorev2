@@ -1,3 +1,13 @@
+<?php
+include '../classes/adminlogin.php';
+$class = new adminlogin();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
+    $adminUser = $_POST['adminUser'];
+    $adminPass = md5($_POST['adminPass']);
+    $login_check = $class->login_admin($adminUser, $adminPass); // hàm check User and Pass khi submit lên
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Admin - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -39,22 +49,25 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back Admin!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="login" method="post">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                            <input type="text" name="adminUser" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            <input type="password" name="adminPass" class="form-control form-control-user" id="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck" onclick="showPasswordLogin();">
                                                 <label class="custom-control-label" for="customCheck">Hiện mật khẩu</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Đăng nhập
-                                        </a>
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Đăng nhập" />
+                                        <?php
+                                        if (isset($login_check)) {
+                                            echo $login_check;
+                                        }
+                                        ?>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -88,56 +101,4 @@
 </body>
 
 </html>
-
-<?php
-// gọi file adminlogin
-include '../classes/adminlogin.php';
-
-?>
-<?php
-// gọi class adminlogin
-$class = new adminlogin();
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-    $adminUser = $_POST['adminUser'];
-    $adminPass = md5($_POST['adminPass']);
-    $login_check = $class->login_admin($adminUser, $adminPass); // hàm check User and Pass khi submit lên
-}
-?>
-
-<!DOCTYPE html>
-
-<head>
-    <meta charset="utf-8">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/stylelogin.css" media="screen" />
-</head>
-
-<body>
-    <div class="container">
-        <section id="content">
-            <form action="login.php" method="post">
-                <h1>Đăng nhập Admin</h1>
-                <span><?php
-                        if (isset($login_check)) {
-                            echo $login_check;
-                        }
-                        ?> </span>
-                <div>
-                    <input type="text" placeholder="Username" required="" name="adminUser" />
-                </div>
-                <div>
-                    <input type="password" placeholder="Password" required="" name="adminPass" />
-                </div>
-                <div>
-                    <input type="submit" value="Đăng nhập" />
-                </div>
-            </form><!-- form -->
-            <div class="button">
-                <a href="#"></a>
-            </div><!-- button -->
-        </section><!-- content -->
-    </div><!-- container -->
-</body>
-
-</html>
+<script src="../js/customer.js"></script>

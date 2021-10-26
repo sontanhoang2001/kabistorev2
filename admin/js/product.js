@@ -30,7 +30,7 @@ function add_product() {
             jsonObj.image = array[i];
             imageArrayArg.push(jsonObj);
         });
-        jsonImageArray = JSON.parse(JSON.stringify(imageArrayArg));
+        jsonImageArray = JSON.stringify(imageArrayArg);
         // console.log(imageArrayArg[0]['image']);
         // console.log(imageArrayArg[1]['image']);
     });
@@ -51,7 +51,6 @@ function add_product() {
             type: $('select[name="type"] option:selected').val()
         };
 
-        alert(formData.type);
         if ($("input[name=old_price]").val() <= $("input[name=price]").val()) {
             var message = "Giá cũ phải lớn hơn giá mới!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
@@ -76,7 +75,6 @@ function add_product() {
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else {
-            console.log(formData.product_code, formData.productName, formData.productQuantity, formData.category, formData.brand, formData.type, formData.old_price, formData.price, formData.image, formData.product_desc);
             $.ajax({
                 type: "POST",
                 url: "~/../callbackPartial/product.php",
@@ -263,9 +261,21 @@ function product_list() {
                     $("input[name=old_price]").val(old_price);
                     $("input[name=price]").val(price);
                     $('#size option[value=" ' + size + ' "]').attr('selected', 'selected');
-                    $("#image").val(image);
                     $("#product_desc").val(product_desc);
                     $('#type option[value="' + type + '"]').attr('selected', 'selected');
+
+                    // load ảnh
+                    $("#reviewImage img").remove();
+                    // lấy img từ input
+                    const obj_img = JSON.parse(image);
+                    var imageTemp = "";
+                    $.each(obj_img, function (i) {
+                        // Khởi lại lại ảnh sản phẩm
+                        $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + obj_img[i]['image'] + '">');
+                        // Khởi tạo lại chuỗi json thành text
+                        imageTemp = imageTemp.concat(obj_img[i]['image']) + ",";
+                    });
+                    $("#image").val(imageTemp);
                 } else {
                     var message = "Lỗi máy chủ!";
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
@@ -293,7 +303,7 @@ function product_list() {
             jsonObj.image = array[i];
             imageArrayArg.push(jsonObj);
         });
-        jsonImageArray = JSON.parse(JSON.stringify(imageArrayArg));
+        jsonImageArray = JSON.stringify(imageArrayArg);
     })
 
 
@@ -354,7 +364,7 @@ function product_list() {
                 success: function (data) {
                     var res = JSON.parse(data),
                         Status = res.status;
-                        
+
                     switch (Status) {
                         case 0: {
                             var message = "Các trường không được bỏ trống!";
@@ -368,33 +378,18 @@ function product_list() {
                             toast.change('Đã Lưu và thay đổi...', 3500);
                             $("#editModal .close").click()
 
+
+                            // lấy img từ input
+                            const obj_img = JSON.parse(formData.image);
+
                             // cập nhật dữ liệu vào bảng
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 1).empty().append(formData.product_code);
-                            $('tbody tr td').eq((tr_index * 11) + tr_index + 2).empty().append('<img src="' + formData.image + '" width="80">');
+                            $('tbody tr td').eq((tr_index * 11) + tr_index + 2).empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 3).empty().append(formData.productName);
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 7).empty().append(currency_vn(formData.price));
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 8).empty().append(categoryTxt);
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 9).empty().append(brandTxt);
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 10).empty().append(typeTxt);
-
-                            // var td = '\
-                            //         <td class="sorting_1">'+ rowData[0] + '</td>\
-                            //         <td>'+ formData.product_code + '</td>\
-                            //         <td><img src="uploads/e33668a757.png" width="80"></td>\
-                            //         <td><a href="#" class="btn" data-productid="'+ formData.productId + '" data-target="#productModal">' + formData.productName + '</a></td>\
-                            //         <td>'+ rowData[4] + '</td>\
-                            //         <td>'+ rowData[5] + '</td>\
-                            //         <td>'+ rowData[6] + '</td>\
-                            //         <td>'+ currency_vn(formData.price) + '</td>\
-                            //         <td>'+ categoryTxt + '</td>\
-                            //         <td>'+ brandTxt + '</td>\
-                            //         <td>'+ typeTxt + '</td>\
-                            //         <td>\
-                            //         <a href="#" class="btn" data-productid="'+ formData.productId + '" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>\
-                            //         <a href="#" class="btn" data-productid="'+ formData.productId + '" data-toggle="modal" data-target="#delModal"><i class="fa fa-trash-o" aria-hidden="true"></i></a>\
-                            //         </td>';
-                            // $('tbody tr').eq(tr_index).append(td);
-
                             break;
                         }
                         case 2: {
