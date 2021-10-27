@@ -15,7 +15,7 @@ if ($login_check == false) {
 ?>
 
 <link rel="stylesheet" href="css/theme-general.css">
-<link rel="stylesheet" href="css/cart.css">
+<!-- <link rel="stylesheet" href="css/cart.css"> -->
 <!-- jQuery Nice Number CSS -->
 <link rel="stylesheet" href="css/jquery.nice-number.min.css">
 
@@ -31,87 +31,8 @@ if ($login_check == false) {
 	.alert-danger {
 		display: none;
 	}
-
-	form#f_promo {
-		padding-bottom: 15px;
-	}
-
-	.nice-number {
-		padding-top: 0px;
-	}
-
-
-	.nice-number button {
-		display: none;
-		background-color: #82ca9c;
-		box-shadow: 0 2px 5px rgb(0 0 0 / 22%);
-		padding-top: 4px;
-		padding-left: 11px;
-	}
-
-	.nice-number input {
-		box-shadow: none;
-		text-align: center;
-		font-size: 1em;
-		padding: .25em;
-		margin: 1em .5em 0 0;
-		border: 1px solid #e8e8e8;
-		color: #000;
-		border-radius: 0px;
-		padding-left: 5px;
-		padding-right: 5px;
-	}
-
-	.nice-select {
-		-webkit-tap-highlight-color: transparent;
-		background-color: #fff;
-		border-radius: 0px !important;
-		border: solid 1px #e8e8e8;
-		box-sizing: border-box;
-		/* clear: both; */
-		/* cursor: pointer; */
-		/* display: block; */
-		float: left;
-		font-family: inherit;
-		font-size: 10px;
-		font-weight: normal;
-		height: 31px;
-		line-height: 28px;
-		outline: none;
-		padding-left: 8px;
-		padding-right: 24px;
-		position: relative;
-		text-align: left !important;
-		-webkit-transition: all 0.2s ease-in-out;
-		transition: all 0.2s ease-in-out;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		margin-top: 12px;
-		margin-right: 6px;
-	}
-
-	.nice-select:focus {
-		box-shadow: rgb(0 0 0 / 50%) 0px 2px 5px;
-		border: 1px solid rgba(33, 37, 41, 0);
-		border-radius: 5px !important;
-	}
-
-	span.current {
-		color: #000;
-	}
-
-	input.input-quantitys:focus {
-		box-shadow: 0 2px 5px rgb(0 0 0 / 50%);
-		border: 1px solid rgb(33 37 41 / 0%);
-		border-radius: 5px;
-	}
-
-	input.input-quantitys:out-of-range {
-		box-shadow: none;
-		border: 1px solid #212529c2;
-		border-radius: 0px;
-	}
 </style>
+
 
 <div class="wrap cf">
 	<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
@@ -121,23 +42,11 @@ if ($login_check == false) {
 	</div>
 	<div class="cart">
 		<!--    <ul class="tableHead">
-      <li class="prodHeader">Product</li>
-      <li>Quantity</li>
-      <li>Total</li>
-       <li>Remove</li>
-	</ul>-->
-
-		<?php
-		// if (isset($update_quantity_Cart)) {
-		// 	echo $update_quantity_Cart;
-
-		?>
-
-		<?php
-		// if (isset($delcart)) {
-		// 	echo $delcart;
-		// }
-		?>
+			<li class="prodHeader">Product</li>
+			<li>Quantity</li>
+			<li>Total</li>
+			<li>Remove</li>
+			</ul>-->
 
 		<?php
 		$get_price_ship = $ct->get_price_ship();
@@ -223,47 +132,63 @@ if ($login_check == false) {
 		}
 		?>
 	</div>
-	<?php
-	$check_cart = $ct->check_cart($customer_id);
-	if ($check_cart) {
-		$discount = 0;
-	?>
-		<div class="promoCode">
-			<label for="promo">Mã Giảm Giá</label>
+
+
+	<div class="row" style="margin-right: -4px; margin-left: -4px;">
+		<div class="col-lg-6">
 			<form id="f_promo">
-				<input type="text" id="promotion_code" />
-				<button type="submit" class="btn btn-success" id="discount"></button>
+				<div class="p-4">
+					<p class="font-italic mb-4">Hãy sưu tập mã giảm giá và dán vào đây để áp dụng ưu đãi ngay đi nào!</p>
+					<div class="input-group mb-4 border rounded-pill p-2">
+						<input type="text" placeholder="mã giảm giá..." aria-describedby="button-addon3" class="form-control border-0" id="promotion_code">
+						<div class="input-group-append border-0">
+							<button type="submit" class="btn btn-dark px-4 rounded-pill" id="discount"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Áp dụng</button>
+						</div>
+					</div>
+					<div class="alert alert-danger" id="error-promo">
+						<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
+					</div>
+					<div class="alert alert-success" id="success-promo" role="alert">
+						<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
+					</div>
+				</div>
 			</form>
-			<div class="alert alert-danger" id="error-promo">
-				<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
-			</div>
-			<div class="alert alert-success" id="success-promo" role="alert">
-				<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
-			</div>
 		</div>
-		<form id="f_cart" method="POST" action="checkout.html" enctype="multipart/form-data">
-			<div class="subtotal cf">
-				<ul>
-					<li class="totalRow"><span class="label">Tạm Tính:</span><span class="value"><?php echo $fm->format_currency($subtotal) . " ₫";
-																									Session::set('sum', $subtotal);
-																									Session::set('ship', $ship);
-																									?></span></li>
-					<li class="totalRow"><span class="label">phí giao hàng:</span><span class="value"><?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></span></li>
-					<li class="totalRow final"><span class="label">Tổng Cộng:</span><span class="value"><?php
-																										// $vat = $subtotal * 0.1;
-																										$grandTotal = $subtotal + $ship;
-																										echo $fm->format_currency($grandTotal - $discount) . " ₫";
-																										?></span></li>
-					<li class="totalRow">
-						<button type="submit" id="btn_checkout" name="cartcheckout" class="btn success-cart">Xác nhận giỏ hàng</button>
-					</li>
+		<?php
+		$check_cart = $ct->check_cart($customer_id);
+		if ($check_cart) {
+			$discount = 0;
+		?>
+			<div class="col-lg-6">
+				<div class="p-4">
+					<form id="f_cart" method="POST" action="checkout.html" enctype="multipart/form-data">
+
+						<ul class="list-unstyled mb-4">
+							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" id="subtotal">Tạm tính</strong><strong>
+									<?php echo $fm->format_currency($subtotal) . " ₫";
+									Session::set('sum', $subtotal);
+									Session::set('ship', $ship);
+									?></strong></li>
+							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" id="ship">Phí giao hàng</strong><strong>
+									<?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></strong></li>
+							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" id="total">Tổng cộng</strong>
+								<h5 class="font-weight-bold">
+									<?php
+									// $vat = $subtotal * 0.1;
+									$grandTotal = $subtotal + $ship;
+									echo $fm->format_currency($grandTotal - $discount) . " ₫";
+									?>
+								</h5>
+							</li>
+						</ul>
+						<button name="cartcheckout" class="btn btn-dark rounded-pill py-2 btn-block">Đi đến thanh toán</button>
+					</form>
 					<li class="errorRow"></li>
-				</ul>
+				</div>
 			</div>
-		</form>
-	<?php
-	} else {
-		echo '
+		<?php
+		} else {
+			echo '
  			<div class="container">
 				<div class="row">
 					<div class="col-12">
@@ -271,25 +196,10 @@ if ($login_check == false) {
 					</div>
 				</div>
 	 		</div>';
-	}
-	?>
+		}
+		?>
+	</div>
 </div>
-
-
-<script>
-	// Remove Items From Cart
-	// $('a.remove').click(function() {
-	// 	event.preventDefault();
-	// 	$(this).parent().parent().parent().hide(400);
-
-	// })
-
-	// Just for testing, show all items
-	// $('a.btn.continue').click(function() {
-	// 	$('li.items').show(400);
-	// });
-</script>
-
 
 <?php
 include 'inc/footer.php';

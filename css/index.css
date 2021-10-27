@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-}
+} */
 
 .wrapper {
     width: 100%;
@@ -16,41 +16,6 @@
     margin: auto;
     padding: 0 30px;
 }
-
-/* .carousel .card {
-    color: #fff;
-    text-align: center;
-    margin: 20px 0;
-    line-height: 250px;
-    font-size: 90px;
-    font-weight: 600;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.carousel .card-1 {
-    background: #ed1c24;
-}
-
-.carousel .card-2 {
-    background: #0072bc;
-}
-
-.carousel .card-3 {
-    background: #39b54a;
-}
-
-.carousel .card-4 {
-    background: #f26522;
-}
-
-.carousel .card-5 {
-    background: #630460;
-} */
-
-/* .owl-stage-outer {
-    height: 8;
-} */
 
 .owl-dots {
     text-align: center;
@@ -145,42 +110,6 @@ li.nav-item.active {
     text-align: center;
     transition: .3s;
 }
-
-/* .nav-tabs {
-    z-index: 1;
-    border-bottom: none;
-    position: relative;
-    top: -38px;
-    padding-bottom: 15px;
-}
-
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    width: auto;
-    height: auto;
-    top: -8px;
-    color: #3c3838;
-    text-align: center;
-    z-index: 2;
-    padding-top: 22px;
-    font-size: 15px;
-}
-
-#active-tab {
-    text-align: center;
-    width: 150px;
-    height: 51px;
-    background-color: #f4f4f4;
-    top: -12px;
-}
-
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    width: auto;
-    height: 60px;
-    top: -8px;
-    color: #3c3838;
-    text-align: center;
-    z-index: 2;
-} */
 
 /* BEGIN TABS MENU */
 

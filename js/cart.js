@@ -41,6 +41,9 @@ $('a#remove-cart').each(function (index, val) {
                     },
                     success: function (data) {
                         $(".number_cart").html(data);
+                        var message = "Xóa khỏi giỏ hàng thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã loại bỏ và thay đổi...', 2000);
                     }
                 });
             }

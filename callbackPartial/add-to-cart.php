@@ -11,6 +11,7 @@ $quantity = $_POST['quantity'];
 //     header('Location:login.html');
 //     exit;
 // }
+
 $ct = new cart();
 echo $ct->add_to_cart($customer_id, $productId, $productSize, $quantity);
 // Session::init();

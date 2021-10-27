@@ -41,7 +41,7 @@ $(".add_to_wishlist").click(function (event) {
                 case 4: {
                     var message = "Xóa yêu thích thất bại!";
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                    toast.change('Đã xóa khỏi yêu thích...', 3500);
+                    toast.change('Vui lòng thử lại...', 3500);
                     break;
                 }
                 default: {
@@ -95,7 +95,7 @@ $(".add_to_wishlist_details").click(function (event) {
                 case 4: {
                     var message = "Xóa yêu thích thất bại!";
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                    toast.change('Đã xóa khỏi yêu thích...', 3500);
+                    toast.change('Vui lòng thử lại...', 3500);
                     break;
                 }
                 default: {
@@ -126,27 +126,29 @@ $('a#remove-wishlist').each(function (index, val) {
                 switch (Status) {
                     case 3: {
                         $(cartWrapIndex).css("display", "none");
-                        $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thành công!</div>');
-                        $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        var message = "Xóa yêu thích thành công";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã xóa và thay đổi...', 2000);
                         break;
                     }
                     case 4: {
-                        $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Xóa yêu thích thất bại!!!</div>');
-                        $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        var message = "Xóa yêu thích thất bại!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
                         break;
                     }
                     default: {
-                        $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Đã xảy ra sự cố mạng!!!</div>');
-                        $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
                     }
                 }
             }
         });
-        indexCountMessage++;
     });
 });
 
-
+// Add to cart
 $(".add_to_cart").click(function (event) {
     var productId = $(this).attr("href"),
         productSize = $(this).attr("data-id-1");
@@ -160,9 +162,6 @@ $(".add_to_cart").click(function (event) {
             'quantity': 1
         },
         success: function (data) {
-            // $(".myModal_text").html("Bạn đã thêm vào giỏ hàng thành công!");
-            // $("#myModal").modal('show');
-
             Status = JSON.parse(data).status;
             Value = JSON.parse(data).value;
 
@@ -173,38 +172,38 @@ $(".add_to_cart").click(function (event) {
                 }
                 case 1: {
                     $(".number_cart").html(Value);
-                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Thêm giỏ hàng thành công!!!</div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Thêm vào giỏ hàng thành công!";
+                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                    toast.change('Đã lưu vào giỏ hàng!', 2000);
                     break;
                 }
                 case 2: {
-                    audioError.play();
-                    $("#message").append('<div class="alert-box failure notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Lỗi máy chủ!!!.</div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                     break;
                 }
                 case 3: {
-                    audioError.play();
-                    $("#message").append('<div class="alert-box failure notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Chúng tôi chỉ còn ' + Value + ' sản phẩm. Vui lòng chỉnh sửa lại.</div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Chúng tôi chỉ còn " + Value + " sản phẩm!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng tìm sp tương tự...', 3500);
                     break;
                 }
                 case 4: {
-                    audioError.play();
-                    $("#message").append('<div class="alert-box failure notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Giỏ hàng của bạn đã đầy. <a href ="cart" class="alert-link">Sửa giỏ hàng</a ></div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Giỏ hàng của bạn đã đầy!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Hãy vào giỏ hàng để kiểm tra...', 3500);
                     break;
                 }
                 default:
             }
         },
         error: function (data) {
-            audioError.play();
-            $("#message").append('<div class="alert alert-danger" id="success-message">Lỗi máy chủ!!!</div>');
-            $("#success-message").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+            var message = "Lỗi máy chủ!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
         }
     });
-    indexCountMessage++;
 });
 
 // Start cartSubmit in product details
@@ -242,21 +241,21 @@ $("#cartSubmit").submit(function (e) {
                     break;
                 }
                 case 2: {
-                    audioError.play();
-                    $("#error-submit").append('<div class="alert-box failure notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Lỗi máy chủ!!!.</div>');
-                    $("#error-submit1" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                     break;
                 }
                 case 3: {
-                    audioError.play();
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Chúng tôi chỉ còn ' + Value + ' sản phẩm. Vui lòng chỉnh sửa lại.</div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Chúng tôi chỉ còn " + Value + " sản phẩm!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng tìm sp tương tự...', 3500);
                     break;
                 }
                 case 4: {
-                    audioError.play();
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Giỏ hàng của bạn đã đầy. Hãy vào thanh toán hoặc chỉnh sửa giỏ hàng. <a href ="cart" class="alert-link">Vào giỏ hàng</a ></div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Giỏ hàng của bạn đã đầy!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Hãy vào giỏ hàng để kiểm tra...', 3500);
                     break;
                 }
                 default:
@@ -265,9 +264,9 @@ $("#cartSubmit").submit(function (e) {
             // $(".myModal_text").html("Bạn đã thêm vào giỏ hàng thành công!");
             // $("#myModal").modal('show');
         }, error: function (data) {
-            audioError.play();
-            $("#error-submit").append('<div class="alert alert-danger" id="error-submit1">Lỗi máy chủ!!!</div>');
-            $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+            var message = "Lỗi máy chủ!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
         }
     });
 });
@@ -281,7 +280,7 @@ $('.input-quantity').blur(function () {
     $('.essence-btn').css("background-color", "#ff9f1a");
 });
 
-// validate quantity
+// validate quantity product details
 $('.input-quantity').each(function (index, val) {
     var quantityBefore;
     $(this).focus(function () {
@@ -305,21 +304,18 @@ $('.input-quantity').each(function (index, val) {
         // reset value input validate
         if (quantity == " ") {
             $(this).val(quantityBefore);
-            audioError.play();
             $("#error-qty").append('<div class="alert alert-danger" id="error-qty1"><strong>Cảnh báos!</strong><p class="text-success-result"></b></p>Số lượng phải là số dương.</div>');
             $("#error-qty1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
         } else {
             if (quantity < 1) {
                 quantity = quantityBefore;
                 $(this).val(quantity);
-                audioError.play();
                 $("#error-qty").append('<div class="alert alert-danger" id="error-qty1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Số lượng không hợp lệ!.</div>');
                 $("#error-qty1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
             } else {
                 if (quantity > 10) {
                     quantity = quantityBefore;
                     $(this).val(quantity);
-                    audioError.play();
                     $("#error-qty").append('<div class="alert alert-danger" id="error-qty2"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Bạn chỉ có thể đặt số lượng là 10. Trừ khi bạn là khách hàng thân thiết.</div>');
                     $("#error-qty2").show().delay(5000).fadeOut(1000).queue(function () { $(this).remove(); });
                 }
