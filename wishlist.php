@@ -1,5 +1,6 @@
 <?php
 include 'inc/header.php';
+include 'inc/global.php';
 Session::set('REQUEST_URI', getRequestUrl()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 
 $login_check = Session::get('customer_login');
@@ -12,18 +13,11 @@ if ($login_check == false) {
 		$page = $_GET['page'];
 	}
 }
-
-// if (isset($_GET['proid'])) {
-// 	$customer_id = Session::get('customer_id');
-// 	$proid = $_GET['proid'];
-// 	$delwlist = $product->del_wlist($proid, $customer_id);
-// }
 ?>
 
 <link rel="stylesheet" href="css/cart.css">
 <link rel="stylesheet" href="css/message.css">
 <link rel="stylesheet" href="css/pagination.css">
-
 
 <div class="wrap cf">
 	<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
@@ -43,19 +37,21 @@ if ($login_check == false) {
 			$i = 0;
 			while ($result = $get_wishlist->fetch_assoc()) {
 				$productId = $result['productId'];
-				$seo = $result['seo'];
 				$old_price = $result['old_price'];
+				$product_img =  json_decode($result['image']);
+				$product_img = $product_img[0]->image;
 				$i++;
 		?>
 				<ul class="cartWrap" data-id-1="<?php echo $productId; ?>">
 					<li class="items odd">
 						<div class="infoWrap">
 							<div class="cartSection">
-								<img src="admin/uploads/<?php echo $result['image'] ?>" alt="" class="itemImg" />
+								<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
 								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></small></p>
 								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
 									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								</a>
+								Giá:
 								<small class="old-price"><?php echo ($old_price == 0) ? $old_price : '' ?></small>
 								<p class="p-price"> <?php echo $fm->format_currency($result['price']) . ' ₫' ?></p>
 								<!-- <button class="btn btn-succes btn-buy" onclick="window.location.href='details/<?php echo $productId ?>/<?php echo $seo ?>.html'"><i class="fa fa-shopping-cart" aria-hidden="true"> Mua ngay</i></button> -->

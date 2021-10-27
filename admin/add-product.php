@@ -132,7 +132,7 @@ if (isset($insertProduct)) {
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label for="sel1">Trạng thái & Xếp loại sản phẩm</label>
-                                        <select class="form-control" id="select" name="type">
+                                        <select class="form-control" id="type" name="type">
                                             <option value="null">Lựa chọn</option>
                                             <option selected value="0">Bình thường</option>
                                             <option value="1">Hot nhất</option>

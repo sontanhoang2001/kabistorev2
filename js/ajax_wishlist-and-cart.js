@@ -20,34 +20,38 @@ $(".add_to_wishlist").click(function (event) {
                 }
                 case 1: {
                     $(class_localtion).toggleClass("fa-heart fa-heart-o");
-                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Thêm yêu thích thành công!</div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Thêm yêu thích thành công!";
+                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                    toast.change('Đã thêm lưu vào yêu thích!', 2000);
                     break;
                 }
                 case 2: {
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Thêm yêu thích thất bại!!!</div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Thêm yêu thích thất bại!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                     break;
                 }
                 case 3: {
                     $(class_localtion).toggleClass("fa-heart fa-heart-o");
-                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thành công!</div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Xóa yêu thích thành công!";
+                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                    toast.change('Đã xóa khỏi yêu thích...', 3500);
                     break;
                 }
                 case 4: {
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Xóa yêu thích thất bại!!!</div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Xóa yêu thích thất bại!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Đã xóa khỏi yêu thích...', 3500);
                     break;
                 }
                 default: {
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Đã xảy ra sự cố mạng!!!</div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
             }
         }
     });
-    indexCountMessage++;
 });
 
 $(".add_to_wishlist_details").click(function (event) {
@@ -63,7 +67,6 @@ $(".add_to_wishlist_details").click(function (event) {
         },
         success: function (data) {
             Status = JSON.parse(data).status;
-
             switch (Status) {
                 case 0: {
                     window.location = 'login.html';
@@ -71,39 +74,42 @@ $(".add_to_wishlist_details").click(function (event) {
                 }
                 case 1: {
                     $('.heart').toggleClass("is-active");
-                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Thêm yêu thích thành công!</div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Thêm yêu thích thành công!";
+                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                    toast.change('Đã thêm lưu vào yêu thích!', 2000);
                     break;
                 }
                 case 2: {
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Thêm yêu thích thất bại!!!</div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Thêm yêu thích thất bại!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                     break;
                 }
                 case 3: {
                     $('.heart').toggleClass("is-active");
-                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thành công!</div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Xóa yêu thích thành công!";
+                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                    toast.change('Đã xóa khỏi yêu thích...', 3500);
                     break;
                 }
                 case 4: {
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Xóa yêu thích thất bại!!!</div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Xóa yêu thích thất bại!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Đã xóa khỏi yêu thích...', 3500);
                     break;
                 }
                 default: {
-                    $("#error-submit").append('<div class="alert alert-danger" id="error-submit1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p> Đã xảy ra sự cố mạng!!!</div>');
-                    $("#error-submit1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
             }
         }
     });
-    indexCountMessage++;
 });
 
 
 //delete wishlist
-
 $('a#remove-wishlist').each(function (index, val) {
     var cartWrapIndex = ".cartWrap:eq(" + index + ")";
     $(this).click(function (event) {
@@ -119,7 +125,7 @@ $('a#remove-wishlist').each(function (index, val) {
                 Status = JSON.parse(data).status;
                 switch (Status) {
                     case 3: {
-                        $(cartWrapIndex).css("display","none");
+                        $(cartWrapIndex).css("display", "none");
                         $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Xóa yêu thích thành công!</div>');
                         $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
                         break;

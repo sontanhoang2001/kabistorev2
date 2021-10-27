@@ -89,7 +89,6 @@
     padding-top: 17px;
 } */
 
-
 .a:hover {
     color: red;
     text-decoration: none;
@@ -293,6 +292,8 @@ li.nav-item.active {
     height: auto;
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
+    height: 320px;
+    object-fit: cover;
 }
 
 .single-product-wrapper .product-img .hover-img {

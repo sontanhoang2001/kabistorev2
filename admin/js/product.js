@@ -129,14 +129,11 @@ function product_list() {
     //     tr_index = $(this).index();
     // });
 
-
     var table = $('#dataTable').DataTable();
     $('#dataTable tbody').on('click', 'tr', function () {
         tr_index = table.row(this).index();
         rowData = table.row(this).data();
     });
-
-
 
 
     var rowImportQtyModal, productid, product_remain;
@@ -222,6 +219,16 @@ function product_list() {
     })
 
     var productId, jsonImageArray;
+    var productName,
+        product_code,
+        catId,
+        brandId,
+        product_desc,
+        size,
+        old_price,
+        price,
+        image,
+        type;
 
     // Khi nhấn vào edit
     $('.btn[data-target="#editModal"]').click(function (e) {
@@ -240,7 +247,7 @@ function product_list() {
                 var res = JSON.parse(data),
                     Status = res.status;
                 if (Status != 0) {
-                    var productName = res.productName,
+                    productName = res.productName,
                         product_code = res.product_code,
                         catId = res.catId,
                         brandId = res.brandId,
@@ -254,6 +261,7 @@ function product_list() {
                     $("input[name=productName]").val(productName);
                     $('#category option[value=" ' + catId + ' "]').attr('selected', 'selected');
                     $('#brand option[value=" ' + brandId + ' "]').attr('selected', 'selected');
+                    $('#size option[value="' + size + '"]').attr('selected', 'selected');
                     $("input[name=old_price]").val(old_price);
                     $("input[name=price]").val(price);
                     $('#size option[value=" ' + size + ' "]').attr('selected', 'selected');
@@ -285,7 +293,6 @@ function product_list() {
             }
         });
     })
-
 
     // Tạo review Image cho hình ảnh
     $("#image").blur(function () {
@@ -325,6 +332,7 @@ function product_list() {
             type: $('select[name="type"] option:selected').val()
         };
 
+        alert(formData.type);
 
         if (formData.category == 0) {
             var message = "Bạn chưa chọn loại sản phẩm!";
@@ -397,6 +405,19 @@ function product_list() {
                 }
             });
         }
+    })
+
+    // productModal edit bị ẩn
+    $('#editModal').on('hide.bs.modal', function () {
+        $("input[name=product_code]").val("");
+        $("input[name=productName]").val("");
+        $('#category option[value=" ' + category + ' "]').removeAttr('selected');
+        $('#brand option[value=" ' + brandId + ' "]').removeAttr('selected', 'selected');
+        $('#size option[value="' + size + '"]').removeAttr('selected', 'selected');
+        $("input[name=old_price]").val("");
+        $("input[name=price]").val("");
+        $("#product_desc").val("");
+        $('#type option[value="' + type + '"]').removeAttr('selected');
     })
 
     // Khi mở delModal

@@ -76,7 +76,7 @@ include 'inc/global.php';
                                 <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img data-src="<?php echo $product_img ?>" class="lazy" loading="lazy">
+                                        <img src="<?php echo $product_img ?>" loading="lazy">
                                         <ul class="card-button-shop">
                                             <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                             <?php
@@ -99,7 +99,7 @@ include 'inc/global.php';
                                             }
                                             ?>
                                             <li>
-                                                <img style="width: 1px;" class="lazy img-clone" data-src="<?php echo $product_img ?>" alt="cart icon" />
+                                                <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
                                                 <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                             </li>
                                             <!-- <a class="add_to_cart" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a> -->
@@ -359,7 +359,7 @@ include 'inc/global.php';
                 <p>Xếp hạng dựa trên số lượt tìm kiếm và đánh giá của khách hàng</p>
 
                 <div class="row mt-5">
-                    <div class="wrapper" id="wrapper_product">
+                    <div class="wrapper" id="wrapper_productRank">
                         <div class="carousel-product owl-carousel">
                             <?php
                             $seo = "-re-nhat-can-tho";
@@ -398,7 +398,7 @@ include 'inc/global.php';
                                                 }
                                                 ?>
                                                 <li>
-                                                    <img style="width: 1px;" class="lazy img-clone" data-src="<?php echo $product_img ?>" alt="cart icon" />
+                                                    <img style="width: 1px; height: 1px;" class="lazy img-clone" data-src="<?php echo $product_img ?>" alt="cart icon" />
                                                     <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                                 </li>
                                             </ul>
@@ -617,6 +617,11 @@ include 'inc/global.php';
     <?php $number_cart = session::get('number_cart'); ?>
     var limitCart = <?php echo (!$number_cart) ? 0 : session::get('number_cart') ?>;
     $('#wrapper_product').flyto({
+        target: '#cart-img',
+        button: '.add_to_cart'
+    });
+
+    $('#wrapper_productRank').flyto({
         target: '#cart-img',
         button: '.add_to_cart'
     });

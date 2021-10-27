@@ -62,9 +62,10 @@ class product
 		$type = mysqli_real_escape_string($this->db->link, $formData['type']);
 		$image = mysqli_real_escape_string($this->db->link, $formData['image']);
 		$product_desc = mysqli_real_escape_string($this->db->link, $formData['product_desc']);
+		$size = mysqli_real_escape_string($this->db->link, $formData['size']);
 
 		// 0 các trường ko đc bỏ trống
-		if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $price == "" || $type == "" || $image == "") {
+		if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $price == "" || $type == "" || $image == "" || $size == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$query = "SELECT product_code FROM tbl_product WHERE product_code = '$product_code'";
@@ -73,7 +74,7 @@ class product
 				// 3 Mã sản phẩm này đã tồn tại
 				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type,old_price,price,image) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$old_price','$price', '$image') ";
+				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type,old_price,price,image, size) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$old_price','$price', '$image', '$size') ";
 				$result = $this->db->insert($query);
 				if ($result) {
 					// 1 thành công
@@ -317,8 +318,10 @@ class product
 		$price = mysqli_real_escape_string($this->db->link, $data['price']);
 		$type = mysqli_real_escape_string($this->db->link, $data['type']);
 		$image = $data['image'];
+		$size = mysqli_real_escape_string($this->db->link, $data['size']);
 
-		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $price == "" || $type == "" || $image == "") {
+
+		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $price == "" || $type == "" || $image == "" || $size == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$query = "UPDATE tbl_product SET
@@ -329,7 +332,8 @@ class product
 					type = '$type',
 					old_price = '$old_price',
 					price = '$price', 
-					product_desc = '$product_desc'
+					product_desc = '$product_desc',
+					size = '$size'
 					WHERE productId = '$productId'";
 
 			$result = $this->db->update($query);
@@ -668,7 +672,7 @@ class product
 	public function get_wishlist($customer_id, $page, $product_num)
 	{
 		$index_page = ($page - 1) * $product_num;
-		$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.seo, tbl_product.product_code, tbl_product.old_price, tbl_product.price, tbl_product.image
+		$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.old_price, tbl_product.price, tbl_product.image
 		FROM tbl_wishlist
 		INNER JOIN tbl_product ON tbl_wishlist.productId = tbl_product.productId
 		where tbl_wishlist.customerId = '$customer_id'
