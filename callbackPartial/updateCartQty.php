@@ -1,7 +1,7 @@
 <?php
-include 'lib/session.php';
-include 'helpers/format.php';
-include_once "classes/cart.php";
+include '../lib/session.php';
+include '../helpers/format.php';
+include_once "../classes/cart.php";
 
 Session::init();
 $fm = new Format();
@@ -36,15 +36,7 @@ switch ($case) {
 
             $grandTotal = $subtotal + $ship;
             Session::set('grandTotal', $grandTotal);
-            echo '
-                    <ul>
-                        <li class="totalRow"><span class="label">Tạm Tính:</span><span class="value">' . $fm->format_currency($subtotal) . " ₫" . '</span></li>
-                        <li class="totalRow"><span class="label">phí giao hàng:</span><span class="value">' . "+ " . $fm->format_currency($ship) . " ₫" . '</span></li>
-                        <li class="totalRow final"><span class="label">Tổng Cộng:</span><span class="value">' . $fm->format_currency($grandTotal) . " ₫" . '</span></li>
-                        <li class="totalRow"><button type="submit" id="btn_checkout" name="cartcheckout" class="btn btn-success">Xác nhận giỏ hàng</button></li>
-                        <li class="errorRow"></li>
-                    </ul>
-                ';
+            echo json_encode($result_json[] = ['subtotal' => $fm->format_currency($subtotal) . " ₫", 'ship' => $fm->format_currency($ship) . " ₫", 'total' => $fm->format_currency($grandTotal) . " ₫"]);
         } else {
             $cartSess = $_SESSION['cart'][$cart_Id];
             $price = $cartSess['price'];
@@ -61,15 +53,7 @@ switch ($case) {
 
             $grandTotal = $subtotal + $ship;
             Session::set('grandTotal', $grandTotal);
-            echo '
-                    <ul>
-                        <li class="totalRow"><span class="label">Tạm Tính:</span><span class="value">' . $fm->format_currency($subtotal) . " ₫" . '</span></li>
-                        <li class="totalRow"><span class="label">phí giao hàng:</span><span class="value">' . "+ " . $fm->format_currency($ship) . " ₫" . '</span></li>
-                        <li class="totalRow final"><span class="label">Tổng Cộng:</span><span class="value">' . $fm->format_currency($grandTotal) . " ₫" . '</span></li>
-                        <li class="totalRow"><button type="submit" id="btn_checkout" name="cartcheckout" class="btn btn-success">Xác nhận giỏ hàng</button></li>
-                        <li class="errorRow"></li>
-                    </ul>
-                ';
+            echo json_encode($result_json[] = ['subtotal' => $fm->format_currency($subtotal) . " ₫", 'ship' => $fm->format_currency($ship) . " ₫", 'total' => $fm->format_currency($grandTotal) . " ₫"]);
         }
         break;
     default:

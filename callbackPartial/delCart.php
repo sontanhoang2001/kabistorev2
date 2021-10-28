@@ -1,7 +1,7 @@
 <?php
-include 'lib/session.php';
-include 'helpers/format.php';
-include_once "classes/cart.php";
+include '../lib/session.php';
+include '../helpers/format.php';
+include_once "../classes/cart.php";
 
 Session::init();
 $fm = new Format();

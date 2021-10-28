@@ -23,15 +23,6 @@ if ($login_check == false) {
 <link rel="stylesheet" href="css/details.css">
 <!-- jQuery Nice Number CSS -->
 <link rel="stylesheet" href="css/scroll-box.css">
-<style>
-	.alert {
-		display: none;
-	}
-
-	.alert-danger {
-		display: none;
-	}
-</style>
 
 
 <div class="wrap cf">
@@ -99,7 +90,7 @@ if ($login_check == false) {
 
 							</div>
 							<div class="prodTotal cartSection">
-								<p>
+								<p id="rowTotalPrice">
 									<?php
 									$total = $price * $quantity;
 									echo $fm->format_currency($total) . " ₫";
@@ -145,12 +136,6 @@ if ($login_check == false) {
 							<button type="submit" class="btn btn-dark px-4 rounded-pill" id="discount"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Áp dụng</button>
 						</div>
 					</div>
-					<div class="alert alert-danger" id="error-promo">
-						<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
-					</div>
-					<div class="alert alert-success" id="success-promo" role="alert">
-						<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
-					</div>
 				</div>
 			</form>
 		</div>
@@ -163,16 +148,18 @@ if ($login_check == false) {
 				<div class="p-4">
 					<form id="f_cart" method="POST" action="checkout.html" enctype="multipart/form-data">
 
-						<ul class="list-unstyled mb-4">
-							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" id="subtotal">Tạm tính</strong><strong>
+						<ul class="list-unstyled mb-4" id="totalPay">
+							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tạm tính</strong><strong id="subtotal">
 									<?php echo $fm->format_currency($subtotal) . " ₫";
 									Session::set('sum', $subtotal);
 									Session::set('ship', $ship);
 									?></strong></li>
-							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" id="ship">Phí giao hàng</strong><strong>
+							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí giao hàng</strong><strong id="ship">
 									<?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></strong></li>
-							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" id="total">Tổng cộng</strong>
-								<h5 class="font-weight-bold">
+
+							<li class="d-flex justify-content-between py-3 border-bottom none"><strong class="text-muted">Giảm giá</strong><strong id="discountPrice">Chưa nhập mã</strong></li>
+							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tổng cộng</strong>
+								<h5 class="font-weight-bold" id="total">
 									<?php
 									// $vat = $subtotal * 0.1;
 									$grandTotal = $subtotal + $ship;
@@ -181,9 +168,18 @@ if ($login_check == false) {
 								</h5>
 							</li>
 						</ul>
-						<button name="cartcheckout" class="btn btn-dark rounded-pill py-2 btn-block">Đi đến thanh toán</button>
+						<button name="cartcheckout" id="btn_checkout" class="btn btn-dark rounded-pill py-2 btn-block">Đi đến thanh toán</button>
 					</form>
-					<li class="errorRow"></li>
+					<div class="mt-4">
+						<div class="alert alert-danger" id="error-promo">
+							<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
+						</div>
+						<div class="alert alert-success" id="success-promo" role="alert">
+							<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
+						</div>
+						<li class="errorRow"></li>
+					</div>
+
 				</div>
 			</div>
 		<?php
@@ -204,6 +200,7 @@ if ($login_check == false) {
 <?php
 include 'inc/footer.php';
 ?>
+<script src="js/function.js"></script>
 
 <!-- jQuery Nice Number JS -->
 <script src="js/jquery.nice-number.js"></script>
@@ -215,6 +212,5 @@ include 'inc/footer.php';
 </script>
 <script src="js/cart.js"></script>
 <!-- <script src="js/ajax_wishlist-and-cart.js"></script> -->
-
 <script>
 </script>

@@ -2710,17 +2710,6 @@ span.current {
 
 /* ##### The End ##### */
 
-/* START ERROR */
-
-.error {
-    color: red;
-    display: none;
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-/* END ERROR */
-
 /*# sourceMappingURL=core-style.css.map */
 
 .nice-toast-wrapper[class*=' bottom'] {
@@ -3774,29 +3763,26 @@ a.pageCatName {
     padding-right: 8px;
 }
 
-/* Bắt đầu btn Xác nhận giỏ hàng */
-
-button#btn_checkout {
-    text-decoration: none;
-    font-family: "Montserrat", sans-serif;
-    letter-spacing: -.015em;
-    font-size: 1em;
-    padding: 1em 3em 14px;
-    color: #fff;
-    background: #82ca9c;
-    font-weight: bold;
-    border-radius: 50px;
-    float: right;
-    text-align: right;
-    transition: all 0.25s linear;
-}
-
-/* Kết thúc btn Xác nhận giỏ hàng */
 
 /* START ERROR ROW */
 
+.error {
+    color: red;
+    display: none;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 li.errorRow {
-    padding-top: 60px;
+    list-style-type: none;
+}
+
+.alert {
+    display: none;
+}
+
+.alert-danger {
+    display: none;
 }
 
 /* END ERROR ROW */

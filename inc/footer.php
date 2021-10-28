@@ -336,29 +336,6 @@
 <script src="js/active.js"></script>
 <script src="js/audio-message.js"></script>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
-<!-- <script src="//code.jquery.com/jquery-1.11.3.min.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-
-<!-- <script src="javascript/Form-Client.js"></script> -->
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
-<!-- <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
-
-
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
 
 <!-- <script>
     $(document).keydown(function(event) {
@@ -369,6 +346,22 @@
         }
     });
 </script> -->
+
+<!-- Include Plugin JS file -->
+<script src="js/nice-toast/nice-toast-js.min.js" type="text/javascript"></script>
+
+<!-- niceToast -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.niceToast.setup({
+            position: "bottom-right",
+            timeout: 5000,
+        });
+    });
+</script>
+
+<script src="js/live-search.js"></script>
+
 
 <!-- cdnjs -->
 <script type="text/javascript" src="js/lazy/jquery.lazy.min.js"></script>
@@ -388,18 +381,3 @@
         });
     });
 </script>
-
-<!-- Include Plugin JS file -->
-<script src="js/nice-toast/nice-toast-js.min.js" type="text/javascript"></script>
-
-<!-- niceToast -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $.niceToast.setup({
-            position: "bottom-right",
-            timeout: 5000,
-        });
-    });
-</script>
-
-<script src="js/live-search.js"></script>

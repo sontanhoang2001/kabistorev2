@@ -11,7 +11,7 @@ $('a#remove-cart').each(function (index, val) {
 
         $.ajax({
             type: "POST",
-            url: "ajax_del_cart.php",
+            url: "~/../callbackPartial/delCart.php",
             data: {
                 'case': 0,
                 'cartId': cartId,
@@ -21,13 +21,13 @@ $('a#remove-cart').each(function (index, val) {
             success: function (data) {
                 // Xóa row cart
                 // Cập nhật lại tổng tiền subtotal
+                resetDiscount();
                 $(cartWrapIndex).css("display", "none");
                 if (data == 0) {
                     $(".promoCode").remove();
                     $(".subtotal").remove();
                     $(".cart").append('<div class="container"><div class="row"><div class="col-12"><p>Giỏ của bạn đang trống! Hãy mua sắm ngay bây giờ.</p></div></div></div>');
                 } else {
-                    $(".subtotal").html(data);
                     promoCode = $('#promotion_code').val();
                     $('#promo_code').val(promoCode);
                     checkPromotionCode(promoCode, 1);
@@ -35,7 +35,7 @@ $('a#remove-cart').each(function (index, val) {
 
                 $.ajax({
                     type: "POST",
-                    url: "ajax_del_cart.php",
+                    url: "~/../callbackPartial/delCart.php",
                     data: {
                         'case': 1,
                     },
@@ -72,43 +72,46 @@ $('.nice-select').each(function (index, val) {
             success: function (data) {
                 success = JSON.parse(data).success;
                 if (success == 1) {
-                    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Cập nhật size thành công!!!</div>');
-                    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Cập nhật size thành công!";
+                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                    toast.change('Đã lưu và thay đổi...', 2000);
                 } else {
-                    $(cartWrapIndex).append('<div class="alert alert-danger" id="error-qty1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Cập nhật size thất bại!.</div>');
-                    $("#error-qty1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                    var message = "Cập nhật size thất bại!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
             },
             error: function () {
-                audioError.play();
-                $(cartWrapIndex).append('<div class="alert alert-danger" id="error-qty1"><strong>Cảnh báo!</strong><p class="text-success-result"></b></p>Lỗi kết nối mạng!!!.</div>');
-                $("#error-qty1").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
             }
         });
     });
 });
 
 //update quantity cart
+var rowTotalPrice;
 $('.input-quantitys').each(function (index, val) {
-    var quantityBefore;
-    var localtion;
-    var thisValBefore;
+    var quantityBefore, thisValBefore;
 
     $(this).focus(function () {
-        $('#btn_checkout').css("background", "#999");
+        $('#btn_checkout').attr('disabled', 'disabled');
+
         promotiontAllow = 0;
 
         quantityBefore = $(this).val();
-        localtion = $(this);
+        var localtion = $(this);
         thisValBefore = $(this).val();
     });
 
     $(this).focusout(function () {
-
-        // $(".stockStatus").css("display", "inline-block");
+        var cartWrapIndex = ".cartWrap:eq(" + index + ")";
+        rowTotalPrice = $(cartWrapIndex).attr("data-id-3");
 
         // Trả nút xác nhận đơn hàng về trại thái ban đầu
-        $('#btn_checkout').css("background", "#82ca9c");
+        $('#btn_checkout').removeAttr('disabled');
+
         promotiontAllow = 1;
 
         // Get dữ liệu đừa vào biến
@@ -145,7 +148,7 @@ $('.input-quantitys').each(function (index, val) {
         if (quantityBefore != quantity) {
             $.ajax({
                 type: "POST",
-                url: "ajax_update_quantity.php",
+                url: "~/../callbackPartial/updateCartQty.php",
                 data: {
                     'case': 0,
                     'cartId': cartId,
@@ -170,7 +173,7 @@ $('.input-quantitys').each(function (index, val) {
                 // ajax load total price
                 $.ajax({
                     type: "POST",
-                    url: "ajax_update_quantity.php",
+                    url: "~/../callbackPartial/updateCartQty.php",
                     data: {
                         'case': 1,
                         'cartId': cartId,
@@ -178,7 +181,16 @@ $('.input-quantitys').each(function (index, val) {
                         'quantity': quantity
                     },
                     success: function (data) {
-                        $('.subtotal').html(data);
+                        // cập nhật lại giá rowPrice
+                        rowTotalPrice = currency_vn(rowTotalPrice * quantity);
+                        $('p#rowTotalPrice').eq(index).text(rowTotalPrice);
+
+                        var res = JSON.parse(data);
+                        $('#subtotal').text(res.subtotal);
+                        $('#ship').text("+ " + res.ship);
+                        $('#discountPrice').text("Chưa nhập mã");
+                        $('#total').text(res.total);
+
                         var promotionCode = $('#promotion_code').val();
                         if (promotionCode !== "") {
                             checkPromotionCode(promotionCode, 0);
@@ -186,6 +198,9 @@ $('.input-quantitys').each(function (index, val) {
                         if (disable_check_out == 1) {
                             location.reload();
                         }
+                        var message = "Cập nhật số lượng thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã lưu và thay đổi...', 2000);
                     }
                 });
             }
@@ -196,54 +211,60 @@ $('.input-quantitys').each(function (index, val) {
 function CheckPostPromotion(status, type, data) {
     switch (status) {
         case 0:
-            $("#success-promo").css("display", "none")
+            audioError.play();
             resetDiscount();
-            $("#error-promo").html('<b>Cảnh báo!</b> Mã giảm giá bạn vừa nhập không đúng hoặc không tồn tại.');
+            $("#success-promo").css("display", "none")
+            $("#error-promo").html('<b>Cảnh báo!</b> Mã giảm giá bạn vừa nhập không đúng hoặc không tồn tại.').show().delay(6000).fadeOut(2000);
             $('#error-promo').show().delay(4000).fadeOut(1000);
             // Xóa code giảm giá nhập sai
             $('#promotion_code').val("");
 
             // Trả nút xác nhận đơn hàng về trại thái ban đầu
-            $('#btn_checkout').css("background", "#82ca9c");
+            $('#btn_checkout').removeAttr('disabled');
+
             break;
         case 1:
-            $("#success-promo").css("display", "none")
+            audioError.play();
             resetDiscount();
+            $("#success-promo").css("display", "none")
             $.each(JSON.parse(data), function (key, val) {
-                $("#error-promo").html('<b>Cảnh báo!</b> Đơn hàng của bạn vẫn chưa điều khiện để giảm giá [' + val[0].promotionsName + '] Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫.');
+                $("#error-promo").html('<b>Cảnh báo!</b> Đơn hàng của bạn vẫn chưa điều kiện để giảm giá [' + val[0].promotionsName + '] Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫.').show().delay(6000).fadeOut(2000);
             });
-            $('#error-promo').show().delay(6000).fadeOut(2000);;
+            $('#error-promo').show().delay(6000).fadeOut(2000);
 
             // Xóa code giảm giá nhập sai
             $('#promotion_code').val("");
 
             // Trả nút xác nhận đơn hàng về trại thái ban đầu
-            $('#btn_checkout').css("background", "#82ca9c");
+            $('#btn_checkout').removeAttr('disabled');
             break;
         case 2:
-            $("#success-promo").css("display", "none")
+            audioError.play();
             resetDiscount();
-            $("#error-promo").html('<b>Thông báo!</b> Rất tiết mã giảm giá này đã hết hạn vài giờ trước.');
+            $("#success-promo").css("display", "none")
+            $("#error-promo").html('<b>Thông báo!</b> Rất tiết mã giảm giá này đã hết hạn vài giờ trước.').show().delay(6000).fadeOut(2000);;
             $('#error-promo').show().delay(4000).fadeOut(1000);
             // Xóa code giảm giá nhập sai
             $('#promotion_code').val("");
 
             // Trả nút xác nhận đơn hàng về trại thái ban đầu
-            $('#btn_checkout').css("background", "#82ca9c");
+            $('#btn_checkout').removeAttr('disabled');
             break;
         case 3:
             // Thành công
+            audioSuccess.play();
+            $('#btn_checkout').removeAttr('disabled');
             promotiontAllow = 1;
             $.each(JSON.parse(data), function (key, val) {
                 if (val[0].deadlinedate != "0 giờ") {
-                    $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn ' + val[0].deadlinedate + '.');
+                    $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn ' + val[0].deadlinedate + '.').show().delay(6000).fadeOut(2000);
                 } else {
-                    $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn khoảng vài phút nữa. Hãy nhanh tay lên nào!');
+                    $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn khoảng vài phút nữa. Hãy nhanh tay lên nào!').show().delay(6000).fadeOut(2000);
                 }
             });
 
             if (type == 1) {
-                $('#success-promo').show();
+                $('#success-promo').show().show().delay(6000).fadeOut(2000);
             }
 
             $.ajax({
@@ -254,10 +275,14 @@ function CheckPostPromotion(status, type, data) {
                     'promoCode': promoCode
                 },
                 success: function (data) {
-                    $('.subtotal').html(data);
+                    var res = JSON.parse(data);
+                    $('#subtotal').text(res.subtotal);
+                    $('#ship').text("+ " + res.ship);
+                    $('#discountPrice').text("- " + res.discount);
+                    $('#total').text(res.total);
+
                 }
             });
-            audioSuccess.play();
             break;
         default:
     }
@@ -285,6 +310,7 @@ function checkPromotionCode(promoCode, type) {
     }
 }
 
+
 function resetDiscount() {
     promotiontAllow = 1;
     audioError.play();
@@ -296,32 +322,36 @@ function resetDiscount() {
             'promoCode': promoCode
         },
         success: function (data) {
-            $('.subtotal').html(data);
+            var res = JSON.parse(data);
+            $('#subtotal').text(res.subtotal);
+            $('#ship').text(res.ship);
+            $('#discountPrice').text("Chưa nhập mã");
+            $('#total').text(res.total);
         }
     });
 }
 
 // Bắt đầu kiểm tra nếu nhập vào mã giảm giá thì disabale btn xác nhận giỏ hàng
 if (disable_check_out == 1) {
-    $('#btn_checkout').css("background", "#999");
+    $('#btn_checkout').attr('disabled', 'disabled');
 }
 $('#promotion_code').change(function () {
     if ($('#promotion_code').val() == "") {
         // Trả nút xác nhận đơn hàng về trại thái ban đầu
-        $('#btn_checkout').css("background", "#82ca9c");
+        $('#btn_checkout').removeAttr('disabled');
         promotiontAllow = 1;
     } else {
-        $('#btn_checkout').css("background", "#999");
+        $('#btn_checkout').attr('disabled', 'disabled');
         promotiontAllow = 0;
     }
 });
 $('#promotion_code').keyup(function () {
     if ($('#promotion_code').val() == "") {
         // Trả nút xác nhận đơn hàng về trại thái ban đầu
-        $('#btn_checkout').css("background", "#82ca9c");
+        $('#btn_checkout').removeAttr('disabled');
         promotiontAllow = 1;
     } else {
-        $('#btn_checkout').css("background", "#999");
+        $('#btn_checkout').attr('disabled', 'disabled');
         promotiontAllow = 0;
     }
 });
