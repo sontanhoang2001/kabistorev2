@@ -1,8 +1,6 @@
 <?php
 include 'inc/header.php';
-// include 'inc/slider.php';
 ?>
-<link rel="stylesheet" type="text/css" href="css/payment.css">
 
 <?php
 $disable_check_out = Session::get('disable_check_out');
@@ -13,29 +11,11 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
 } else {
     header('Location:404.html');
 }
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['orders'])) {
-
-//     // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-//     // $UpdateCustomers = $cs->update_customers_location($_POST, $id); // hàm check catName khi submit lên
-//     // $delCart = $ct->del_all_data_cart($customer_id);
-//     // $sendGmail = $ct->insertOrder($customer_id);
-//     $customer_id = Session::get('customer_id');
-//     $insertOrder = $ct->insertOrder($_POST, $customer_id);
-// }
-
-// if (isset($_GET['orderid']) && $_GET['orderid'] == 'order') {
-//     $customer_id = Session::get('customer_id');
-//     $insertOrder = $ct->insertOrder($customer_id);
-//     // $delCart = $ct->del_all_data_cart($customer_id);
-//     // $sendGmail = $ct->insertOrder($customer_id);
-//     header('Location:success.php');
-// }
 ?>
 <link rel="stylesheet" type="text/css" href="css/map.css">
 
-<div class="container-fluid pt-4">
+<div class="container pt-4">
     <h1 class="projTitle">Thanh Toán an toàn<span>-và</span> đơn giản</h1>
-    <hr>
     <div class="card-body p-0">
         <div class="row upper">
             <span><i class="fa fa-check-circle-o"></i> Giỏ hàng</span>
@@ -60,31 +40,30 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         ?>
                                 <div class="col-md-12 pt-4">
                                     <div class="row">
-                                        <div class="col-12 col-sm-auto mb-3">
+                                        <div class="col-12 col-sm-auto mb-2">
                                             <div class="mx-auto" style="width: 140px;">
-                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 120px; background-color: rgb(233, 236, 239);">
-                                                    <span><img class="avatar img-thumbnail border-1" src="upload/avatars/<?php echo $result['avatar']; ?>" /></span>
+                                                <div class="d-flex justify-content-center align-items-center rounded" style="background-color: rgb(233, 236, 239);">
+                                                    <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="upload/avatars/<?php echo $result['avatar']; ?>" /></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col d-flex flex-column flex-sm-row justify-content-between">
+                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mt-2">
                                             <div class="text-center text-sm-left mb-2 mb-sm-0">
                                                 <h5 class="text-nowrap text-primary"><?php echo $result['name']; ?></h5>
-                                                <div class=""><?php echo $result['email']; ?></div>
-                                                <div class=""><?php echo $phone; ?></div>
+                                                <div class="font-weight-normal"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $result['email']; ?></div>
+                                                <div class="font-weight-normal"><i class="fa fa-phone" aria-hidden="true"></i> 0<?php echo $phone; ?></div>
                                                 <label class="pt-1">
-                                                    <a href="profile.html" class="btn-editProfile btn-primary"><i class="fa fa-edit"></i> Chỉnh sửa</a></input>
+                                                    <a href="profile.html" class="btn btn-primary"><i class="fa fa-edit"></i> Chỉnh sửa</a></input>
                                                 </label>
                                                 <div class="mt-2">
                                                     <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
                                                 </div>
                                             </div>
-                                            <!-- <div class="text-center text-sm-right">
-                                                    <span class="badge badge-secondary">administrator</span>
-                                                    <div class="text-muted"><small><?php echo $result['date_Joined']; ?></small></div>
-                                                </div> -->
+                                            <div class="text-center text-sm-right">
+                                                <span class="badge badge-secondary">Khách hàng thông minh</span>
+                                                <div class="text-muted"><small>Gia nhập: <?php echo $fm->formatDateVN($result['date_Joined']); ?></small></div>
+                                            </div>
                                         </div>
-
                                     </div>
                                     <hr>
 
@@ -125,15 +104,15 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                             <div class="row pt-2">
                                 <div class="col-md-12 col-xs-12">
                                     <label for="address"><i class="fa fa-pencil" aria-hidden="true"></i> Ghi chú địa chỉ cụ thể:</label>
-                                    <input type="text" class="form-control" id="note" name="note">
+                                    <textarea type="text" class="form-control" id="note" name="note"></textarea>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 mt-3">
                                     <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại của bạn:</label>
-                                    <div id="geo-text" class="text-danger">Đang tìm vị trí...</div>
+                                    <div id="geo-text" class="text-danger">Hãy nhấn chọn vị trí trên bảng đồ nơi mà bạn muốn giao hàng...</div>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12 mt-4">
                                     <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
                                 </div>
                             </div>
@@ -161,17 +140,19 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 $price = $result['price'];
                                 $quantity = $result['quantity'];
                                 $productSize = $result['productSize'];
+                                $product_img =  json_decode($result['image']);
+                                $product_img = $product_img[0]->image;
+
                         ?>
-                                <div class="row item" id="<?php echo "c" . $cartId ?>">
+                                <div class="row item mb-3" id="<?php echo "c" . $cartId ?>">
                                     <div class="col-4 align-self-center">
-                                        <img class="img-fluid" src="admin/uploads/<?php echo $result['image']; ?>">
+                                        <img class="lazy img-fluid" id="itemImg" data-src="<?php echo $product_img; ?>">
                                     </div>
                                     <div class="col-8">
-                                        <div class="row text-muted itemCode">#QUE-007544-002</div>
+                                        <div class="row itemCode">#QUE-007544-002</div>
                                         <div class="row productName-item"><?php echo $result['productName'] ?></div>
                                         <?php if ($productSize != 0) { ?>
                                             <div class="row"><small>Size:
-
                                                     <?php
                                                     switch ($quantity) {
                                                         case 4: {
@@ -190,13 +171,15 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                                                 echo "S";
                                                                 break;
                                                             }
+                                                        default:
                                                     } ?>
+                                                </small>
                                             </div>
                                         <?php } ?>
-                                        <div class="row"><small>Giá: <span class="price"><?php echo $price ?></span></small>
+                                        <div class="row"><small>Giá: <span class="price"><?php echo $fm->format_currency($price) . ' ₫' ?></span></small>
                                             <div class="qty-item">&emsp;x&emsp;<?php echo $quantity ?></div>
                                         </div>
-                                        <div class="col-12 text-right totalPrice-item">
+                                        <div class="col-12 text-right totalPrice-item font-weight-bold">
                                             <?php
                                             $total = $result['price'] * $quantity;
                                             echo $fm->format_currency($total) . ' ₫';
@@ -204,7 +187,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
                         <?php
                                 //set sesstion to cart
                                 $cart = array();
@@ -220,26 +202,25 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         // if ($check_cart) {
                         $discount = 0;
                         ?>
+                        <hr>
                         <div class="form-group">
-                            <div class="col-md-12">
-                                <label for="label-payment" id="label_payment">Phương thức thanh toán</label>
-                            </div>
+                            <label class="mb-4" for="label-payment" id="label_payment"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Phương thức thanh toán</label>
                             <div class="col-md-12">
                                 <label>
                                     <input type="radio" name="payment_methods" class="card-input-element" value="1" checked="checked" />
-                                    <div class="panel panel-default card-input">
+                                    <div class="panel panel-default card-input" id="payment_methods">
                                         <img src="img/core-img/income.svg" alt="">
                                     </div>
                                 </label>
                                 <label>
                                     <input type="radio" name="payment_methods" value="2" class="card-input-element" />
-                                    <div class="panel panel-default card-input">
+                                    <div class="panel panel-default card-input" id="payment_methods">
                                         <img src="img/core-img/Vi-MoMo-new.jpg" alt="">
                                     </div>
                                 </label>
                                 <label>
                                     <input type="radio" name="payment_methods" value="3" class="card-input-element" />
-                                    <div class="panel panel-default card-input">
+                                    <div class="panel panel-default card-input" id="payment_methods">
                                         <img src="img/core-img/visa.svg" alt="">
                                     </div>
                                 </label>
@@ -261,7 +242,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                             $discount = session::get('discountMoney');
                             ?>
                             <div class="row lower">
-                                <div class="col text-left">Tạm tính</div>
+                                <strong class="col text-muted text-left">Tạm tính</strong>
                                 <div class="col text-right"><?php echo $fm->format_currency($subtotal) . " ₫";
                                                             Session::set('sum', $subtotal);
                                                             Session::set('ship', $ship);
@@ -269,19 +250,19 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 </div>
                             </div>
                             <div class="row lower">
-                                <div class="col text-left">Phí giao hàng</div>
+                                <strong class="col text-muted text-left">Phí giao hàng</strong>
                                 <div class="col text-right"><?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></div>
                             </div>
                             <?php if ($discount != 0) {
                             ?>
                                 <div class="row lower">
-                                    <div class="col text-left"><b>Giảm giá</b></div>
+                                    <strong class="col text-muted  text-left">Giảm giá</strong>
                                     <div class="col text-right"><b><?php echo "- " . $fm->format_currency($discount); ?></b></div>
                                 </div>
                             <?php
                             } ?>
                             <div class="row lower">
-                                <div class="col text-left"><b>Tổng cộng</b></div>
+                                <strong class="col text-left" style="font-size: 18px;">Tổng cộng</strong>
                                 <div class="col text-right"><b>
                                         <?php
                                         $grandTotal = $subtotal + $ship;
@@ -292,21 +273,23 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                             <div class="row lower">
                                 <div class="col text-left"><a href="cart.html"><u>Sửa mã giảm giá</u></a></div>
                             </div>
-                            <button id="orders" class="btn" type="submit" name="orders"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt Hàng</button>
-                            <div class="from-group error-group">
-                                <div class="alert alert-danger" id="error-geocoder">
-                                    <strong>Cảnh báo!</strong> Vui lòng nhấn vào nút xác nhận vị trí, để tiếp tục đặt hàng. <a href="#location-group" class="alert-link">Sửa lỗi</a>.
-                                </div>
-
-                                <div class="alert alert-danger" id="error-payment-methods1">
-                                    <strong>Cảnh báo!</strong> Thanh toán Momo đang được nâng cấp. Vui lòng chọn phương thức khác. <a href="#" class="alert-link">Sửa lỗi</a>.
-                                </div>
-                                <div class="alert alert-danger" id="error-payment-methods2">
-                                    <strong>Cảnh báo!</strong> Thanh toán Visa đang được nâng cấp. Vui lòng chọn phương thức khác. <a href="#" class="alert-link">Sửa lỗi</a>.
+                            <div class="row mt-4 mb-2">
+                                <button id="orders" class="btn btn-success rounded-pill py-2 btn-block" type="submit" name="orders" disabled><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng</button>
+                                <div class="from-group error-group mt-4">
+                                    <div class="alert alert-danger" id="error-geocoder">
+                                        <strong>Cảnh báo!</strong> Vui lòng nhấn vào nút xác nhận vị trí, để tiếp tục đặt hàng. <a href="checkout.html#location-group" class="alert-link">Sửa lỗi</a>.
+                                    </div>
+                                    <div class="alert alert-danger" id="error-payment-methods1">
+                                        <strong>Cảnh báo!</strong> Thanh toán Momo đang được nâng cấp. Vui lòng chọn phương thức thanh toán khác. <a href="#" class="alert-link">Sửa lỗi</a>.
+                                    </div>
+                                    <div class="alert alert-danger" id="error-payment-methods2">
+                                        <strong>Cảnh báo!</strong> Thanh toán Visa đang được nâng cấp. Vui lòng chọn phương thức thanh toán khác. <a href="#" class="alert-link">Sửa lỗi</a>.
+                                    </div>
                                 </div>
                             </div>
                             <p class="text-muted text-center">Thông tin thanh toán sẽ được mã hóa</p>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -314,16 +297,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
     </div>
 </div>
 </div>
-<?php
 
-// foreach ($_SESSION['cart_payment'] as $val) {
-//     echo "cartId: " . $val['cartId'] . " - ";
-//     echo "id: " . $val['productId'] . " - ";
-//     echo "ProductName: " . $val['productName'] . " - ";
-//     echo "qty: " . $val['quantity'];
-//     echo "<br>";
-// }
-?>
 <?php
 include 'inc/footer.php';
 ?>

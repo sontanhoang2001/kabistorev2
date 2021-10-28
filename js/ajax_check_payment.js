@@ -21,8 +21,7 @@ $(document).ready(function () {
 
     function ajaxCallBack(i, success, cartId, productName, quantity, product_remain) {
         if (success == true) {
-            // window.location.href = 'https://webcuatoi.vn/kabistore/success.html';
-            // window.location.href = 'https://kabistore/success.html';
+            audioSuccess.play();
             window.location.replace(getAbsolutePath() + "success.html");
         } else {
             $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods_ajax' + i + '"><strong>Cảnh báo!</strong><p class="text-success-result">Bạn đã đặt sản phẩm: <b> ' + productName + ' </b></p> với số lượng là ' + quantity + ' Chúng tôi chỉ còn ' + product_remain + ' sản phẩm. Vui lòng chỉnh sửa lại số lượng. <a href ="cart" class="alert-link">Chỉnh sửa</a ></div>');
@@ -34,18 +33,20 @@ $(document).ready(function () {
     $('#f_order').submit(function (e) {
         if (allow_order == false) {
             e.preventDefault();
+            audioError.play();
             $("#error-geocoder").show().delay(5000).fadeOut(1000);
-        } else if(phone == 0){
+        } else if (phone == 0) {
             e.preventDefault();
             $("#error-payment-methods-phone").show().delay(5000).fadeOut(1000);
-
             audioError.play();
             $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods-phone"><strong>Cảnh báo!</strong> Bạn chưa cập nhật số điện thoại vui lòng cập nhật ngay. <a href="profile.html" class="alert-link">Cập nhật</a>.</div>');
             $("#error-payment-methods-phone").show().delay(3000).fadeOut(1000).queue(function () { $(this).remove(); });
         } else if (Selected == 2) {
             e.preventDefault();
+            audioError.play();
             $("#error-payment-methods1").show().delay(7000).fadeOut(1000);
         } else if (Selected == 3) {
+            audioError.play();
             e.preventDefault();
             $("#error-payment-methods2").show().delay(7000).fadeOut(1000);
         }
@@ -59,7 +60,7 @@ $(document).ready(function () {
             var success;
             $.ajax({
                 type: "POST",
-                url: "ajax_check_payment.php",
+                url: "~/../callbackPartial/checkPayment.php",
                 dataType: 'json',
                 data: {
                     'formData': formData
@@ -73,15 +74,14 @@ $(document).ready(function () {
                             product_remain = value[0].product_remain;
                         ajaxCallBack(i, success, cartId, productName, quantity, product_remain);
                     });
+                }, error: function (data) {
+                    console.log(data);
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
                 }
             });
             e.preventDefault(success);
         }
     });
-
-    // $("#edit-cart").click(function () {
-    //     let scroll_cart = document.querySelector("#edit-cart");
-    //     scroll_cart.scrollIntoView();
-    // });
-
 });

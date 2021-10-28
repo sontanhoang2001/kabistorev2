@@ -29,7 +29,9 @@ if ($login_check == false) {
 	<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 	<div class="heading cf">
 		<h1>Giỏ Hàng</h1>
-		<a href="index.html" class="continue">Tiếp Tục Mua Sắm</a>
+		<div class="pull-right">
+			<a href="san-pham-f0p1t0smem.html" class="btn btn-info">Tiếp Tục Mua Sắm <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+		</div>
 	</div>
 	<div class="cart">
 		<!--    <ul class="tableHead">
@@ -125,25 +127,26 @@ if ($login_check == false) {
 	</div>
 
 
-	<div class="row" style="margin-right: -4px; margin-left: -4px;">
-		<div class="col-lg-6">
-			<form id="f_promo">
-				<div class="p-4">
-					<p class="font-italic mb-4">Hãy sưu tập mã giảm giá và dán vào đây để áp dụng ưu đãi ngay đi nào!</p>
-					<div class="input-group mb-4 border rounded-pill p-2">
-						<input type="text" placeholder="mã giảm giá..." aria-describedby="button-addon3" class="form-control border-0" id="promotion_code">
-						<div class="input-group-append border-0">
-							<button type="submit" class="btn btn-dark px-4 rounded-pill" id="discount"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Áp dụng</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
+	<div class="row" style="margin-right: -4px; margin-left: -4px;" id="payGroup">
+
 		<?php
 		$check_cart = $ct->check_cart($customer_id);
 		if ($check_cart) {
 			$discount = 0;
 		?>
+			<div class="col-lg-6">
+				<form id="f_promo">
+					<div class="p-4">
+						<p class="font-italic mb-4">Hãy sưu tập mã giảm giá và dán vào đây để áp dụng ưu đãi ngay đi nào!</p>
+						<div class="input-group mb-4 border rounded-pill p-2">
+							<input type="text" placeholder="mã giảm giá..." aria-describedby="button-addon3" class="form-control border-0" id="promotion_code">
+							<div class="input-group-append border-0">
+								<button type="submit" class="btn btn-dark px-4 rounded-pill" id="discount"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Áp dụng</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
 			<div class="col-lg-6">
 				<div class="p-4">
 					<form id="f_cart" method="POST" action="checkout.html" enctype="multipart/form-data">

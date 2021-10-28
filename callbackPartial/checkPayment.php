@@ -1,6 +1,6 @@
 <?php
-include 'lib/session.php';
-include_once "classes/cart.php";
+include '../lib/session.php';
+include_once "../classes/cart.php";
 
 Session::init();
 $ct = new cart();

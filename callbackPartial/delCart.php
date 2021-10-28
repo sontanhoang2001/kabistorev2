@@ -17,43 +17,39 @@ switch ($case) {
         $customer_id = Session::get('customer_id');
 
         $ct = new cart();
-        $ct->del_product_cart($cart_Id, $customer_id);
+        $del_product_cart = $ct->del_product_cart($cart_Id, $customer_id);
+        if ($del_product_cart) {
+            $price_ship = 5000;
+            $subtotal = Session::get('sum');
+            $ship = Session::get('ship');
+            $ship = $ship - $quantity * $price_ship;
+            Session::set('ship', $ship);
 
-        $price_ship = 5000;
-        $subtotal = Session::get('sum');
-        $ship = Session::get('ship');
-        $ship = $ship - $quantity * $price_ship;
-        Session::set('ship', $ship);
+            $subtotal = $subtotal - ($price * $quantity);
+            Session::set('sum', $subtotal);
 
-        $subtotal = $subtotal - ($price * $quantity);
-        Session::set('sum', $subtotal);
+            $grandTotal = $subtotal + $ship;
+            Session::set('grandTotal', $grandTotal);
 
-        $grandTotal = $subtotal + $ship;
-        Session::set('grandTotal', $grandTotal);
+            // Trừ số đếm trên giỏ hàng
+            $number_cart = session::get('number_cart');
+            $number_cart--;
+            session::set("number_cart", (int)$number_cart);
+            $number_cart =  session::get('number_cart');
 
-        // nếu grandTotal = 0 thì không cho chuyển trang checkout
-        if ($grandTotal == 0) {
-            Session::set('payment', false);
-            echo 0;
+            // nếu grandTotal = 0 thì không cho chuyển trang checkout
+            if ($grandTotal == 0) {
+                Session::set('payment', false);
+                // 2 ko còn sp trong giỏ hàng
+                echo json_encode($_result_json[] = ['status' => 2, 'number_cart' => $number_cart]);
+            } else {
+                // 1 Xóa thành công
+                echo json_encode($_result_json[] = ['status' => 1, 'number_cart' => $number_cart]);
+            }
         } else {
-            echo '
-                <ul>
-                    <li class="totalRow"><span class="label">Tạm Tính:</span><span class="value">' . $fm->format_currency($subtotal) . " ₫" . '</span></li>
-                    <li class="totalRow"><span class="label">phí giao hàng:</span><span class="value">' . "+ " . $fm->format_currency($ship) . " ₫" . '</span></li>
-                    <li class="totalRow final"><span class="label">Tổng Cộng:</span><span class="value">' . $fm->format_currency($grandTotal) . " ₫" . '</span></li>
-                    <li class="totalRow">
-						<button type="submit" id="btn_checkout" name="cartcheckout" class="btn success-cart">Xác nhận giỏ hàng</button>
-					</li>
-                    <li class="errorRow"></li>
-                </ul>
-            ';
+            // 0 xóa thất bại
+            echo json_encode($_result_json[] = ['status' => 0]);
         }
-        break;
-    case 1:
-        $number_cart = session::get('number_cart');
-        $number_cart--;
-        session::set("number_cart", (int)$number_cart);
-        echo session::get('number_cart');
         break;
     default:
 }

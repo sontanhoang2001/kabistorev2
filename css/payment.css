@@ -62,13 +62,13 @@
     color: #222;
 }
 
-.SuccessField {
+/* .SuccessField {
     border-color: #458845 !important;
     -webkit-box-shadow: 0 0 7px #9acc9a !important;
     -moz-box-shadow: 0 0 7px #9acc9a !important;
     box-shadow: 0 0 7px #9acc9a !important;
     background: #f9f9f9 url(../images/valid.png) no-repeat 98% center !important
-}
+} */
 
 .btn-xs {
     line-height: 28px;
@@ -869,22 +869,13 @@ input:focus::-webkit-input-placeholder {
     color: transparent
 }
 
-.header {
-    font-size: 1.5rem
-}
+
 
 .left-panel {
     background-color: #ffffff;
     padding: 18px
 }
 
-.left .col-4 {
-    padding-left: 0
-}
-
-.right .item {
-    padding: 0.3rem 0
-}
 
 .right-panel {
     background-color: #ffffff;
@@ -897,13 +888,3 @@ input:focus::-webkit-input-placeholder {
     line-height: 2
 }
 
-.btn {
-    /* background-color: rgb(23, 4, 189);
-    border-color: rgb(23, 4, 189); */
-    color: white;
-    width: 100%;
-    font-size: 0.7rem;
-    margin: 4vh 0 1.5vh 0;
-    padding: 1.5vh;
-    border-radius: 0
-}

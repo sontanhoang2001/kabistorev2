@@ -21,31 +21,60 @@ $('a#remove-cart').each(function (index, val) {
             success: function (data) {
                 // Xóa row cart
                 // Cập nhật lại tổng tiền subtotal
-                resetDiscount();
-                $(cartWrapIndex).css("display", "none");
-                if (data == 0) {
-                    $(".promoCode").remove();
-                    $(".subtotal").remove();
-                    $(".cart").append('<div class="container"><div class="row"><div class="col-12"><p>Giỏ của bạn đang trống! Hãy mua sắm ngay bây giờ.</p></div></div></div>');
-                } else {
-                    promoCode = $('#promotion_code').val();
-                    $('#promo_code').val(promoCode);
-                    checkPromotionCode(promoCode, 1);
-                }
+                // resetDiscount();
+                // $(cartWrapIndex).css("display", "none");
+                // if (data == 0) {
+                //     $("#payGroup").remove();
+                //     $(".cart").append('<div class="container"><div class="row"><div class="col-12"><p>Giỏ của bạn đang trống! Hãy mua sắm ngay bây giờ.</p></div></div></div>');
+                // } else {
+                //     promoCode = $('#promotion_code').val();
+                //     $('#promo_code').val(promoCode);
+                //     checkPromotionCode(promoCode, 1);
+                // }
 
-                $.ajax({
-                    type: "POST",
-                    url: "~/../callbackPartial/delCart.php",
-                    data: {
-                        'case': 1,
-                    },
-                    success: function (data) {
-                        $(".number_cart").html(data);
-                        var message = "Xóa khỏi giỏ hàng thành công!";
-                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        toast.change('Đã loại bỏ và thay đổi...', 2000);
+                var res = JSON.parse(data);
+                switch (res.status) {
+                    case 0: {
+                        var message = "Xóa sản phẩm thất bại!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        $("#payGroup").remove();
+                        $(".cart").append('<div class="container"><div class="row"><div class="col-12"><p>Giỏ của bạn đang trống! Hãy mua sắm ngay bây giờ.</p></div></div></div>');
+                        break;
                     }
-                });
+                    case 1: {
+                        $(cartWrapIndex).css("display", "none");
+                        $(".number_cart").html(res.number_cart);
+                        if ($('#discountPrice').text() == "Chưa nhập mã") {
+                            resetDiscount();
+                        } else {
+                            promoCode = $('#promotion_code').val();
+                            $('#promo_code').val(promoCode);
+                            checkPromotionCode(promoCode, 1);
+                        }
+
+                        var message = "Xóa sản phẩm khỏi giỏ hàng thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã lưu và thay đổi...', 2000);
+                        break;
+                    }
+                    case 2: {
+                        $(cartWrapIndex).css("display", "none");
+                        $(".number_cart").html(res.number_cart);
+                        $('#payGroup').remove();
+                        $(".cart").append('<div class="container"><div class="row"><div class="col-12"><p>Giỏ của bạn đang trống! Hãy mua sắm ngay bây giờ.</p></div></div></div>');
+
+                        var message = "Không có sản phẩm nào trong giỏ hàng!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Hãy tìm sản phẩm mới đi nào...', 3500);
+                        break;
+                    }
+                    default: {
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                    }
+                }
             }
         });
     });
