@@ -386,7 +386,7 @@ class cart
 		$discount = session::get('discountMoney');
 
 		// Tìm cart = customer_id
-		$success = false;
+		$status = false;
 		foreach ($_SESSION['cart_payment'] as $val) {
 			$cartId = $val['cartId'];
 			$productId = $val['productId'];
@@ -399,15 +399,15 @@ class cart
 
 			//kiem tra so luong hop le
 			if ($quantity <= $product_remain) {
-				$success = true;
+				$status = true;
 			} else {
-				$success = false;
-				$Response = ['success' => $success, 'cartId' => $cartId, 'productName' => $productName, 'quantity' => $quantity, 'product_remain' => $product_remain];
-				$return_json[][] = $Response;
+				$status = false;
+				$return_json[] = ['status' => 0, 'cartId' => $cartId, 'productName' => $productName, 'quantity' => $quantity, 'product_remain' => $product_remain];
 			}
 		}
 
-		if ($success == false) {
+		// false là số lượng ko hợp lệ
+		if ($status == false) {
 			return json_encode($return_json);
 		} else {
 			//insert address
@@ -437,18 +437,13 @@ class cart
 					if ($insert_order) {
 						Session::set('payment', true);
 						// header('Location:success.php');
-						$success = true;
-						$Response = ['success' => $success, 'cartId' => 0, 'productName' => 0, 'quantity' => 0, 'product_remain' => 0];
-						$return_json[][] = $Response;
-						return json_encode($return_json);
+						return json_encode($return_json[] = ['status' => 1]);
 					}
 				} else {
-					$alert = 'Lỗi không thể đặt hàng!';
-					return $alert;
+					return json_encode($return_json[] = ['status' => 2]);
 				}
 			} else {
-				$alert = 'Lỗi không thể đặt hàng!';
-				return $alert;
+				return json_encode($return_json[] = ['status' => 2]);
 			}
 		}
 	}

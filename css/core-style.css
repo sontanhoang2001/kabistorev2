@@ -3978,7 +3978,7 @@ input.input-quantitys:out-of-range {
     font-size: 11px;
 }
 
-.price {
+.price-checkout {
     color: #f15e22;
     font-weight: 600;
 }
@@ -4117,3 +4117,71 @@ input:focus::-webkit-input-placeholder {
 }
 
 /* END CHECKOUT */
+
+/* START SUCCESS */
+
+.theme-color {
+    color: #30a728
+}
+
+hr.new1 {
+    border-top: 2px dashed #fff;
+    margin: 0.4rem 0
+}
+
+.btn-viewOrderDetails {
+    color: #fff;
+    background-color: #7fad39;
+    border-color: #7fad39;
+    padding: 12px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius: 1px;
+    font-size: 17px
+}
+
+.payment {
+    border: 1px solid #f2f2f2;
+    border-radius: 20px;
+    background: #fff;
+}
+
+.payment_header {
+    background: #7fad39;
+    padding: 20px;
+}
+
+.check {
+    margin: 0px auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background: #fff;
+    text-align: center;
+}
+
+.check i {
+    vertical-align: middle;
+    line-height: 50px;
+    font-size: 30px;
+}
+
+.content {
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 25px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.text-susscess {
+    font-size: 24px;
+}
+
+.text-thankyou {
+    font-size: 20px;
+}
+
+/* END SUCCESS */

@@ -1,4 +1,6 @@
 var Selected = 1;
+var indexCountMessage = 0;
+
 $(document).ready(function () {
     var payment_methods = true;
     // var location;
@@ -19,18 +21,8 @@ $(document).ready(function () {
         }
     });
 
-    function ajaxCallBack(i, success, cartId, productName, quantity, product_remain) {
-        if (success == true) {
-            audioSuccess.play();
-            window.location.replace(getAbsolutePath() + "success.html");
-        } else {
-            $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods_ajax' + i + '"><strong>Cảnh báo!</strong><p class="text-success-result">Bạn đã đặt sản phẩm: <b> ' + productName + ' </b></p> với số lượng là ' + quantity + ' Chúng tôi chỉ còn ' + product_remain + ' sản phẩm. Vui lòng chỉnh sửa lại số lượng. <a href ="cart" class="alert-link">Chỉnh sửa</a ></div>');
-            $("#error-payment-methods_ajax" + i).show().delay(10000).fadeOut(1000).queue(function () { $(this).remove(); });
-            $("div#c" + cartId).css("background-color", "pink");
-        }
-    }
-
     $('#f_order').submit(function (e) {
+        e.preventDefault();
         if (allow_order == false) {
             e.preventDefault();
             audioError.play();
@@ -57,7 +49,6 @@ $(document).ready(function () {
                 note: $("#note").val()
                 // address: $("#address").val(),
             };
-            var success;
             $.ajax({
                 type: "POST",
                 url: "~/../callbackPartial/checkPayment.php",
@@ -66,14 +57,33 @@ $(document).ready(function () {
                     'formData': formData
                 },
                 success: function (data) {
-                    $.each(data, function (i, value) {
-                        var success = value[0].success,
-                            cartId = value[0].cartId,
-                            productName = value[0].productName,
-                            quantity = value[0].quantity,
-                            product_remain = value[0].product_remain;
-                        ajaxCallBack(i, success, cartId, productName, quantity, product_remain);
-                    });
+                    var res = JSON.parse(JSON.stringify(data));
+                    var Status = res.status;
+
+                    switch (Status) {
+                        case 0: {
+                            $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods_ajax' + indexCountMessage + '"><strong>Cảnh báo!</strong><p class="text-success-result">Lỗi không thể đặt hàng!</div>');
+                            $("#error-payment-methods_ajax" + indexCountMessage).show().delay(10000).fadeOut(1000).queue(function () { $(this).remove(); });
+                            break;
+                        } case 1: {
+                            window.location.replace(getAbsolutePath() + "success.html");
+                            break;
+                        } case 2: {
+                            var cartId = res.cartId,
+                                productName = res.productName,
+                                quantity = res.quantity,
+                                product_remain = res.product_remain;
+                            $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods_ajax' + indexCountMessage + '"><strong>Cảnh báo!</strong><p class="text-success-result">Bạn đã đặt sản phẩm: <b> ' + productName + ' </b></p> với số lượng là ' + quantity + ' Chúng tôi chỉ còn ' + product_remain + ' sản phẩm. Vui lòng chỉnh sửa lại số lượng. <a href ="cart" class="alert-link">Chỉnh sửa</a ></div>');
+                            $("#error-payment-methods_ajax" + i).show().delay(10000).fadeOut(1000).queue(function () { $(this).remove(); });
+                            $("div#c" + cartId).css("background-color", "pink");
+                            break;
+                        }
+                        default: {
+                            var message = "Lỗi máy chủ!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                        }
+                    }
                 }, error: function (data) {
                     console.log(data);
                     var message = "Lỗi máy chủ!";
@@ -81,7 +91,8 @@ $(document).ready(function () {
                     toast.change('Vui lòng thử lại...', 3500);
                 }
             });
-            e.preventDefault(success);
+            // e.preventDefault(success);
         }
+        indexCountMessage++;
     });
 });

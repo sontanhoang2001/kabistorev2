@@ -7,90 +7,24 @@ $ship = Session::get('ship');
 $discount = session::get('discountMoney');
 $get_amount = Session::get('grandTotal');
 if (isset($_SESSION['discountMoney'])) {
-    $discount = $fm->format_currency(session::get('discountMoney'));
+    $discount = "- ".$fm->format_currency(session::get('discountMoney'));
 } else {
     $discount = "...";
 }
-// if (isset($get_payment)) {
-//     if ($get_payment == false) {
-//         header('Location:404.html');
-//     } else {
-//         $delCart = $ct->del_all_data_cart($customer_id);
-//         if ($delCart) {
-//             session::set("number_cart", 0);
-//         }
-//         Session::set('payment', false);
-//     }
-// }
+
+if (isset($get_payment)) {
+    if ($get_payment == false) {
+        header('Location:404.html');
+    } else {
+        $delCart = $ct->del_all_data_cart($customer_id);
+        if ($delCart) {
+            session::set("number_cart", 0);
+        }
+        Session::set('payment', false);
+    }
+}
 ?>
-<style>
-    .theme-color {
-        color: #30a728
-    }
 
-    hr.new1 {
-        border-top: 2px dashed #fff;
-        margin: 0.4rem 0
-    }
-
-    .btn-primary {
-        color: #fff;
-        background-color: #7fad39;
-        border-color: #7fad39;
-        padding: 12px;
-        padding-right: 30px;
-        padding-left: 30px;
-        border-radius: 1px;
-        font-size: 17px
-    }
-
-
-    .payment {
-        border: 1px solid #f2f2f2;
-        border-radius: 20px;
-        background: #fff;
-    }
-
-    .payment_header {
-        background: #7fad39;
-        padding: 20px;
-    }
-
-    .check {
-        margin: 0px auto;
-        width: 50px;
-        height: 50px;
-        border-radius: 100%;
-        background: #fff;
-        text-align: center;
-    }
-
-    .check i {
-        vertical-align: middle;
-        line-height: 50px;
-        font-size: 30px;
-    }
-
-    .content {
-        text-align: center;
-    }
-
-
-
-    .content h1 {
-        font-size: 25px;
-        padding-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    .text-susscess {
-        font-size: 24px;
-    }
-
-    .text-thankyou {
-        font-size: 20px;
-    }
-</style>
 
 <div class="container">
     <div class="row">
@@ -123,7 +57,7 @@ if (isset($_SESSION['discountMoney'])) {
                         <div class="col text-right"><b><span class="font-weight-bold theme-color"><?php echo $fm->format_currency($get_amount) . " ₫" ?></span></b>
                         </div>
                     </div>
-                    <div class="text-center mt-5"> <a class="btn btn-primary" href="orderdetails.html">Xem đơn hàng</a> </div>
+                    <div class="text-center mt-5"> <a class="btn btn-viewOrderDetails" href="orderdetails.html">Xem đơn hàng</a> </div>
 
                 </div>
             </div>
@@ -136,7 +70,7 @@ include 'inc/footer.php';
 ?>
 <script>
     $(document).ready(function() {
-        audioError.play();
+        audioSuccess.play();
         $(".number_cart").html("0");
     });
 </script>

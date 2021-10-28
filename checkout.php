@@ -176,7 +176,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                                 </small>
                                             </div>
                                         <?php } ?>
-                                        <div class="row"><small>Giá: <span class="price"><?php echo $fm->format_currency($price) . ' ₫' ?></span></small>
+                                        <div class="row"><small>Giá: <span class="price-checkout"><?php echo $fm->format_currency($price) . ' ₫' ?></span></small>
                                             <div class="qty-item">&emsp;x&emsp;<?php echo $quantity ?></div>
                                         </div>
                                         <div class="col-12 text-right totalPrice-item font-weight-bold">
@@ -257,7 +257,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                             ?>
                                 <div class="row lower">
                                     <strong class="col text-muted  text-left">Giảm giá</strong>
-                                    <div class="col text-right"><b><?php echo "- " . $fm->format_currency($discount); ?></b></div>
+                                    <div class="col text-right"><b><?php echo "- " . $fm->format_currency($discount) . " ₫"; ?></b></div>
                                 </div>
                             <?php
                             } ?>
@@ -266,6 +266,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 <div class="col text-right"><b>
                                         <?php
                                         $grandTotal = $subtotal + $ship;
+                                        Session::set('grandTotal', $grandTotal);
                                         echo $fm->format_currency($grandTotal - $discount) . " ₫";
                                         ?></b>
                                 </div>
@@ -328,10 +329,3 @@ include 'inc/footer.php';
 <!-- <script src="js/allow_location.js"></script> -->
 <script src="js/function.js"></script>
 <script src="js/ajax_check_payment.js"></script>
-
-<script>
-    // window.addEventListener('load', function() {
-    //     let scroll_cart = document.querySelector("div#c122");
-    //     scroll_cart.scrollIntoView();
-    // })
-</script>
