@@ -678,11 +678,12 @@ function checkSendMail() {
     });
 }
 
-// function uploadAvatar() {
-//     $('input[name="avatar"]').change(function (e) {
-//         $('#f_avatar').submit();
-//     });
-// }
+// Tải ảnh
+function uploadAvatar() {
+    $('input[name="avatar"]').change(function (e) {
+        $('#f_avatar').submit();
+    });
+}
 
 
 //Show password

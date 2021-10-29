@@ -211,7 +211,7 @@ include 'inc/facebookPlugin.php';
 
 	<div class="container mt-3">
 		<!-- Nav tabs -->
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-pills pills-dark mb-3" id="pills-tab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active" data-toggle="tab" href="#home">Chi tiết sản phẩm</a>
 			</li>

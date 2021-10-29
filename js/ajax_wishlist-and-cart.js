@@ -125,7 +125,7 @@ $('a#remove-wishlist').each(function (index, val) {
                 Status = JSON.parse(data).status;
                 switch (Status) {
                     case 3: {
-                        $(cartWrapIndex).css("display", "none");
+                        $(cartWrapIndex).fadeOut(2000);
                         var message = "Xóa yêu thích thành công";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                         toast.change('Đã xóa và thay đổi...', 2000);

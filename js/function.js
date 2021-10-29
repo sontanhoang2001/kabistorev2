@@ -5,11 +5,9 @@ function copyToClipboard(element) {
     $temp.val($(element).text()).select();
     document.execCommand("copy");
     $temp.remove();
-    $("#message").append('<div class="alert-box success notification" id="success-message' + indexCountMessage + '"><i class="fa fa-bullhorn aria-hidden="true"></i> Đã sao chép mã giảm giá "' + $temp.val() + '"</div>');
-    $("#success-message" + indexCountMessage).show().delay(3000).fadeOut(1000).queue(function () {
-        $(this).remove();
-    });
-    indexCountMessage++;
+    var message = "Đã sao chép mã giảm giá '" + $temp.val() + "'";
+    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+    toast.change('Hãy dán mã khi thanh toán!', 2000);
 }
 
 function getAbsolutePath() {

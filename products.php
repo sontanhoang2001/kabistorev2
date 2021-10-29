@@ -40,10 +40,14 @@ if (!isset($_GET['typeName'])) {
 }
 Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 ?>
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/message.css">
+<style>
+    .nice-select:focus {
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: none !important;
+    }
+</style>
 <link rel="stylesheet" href="css/pagination.css">
-
 <link rel="stylesheet" href="css/price_range_style.css">
 
 <!-- ##### Right Side Cart Area ##### -->
@@ -320,17 +324,17 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                         if ($product_all) {
                             while ($result = $product_all->fetch_assoc()) {
                                 $productId = $result['productId'];
-                                $product_img =  "admin/uploads/" . $result['image'];
+                                $product_img =  json_decode($result['image']);
+                                $product_img = $product_img[0]->image;
                         ?>
                                 <!-- Single Product -->
                                 <div class="col-6 col-sm-6 col-lg-4">
                                     <!-- Single Product -->
-                                    <div class="single-product-wrapper page-product">
+                                    <div class="single-product-wrapper page-product bg-white rounded shadow-sm">
                                         <!-- Product Image -->
                                         <div class="product-img page-product">
-                                            <img src="<?php echo $product_img ?>" alt="">
+                                            <img data-src="<?php echo $product_img ?>" class="lazy" alt="">
                                             <ul class="card-button-shop">
-
                                                 <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                                 <?php
                                                 $wishlist_check = $product->wishlist_check($customer_id, $productId);
@@ -353,7 +357,7 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                                 }
                                                 ?>
                                                 <li>
-                                                    <img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                    <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
                                                     <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-shopping-cart"></i></a>
                                                 </li>
                                             </ul>
@@ -390,10 +394,10 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                         <div class="product-description">
                                             <?php if ($filter == "c" || $filter == "b") { ?>
                                             <?php } else { ?>
-                                                <span class="category"><?php echo $result['catName'] ?></span>
+                                                <span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
                                             <?php } ?>
                                             <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-                                                <div class="product-name page-product"><?php echo $result['productName'] ?></div>
+                                                <div class="text-dark"><?php echo $result['productName'] ?></div>
                                             </a>
                                             <p class="product-price">
                                                 <?php if ($old_price != 0) {

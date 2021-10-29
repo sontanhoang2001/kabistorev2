@@ -77,13 +77,16 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <!-- <link rel="stylesheet" type="text/css" href="css/theme-general.css"> -->
 
     <!-- <script type="text/javascript">
-  $(document).ready(function($){
-    $('#dc_mega-menu-orange').dcMegaMenu({rowItems:'4',speed:'fast',effect:'fade'});
-  }); -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/security.js"></script> -->
+        $(document).ready(function($) {
+            $('#dc_mega-menu-orange').dcMegaMenu({
+                rowItems: '4',
+                speed: 'fast',
+                effect: 'fade'
+            });
+        });
+    </script> -->
+    <!-- <script src="js/security.js"></script> -->
     <link rel="stylesheet" href="css/message.css">
-
 </head>
 
 <body>

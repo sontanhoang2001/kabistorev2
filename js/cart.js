@@ -19,19 +19,6 @@ $('a#remove-cart').each(function (index, val) {
                 'price': price
             },
             success: function (data) {
-                // Xóa row cart
-                // Cập nhật lại tổng tiền subtotal
-                // resetDiscount();
-                // $(cartWrapIndex).css("display", "none");
-                // if (data == 0) {
-                //     $("#payGroup").remove();
-                //     $(".cart").append('<div class="container"><div class="row"><div class="col-12"><p>Giỏ của bạn đang trống! Hãy mua sắm ngay bây giờ.</p></div></div></div>');
-                // } else {
-                //     promoCode = $('#promotion_code').val();
-                //     $('#promo_code').val(promoCode);
-                //     checkPromotionCode(promoCode, 1);
-                // }
-
                 var res = JSON.parse(data);
                 switch (res.status) {
                     case 0: {
@@ -43,7 +30,7 @@ $('a#remove-cart').each(function (index, val) {
                         break;
                     }
                     case 1: {
-                        $(cartWrapIndex).css("display", "none");
+                        $(cartWrapIndex).fadeOut(2000);
                         $(".number_cart").html(res.number_cart);
                         if ($('#discountPrice').text() == "Chưa nhập mã") {
                             resetDiscount();

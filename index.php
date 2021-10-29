@@ -207,7 +207,7 @@ include 'inc/global.php';
             </div>
         </div>
         <div class="view-all">
-            <button onclick="window.location.href='/san-pham-f0p1t0smem.html'" class="btn-view-all">XEM THÊM <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+            <div class="py-5 text-center"><a href="san-pham-f0p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
         </div>
     </div>
     <!-- START PROMOTION -->
@@ -250,9 +250,11 @@ include 'inc/global.php';
                                 </aside>
                                 <h5>Giảm <?php echo $fm->format_currency($result['discountMoney']) . " ₫" ?></h5>
                                 <p class="row col-10"><?php echo $result['description'] ?></p>
-                                <div class="row ml-2">
-                                    <p style="color: green;">Mã giảm giá: <span class="promoCode" id="promocode-<?php echo $promotion_index ?>"><?php echo $result['promotionsCode'] ?></span></p>
-                                    <button type="button" class="btn ml-4" onclick="copyToClipboard('#promocode-<?php echo $promotion_index ?>')">sao chép</button>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <p style="color: green;">Mã giảm giá: <span class="promoCode" id="promocode-<?php echo $promotion_index ?>"><?php echo $result['promotionsCode'] ?></span></p>
+                                        <button type="button" class="btn pull-right" onclick="copyToClipboard('#promocode-<?php echo $promotion_index ?>')">sao chép</button>
+                                    </div>
                                 </div>
                             </div>
                     <?php
@@ -340,8 +342,6 @@ include 'inc/global.php';
     <!-- END PROTION -->
 
     <!-- <div class="testprin">day nè</div> -->
-
-
 
 
     <?php
@@ -443,7 +443,7 @@ include 'inc/global.php';
                     </div>
                 </div>
             </div>
-            <div class="py-5 text-center"><a href="san-pham-f0p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
+            <div class="py-5 text-center"><a href="san-pham-f1p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
         </div>
         <div class="row">
 
@@ -511,7 +511,7 @@ include 'inc/global.php';
 
 
 
-   
+
     <!--Main layout-->
     <main class="mt-5">
         <div class="container-fluid" style="background-color: #eff0f5;">

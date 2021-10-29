@@ -90,7 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
+
+
+                    <ul class="nav nav-pills pills-dark mb-3" id="pills-tab" role="tablist">
                       <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#profile">Thông tin liên hệ</a>
                       </li>
