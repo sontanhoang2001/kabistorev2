@@ -50,8 +50,8 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                         <div class="col d-flex flex-column flex-sm-row justify-content-between mt-2">
                                             <div class="text-center text-sm-left mb-2 mb-sm-0">
                                                 <h5 class="text-nowrap text-primary"><?php echo $result['name']; ?></h5>
-                                                <div class="font-weight-normal"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $result['email']; ?></div>
-                                                <div class="font-weight-normal"><i class="fa fa-phone" aria-hidden="true"></i> 0<?php echo $phone; ?></div>
+                                                <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $result['email']; ?></p>
+                                                <p class="mb-0"><i class="fa fa-phone" aria-hidden="true"></i> 0<?php echo $phone; ?></p>
                                                 <label class="pt-1">
                                                     <a href="profile.html" class="btn btn-primary"><i class="fa fa-edit"></i> Chỉnh sửa</a></input>
                                                 </label>
@@ -150,10 +150,10 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
 
                         ?>
                                 <div class="row item mb-3" id="<?php echo "c" . $cartId ?>">
-                                    <div class="col-4 align-self-center">
+                                    <div class="col-4 align-self-center0">
                                         <img class="lazy img-fluid" id="itemImg" data-src="<?php echo $product_img; ?>">
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-8 mt-1">
                                         <div class="row itemCode">#QUE-007544-002</div>
                                         <div class="row productName-item"><?php echo $result['productName'] ?></div>
                                         <?php if ($productSize != 0) { ?>

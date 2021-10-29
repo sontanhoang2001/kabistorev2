@@ -456,7 +456,7 @@ class product
 						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
-						WHERE tbl_product.price BETWEEN '$priceStart' and '$priceEnd'
+						WHERE tbl_product.price BETWEEN '$priceStart' AND '$priceEnd '
 						order by product_soldout desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -469,8 +469,19 @@ class product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
 						where old_price != 0 and tbl_product.price BETWEEN '$priceStart' and '$priceEnd'
-						order by old_price
-						desc LIMIT $index_page, $product_num";
+						order by old_price desc LIMIT $index_page, $product_num";
+						$result = $this->db->select($query);
+						return $result;
+						break;
+					}
+				case 3: {
+						// Lấy tất cả Sản phẩm đc đánh giá cao nhât 3
+						$query = "SELECT p.productId, p.productName, p.product_soldout, c.catName, p.price, p.old_price, p.image
+						FROM tbl_product as p 
+						inner join tbl_category as c
+						on p.catId = c.catId
+						where p.type = 2 AND p.price BETWEEN '$priceStart' AND '$priceEnd'
+						order by productId desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
 						break;
@@ -539,6 +550,15 @@ class product
 						$query = "SELECT COUNT(productId) as totalRow
 					FROM tbl_product
 					where old_price != 0 AND price BETWEEN '$priceStart' AND '$priceEnd'";
+						$result = $this->db->select($query);
+						return $result;
+						break;
+					}
+				case 3: {
+						// Lấy tất cả Sản phẩm đc đánh giá cao nhât 3
+						$query = "SELECT COUNT(productId) as totalRow
+						FROM tbl_product
+						where type = 2 AND price BETWEEN '$priceStart' AND '$priceEnd'";
 						$result = $this->db->select($query);
 						return $result;
 						break;

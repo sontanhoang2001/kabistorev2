@@ -15,8 +15,6 @@ if ($login_check == false) {
 }
 ?>
 
-<link rel="stylesheet" href="css/cart.css">
-<link rel="stylesheet" href="css/message.css">
 <link rel="stylesheet" href="css/pagination.css">
 
 <div class="wrap cf">
@@ -48,7 +46,9 @@ if ($login_check == false) {
 					<li class="items odd">
 						<div class="infoWrap">
 							<div class="cartSection">
-								<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
+								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
+									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
+								</a>
 								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></small></p>
 								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
 									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>

@@ -15,11 +15,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <link rel="stylesheet" type="text/css" href="css/map.css">
 
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12">
+        <div class="page-title text-center">
+          <h2>Thông tin giao hàng</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
 
-<div class="container mt-100">
+<div class="container mt-5">
   <div class="row flex-lg-nowrap">
     <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-      <div class="card p-3">
+      <div class="card bg-light shadow p-3">
         <div class="e-navlist e-navlist--active-bg">
           <ul class="nav">
             <li class="nav-item"><a class="nav-link px-2 active" href="./overview.html"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Tổng quát</span></a></li>
@@ -43,11 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="col">
           <div class="row">
             <div class="col mb-3">
-              <div class="card">
+              <div class="card bg-light shadow">
                 <div class="card-body">
                   <div class="e-profile">
-                    <div class="row">
-                      <div class="col-12 col-sm-auto mb-3">
+                    <div class="row m-3">
+                      <div class="col-12 col-sm-auto mb-3 mt-2">
                         <div class="mx-auto" style="width: 140px; height: 140px;">
                           <div class="d-flex justify-content-center align-items-center rounded" style="height: 120px; background-color: rgb(233, 236, 239);">
                             <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="<?php echo (session::get('account_type') == 0) ?  "upload/avatars/" .  session::get('avatar') : session::get('avatar') ?>" /></span>
@@ -56,9 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                       </div>
                       <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div class="text-center text-sm-left mb-2 mb-sm-0">
-                          <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $result['name']; ?></h4>
-                          <p class="mb-0"><?php echo $result['email']; ?></p>
-                          <div class="text-muted">Số dư: <small>330 xu</small></div>
+                          <h5 class="text-nowrap text-primary"><?php echo $result['name']; ?></h5>
+                          <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $result['email']; ?></p>
+                          <div class="text-muted"><i class="fa fa-credit-card" aria-hidden="true"></i> </i>Số dư: <b style="color: #49bd4e;">330 xu</b></div>
                           <div class="mt-2">
                             <?php if (session::get('account_type') == 0) { ?>
                               <form id="f_avatar" method="POST" enctype="multipart/form-data">
@@ -285,7 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="col-12 col-md-3 mb-3">
           <form method="get" action="cart.html ">
-            <div class="card mb-3">
+            <div class="card bg-light shadow mb-3">
               <div class="card-body">
                 <div class="px-xl-3">
                   <button class="btn btn-block btn-secondary" type="submit">
@@ -297,7 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </form>
 
-          <div class="card">
+          <div class="card bg-light shadow">
             <div class="card-body">
               <h6 class="card-title font-weight-bold">Hỗ trợ</h6>
               <p class="card-text">Nhận trợ giúp miễn phí từ các trợ lý thân thiện của chúng tôi.</p>

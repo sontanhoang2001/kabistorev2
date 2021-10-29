@@ -48,7 +48,6 @@ if ($login_check == false) {
 				$product_img =  json_decode($result['image']);
 				$product_img = $product_img[0]->image;
 				$productSize = $result['productSize'];
-
 		?>
 				<div class="border-group text-right mt-2">
 					<?php if ($date_order != $date_orderTemp[$i - 1]) {
@@ -66,11 +65,11 @@ if ($login_check == false) {
 						<div class="infoWrap">
 							<div class="cartSection mwp">
 								<!-- <h5 class="numorder"><?php echo $i++; ?></h5> -->
-								<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg mt-2" />
-								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
 								<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
+									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg mt-2" />
 								</a>
+								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
+								<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 
 								<div class="row">
 									<?php if ($productSize != 0) { ?>

@@ -69,6 +69,17 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <link rel="stylesheet" href="css/core-style.css">
     <link href="css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />
 
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "0d28d541-beb1-40cc-8d00-785bb0e91d63",
+            });
+        });
+    </script>
+    
+
     <!-- Latest compiled and minified CSS & JS -->
 
     <!-- <link rel="stylesheet" type="text/css" href="css/loader.css" /> -->
@@ -181,95 +192,27 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                             <li><a href="#"><i class="fa fa-bars iconfa" aria-hidden="true"></i> Menu</a>
                                 <ul class="dropdown">
                                     <li><a href="index.html">Trang Chủ</a></li>
-                                    <li><a href="products.html">Tất Cả Sản Phẩm</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="single-blog.html">Single Blog</a></li>
-                                    <li><a href="regular-page.html">Regular Page</a></li>
-                                    <li><a href="contact.html">Liên Hệ</a></li>
-
-                                    <?php
-                                    // $check_cart = $ct->check_cart();
-                                    // if ($check_cart == true) {
-                                    //     echo '<li><a href="cart.php">Giỏ hàng</a></li>';
-                                    // } else {
-                                    //     echo '';
-                                    // }
-                                    ?>
-
+                                    <li><a href="san-pham-f0p1t0smem.html">Tất Cả Sản Phẩm</a></li>
                                     <?php
                                     $customer_id = Session::get('customer_id');
+                                    $login_check = Session::get('customer_login');
+                                    if ($login_check) {
+                                    ?>
+                                        <li><a href="cart.html">Giỏ hàng</a></li>
+                                        <li><a href="profile.html">Thông tin Cá nhân</a></li>
+                                        <li><a href="wishlist.html">Yêu thích</a> </li>
+                                    <?php
+                                    }
                                     $check_order = $ct->check_order($customer_id);
                                     if ($check_order == true) {
-                                        echo '<li><a href="orderdetails.php">Đơn hàng</a></li>';
+                                        echo '<li><a href="orderdetails.html">Đơn hàng</a></li>';
+                                    }
+                                    if ($login_check) {
+                                        echo '<li><a href="?customer_id=' . $customer_id . ' ">Đăng xuất</a></li>';
                                     } else {
-                                        echo '';
+                                        echo '<li><a href="login.html">Đăng nhập</a><li>';
                                     }
                                     ?>
-
-                                    <?php
-                                    // $login_check = Session::get('customer_login');
-                                    // if ($login_check == false) {
-                                    //     echo '';
-                                    // } else {
-                                    //     echo '<li><a href="profile.php">Thông tin</a></li>';
-                                    // }
-                                    // 
-                                    ?>
-                                    // <?php
-                                        // $login_check = Session::get('customer_login');
-                                        // if ($login_check) {
-                                        //     echo '<li><a href="compare.php">So sánh</a> </li>';
-                                        // }
-                                        // 
-                                        ?>
-                                    // <?php
-                                        // $login_check = Session::get('customer_login');
-                                        // if ($login_check) {
-                                        //     echo '<li><a href="wishlist.php">Yêu thích</a> </li>';
-                                        // }
-                                        ?>
-
-                                    <!-- <div class="shopping_cart">
-                                        <div class="cart">
-                                            <a href="cart.html" title="View my shopping cart" rel="nofollow">
-                                                <span class="cart_title">Giỏ hàng</span>
-                                                <span class="no_product">
-
-                                                    <?php
-                                                    // $check_cart = $ct->check_cart();
-                                                    // if ($check_cart) {
-                                                    //     $sum = Session::get("sum");
-                                                    //     $qty = Session::get("qty");
-                                                    //     echo $fm->format_currency($sum) . 'Đ' . ' ' . ' SL: ' . $qty;
-                                                    // } else {
-                                                    //     echo '(trống)';
-                                                    // }
-
-                                                    // 
-                                                    ?>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div> -->
-                                    <?php
-                                    // if (isset($_GET['customer_id'])) {
-                                    //     $customer_id = $_GET['customer_id'];
-                                    //     $delCart = $ct->del_all_data_cart();
-                                    //     $delCompare = $ct->del_compare($customer_id);
-                                    //     Session::destroy();
-                                    // }
-                                    // 
-                                    ?>
-                                    <div class="login">
-                                        <?php
-                                        //     $login_check = Session::get('customer_login');
-                                        //     if ($login_check == false) {
-                                        //         echo '<a href="login.html">Đăng nhập</a></div>';
-                                        //     } else {
-                                        //         echo '<a href="?customer_id=' . Session::get('customer_id') . ' ">Đăng xuất</a></div>';
-                                        //     }
-                                        ?>
                                 </ul>
                             </li>
                             <li><a href="blog.html"><i class="fa fa-rss iconfa" aria-hidden="true"></i> Blog</a></li>
@@ -363,29 +306,25 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
                         <span class="arrow_carrot-down"></span>
                         <ul>
-                            <li>
-                                <?php
-                                $login_check = Session::get('customer_login');
-                                if ($login_check == false) {
-                                    echo '<a class="user-login-option" href="login.html"><i class="fa fa-user"></i> Đăng nhập</a>';
-                                } else {
-                                    echo '
-                                            <a class="user-login-option" href="profile.html"><i class="fa fa-info-circle"></i> Cá nhân</a>
-                                            <a class="user-login-option" href="?customer_id=' . Session::get('customer_id') . ' "><i class="fa fa-sign-out"></i> Đăng xuất</a></div>';
-                                }
-
-                                ?>
+                            <?php
+                            $login_check = Session::get('customer_login');
+                            if ($login_check == false) {
+                                echo '<a class="user-login-option" href="login.html"><i class="fa fa-user"></i> Đăng nhập</a>';
+                            } else {
+                            ?>
+                                <li><a class="user-login-option" href="orderdetails.html"><i class="fa fa-clock-o" aria-hidden="true"></i> Đơn hàng</a></li>
+                                <li><a class="user-login-option" href="wishlist.html"><i class="fa fa-heart" aria-hidden="true"></i> Yêu thích</a></li>
+                                <li><a class="user-login-option" href="profile.html"><i class="fa fa-info-circle"></i> Cá nhân</a></li>
+                                <li><a class="user-login-option" href="?customer_id=' . Session::get('customer_id') . ' "><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
+                            <?php
+                            }
+                            ?>
                             </li>
                         </ul>
                     </ul>
                 </div>
             </div>
         </div>
-
-
-
-
-
     </header>
     <!-- ##### Header Area End ##### -->
     <!-- <script>

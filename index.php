@@ -53,10 +53,10 @@ include 'inc/global.php';
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Hot Nhất</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Danh Mục</a>
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#category" role="tab" aria-controls="profile" aria-selected="false">Danh Mục</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Tất Cả</a>
+                <a class="nav-link" href="san-pham-f0p1t0smem.html" aria-selected="false">Tất Cả</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabProduct">
@@ -167,9 +167,7 @@ include 'inc/global.php';
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-
-
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="profile-tab">
                 <!-- Swiper -->
                 <div class="wrapper">
                     <div class="carousel-product owl-carousel">
@@ -202,9 +200,8 @@ include 'inc/global.php';
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                gdssagsd
-            </div>
+            <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            </div> -->
         </div>
         <div class="view-all">
             <div class="py-5 text-center"><a href="san-pham-f0p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
@@ -253,7 +250,7 @@ include 'inc/global.php';
                                 <div class="row">
                                     <div class="col-12 mt-2">
                                         <p style="color: green;">Mã giảm giá: <span class="promoCode" id="promocode-<?php echo $promotion_index ?>"><?php echo $result['promotionsCode'] ?></span></p>
-                                        <button type="button" class="btn pull-right" onclick="copyToClipboard('#promocode-<?php echo $promotion_index ?>')">sao chép</button>
+                                        <button type="button" class="btn pull-right" onclick="copyToClipboard('#promocode-<?php echo $promotion_index ?>')" style="box-shadow: none !important">sao chép</button>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +264,7 @@ include 'inc/global.php';
                             <p>Mua từ 120k</p>
                         </aside>
                         <h4>Giảm 50k</h4>
-                        <p>Kỷ niệm ngày Hoàng Thảo yêu nhau. Khuyến mãi từ ngày 06-08-2021 đến ngày 10-08-2021.</p>
+                        <p>Kỷ niệm ngày . Khuyến mãi từ ngày 06-08-2021 đến ngày 10-08-2021.</p>
                         <div class="row ml-2">
                             <p style="color: green;">Mã giảm giá: <span class="promoCode">BOH232</span></p>
                             <button type="button" class="btn ml-4">sao chép</button>
@@ -443,7 +440,7 @@ include 'inc/global.php';
                     </div>
                 </div>
             </div>
-            <div class="py-5 text-center"><a href="san-pham-f1p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
+            <div class="py-5 text-center"><a href="san-pham-f3p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
         </div>
         <div class="row">
 

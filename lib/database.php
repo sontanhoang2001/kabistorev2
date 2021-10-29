@@ -2,10 +2,10 @@
 $filepath = realpath(dirname(__FILE__));
 include($filepath . '/../config/config.php'); ?>
 <?php
-   $host   = DB_HOST;
-   $user   = DB_USER;
-   $pass   = DB_PASS;
-   $dbname = DB_NAME;
+$host   = DB_HOST;
+$user   = DB_USER;
+$pass   = DB_PASS;
+$dbname = DB_NAME;
 
 // Create connection
 $conn = new mysqli($host, $user, $pass, $dbname);
@@ -52,6 +52,7 @@ class Database extends PDO
     } else {
       return false;
     }
+    $this->link = null;
   }
 
   // Insert data
@@ -63,6 +64,7 @@ class Database extends PDO
     } else {
       return false;
     }
+    $this->link = null;
   }
 
   // Update data
@@ -74,6 +76,7 @@ class Database extends PDO
     } else {
       return false;
     }
+    $this->link = null;
   }
 
   // Delete data
@@ -85,5 +88,6 @@ class Database extends PDO
     } else {
       return false;
     }
+    $this->link = null;
   }
 }
