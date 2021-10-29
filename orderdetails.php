@@ -1,26 +1,10 @@
 <?php
 include 'inc/header.php';
-// include 'inc/slider.php';
-?>
-<?php
-//    if(isset($_GET['cartid'])){
-//        $cartid = $_GET['cartid']; 
-//        $delcart = $ct->del_product_cart($cartid);
-//    }
-
-// if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])){
-//        // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-//        $cartId = $_POST['cartId'];
-//        $quantity = $_POST['quantity'];
-//        $update_quantity_Cart = $ct -> update_quantity_Cart($cartId, $quantity); // hàm check catName khi submit lên
-//    	if ($quantity <= 0) {
-//    		$delcart = $ct->del_product_cart($cartId);
-//    	}
-//    } 
+include 'inc/global.php';
 
 
 if (!isset($_GET['page'])) {
-	echo $page = 1;
+	$page = 1;
 } else {
 	$page = $_GET['page'];
 }
@@ -31,24 +15,17 @@ if ($login_check == false) {
 	header('Location:login.php');
 }
 ?>
-<?php
-// if (isset($_GET['confirmid'])) {
-// 	$id = $_GET['id'];
-// 	$cusId = $_GET['confirmid'];
-// 	$shifted_confirm = $ct->shifted_confirm($id, $cusId);
-// }
-// <a href="orderdetails.html?id=<?php echo $result['id']; ?&confirmid=<?php echo $customer_id >">Chờ nhận hàng..</a>
-?>
 
 
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/cart.css">
 <link rel="stylesheet" href="css/pagination.css">
 
+<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 <div class="wrap cf">
 	<div class="heading cf">
 		<h1>Theo dõi đơn hàng</h1>
-		<a href="index" class="continue">Tiếp Tục Mua Sắm</a>
+		<div class="pull-right">
+			<a href="san-pham-f0p1t0smem.html" class="btn btn-info text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+		</div>
 	</div>
 	<div class="cart">
 		<?php
@@ -70,45 +47,85 @@ if ($login_check == false) {
 				$quantity = $result['quantity'];
 				$product_img =  json_decode($result['image']);
 				$product_img = $product_img[0]->image;
+				$productSize = $result['productSize'];
+
 		?>
-				<div class="border-group text-right"><?php echo ($date_order != $date_orderTemp[$i - 1]) ? $fm->formatDateTimeP($date_order) : "" ?></div>
+				<div class="border-group text-right mt-2">
+					<?php if ($date_order != $date_orderTemp[$i - 1]) {
+					?>
+						<p>
+							<strong class="mr-2"><i class="fa fa-map-marker text-danger" aria-hidden="true"></i> Vị trí giao hàng</strong>
+							<i class="fa fa-calendar text-primary" aria-hidden="true"></i><b class="text-primary"> Ngày đặt:</b> <?php echo $fm->formatDateTimeP($date_order) ?>
+						</p>
+					<?php
+					}
+					?>
+				</div>
 				<ul class="cartWrap">
 					<li class="items odd">
 						<div class="infoWrap">
 							<div class="cartSection mwp">
 								<!-- <h5 class="numorder"><?php echo $i++; ?></h5> -->
-								<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
+								<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg mt-2" />
 								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
-								<a href="orderdetail?orderId=<?php echo $result['id'] ?>">
+								<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
 									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								</a>
-								<div class="mt-1">Số lượng: <?php echo $quantity ?></div>
 
-
-								<div class=""><i class="fa fa-money" aria-hidden="true"></i> 
-									<p class="p-price"><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></p>
+								<div class="row">
+									<?php if ($productSize != 0) { ?>
+										<div class="font-weight-light mr-2">
+											Size:
+											<?php
+											switch ($productSize) {
+												case 4: {
+														echo "XL";
+														break;
+													}
+												case 3: {
+														echo "X";
+														break;
+													}
+												case 2: {
+														echo "M";
+														break;
+													}
+												case 1: {
+														echo "S";
+														break;
+													}
+												default:
+											} ?>
+										</div>
+									<?php } ?>
+									<div class="font-weight-light">Số lượng: <?php echo $quantity ?></div>
 								</div>
-								<?php
-								if ($status == 0) {
-								?>
-									<td>
-										<div class="status-order float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo 'Đang chờ xác nhận...'; ?></div>
-									</td>
-								<?php
-								} elseif ($status == 1) {
-								?>
-									<td>
-										<div class="status-order float-right"><i class="fa fa-truck" aria-hidden="true"></i> Chờ nhận hàng...</div>
-									</td>
-								<?php
-								} else {
-								?>
-									<td>
-										<div class="status-order float-right"><?php echo 'Đã giao'; ?></div>
-									</td>
-								<?php
-								}
-								?>
+								<div class="font-weight-normal">
+									Thanh toán: <p class="p-price"><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></p>
+								</div>
+								<div class="mt-2">
+									<?php
+									if ($status == 0) {
+									?>
+										<td>
+											<div class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo 'Đang chờ xác nhận...'; ?></div>
+										</td>
+									<?php
+									} elseif ($status == 1) {
+									?>
+										<td>
+											<div class="float-right"><i class="fa fa-truck" aria-hidden="true"></i> Chờ nhận hàng...</div>
+										</td>
+									<?php
+									} else {
+									?>
+										<td>
+											<div class="float-right"><?php echo 'Đã giao'; ?></div>
+										</td>
+									<?php
+									}
+									?>
+								</div>
 								<!-- <button class="btn btn-succes btn-buy"> <i class="fa fa-shopping-cart" aria-hidden="true"> Mua ngay</i></button> -->
 							</div>
 						</div>

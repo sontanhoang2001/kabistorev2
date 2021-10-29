@@ -16,37 +16,13 @@ if ($login_check) {
 }
 
 include 'inc/facebookPlugin.php';
-
-
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['wishlist'])) {
-// 	// LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-// 	$insertWishlist = $product->insertWishlist($productid, $customer_id); // hàm check catName khi submit lên
-// }
-
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-// 	// LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-// 	$quantity = $_POST['quantity'];
-// 	$customer_id = Session::get('customer_id');
-
-// 	if (isset($_SESSION['cart'])) {
-// 		$cart = $_SESSION['cart'];
-// 		$element = count($cart);
-// 	} else {
-// 		$element = 0;
-// 	}
-
-// 	Session::set('PHP_SELF', $PHP_SELF = substr($_SERVER['REQUEST_URI'], 18)); // lưu vị trí đường dẫn trang khi chưa đăng nhập
-
-// 	if ($customer_id == null) {
-// 		echo "<script> window.location = 'login.php' </script>";
-// 	} else {
-// 		$insertCart = $ct->add_to_cart($productid, $quantity, $element); // hàm check catName khi submit lên
-// 	}
-// }
-
-
 ?>
 
+<style>
+	.nice-number button {
+		display: block !important;
+	}
+</style>
 
 
 <link rel="stylesheet" href="css/details.css">

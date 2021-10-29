@@ -23,7 +23,9 @@ if ($login_check == false) {
 	<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 	<div class="heading cf">
 		<h1>Yêu Thích</h1>
-		<a href="index" class="continue">Tiếp Tục Mua Sắm</a>
+		<div class="pull-right">
+			<a href="san-pham-f0p1t0smem.html" class="btn btn-info text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+		</div>
 	</div>
 	<div class="cart">
 		<?php

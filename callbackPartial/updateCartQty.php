@@ -25,8 +25,14 @@ switch ($case) {
             $price = $cartSess['price'];
             $quantityNew = $quantity - $quantityBefore;
 
-            $price_ship = 5000;
+            $get_price_ship = $ct->get_price_ship();
+            while ($result_price = $get_price_ship->fetch_assoc()) {
+                $price_ship = $result_price['price'];
+            }
+
+            // $price_ship = 5000;
             $subtotal = Session::get('sum');
+            // lấy ship cũ
             $ship = Session::get('ship');
             $ship = $ship + $quantityNew * $price_ship;
             Session::set('ship', $ship);
@@ -42,7 +48,12 @@ switch ($case) {
             $price = $cartSess['price'];
             $quantityNew = $quantityBefore - $quantity;;
 
-            $price_ship = 5000;
+            $get_price_ship = $ct->get_price_ship();
+            while ($result_price = $get_price_ship->fetch_assoc()) {
+                $price_ship = $result_price['price'];
+            }
+
+            // $price_ship = 5000;
             $subtotal = Session::get('sum');
             $ship = Session::get('ship');
             $ship = $ship - $quantityNew * $price_ship;

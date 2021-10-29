@@ -22,8 +22,9 @@
     position: absolute;
     background: #efefef;
     padding: 4px;
-    font-family: 'Open Sans', sans-serif;
+    /* font-family: 'Open Sans', sans-serif; */
     bottom: -10px;
+    height: 25px;
 }
 
 #geocoder {

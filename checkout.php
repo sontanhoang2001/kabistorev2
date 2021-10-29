@@ -112,7 +112,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                     <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại của bạn:</label>
                                     <div id="geo-text" class="text-danger">Hãy nhấn chọn vị trí trên bảng đồ nơi mà bạn muốn giao hàng...</div>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 mt-4">
+                                <div class="col-md-6 col-sm-6 col-xs-12 mt-3">
                                     <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
                                 </div>
                             </div>
@@ -123,7 +123,12 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 $i = 1;
                 $subtotal = 0;
                 $ship = 0;
-                $price_ship = 5000;
+
+                $get_price_ship = $ct->get_price_ship();
+                while ($result_price = $get_price_ship->fetch_assoc()) {
+                    $price_ship = $result_price['price'];
+                }
+
                 $customer_id = Session::get('customer_id');
                 $get_product_cart = $ct->get_product_cart($customer_id);
                 $num_rows = mysqli_num_rows($get_product_cart);
@@ -152,45 +157,49 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                         <div class="row itemCode">#QUE-007544-002</div>
                                         <div class="row productName-item"><?php echo $result['productName'] ?></div>
                                         <?php if ($productSize != 0) { ?>
-                                            <div class="row"><small>Size:
-                                                    <?php
-                                                    switch ($quantity) {
-                                                        case 4: {
-                                                                echo "XL";
-                                                                break;
-                                                            }
-                                                        case 3: {
-                                                                echo "X";
-                                                                break;
-                                                            }
-                                                        case 2: {
-                                                                echo "M";
-                                                                break;
-                                                            }
-                                                        case 1: {
-                                                                echo "S";
-                                                                break;
-                                                            }
-                                                        default:
-                                                    } ?>
-                                                </small>
+                                            <div class="row">
+                                                Size:
+                                                <?php
+                                                switch ($quantity) {
+                                                    case 4: {
+                                                            echo "XL";
+                                                            break;
+                                                        }
+                                                    case 3: {
+                                                            echo "X";
+                                                            break;
+                                                        }
+                                                    case 2: {
+                                                            echo "M";
+                                                            break;
+                                                        }
+                                                    case 1: {
+                                                            echo "S";
+                                                            break;
+                                                        }
+                                                    default:
+                                                } ?>
                                             </div>
                                         <?php } ?>
-                                        <div class="row"><small>Giá: <span class="price-checkout"><?php echo $fm->format_currency($price) . ' ₫' ?></span></small>
-                                            <div class="qty-item">&emsp;x&emsp;<?php echo $quantity ?></div>
-                                        </div>
-                                        <div class="col-12 text-right totalPrice-item font-weight-bold">
-                                            <?php
-                                            $total = $result['price'] * $quantity;
-                                            echo $fm->format_currency($total) . ' ₫';
-                                            ?>
+                                        <div class="row">
+                                            <div class="font-weight-normal">
+                                                Giá: <span class=""><?php echo $fm->format_currency($price) . ' ₫' ?>
+                                                    &emsp;x&emsp;<?php echo $quantity ?>
+                                                </span>
+                                            </div>
+                                            <div class="col-12 text-right totalPrice-item font-weight-bold">
+                                                <?php
+                                                $total = $result['price'] * $quantity;
+                                                echo $fm->format_currency($total) . ' ₫';
+                                                ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                         <?php
                                 //set sesstion to cart
                                 $cart = array();
-                                $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity];
+                                $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity, 'productSize' => $productSize];
                                 $_SESSION['cart_payment'][] = $cart;
                                 $ship = $ship + $quantity * $price_ship;
                                 $subtotal += $total;
@@ -266,8 +275,8 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 <div class="col text-right"><b>
                                         <?php
                                         $grandTotal = $subtotal + $ship;
-                                        Session::set('grandTotal', $grandTotal);
                                         echo $fm->format_currency($grandTotal - $discount) . " ₫";
+                                        Session::set('grandTotal', $grandTotal - $discount);
                                         ?></b>
                                 </div>
                             </div>

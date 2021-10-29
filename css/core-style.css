@@ -399,23 +399,6 @@ img {
 
 /* Essence Button */
 
-.essence-btn {
-    display: inline-block;
-    min-width: 170px;
-    height: 50px;
-    color: #ffffff;
-    border: none;
-    border-radius: 0;
-    padding: 0 10px;
-    text-transform: uppercase;
-    font-size: 12px;
-    line-height: 50px;
-    background-color: #0315ff;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-    text-align: center;
-}
-
 .essence-btn:hover, .essence-btn:focus {
     color: #ffffff;
     background-color: #ff008b
@@ -432,7 +415,7 @@ img {
     text-transform: uppercase;
     font-size: 12px;
     line-height: 50px;
-    background-color: #ff9f1a;
+    background-color: #03a9f4;
     letter-spacing: 1.5px;
     font-weight: 600;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
@@ -3673,12 +3656,11 @@ h3.name-cart {
 .cart .items .cartSection .itemImg {
     padding-right: 1em;
     width: 140px;
-    height: 120px;
+    height: 108px;
     object-fit: cover;
 }
 
 #itemImg {
-    padding-right: 1em;
     width: 100%;
     height: 100px;
     object-fit: cover;
@@ -3864,21 +3846,10 @@ a.remove:hover {
     }
 }
 
-.border-group {
-    font-size: 10px
-}
-
-.status-order {
-    font-size: 12px;
-}
 
 /* END CART */
 
 /* START nice-number */
-
-form#f_promo {
-    padding-bottom: 15px;
-}
 
 .nice-number {
     padding-top: 0px;
@@ -3886,7 +3857,6 @@ form#f_promo {
 
 .nice-number button {
     display: none;
-    background-color: #82ca9c;
     box-shadow: 0 2px 5px rgb(0 0 0 / 22%);
     padding-top: 4px;
     padding-left: 11px;
@@ -3915,12 +3885,12 @@ form#f_promo {
     /* display: block; */
     float: left;
     font-family: inherit;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: normal;
     height: 34px;
     line-height: 31px;
     outline: none;
-    padding-left: 8px;
+    padding-left: 20px;
     padding-right: 24px;
     position: relative;
     text-align: left !important;
@@ -3978,11 +3948,6 @@ input.input-quantitys:out-of-range {
     font-size: 11px;
 }
 
-.price-checkout {
-    color: #f15e22;
-    font-weight: 600;
-}
-
 span.qty {
     font-weight: bold;
     color: black;
@@ -4034,10 +3999,6 @@ p.text-success-result {
 .text-success-result b {
     color: crimson;
     font-size: inherit;
-}
-
-.qty-item {
-    font-size: 10px;
 }
 
 .productName-item {

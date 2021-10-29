@@ -6,9 +6,8 @@ if ($login_check == false) {
 	header('Location:login.php');
 	exit;
 }
-?>
+$discount = session::set('discountMoney', 0);
 
-<?php
 // if (!isset($_GET['id'])) {
 // 	echo "<meta http-equiv='refresh' content='0;URL=?id=live'>";
 // }
@@ -19,18 +18,16 @@ if ($login_check == false) {
 <!-- jQuery Nice Number CSS -->
 <link rel="stylesheet" href="css/jquery.nice-number.min.css">
 
-
 <link rel="stylesheet" href="css/details.css">
 <!-- jQuery Nice Number CSS -->
 <link rel="stylesheet" href="css/scroll-box.css">
-
 
 <div class="wrap cf">
 	<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 	<div class="heading cf">
 		<h1>Giỏ Hàng</h1>
 		<div class="pull-right">
-			<a href="san-pham-f0p1t0smem.html" class="btn btn-info">Tiếp Tục Mua Sắm <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+			<a href="san-pham-f0p1t0smem.html" class="btn btn-info text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 		</div>
 	</div>
 	<div class="cart">

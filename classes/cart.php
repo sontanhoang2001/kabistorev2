@@ -190,10 +190,12 @@ class cart
 
 	public function get_price_ship()
 	{
-		$query = "SELECT priceshippingId, name_service, price FROM tbl_priceshipping";
+		$query = "SELECT price FROM tbl_priceshipping";
 		$price_ship = $this->db->select($query);
 		if ($price_ship) {
 			return $price_ship;
+		} else {
+			return 10000;
 		}
 	}
 
@@ -358,23 +360,27 @@ class cart
 	// 	}
 	// }
 
+
+	// $sId = session_id();
+	// $query = "SELECT * FROM tbl_cart WHERE customerId = '$customer_id'";
+	// $query = "SELECT tbl_product.productId, tbl_product.productName, tbl_cart.quantity, tbl_product.price, tbl_product.image
+	// FROM tbl_cart INNER JOIN tbl_product ON tbl_cart.productId = tbl_product.productId
+	// WHERE tbl_cart.customerId = '$customer_id' ";
+	// $get_product = $this->db->select($query);
+
+	// while ($result = $get_product->fetch_assoc()) {
+	// 	$productid = $result['productId'];
+	// 	$productName = $result['productName'];
+	// 	$quantity = $result['quantity'];
+	// 	$price = $result['price'] * $quantity;
+	// 	$image = $result['image'];
+	// 	$customer_id = $customer_id;
+
+
+
+
 	public function insertOrder($data)
 	{
-		// $sId = session_id();
-		// $query = "SELECT * FROM tbl_cart WHERE customerId = '$customer_id'";
-		// $query = "SELECT tbl_product.productId, tbl_product.productName, tbl_cart.quantity, tbl_product.price, tbl_product.image
-		// FROM tbl_cart INNER JOIN tbl_product ON tbl_cart.productId = tbl_product.productId
-		// WHERE tbl_cart.customerId = '$customer_id' ";
-		// $get_product = $this->db->select($query);
-
-		// while ($result = $get_product->fetch_assoc()) {
-		// 	$productid = $result['productId'];
-		// 	$productName = $result['productName'];
-		// 	$quantity = $result['quantity'];
-		// 	$price = $result['price'] * $quantity;
-		// 	$image = $result['image'];
-		// 	$customer_id = $customer_id;
-
 		// bỏ bức kiểm tra vì đã có bước kiểm tra rồi
 
 		$customer_id = Session::get('customer_id');
@@ -424,14 +430,18 @@ class cart
 					foreach ($_SESSION['cart_payment'] as $val) {
 						$countCart_payment++;
 					}
+
 					$discountItem = $discount / $countCart_payment;
+					$shipPrice = Session::get('ship') / $countCart_payment;
+
 					foreach ($_SESSION['cart_payment'] as $val) {
 						$productId = $val['productId'];
 						$productName = $val['productName'];
 						$totalPrice = $val['totalPrice'];
-						$totalPayment = $totalPrice - $discountItem;
+						$totalPayment = (int)$totalPrice + (int)$shipPrice - (int)$discountItem;
 						$quantity = $val['quantity'];
-						$query_order = "INSERT INTO tbl_order(productId, customer_id, address_id, quantity, totalPayment) VALUES('$productId', '$customer_id', '$address_id','$quantity', '$totalPayment')";
+						$productSize = $val['productSize'];
+						$query_order = "INSERT INTO tbl_order(productId, customer_id, address_id, productSize, quantity, totalPayment) VALUES('$productId', '$customer_id', '$address_id', '$productSize','$quantity', '$totalPayment')";
 						$insert_order = $this->db->insert($query_order);
 					}
 					if ($insert_order) {
@@ -459,7 +469,7 @@ class cart
 	public function get_cart_ordered($customer_id, $page, $product_num)
 	{
 		$index_page = ($page - 1) * $product_num;
-		$query = "SELECT p.productName, p.product_code, p.image, o.id, o.address_id, o.quantity, o.totalPayment, o.status, a.date_create
+		$query = "SELECT p.productId, p.productName, p.product_code, p.image, o.id, o.address_id, o.quantity, o.totalPayment, o.status, a.date_create, o.productSize
 		FROM tbl_order as o
 		inner join tbl_product as p on o.productId = p.productId
         inner join tbl_address as a on o.address_id = a.address_id

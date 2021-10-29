@@ -272,12 +272,13 @@ $("#cartSubmit").submit(function (e) {
 });
 // End cartSubmit in product details
 
+// input qty details
 $('.input-quantity').focus(function () {
-    $('.essence-btn').css("background-color", "rgb(153, 153, 153)");
+    $('.essence-btn').css("background-color", "#9e9e9e");
 });
 
 $('.input-quantity').blur(function () {
-    $('.essence-btn').css("background-color", "#ff9f1a");
+    $('.essence-btn').css("background-color", "#03a9f4");
 });
 
 // validate quantity product details

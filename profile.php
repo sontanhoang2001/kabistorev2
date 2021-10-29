@@ -174,14 +174,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           </div>
 
                           <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 pt-4">
                               <div class="form-group" id="location-group">
                                 <label for="maps_address"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Ghim vị trí giao hàng</label>
                                 <!-- <input type="text" class="form-control" name="maps_address" id="maps_address" value="" placeholder="Nhập tên địa điểm cần tìm"> -->
                                 <div id="maps_maparea">
                                   <div class="panel-google-maps">
                                     <div id="map"></div>
-                                    <div id="menu-map">
+                                    <div id="menu-map" style="bottom: 6px;">
                                       <input id="satellite-v9" type="radio" name="rtoggle" value="satellite" checked="checked">
                                       <label for="satellite-v9">vệ tinh</label>
                                       <input id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked">
@@ -204,11 +204,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 mt-2">
                               <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại của bạn:</label>
                               <div id="geo-text" class="text-danger">Đang tìm vị trí...</div>
                             </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12 mt-3">
                               <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
                             </div>
                           </div>

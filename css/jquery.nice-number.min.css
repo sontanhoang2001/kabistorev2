@@ -15,8 +15,8 @@
     text-align: center;
 }
 
-.nice-number input::-webkit-inner-spin-button,
-.nice-number input::-webkit-outer-spin-button {
+.nice-number input::-webkit-inner-spin-button, .nice-number input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0
 }
+

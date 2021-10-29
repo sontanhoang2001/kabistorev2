@@ -99,7 +99,16 @@ async function getGeocoding(lng, lat) {
     allow_order = true;
     btn_lock.classList.remove("btn-danger");
     btn_lock.classList.add("btn-success");
-    document.getElementById("orders").removeAttribute("disabled");
+    try {
+        document.getElementById("orders").removeAttribute("disabled");
+    } catch (error) {
+    }
+
+    try {
+        document.getElementById("btnUpdateInfo").removeAttribute("disabled");
+    } catch (error) {
+    }
+
 }
 
 map.on('click', function (e) {

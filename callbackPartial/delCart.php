@@ -19,7 +19,12 @@ switch ($case) {
         $ct = new cart();
         $del_product_cart = $ct->del_product_cart($cart_Id, $customer_id);
         if ($del_product_cart) {
-            $price_ship = 5000;
+            $get_price_ship = $ct->get_price_ship();
+            while ($result_price = $get_price_ship->fetch_assoc()) {
+                $price_ship = $result_price['price'];
+            }
+
+            // $price_ship = 5000;
             $subtotal = Session::get('sum');
             $ship = Session::get('ship');
             $ship = $ship - $quantity * $price_ship;

@@ -8,11 +8,6 @@ $ct = new cart();
 $case = $_POST['case'];
 $promoCode = $_POST['promoCode'];
 
-$get_price_ship = $ct->get_price_ship();
-while ($result_price = $get_price_ship->fetch_assoc()) {
-    $price_ship = $result_price['price'];
-}
-
 // case = 0 đi lên server
 // case = 1 cập nhật lại 1 phần của tổng tiền
 switch ($case) {
