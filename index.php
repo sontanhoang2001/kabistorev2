@@ -78,7 +78,10 @@ include 'inc/global.php';
                                     <div class="product-img">
                                         <img src="<?php echo $product_img ?>" loading="lazy">
                                         <ul class="card-button-shop">
-                                            <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+                                            <li>
+                                                <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+                                            </li>
                                             <?php
                                             $wishlist_check = $product->wishlist_check($customer_id, $productId);
                                             $login_check = Session::get('customer_login');
@@ -98,10 +101,7 @@ include 'inc/global.php';
                                             <?php
                                             }
                                             ?>
-                                            <li>
-                                                <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
-                                                <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
-                                            </li>
+                                            <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                             <!-- <a class="add_to_cart" data-tip="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a> -->
                                         </ul>
 

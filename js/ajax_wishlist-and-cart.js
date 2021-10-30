@@ -294,7 +294,7 @@ $('.input-quantity').each(function (index, val) {
 
     $(this).focusout(function () {
         $(this).css("box-shadow", "0 2px 5px rgb(0 0 0 / 30%)");
-        $(this).css("border", "none");
+        // $(this).css("border", "none");
         $(this).css("border-radius", "5px");
         // $(".stockStatus").css("display", "inline-block");
 

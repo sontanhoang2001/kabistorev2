@@ -25,7 +25,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
         <form id="f_order" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-7">
-                    <div class="left-panel border">
+                    <div class="left-panel border bg-light shadow">
                         <div class="header">Thông tin giao hàng</div>
                         <!-- <div class="icons"> <img src="https://img.icons8.com/color/48/000000/visa.png" /> <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" /> <img src="https://img.icons8.com/color/48/000000/maestro.png" /> </div> -->
                         <?php
@@ -58,10 +58,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                                 <div class="mt-2">
                                                     <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
                                                 </div>
-                                            </div>
-                                            <div class="text-center text-sm-right">
-                                                <span class="badge badge-secondary">Khách hàng thông minh</span>
-                                                <div class="text-muted"><small>Gia nhập: <?php echo $fm->formatDateVN($result['date_Joined']); ?></small></div>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +130,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 $num_rows = mysqli_num_rows($get_product_cart);
                 ?>
                 <div class="col-md-5">
-                    <div class="right-panel border">
+                    <div class="right-panel border bg-light shadow">
                         <div class="header">Thông tin đơn hàng</div>
                         <p><?php echo $num_rows ?> sản phẩm</p>
                         <?php

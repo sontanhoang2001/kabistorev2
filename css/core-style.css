@@ -2700,7 +2700,7 @@ span.current {
 /*# sourceMappingURL=core-style.css.map */
 
 .nice-toast-wrapper[class*=' bottom'] {
-    bottom: 75% !important;
+    bottom: 15% !important;
 }
 
 /* Start index */
@@ -3679,11 +3679,12 @@ h3.name-cart {
     width: 140px;
     height: 108px;
     object-fit: cover;
+    margin-right: 2px
 }
 
 #itemImg {
     width: 109px;
-    height: 109px;
+    height: 90px;
     object-fit: cover;
 }
 

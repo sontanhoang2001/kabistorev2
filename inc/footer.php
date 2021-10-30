@@ -127,8 +127,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $.niceToast.setup({
-            position: "bottom-right",
-            timeout: 5000,
+            position: "bottom-left",
+            timeout: 3000,
         });
     });
 </script>
