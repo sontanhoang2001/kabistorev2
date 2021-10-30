@@ -85,9 +85,11 @@ class brand
 	}
 	public function update_brand($brandId, $brandName)
 	{
+		$brandId = $this->fm->validation($brandId);
+		$brandId = mysqli_real_escape_string($this->db->link, $brandId);
 		$brandName = $this->fm->validation($brandName);
 		$brandName = mysqli_real_escape_string($this->db->link, $brandName);
-		$brandId = mysqli_real_escape_string($this->db->link, $brandId);
+
 		if (empty($brandName)) {
 			// brandName ko đã bỏ trống
 			return json_encode($result_json[] = ['status' => 0]);

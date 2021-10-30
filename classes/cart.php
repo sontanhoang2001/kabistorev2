@@ -71,6 +71,11 @@ class cart
 		// thêm thất bại = 2
 		// xóa thành công = 3
 		// xóa thất bại = 4
+		$productid = $this->fm->validation($productid);
+		$productid = mysqli_real_escape_string($this->db->link, $productid);
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
+
 		if ($customer_id == null) {
 			return json_encode($result_json[][] = ['status' => 0]);
 		} else {
@@ -102,6 +107,7 @@ class cart
 
 	public function get_product_cart($customerId)
 	{
+		$customerId = $this->fm->validation($customerId);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customerId);
 		$query = "SELECT tbl_product.productName, tbl_product.product_code, tbl_product.product_remain, tbl_product.image, tbl_product.price, tbl_cart.cartId, tbl_cart.customerId, tbl_cart.productId, tbl_cart.productSize, tbl_cart.quantity
 		FROM tbl_cart
@@ -114,6 +120,8 @@ class cart
 
 	public function get_amount_all_cart($customer_id)
 	{
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
 		$query = "SELECT COUNT(id) as totalRow FROM tbl_order WHERE customer_id = '$customer_id'";
 		$result = $this->db->select($query);
 		return $result;
@@ -122,9 +130,14 @@ class cart
 	// Cập nhật giỏ hàng
 	public function update_quantity_Cart($customerId, $cartId, $productId, $quantity)
 	{
+		$customerId = $this->fm->validation($customerId);
+		$customerId = mysqli_real_escape_string($this->db->link, $customerId);
+		$cartId = $this->fm->validation($cartId);
+		$cartId = mysqli_real_escape_string($this->db->link, $cartId);
+		$productId = $this->fm->validation($productId);
+		$productId = mysqli_real_escape_string($this->db->link, $productId);
 		$quantity = $this->fm->validation($quantity);
 		$quantity = mysqli_real_escape_string($this->db->link, $quantity);
-		$customerId = mysqli_real_escape_string($this->db->link, $customerId);
 
 		$query = "SELECT product_remain FROM tbl_product WHERE productId = '$productId' ";
 		$result = $this->db->select($query)->fetch_assoc();
@@ -158,9 +171,12 @@ class cart
 	// Cập nhật size giỏ hàng
 	public function update_size_cart($customerId, $cartId, $size)
 	{
+		$customerId = $this->fm->validation($customerId);
+		$customerId = mysqli_real_escape_string($this->db->link, $customerId);
+		$cartId = $this->fm->validation($cartId);
+		$cartId = mysqli_real_escape_string($this->db->link, $cartId);
 		$size = $this->fm->validation($size);
 		$size = mysqli_real_escape_string($this->db->link, $size);
-		$customerId = mysqli_real_escape_string($this->db->link, $customerId);
 
 		if ($size >= 1) {
 			$query = "UPDATE tbl_cart SET productSize= '$size' WHERE cartId =  '$cartId' AND customerId = '$customerId'";
@@ -201,6 +217,9 @@ class cart
 
 	public function discount($promo_code)
 	{
+		$promo_code = $this->fm->validation($promo_code);
+		$promo_code = mysqli_real_escape_string($this->db->link, $promo_code);
+
 		$query_select = "SELECT promotionsName, `condition`, discountMoney, `start_date`, `end_date` FROM tbl_promotions WHERE promotionsCode = '$promo_code'";
 		$result1 = $this->db->select($query_select);
 
@@ -272,6 +291,7 @@ class cart
 	// xóa giỏ hàng
 	public function del_product_cart($cartId, $customerId)
 	{
+		$customerId = $this->fm->validation($customerId);
 		$cartId = mysqli_real_escape_string($this->db->link, $cartId);
 
 		$query = "DELETE FROM tbl_cart WHERE cartId = '$cartId'";
@@ -284,8 +304,11 @@ class cart
 
 	public function save_temp_quantity_Cart($proId, $cartId, $quantity)
 	{
+		$quantity = $this->fm->validation($quantity);
 		$quantity = mysqli_real_escape_string($this->db->link, $quantity);
+		$cartId = $this->fm->validation($cartId);
 		$cartId = mysqli_real_escape_string($this->db->link, $cartId);
+		$proId = $this->fm->validation($proId);
 		$proId = mysqli_real_escape_string($this->db->link, $proId);
 
 		$query_product = "SELECT * FROM tbl_product WHERE productId = '$proId' ";
@@ -313,6 +336,9 @@ class cart
 	// bỏ phương thức check_cart
 	public function check_cart($customer_id)
 	{
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
+
 		// $sId = session_id();
 		$query = "SELECT * FROM tbl_cart WHERE customerId = '$customer_id' ";
 		$result = $this->db->select($query);
@@ -320,6 +346,8 @@ class cart
 	}
 	public function check_order($customer_id)
 	{
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
 		// $sId = session_id();
 		$query = "SELECT * FROM tbl_order WHERE customer_id = '$customer_id' ";
 		$result = $this->db->select($query);
@@ -327,6 +355,8 @@ class cart
 	}
 	public function del_all_data_cart($customer_id)
 	{
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
 		// unset($_SESSION['cart']);
 		// $sId = session_id();
 		$query = "DELETE FROM tbl_cart WHERE customerId = '$customer_id' ";
@@ -334,13 +364,6 @@ class cart
 		return $result;
 	}
 
-	public function del_compare($customer_id)
-	{
-		$sId = session_id();
-		$query = "DELETE FROM tbl_compare WHERE customer_id = '$customer_id'";
-		$result = $this->db->delete($query);
-		return $result;
-	}
 
 	// public function check_payment()
 	// {
@@ -461,6 +484,8 @@ class cart
 	// Bỏ getAmountPrice do đã sử dụng bằng session
 	public function getAmountPrice($customer_id)
 	{
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
 		$query = "SELECT price FROM tbl_order WHERE customer_id = '$customer_id' ";
 		$get_price = $this->db->select($query);
 		return $get_price;
@@ -468,6 +493,13 @@ class cart
 
 	public function get_cart_ordered($customer_id, $page, $product_num)
 	{
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
+		$page = $this->fm->validation($page);
+		$page = mysqli_real_escape_string($this->db->link, $page);
+		$product_num = $this->fm->validation($product_num);
+		$product_num = mysqli_real_escape_string($this->db->link, $product_num);
+
 		$index_page = ($page - 1) * $product_num;
 		$query = "SELECT a.address_id, a.maps_maplat, a.maps_maplng, a.note_address, a.date_create, p.productId, p.productName, p.product_code, p.image, o.id, o.address_id, o.quantity, o.totalPayment, o.status, o.productSize
 		FROM tbl_order as o
@@ -481,6 +513,11 @@ class cart
 
 	public function get_cart_ordered_detail($orderId, $customer_id)
 	{
+		$orderId = $this->fm->validation($orderId);
+		$orderId = mysqli_real_escape_string($this->db->link, $orderId);
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
+
 		$query = "SELECT tbl_product.productName, tbl_product.image, tbl_product.price, tbl_order.id, tbl_order.address_id, tbl_order.quantity, tbl_order.status, tbl_order.date_order
 		FROM tbl_order inner join tbl_product on tbl_order.productId = tbl_product.productId
 		WHERE tbl_order.id = '$orderId' AND tbl_order.customer_id = '$customer_id'";
@@ -510,6 +547,9 @@ class cart
 	// Status 4: giao hàng thất bại
 	public function order_status($id, $num_status)
 	{
+		$num_status = $this->fm->validation($num_status);
+		$num_status = mysqli_real_escape_string($this->db->link, $num_status);
+		$id = $this->fm->validation($id);
 		$id = mysqli_real_escape_string($this->db->link, $id);
 		$query = "UPDATE tbl_order SET status = '$num_status' WHERE id = '$id'";
 		$result = $this->db->update($query);
@@ -523,8 +563,11 @@ class cart
 	// Status 2: Đã giao hàng thành công
 	public function delivered($id, $proid, $qty)
 	{
+		$id = $this->fm->validation($id);
 		$id = mysqli_real_escape_string($this->db->link, $id);
+		$proid = $this->fm->validation($proid);
 		$proid = mysqli_real_escape_string($this->db->link, $proid);
+		$qty = $this->fm->validation($qty);
 		$qty = mysqli_real_escape_string($this->db->link, $qty);
 
 		$query_select = "SELECT * FROM tbl_product WHERE productId='$proid'";
@@ -551,6 +594,7 @@ class cart
 	}
 	public function getOrderAddress($addressid)
 	{
+		$addressid = $this->fm->validation($addressid);
 		$addressid = mysqli_real_escape_string($this->db->link, $addressid);
 		$query = "SELECT maps_maplat, maps_maplng, note_address FROM tbl_address WHERE address_id = '$addressid'";
 		$result = $this->db->update($query);
@@ -560,6 +604,7 @@ class cart
 	// đếm khách hàng đã mua bao nhiêu đơn hàng
 	public function getCountOrderSuccess($customerId)
 	{
+		$customerId = $this->fm->validation($customerId);
 		$customerId = mysqli_real_escape_string($this->db->link, $customerId);
 		$query = "SELECT DISTINCT
 		(SELECT COUNT(id) FROM tbl_order WHERE customer_id = '$customerId' and status = '2') as numOrderSuccess,
@@ -575,6 +620,10 @@ class cart
 
 	public function get_list_statusDetails($cusId, $status)
 	{
+		$cusId = $this->fm->validation($cusId);
+		$cusId = mysqli_real_escape_string($this->db->link, $cusId);
+		$status = $this->fm->validation($status);
+		$status = mysqli_real_escape_string($this->db->link, $status);
 		if ($cusId == 0) {
 			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, a.date_create, a.address_id
 			FROM tbl_order as o

@@ -15,6 +15,7 @@ if ($login_check == false) {
 	header('Location:login.php');
 }
 ?>
+
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
 <link rel="stylesheet" href="css/pagination.css">
 <style>
@@ -38,9 +39,10 @@ if ($login_check == false) {
 	}
 </style>
 
+
 <h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 <div class="wrap cf">
-	<div class="heading cf">
+	<div class="heading cf" style="border-bottom: none">
 		<h1>Theo dõi đơn hàng</h1>
 		<div class="pull-right">
 			<a href="san-pham-f0p1t0smem.html" class="btn btn-info text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
@@ -75,6 +77,7 @@ if ($login_check == false) {
 				<div class="border-group text-right mt-2">
 					<?php if ($date_order != $date_orderTemp[$i - 1]) {
 					?>
+						<p style="border-top: 2px dashed #bfbfbf;"></p>
 						<p>
 							<a class="mr-2" href="#" data-address_id="<?php echo $address_id ?>" data-maps_maplat="<?php echo $maps_maplat ?>" data-maps_maplng="<?php echo $maps_maplng ?>" data-note_address="<?php echo $note_address ?>" data-toggle="modal" data-target="#customerModal"><i class="fa fa-map-marker fa-lg text-danger" aria-hidden="true"></i> Vị trí giao hàng</a>
 							<i class="fa fa-calendar text-primary" aria-hidden="true"></i><b class="text-primary"> Ngày đặt:</b> <?php echo $fm->formatDateTimeP($date_order) ?>
@@ -268,6 +271,7 @@ if ($login_check == false) {
 		</div>
 	</div>
 </div>
+
 <?php
 include 'inc/footer.php';
 ?>

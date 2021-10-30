@@ -16,89 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 ?>
 
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/message.css">
-
-<!-- ##### Right Side Cart Area ##### -->
-<div class="cart-bg-overlay"></div>
-
-<div class="right-side-cart-area">
-
-	<!-- Cart Button -->
-	<!-- <div class="cart-button">
-        <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
-    </div> -->
-
-	<div class="cart-content d-flex">
-		<!-- Cart List Area -->
-		<div class="cart-list">
-			<!-- Single Cart Item -->
-			<div class="single-cart-item">
-				<a href="#" class="product-image">
-					<img src="img/product-img/product-1.jpg" class="cart-thumb" alt="">
-					<!-- Cart Item Desc -->
-					<div class="cart-item-desc">
-						<span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-						<span class="badge">Mango</span>
-						<h6>Button Through Strap Mini Dress</h6>
-						<p class="size">Size: S</p>
-						<p class="color">Color: Red</p>
-						<p class="price">$45.00</p>
-					</div>
-				</a>
-			</div>
-
-			<!-- Single Cart Item -->
-			<div class="single-cart-item">
-				<a href="#" class="product-image">
-					<img src="img/product-img/product-2.jpg" class="cart-thumb" alt="">
-					<!-- Cart Item Desc -->
-					<div class="cart-item-desc">
-						<span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-						<span class="badge">Mango</span>
-						<h6>Button Through Strap Mini Dress</h6>
-						<p class="size">Size: S</p>
-						<p class="color">Color: Red</p>
-						<p class="price">$45.00</p>
-					</div>
-				</a>
-			</div>
-
-			<!-- Single Cart Item -->
-			<div class="single-cart-item">
-				<a href="#" class="product-image">
-					<img src="img/product-img/product-3.jpg" class="cart-thumb" alt="">
-					<!-- Cart Item Desc -->
-					<div class="cart-item-desc">
-						<span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-						<span class="badge">Mango</span>
-						<h6>Button Through Strap Mini Dress</h6>
-						<p class="size">Size: S</p>
-						<p class="color">Color: Red</p>
-						<p class="price">$45.00</p>
-					</div>
-				</a>
-			</div>
-		</div>
-
-		<!-- Cart Summary -->
-		<div class="cart-amount-summary">
-
-			<h2>Summary</h2>
-			<ul class="summary-table">
-				<li><span>subtotal:</span> <span>$274.00</span></li>
-				<li><span>delivery:</span> <span>Free</span></li>
-				<li><span>discount:</span> <span>-15%</span></li>
-				<li><span>total:</span> <span>$232.00</span></li>
-			</ul>
-			<div class="checkout-btn mt-100">
-				<a href="checkout.html" class="btn essence-btn">check out</a>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- ##### Right Side Cart End ##### -->
-
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
 	<div class="container h-100">
@@ -261,7 +178,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 						if ($product_all) {
 							while ($result = $product_all->fetch_assoc()) {
 								$productId = $result['productId'];
-								$product_img =  "admin/uploads/" . $result['image'];
+								$product_img =  json_decode($result['image']);
+								$product_img = $product_img[0]->image;
 						?>
 								<!-- Single Product -->
 								<div class="col-6 col-sm-6 col-lg-4">
@@ -269,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 									<div class="single-product-wrapper page-product">
 										<!-- Product Image -->
 										<div class="product-img page-product">
-											<img src="<?php echo $product_img ?>" alt="">
+											<img data-src="<?php echo $product_img ?>" class="lazy" alt="">
 											<ul class="card-button-shop">
 												<li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
 												<?php
@@ -293,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												}
 												?>
 												<li>
-													<img style="width: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+													<img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
 													<a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-shopping-cart"></i></a>
 												</li>
 											</ul>

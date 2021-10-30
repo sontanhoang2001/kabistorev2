@@ -70,6 +70,7 @@ class category
 
 	public function update_category($catID, $catName)
 	{
+		$catID = $this->fm->validation($catID);
 		$catID = mysqli_real_escape_string($this->db->link, $catID);
 		$catName = $this->fm->validation($catName); //gọi ham validation từ file Format để ktra
 		$catName = mysqli_real_escape_string($this->db->link, $catName);
@@ -97,6 +98,8 @@ class category
 	}
 	public function del_category($id)
 	{
+		$id = $this->fm->validation($id);
+		$id = mysqli_real_escape_string($this->db->link, $id);
 		$query = "DELETE FROM tbl_category where catId = '$id'";
 		$result = $this->db->delete($query);
 		if ($result) {
@@ -110,6 +113,10 @@ class category
 	// Tìm theo loại sản phẩm
 	public function get_by_category($catId, $page)
 	{
+		$catId = $this->fm->validation($catId);
+		$catId = mysqli_real_escape_string($this->db->link, $catId);
+		$page = $this->fm->validation($page);
+		$page = mysqli_real_escape_string($this->db->link, $page);
 		$product_num = 12;
 		$index_page = ($page - 1) * $product_num;
 		$query = "SELECT tbl_product.productId, tbl_product.productName, tbl_product.old_price, tbl_product.price, tbl_product.image, tbl_category.catName
@@ -125,6 +132,8 @@ class category
 	// Tìm tên loại sản phẩm
 	public function get_name_category($catId)
 	{
+		$catId = $this->fm->validation($catId);
+		$catId = mysqli_real_escape_string($this->db->link, $catId);
 		$query = "SELECT catName FROM tbl_category WHERE catId = '$catId'";
 		$result = $this->db->select($query);
 		return $result;
@@ -133,6 +142,8 @@ class category
 
 	public function getcatbyId($id)
 	{
+		$id = $this->fm->validation($id);
+		$id = mysqli_real_escape_string($this->db->link, $id);
 		$query = "SELECT * FROM tbl_category where catId = '$id' ";
 		$result = $this->db->select($query);
 		return $result;
@@ -145,12 +156,16 @@ class category
 	}
 	public function get_product_by_cat($id)
 	{
+		$id = $this->fm->validation($id);
+		$id = mysqli_real_escape_string($this->db->link, $id);
 		$query = "SELECT * FROM tbl_product where catId = '$id' order by catId desc LIMIT 8";
 		$result = $this->db->select($query);
 		return $result;
 	}
 	public function get_name_by_cat($id)
 	{
+		$id = $this->fm->validation($id);
+		$id = mysqli_real_escape_string($this->db->link, $id);
 		$query = "SELECT tbl_product.*,tbl_category.catName,tbl_category.catId 
 					  FROM tbl_product,tbl_category 
 					  WHERE tbl_product.catId = tbl_category.catId

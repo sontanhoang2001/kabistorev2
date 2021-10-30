@@ -1,62 +1,74 @@
-<?php 
-	include 'inc/header.php';
-	include 'inc/slider.php';
- ?>
+<?php
+include 'inc/header.php';
+?>
+<style>
+	.wrapper.img {
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+</style>
+<section class="ftco-section mt-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h2 class="heading-section">Liên hệ với chúng tôi</h2>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="wrapper img" style="background-image: url(img/bg-img/img-contact.jpg);">
+					<div class="row">
+						<div class="col-md-9 col-lg-7">
+							<div class="contact-wrap w-100 p-md-5 p-4">
+								<h3 class="mb-4">Nhập thông tin</h3>
+								<div id="form-message-warning" class="mb-4"></div>
+								<div id="form-message-success" class="mb-4">
+									Cảm ơn bạn! Chúng tôi sẽ gửi phản hồi cho bạn sớm nhất
+								</div>
+								<form method="POST" id="contactForm" name="contactForm" class="contactForm">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="label" for="name">Họ và tên</label>
+												<input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên...">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="label" for="email">Đại chỉ Email</label>
+												<input type="email" class="form-control" name="email" id="email" placeholder="Email...">
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class="label" for="subject">Tên yêu cầu</label>
+												<input type="text" class="form-control" name="subject" id="subject" placeholder="Chủ đề...">
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class="label" for="#">Nội dung yêu cầu</label>
+												<textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Nội dung..."></textarea>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="submit" value="Gửi yêu cầu" class="btn btn-primary">
+												<div class="submitting"></div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
- <div class="main">
-    <div class="content">
-    	<div class="support">
-  			<div class="support_desc">
-  				<h3>Live Support</h3>
-  				<p><span>24 hours | 7 days a week | 365 days a year &nbsp;&nbsp; Live Technical Support</span></p>
-  				<p> It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-  			</div>
-  				<img src="web/images/contact.png" alt="" />
-  			<div class="clear"></div>
-  		</div>
-    	<div class="section group">
-				<div class="col span_2_of_3">
-				  <div class="contact-form">
-				  	<h2>Contact Us</h2>
-					    <form>
-					    	<div>
-						    	<span><label>NAME</label></span>
-						    	<span><input type="text" value=""></span>
-						    </div>
-						    <div>
-						    	<span><label>E-MAIL</label></span>
-						    	<span><input type="text" value=""></span>
-						    </div>
-						    <div>
-						     	<span><label>MOBILE.NO</label></span>
-						    	<span><input type="text" value=""></span>
-						    </div>
-						    <div>
-						    	<span><label>SUBJECT</label></span>
-						    	<span><textarea> </textarea></span>
-						    </div>
-						   <div>
-						   		<span><input type="submit" value="SUBMIT"></span>
-						  </div>
-					    </form>
-				  </div>
-  				</div>
-				<div class="col span_1_of_3">
-      			<div class="company_address">
-				     	<h2>Company Information :</h2>
-						    	<p>500 Lorem Ipsum Dolor Sit,</p>
-						   		<p>22-56-2-9 Sit Amet, Lorem,</p>
-						   		<p>USA</p>
-				   		<p>Phone:(00) 222 666 444</p>
-				   		<p>Fax: (000) 000 00 00 0</p>
-				 	 	<p>Email: <span>info@mycompany.com</span></p>
-				   		<p>Follow on: <span>Facebook</span>, <span>Twitter</span></p>
-				   </div>
-				 </div>
-			  </div>    	
-    </div>
- </div>
-
-<?php 
-	include 'inc/footer.php';
- ?>
+<?php
+include 'inc/footer.php';
+?>

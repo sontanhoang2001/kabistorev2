@@ -19,6 +19,9 @@ class admin
 
     public function changepassword($passold, $passnew1, $passnew2)
     {
+        $pass_old = $this->fm->validation($passold);
+        $pass_new1 = $this->fm->validation($passnew1);
+        $pass_new2 = $this->fm->validation($passnew2);
         $pass_old = mysqli_real_escape_string($this->db->link, md5($passold));
         $pass_new1 = mysqli_real_escape_string($this->db->link, md5($passnew1));
         $pass_new2 = mysqli_real_escape_string($this->db->link, md5($passnew2));

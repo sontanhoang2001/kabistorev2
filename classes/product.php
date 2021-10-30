@@ -351,6 +351,8 @@ class product
 	// Xóa sản phẩm admin
 	public function del_product($id)
 	{
+		$id = $this->fm->validation($id);
+		$id = mysqli_real_escape_string($this->db->link, $id);
 		$query = "DELETE FROM tbl_product where productId = '$id'";
 		$result = $this->db->delete($query);
 		if ($result) {
@@ -384,6 +386,10 @@ class product
 	// }
 	public function del_wlist($proid, $customer_id)
 	{
+		$proid = $this->fm->validation($proid);
+		$proid = mysqli_real_escape_string($this->db->link, $proid);
+		$customer_id = $this->fm->validation($customer_id);
+		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
 		$query = "DELETE FROM tbl_wishlist where productId = '$proid' AND customer_id='$customer_id' ";
 		$result = $this->db->delete($query);
 		return $result;
@@ -722,7 +728,9 @@ class product
 
 	public function insertCompare($productid, $customer_id)
 	{
+		$productid = $this->fm->validation($productid);
 		$productid = mysqli_real_escape_string($this->db->link, $productid);
+		$customer_id = $this->fm->validation($customer_id);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
 
 		$check_compare = "SELECT * FROM tbl_compare WHERE productId = '$productid' AND customer_id ='$customer_id'";
@@ -755,7 +763,9 @@ class product
 	// thêm vào yêu thích
 	public function insertWishlist($productid, $customer_id)
 	{
+		$productid = $this->fm->validation($productid);
 		$productid = mysqli_real_escape_string($this->db->link, $productid);
+		$customer_id = $this->fm->validation($customer_id);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
 
 		$check_wlist = "SELECT * FROM tbl_wishlist WHERE productId = '$productid' AND customerId ='$customer_id'";

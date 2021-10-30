@@ -53,6 +53,12 @@ class customer
 		// 4 mật khẩu nhập lại không chính xác
 		// 5 tên đăng nhập sai cú pháp
 		// 6 mật khẩu sai cú pháp
+
+		$username = $this->fm->validation($data['username']);
+		$pass1 = $this->fm->validation($data['password1']);
+		$pass2 = $this->fm->validation($data['password2']);
+		$password2 = $this->fm->validation($data['password2']);
+
 		$username = mysqli_real_escape_string($this->db->link, $data['username']);
 		$pass1 = mysqli_real_escape_string($this->db->link, $data['password1']);
 		$pass2 = mysqli_real_escape_string($this->db->link, $data['password2']);
@@ -167,6 +173,8 @@ class customer
 		// 0 tên đnăg nhập và mất khẩu không được bỏ trống
 		// 1 thành công
 		// 2 tên đăng nhập hoặc mật khẩu sai
+		$username = $this->fm->validation($date['username']);
+		$password = $this->fm->validation($date['password']);
 
 		$username =  $date['username'];
 		$password = md5($date['password']);
@@ -439,6 +447,13 @@ class customer
 		// 2 các trường ko được bỏ trống
 		// 3 số điện thoại sai cú pháp
 		// 4 email sai cú pháp
+		$fullName = $this->fm->validation($data['fullName']);
+		$gender = $this->fm->validation($data['gender']);
+		$date_of_birth = $this->fm->validation($data['date_of_birth']);
+		$phone = $this->fm->validation($data['phone']);
+		$email = $this->fm->validation($data['email']);
+		$maps_maplat = $this->fm->validation($data['maps_maplat']);
+		$maps_maplng = $this->fm->validation($data['maps_maplng']);
 
 		$fullName = mysqli_real_escape_string($this->db->link, $data['fullName']);
 		$gender = mysqli_real_escape_string($this->db->link, $data['gender']);
@@ -474,6 +489,7 @@ class customer
 	public function update_avatar($data, $id)
 	{
 		$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
+		$id = $this->fm->validation($id);
 		$id = mysqli_real_escape_string($this->db->link, $id);
 
 		$file_name = $_FILES['avatar']['name'];
@@ -571,6 +587,11 @@ class customer
 		$passold = $data['passwordold'];
 		$passnew1 = $data['passwordnew1'];
 		$passnew2 = $data['passwordnew2'];
+
+		$pass_old = $this->fm->validation(md5($data['passwordold']));
+		$pass_new1 = $this->fm->validation(md5($data['passwordnew1']));
+		$pass_new2 = $this->fm->validation(md5($data['passwordnew2']));
+
 		$pass_old = mysqli_real_escape_string($this->db->link, md5($data['passwordold']));
 		$pass_new1 = mysqli_real_escape_string($this->db->link, md5($data['passwordnew1']));
 		$pass_new2 = mysqli_real_escape_string($this->db->link, md5($data['passwordnew2']));
