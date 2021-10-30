@@ -19,7 +19,11 @@ async function getGeocodingOrderMap(lng, lat) {
         features
     } = data;
     document.getElementById("geocodingOrderAddress").innerHTML = features[0].place_name;
-    document.getElementById("geocodingAddressSave").innerHTML = features[0].place_name;
+    try {
+        document.getElementById("geocodingAddressSave").innerHTML = features[0].place_name;
+    } catch (error) {
+
+    }
 }
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA';

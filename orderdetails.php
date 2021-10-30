@@ -15,9 +15,28 @@ if ($login_check == false) {
 	header('Location:login.php');
 }
 ?>
-
-
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
 <link rel="stylesheet" href="css/pagination.css">
+<style>
+	a.mapboxgl-ctrl-logo {
+		display: none !important;
+	}
+
+	#map {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 95% !important;
+	}
+
+	.panelmapOrderAddress {
+		margin-top: 300px;
+	}
+
+	.mapboxgl-ctrl-bottom-right {
+		display: none
+	}
+</style>
 
 <h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 <div class="wrap cf">
@@ -41,6 +60,10 @@ if ($login_check == false) {
 			$date_orderTemp[0] = "0000-00-00 00:00:00";
 			while ($result = $get_cart_ordered->fetch_assoc()) {
 				$i++;
+				$address_id = $result['address_id'];
+				$maps_maplat = $result['maps_maplat'];
+				$maps_maplng = $result['maps_maplng'];
+				$note_address = $result['note_address'];
 				$status = $result['status'];
 				$date_order = $result['date_create'];
 				$date_orderTemp[$i + 1] = $date_order;
@@ -53,7 +76,7 @@ if ($login_check == false) {
 					<?php if ($date_order != $date_orderTemp[$i - 1]) {
 					?>
 						<p>
-							<strong class="mr-2"><i class="fa fa-map-marker text-danger" aria-hidden="true"></i> Vị trí giao hàng</strong>
+							<a class="mr-2" href="#" data-address_id="<?php echo $address_id ?>" data-maps_maplat="<?php echo $maps_maplat ?>" data-maps_maplng="<?php echo $maps_maplng ?>" data-note_address="<?php echo $note_address ?>" data-toggle="modal" data-target="#customerModal"><i class="fa fa-map-marker fa-lg text-danger" aria-hidden="true"></i> Vị trí giao hàng</a>
 							<i class="fa fa-calendar text-primary" aria-hidden="true"></i><b class="text-primary"> Ngày đặt:</b> <?php echo $fm->formatDateTimeP($date_order) ?>
 						</p>
 					<?php
@@ -186,6 +209,76 @@ if ($login_check == false) {
 		?>
 </div>
 
+<!-- customer Modal -->
+<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content customerModal">
+			<div class="modal-header">
+				<h5 class="modal-title" id="delModallLabel">Thông tin giao hàng</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panelmapOrderAddress">
+								<div id="map"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="py-3">
+								<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ giao hàng</span>
+									<span class="bottom" id="geocodingOrderAddress" style="color: #4caf50;">Đang tìm vị trí...</span>
+								</div>
+								<a style="color: #007bff;" id="googlemapOrderAddress" target="_blank">Xem với Google map</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Mã đơn hàng</label>
+								<div class="input-group ">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1"> <i class="fa fa-qrcode" aria-hidden="true"></i></span>
+									</div>
+									<input type="text" class="form-control" id="cusAddress_id" readonly>
+								</div>
+								<label for="recipient-name" class="col-form-label">Ghi chú của bạn cho kiện hàng</label>
+								<div class="input-group ">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
+									</div>
+									<textarea type="text" class="form-control" id="cusNoteModel" readonly></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="copyToClipboardVal('#cusAddress_id');">Sao chép mã đơn hàng</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
 <?php
 include 'inc/footer.php';
 ?>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+<script src="js/map-api-admin.js"></script>
+<script src="js/getLocaltionOrder.js"></script>
+<script src="js/function.js"></script>
+<script>
+	loadOrderMap(12.550343, 55.665957);
+	// mapSave(cusMaps_maplng, cusMaps_maplat);
+</script>

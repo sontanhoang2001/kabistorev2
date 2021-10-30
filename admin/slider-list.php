@@ -44,11 +44,11 @@ if (isset($_GET['slider_del'])) {
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th>Chủ đề</th>
 							<th>Hình ảnh</th>
-							<th>Trạng thái</th>
+							<th>Chủ đề</th>
+							<th>Nội dung</th>
+							<th>Liên kết</th>
 							<th>Tùy chọn</th>
-
 						</tr>
 					</thead>
 					<!-- <tfoot>
@@ -68,25 +68,29 @@ if (isset($_GET['slider_del'])) {
 						?>
 								<tr class="odd gradeX">
 									<td><?php echo $i; ?></td>
-									<td><?php echo $result_slider['sliderName'] ?></td>
-									<td><img src="../upload/slider/<?php echo $result_slider['slider_image'] ?>" height="120px" width="500px" /></td>
+									<td><img data-src="../upload/slider/<?php echo $result_slider['slider_image'] ?>" height="120px" width="500px" class="lazy" /></td>
+									<td><?php echo $result_slider['sliderTitle'] ?></td>
+									<td><?php echo $result_slider['sliderContent'] ?></td>
+									<td><?php echo $result_slider['sliderLink'] ?></td>
 									<td>
-										<?php
-										if ($result_slider['type'] == 1) {
-										?>
-											<a class="btn btnn btn-success" href="?type_slider=<?php echo $result_slider['sliderId'] ?>&type=0">On <i class="fa fa-toggle-on" aria-hidden="true"></i></a>
-										<?php
-										} else {
-										?>
-											<a class="btn btnn btn-warning" href="?type_slider=<?php echo $result_slider['sliderId'] ?>&type=1">Off <i class="fa fa-toggle-off" aria-hidden="true"></i></a>
-										<?php
-										}
-										?>
+										<div class="col-6">
+											<?php
+											if ($result_slider['type'] == 1) {
+											?>
+												<a class="btn btn btn-success" href="?type_slider=<?php echo $result_slider['sliderId'] ?>&type=0"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
+											<?php
+											} else {
+											?>
+												<a class="btn btn btn-warning" href="?type_slider=<?php echo $result_slider['sliderId'] ?>&type=1"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
+											<?php
+											}
+											?>
+										</div>
+										<div class="col-6 mt-2">
+											<a class="btn btnn btn-danger" href="?slider_del=<?php echo $result_slider['sliderId'] ?>&amp;img=<?php echo $result_slider['slider_image'] ?>" onclick="return confirm('Are you sure to Delete!');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+										</div>
+									</td>
 
-									</td>
-									<td>
-										<a class="btn btnn btn-danger" href="?slider_del=<?php echo $result_slider['sliderId'] ?>&amp;img=<?php echo $result_slider['slider_image'] ?>" onclick="return confirm('Are you sure to Delete!');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-									</td>
 								</tr>
 						<?php
 							}

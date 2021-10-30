@@ -134,10 +134,12 @@ class product
 	// 		}
 	// 	}
 	// }
-	public function insert_slider($date, $files)
+	public function insert_slider($data, $files)
 	{
-		$sliderName = mysqli_real_escape_string($this->db->link, $date['sliderName']);
-		$type = mysqli_real_escape_string($this->db->link, $date['type']);
+		$sliderTitle = mysqli_real_escape_string($this->db->link, $data['sliderTitle']);
+		$sliderContent = mysqli_real_escape_string($this->db->link, $data['sliderContent']);
+		$sliderLink = $data['sliderLink'];
+		$type = mysqli_real_escape_string($this->db->link, $data['type']);
 		//mysqli gọi 2 biến. (catName and link) biến link -> gọi conect db từ file db
 
 		// kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
@@ -154,7 +156,7 @@ class product
 		$uploaded_image = "../upload/slider/" . $unique_image;
 
 
-		if ($sliderName == "" || $type == "") {
+		if ($sliderTitle == "" || $sliderContent == "" || $sliderLink == "" || $type == "" || $unique_image == "") {
 			$alert = "<span class='error'>Các Trường không được bỏ trống!</span>";
 			return $alert;
 		} else {
@@ -171,7 +173,7 @@ class product
 				}
 				move_uploaded_file($file_temp, $uploaded_image);
 
-				$query = "INSERT INTO tbl_slider(sliderName,type,slider_image) VALUES('$sliderName','$type','$unique_image') ";
+				$query = "INSERT INTO tbl_slider(sliderTitle, sliderContent, sliderLink, type, slider_image) VALUES('$sliderTitle', '$sliderContent', '$sliderLink','$type','$unique_image') ";
 				$result = $this->db->insert($query);
 				if ($result) {
 					$alert = "<span class='success'>Bạn đã thêm Slider thành công</span>";
@@ -188,14 +190,14 @@ class product
 	// hiểu thị slider index
 	public function show_slider()
 	{
-		$query = "SELECT * FROM tbl_slider where type='1' order by sliderId desc";
+		$query = "SELECT sliderTitle, sliderContent, sliderLink, slider_image FROM tbl_slider where type='1' order by sliderId desc";
 		$result = $this->db->select($query);
 		return $result;
 	}
 	// hiển thị slider list admin
 	public function show_slider_list()
 	{
-		$query = "SELECT * FROM tbl_slider order by sliderId desc";
+		$query = "SELECT sliderId, sliderTitle, sliderContent, sliderLink, slider_image, type FROM tbl_slider order by sliderId desc";
 		$result = $this->db->select($query);
 		return $result;
 	}

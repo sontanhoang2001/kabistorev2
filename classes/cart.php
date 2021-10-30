@@ -469,7 +469,7 @@ class cart
 	public function get_cart_ordered($customer_id, $page, $product_num)
 	{
 		$index_page = ($page - 1) * $product_num;
-		$query = "SELECT p.productId, p.productName, p.product_code, p.image, o.id, o.address_id, o.quantity, o.totalPayment, o.status, a.date_create, o.productSize
+		$query = "SELECT a.address_id, a.maps_maplat, a.maps_maplng, a.note_address, a.date_create, p.productId, p.productName, p.product_code, p.image, o.id, o.address_id, o.quantity, o.totalPayment, o.status, o.productSize
 		FROM tbl_order as o
 		inner join tbl_product as p on o.productId = p.productId
         inner join tbl_address as a on o.address_id = a.address_id

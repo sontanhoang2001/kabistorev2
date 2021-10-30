@@ -78,7 +78,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
             });
         });
     </script>
-    
+
 
     <!-- Latest compiled and minified CSS & JS -->
 
@@ -199,16 +199,11 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                                     if ($login_check) {
                                     ?>
                                         <li><a href="cart.html">Giỏ hàng</a></li>
+                                        <li><a href="orderdetails.html">Đơn hàng</a></li>
                                         <li><a href="profile.html">Thông tin Cá nhân</a></li>
                                         <li><a href="wishlist.html">Yêu thích</a> </li>
+                                        <li><a href="?customer_id=' . $customer_id . ' ">Đăng xuất</a></li>
                                     <?php
-                                    }
-                                    $check_order = $ct->check_order($customer_id);
-                                    if ($check_order == true) {
-                                        echo '<li><a href="orderdetails.html">Đơn hàng</a></li>';
-                                    }
-                                    if ($login_check) {
-                                        echo '<li><a href="?customer_id=' . $customer_id . ' ">Đăng xuất</a></li>';
                                     } else {
                                         echo '<li><a href="login.html">Đăng nhập</a><li>';
                                     }
@@ -217,7 +212,6 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                             </li>
                             <li><a href="blog.html"><i class="fa fa-rss iconfa" aria-hidden="true"></i> Blog</a></li>
                             <li><a href="contact.html"><i class="fa fa-phone-square iconfa" aria-hidden="true"></i> Liên Hệ</a></li>
-
                         </ul>
                     </div>
                     <!-- Nav End -->

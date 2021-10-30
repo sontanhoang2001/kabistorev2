@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Thêm thương hiệu</h1>
+        <h1 class="h3 mb-0 text-gray-800">Thêm slider</h1>
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
     </div>
 
@@ -31,12 +31,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label for="inputdefault">Tiều đề slider</label>
-                                        <input class="form-control" id="inputdefault" type="text" name="sliderName" placeholder="Nhập tiêu đề...">
+                                        <input class="form-control" id="inputdefault" type="text" name="sliderTitle" placeholder="Nhập tiêu đề...">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="inputdefault">Upload ảnh slider</label>
+                                        <label for="inputdefault">Nội dung slider</label>
+                                        <input class="form-control" id="inputdefault" type="text" name="sliderContent" placeholder="Nhập tiêu đề...">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputdefault">Liên kết slider</label>
+                                        <input class="form-control" id="inputdefault" type="text" name="sliderLink" placeholder="Nhập tiêu đề...">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputdefault">Upload ảnh slider: 1366x768</label>                                        <a href="https://source.unsplash.com/random/1366x768?sig=234" target="_blank">Lấy ảnh nhẫu nhiên</a>
                                         <input class="form-control" id="inputdefault" type="file" name="image">
                                     </div>
                                 </div>

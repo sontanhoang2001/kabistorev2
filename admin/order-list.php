@@ -387,7 +387,7 @@ $fm = new format();
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
-<script src="js/map-api-admin.js"></script>
+<script src="../js/map-api-admin.js"></script>
 <script src="js/order.js"></script>
 <script src="js/helpers.js"></script>
 <script>
