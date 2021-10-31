@@ -531,7 +531,7 @@ class customer
 			}
 			// // Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
 			if ($_FILES["avatar"]["size"] > $maxfilesize) {
-				$alert = "<p class='alert-danger'>Không được upload ảnh lớn hơn 2MB.</p>";
+				$alert = "<p class='text-danger'>Cập nhật thất bại ảnh nhỏ hơn 1MB.</p>";
 
 				return $alert;
 				$allowUpload = false;
@@ -564,10 +564,10 @@ class customer
 
 			if ($result) {
 				Session::set('avatar', $update_target_dir);
-				$alert = '<p class="alert-success">Bạn đã cập nhật avatar thành công!</p>';
+				$alert = '<p class="text-success">Bạn đã cập nhật avatar thành công!</p>';
 				return $alert;
 			} else {
-				$alert = '<p class="alert-danger">Bạn đã cập nhật avatar không thành công!</p>';
+				$alert = '<p class="text-danger">Bạn đã cập nhật avatar không thành công!</p>';
 				return $alert;
 			}
 		} else {

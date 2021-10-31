@@ -65,7 +65,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
 
                                     <div class="form-group" id="location-group">
                                         <div class="row-flex">
-                                            <label for="maps_address"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Ghim vị trí giao hàng</label>
+                                            <label for="maps_address"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Ghim vị và xác nhận trí giao hàng</label>
                                             <!-- <input type="text" class="form-control" name="maps_address" id="maps_address" value="" placeholder="Nhập tên địa điểm cần tìm"> -->
                                             <div id="maps_maparea">
                                                 <div class="panel-google-maps">
@@ -99,17 +99,23 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         <div class="form-group">
                             <div class="row pt-2">
                                 <div class="col-md-12 col-xs-12">
-                                    <label for="address"><i class="fa fa-pencil" aria-hidden="true"></i> Ghi chú địa chỉ cụ thể:</label>
+                                    <label for="address"><i class="fa fa-pencil" aria-hidden="true"></i> Ghi chú địa chỉ cụ thể (nếu cần):</label>
                                     <textarea type="text" class="form-control" id="note" name="note"></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mt-3">
                                     <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại của bạn:</label>
-                                    <div id="geo-text" class="text-danger">Hãy nhấn chọn vị trí trên bảng đồ nơi mà bạn muốn giao hàng...</div>
+                                    <div id="geo-text" class="text-danger">Hãy nhấn chọn vị trí trên bản đồ nơi mà bạn muốn giao hàng...</div>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 mt-3">
-                                    <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gpsModal">
+                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Tìm vị trí hiện tại</button>
+                                    <button type="button" onclick="add_markers_to_geolocate_save_control(<?php echo $lng ?>, <?php echo $lat ?>);" class="btn btn-info btn-lock"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Vị trí đã lưu</button>
                                 </div>
                             </div>
                         </div>
@@ -302,8 +308,31 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
         </form>
     </div>
 </div>
-</div>
 
+<!-- Modal -->
+<div class="modal fade" id="gpsModal" tabindex="-1" role="dialog" aria-labelledby="gpsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hướng dẫn bật định vị GPS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Tìm vị trí hiện tại</button>
+            </div>
+        </div>
+    </div>
+</div>
+<a id="goBack" style="position: fixed; z-index: 2147483647;" data-toggle="modal" data-target="#gpsModal"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gpsModal">
+    <i class="fa fa-question-circle" aria-hidden="true"></i>
+</button>
 <?php
 include 'inc/footer.php';
 ?>

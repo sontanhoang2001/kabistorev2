@@ -685,6 +685,25 @@ function uploadAvatar() {
     });
 }
 
+function navProfile() {
+    $('#overview').click(function () {
+        var message = "Chức năng này đang được nâng cấp!";
+        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+        toast.change('Vui lòng quay lại sau...', 3500);
+    })
+    $('#plus').click(function () {
+        var message = "Chức năng này đang được nâng cấp!";
+        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+        toast.change('Vui lòng quay lại sau...', 3500);
+    })
+
+    $('#setting').click(function () {
+        var message = "Chức năng này đang được nâng cấp!";
+        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+        toast.change('Vui lòng quay lại sau...', 3500);
+    })
+}
+
 
 //Show password
 function showPasswordLogin() {

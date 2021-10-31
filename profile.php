@@ -29,17 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 <!-- ##### Breadcumb Area End ##### -->
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
   <div class="row flex-lg-nowrap">
     <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
       <div class="card bg-light shadow p-3">
         <div class="e-navlist e-navlist--active-bg">
           <ul class="nav">
-            <li class="nav-item"><a class="nav-link px-2 active" href="./overview.html"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Tổng quát</span></a></li>
+            <li class="nav-item"><a class="nav-link px-2 active" href="#" id="overview"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Tổng quát</span></a></li>
             <?php if (session::get('account_type') == 0) { ?>
-              <li class="nav-item"><a class="nav-link px-2" href="profile.html#changepassword"><i class="fa fa-fw fa-th mr-1"></i><span>Đổi mật khẩu</span></a></li>
+              <li class="nav-item"><a class="nav-link px-2" href="#" id="plus"><i class="fa fa-fw fa-th mr-1"></i><span>Tiện ích</span></a></li>
             <?php } ?>
-            <li class="nav-item"><a class="nav-link px-2" href="./settings.html"><i class="fa fa-fw fa-cog mr-1"></i><span>Cài đặt</span></a></li>
+            <li class="nav-item"><a class="nav-link px-2" href="#" id="setting"><i class="fa fa-fw fa-cog mr-1"></i><span>Cài đặt</span></a></li>
           </ul>
         </div>
       </div>
@@ -223,13 +223,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                               <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại của bạn:</label>
                               <div id="geo-text" class="text-danger">Đang tìm vị trí...</div>
                             </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 mt-3">
+                            <div class="col-md-6 col-sm-6 col-xs-12 mt-3 mb-4">
                               <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button class="btn btn-primary" type="submit" id="btnUpdateInfo" name="save" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
+                              <button class="btn btn-primary btn-block" type="submit" id="btnUpdateInfo" name="save" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
                             </div>
                           </div>
                           <div id="error-submit-1" class="mt-50"></div>
@@ -280,7 +280,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button class="btn btn-primary" type="submit" id="btnUpdatePass" class="btn btn-success" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
+                              <button class="btn btn-primary btn-block" type="submit" id="btnUpdatePass" class="btn btn-success" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
                             </div>
                           </div>
                           <div id="error-submit-2" class="mt-50"></div>

@@ -1,5 +1,7 @@
 <?php
 include 'inc/header.php';
+include 'inc/global.php';
+
 Session::set('REQUEST_URI', getRequestUrl()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 $login_check = Session::get('customer_login');
 if ($login_check == false) {
@@ -18,7 +20,6 @@ $discount = session::set('discountMoney', 0);
 <!-- jQuery Nice Number CSS -->
 <link rel="stylesheet" href="css/jquery.nice-number.min.css">
 
-<link rel="stylesheet" href="css/details.css">
 <!-- jQuery Nice Number CSS -->
 <link rel="stylesheet" href="css/scroll-box.css">
 
@@ -64,7 +65,9 @@ $discount = session::set('discountMoney', 0);
 					<li class="items odd">
 						<div class="infoWrap">
 							<div class="cartSection">
-								<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
+								<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
+								</a>
 								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
 								<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								<!-- <input type="text" class="qty" id="qty1_<?php echo $cartId; ?>" value="<?php echo $quantity ?>" /> -->

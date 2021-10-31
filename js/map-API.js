@@ -167,20 +167,43 @@ function onDragEnd() {
     getGeocoding(lng, lat);
 }
 
+
 //button getLocation
 function getLocation() {
     geolocate._geolocateButton.click();
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(add_markers_to_geolocate_control);
     } else {
-        alert("Trình duyệt của bạn không hỗ trợ GPS, vui lòng cài đặt trình duyệt chrome.");
+        var message = "Trình duyệt của bạn không hỗ trợ GPS, vui lòng cài đặt trình duyệt chrome.";
+        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+        toast.change('Vui lòng quay lại sau...', 3500);
     }
 }
 
+//function add markers Save to Navigation Control
+function add_markers_to_geolocate_save_control(lat, lng) {
+    navigator.geolocation.getCurrentPosition(add_markers_to_geolocate_save_control(lng, lat));
+}
+
+//function add markers Save to Navigation Control
+function add_markers_to_geolocate_save_control(lng, lat) {
+    const location = [lng, lat];
+    marker.remove();
+    addMarker(location, 'click');
+    getGeocoding(lng, lat);
+
+    // Go to center
+    map.flyTo({
+        center: location,
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+    });
+}
+
+
 //function add markers to Navigation Control
 function add_markers_to_geolocate_control(position) {
-    const lat = position.coords.longitude;
     const lng = position.coords.latitude;
+    const lat = position.coords.longitude;
     const location = [lat, lng];
     marker.remove();
     addMarker(location, 'click');

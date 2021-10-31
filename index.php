@@ -12,8 +12,6 @@ include 'inc/global.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 
-
-
 <!-- API Voice Robot -->
 <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=5CJ9DfAD"></script>
 <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
@@ -576,27 +574,5 @@ include 'inc/global.php';
         button: '.add_to_cart'
     });
 </script>
-
-<!-- 
-<script>
-    $(document).ready(function() {
-        $('.submitpro').on('submit', function(e) {
-            e.preventDefault();
-            var productId = $(this).find('button').data('dataid');
-            // alert(productId);
-
-            $.ajax({
-                type: "POST",
-                url: "add_to_cart.php",
-                data: {
-                    'productId': productId
-                },
-                success: function(data) {
-                    $(".testprin").html(data);
-                }
-            });
-        });
-    });
-</script> -->
 <script src="js/ajax_wishlist-and-cart.js"></script>
 <script src="js/function.js"></script>

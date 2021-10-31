@@ -25,7 +25,7 @@ if ($login_check == false) {
 			<a href="san-pham-f0p1t0smem.html" class="btn btn-info text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 		</div>
 	</div>
-	<div class="cart">
+	<div class="cart mb-5">
 		<?php
 		$product_num = 6;
 		$customer_id = Session::get('customer_id');
@@ -80,7 +80,7 @@ if ($login_check == false) {
 		?>
 	</div>
 	<!-- Pagination -->
-	<ul class="pagination">
+	<ul class="pagination ml-2 mt-5 mb-5">
 		<?php
 		if ($product_count >= $product_num) {
 			$product_button = ceil(($product_count) / $product_num);

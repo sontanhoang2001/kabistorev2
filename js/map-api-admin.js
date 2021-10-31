@@ -41,6 +41,19 @@ function loadOrderMap(cusMaps_maplat, cusMaps_maplng) {
     // Add Control NavigationControl 
     map.addControl(new mapboxgl.NavigationControl());
 
+    // layer list menu-map
+    var layerList = document.getElementById('menu-map');
+    var inputs = layerList.getElementsByTagName('input');
+
+    function switchLayer(layer) {
+        var layerId = layer.target.id;
+        map.setStyle('mapbox://styles/mapbox/' + layerId);
+    }
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].onclick = switchLayer;
+    }
+
+
     // Vị trí hiện tại
     map.addControl(
         new mapboxgl.GeolocateControl({

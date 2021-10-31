@@ -91,28 +91,20 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                     <!-- Widget Title -->
                                     <!-- <h6 class="widget-title mb-30">Giá Sản Phẩm</h6> -->
                                     <!-- Widget Title 2 -->
-                                    <p class="widget-title2 mb-30">Lọc theo giá</p>
+                                    <p class="widget-title2 mb-30">Lọc theo giá <small>(Nhập giá vào ô)</small></p>
                                     <div class="widget-desc">
                                         <div class="slider-range">
                                             <div id="slider-range" class="price-filter-range mb-3" name="rangeInput"></div>
                                             <input type="number" min=0 max="500000" oninput="validity.valid||(value='0');" id="min_price" class="price-range-field form-control" />-
                                             <input type="number" min=0 max="500000" oninput="validity.valid||(value='500000');" id="max_price" class="price-range-field form-control" />
                                             <button class="btn btn-info price-range-search" id="price-range-submit"><i class="fa fa-search"></i></button>
-
-                                            <div class="range-price">Giá Từ: 0₫ - 500.000₫</div>
-                                            <!-- <div data-min="0" data-max="500000" data-unit="₫" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="500000" data-label-result="Giá từ:">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-
-                                    <div class="range-price">Giá Từ: 0₫ - 500.000₫</div> -->
+                                            <div class="range-price text-success">Giá Từ: 0₫ - 500.000₫</div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- ##### Single Widget ##### -->
-                                <div class="widget color mb-50">
+                                <div class="widget color mb-40">
                                     <!-- Widget Title 2 -->
                                     <p class="widget-title2 mb-30">Màu sắc <small>(chưa khả dụng)</small></p>
                                     <div class="widget-desc">
@@ -131,28 +123,30 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                     </div>
                                 </div>
 
-                                <ul id="menu-content2" class="menu-content collapse show">
-                                    <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#category">
-                                        <!-- Widget Title -->
-                                        <h6 class="widget-title2 mb-2">Loại Sản Phẩm</h6>
-                                        <!-- <a href="#">Tất cả</a> -->
-                                        <ul class="sub-menu collapse show" id="category">
-                                            <?php
-                                            $cat_featheread = $cat->show_category();
-                                            if ($cat_featheread) {
-                                                while ($result = $cat_featheread->fetch_assoc()) {
-                                                    $catId = $result['catId'];
-                                                    $catName = $result['catName'];
-                                            ?>
-                                                    <li><a class="<?php echo ($filter == "c" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $catName ?></a></li>
-                                            <?php
-                                                }
-                                            } ?>
-                                        </ul>
-                                    </li>
-                                    <!-- Single Item -->
-                                    <!-- <li data-toggle="collapse" data-target="#shoes" class="collapsed">
+                                <!-- ##### Single Widget ##### -->
+                                <div class="widget color mb-50">
+                                    <ul id="menu-content2" class="menu-content collapse show">
+                                        <!-- Single Item -->
+                                        <li data-toggle="collapse" data-target="#category">
+                                            <!-- Widget Title -->
+                                            <h6 class="widget-title2 mb-2">Loại Sản Phẩm</h6>
+                                            <!-- <a href="#">Tất cả</a> -->
+                                            <ul class="sub-menu collapse show" id="category">
+                                                <?php
+                                                $cat_featheread = $cat->show_category();
+                                                if ($cat_featheread) {
+                                                    while ($result = $cat_featheread->fetch_assoc()) {
+                                                        $catId = $result['catId'];
+                                                        $catName = $result['catName'];
+                                                ?>
+                                                        <li><a class="<?php echo ($filter == "c" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $catName ?></a></li>
+                                                <?php
+                                                    }
+                                                } ?>
+                                            </ul>
+                                        </li>
+                                        <!-- Single Item -->
+                                        <!-- <li data-toggle="collapse" data-target="#shoes" class="collapsed">
                                     <a href="#">shoes</a>
                                     <ul class="sub-menu collapse" id="shoes">
                                         <li><a href="#">All</a></li>
@@ -168,36 +162,37 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                         <li><a href="#">Sweaters &amp; Knits</a></li>
                                     </ul>
                                 </li> -->
-                                </ul>
-                            </div>
-                        </div>
+                                    </ul>
+                                </div>
 
-                        <!-- ##### Single Widget ##### -->
-                        <div class="widget catagory mb-4">
+                                <!-- ##### Single Widget ##### -->
+                                <div class="widget catagory mb-50">
 
-                            <!--  Catagories  -->
-                            <div class="catagories-menu">
-                                <ul id="menu-content2" class="menu-content collapse show">
-                                    <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#brand">
-                                        <!-- Widget Title -->
-                                        <h6 class="widget-title2 mb-2">Thương hiệu</h6>
-                                        <!-- <a href="#">Tất cả</a> -->
-                                        <ul class="sub-menu collapse show" id="brand">
-                                            <?php
-                                            $brand_featheread = $bra->show_brand();
-                                            if ($brand_featheread) {
-                                                while ($result = $brand_featheread->fetch_assoc()) {
-                                                    $brandId = $result['brandId'];
-                                                    $brandName = $result['brandName']
-                                            ?>
-                                                    <li><a class="<?php echo ($filter == "b" && $type == $brandId) ? 'font-weight-bold' . $brandSelected = $brandName : ''; ?>" href="<?php echo  $fm->vn_to_str($brandName) ?>-fbp1t<?php echo $brandId ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $brandName ?></a></li>
-                                            <?php
-                                                }
-                                            } ?>
+                                    <!--  Catagories  -->
+                                    <div class="catagories-menu">
+                                        <ul id="menu-content2" class="menu-content collapse show">
+                                            <!-- Single Item -->
+                                            <li data-toggle="collapse" data-target="#brand">
+                                                <!-- Widget Title -->
+                                                <h6 class="widget-title2 mb-2">Thương hiệu</h6>
+                                                <!-- <a href="#">Tất cả</a> -->
+                                                <ul class="sub-menu collapse show" id="brand">
+                                                    <?php
+                                                    $brand_featheread = $bra->show_brand();
+                                                    if ($brand_featheread) {
+                                                        while ($result = $brand_featheread->fetch_assoc()) {
+                                                            $brandId = $result['brandId'];
+                                                            $brandName = $result['brandName']
+                                                    ?>
+                                                            <li><a class="<?php echo ($filter == "b" && $type == $brandId) ? 'font-weight-bold' . $brandSelected = $brandName : ''; ?>" href="<?php echo  $fm->vn_to_str($brandName) ?>-fbp1t<?php echo $brandId ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $brandName ?></a></li>
+                                                    <?php
+                                                        }
+                                                    } ?>
+                                                </ul>
+                                            </li>
                                         </ul>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

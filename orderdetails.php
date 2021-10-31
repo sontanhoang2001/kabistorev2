@@ -37,8 +37,17 @@ if ($login_check == false) {
 	.mapboxgl-ctrl-bottom-right {
 		display: none
 	}
-</style>
 
+	#menu-map {
+		z-index: 3;
+		position: absolute;
+		background: #efefef;
+		padding: 4px;
+		/* font-family: 'Open Sans', sans-serif; */
+		bottom: 0px;
+		height: 25px;
+	}
+</style>
 
 <h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 <div class="wrap cf">
@@ -163,7 +172,7 @@ if ($login_check == false) {
 		?>
 	</div>
 	<!-- Pagination -->
-	<ul class="pagination">
+	<ul class="pagination ml-2 mt-5 mb-5">
 		<?php
 		if ($product_count >= $product_num) {
 			$product_button = ceil(($product_count) / $product_num);
@@ -228,15 +237,22 @@ if ($login_check == false) {
 						<div class="col-md-12">
 							<div class="panelmapOrderAddress">
 								<div id="map"></div>
+								<div id="menu-map">
+									<input id="satellite-v9" type="radio" name="rtoggle" value="satellite" checked="checked">
+									<label for="satellite-v9">vệ tinh</label>
+									<input id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked">
+									<label for="streets-v11">đường phố</label>
+									<input id="dark-v10" type="radio" name="rtoggle" value="dark">
+									<label for="dark-v10">tối</label>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<div class="py-3">
-								<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ giao hàng</span>
-									<span class="bottom" id="geocodingOrderAddress" style="color: #4caf50;">Đang tìm vị trí...</span>
-								</div>
+							<div class="form-group py-3">
+								<label for="maps_address"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ giao hàng</label>
+								<div class="bottom" id="geocodingOrderAddress" style="color: #4caf50;">Đang tìm vị trí...</div>
 								<a style="color: #007bff;" id="googlemapOrderAddress" target="_blank">Xem với Google map</a>
 							</div>
 						</div>

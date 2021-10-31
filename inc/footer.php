@@ -97,12 +97,8 @@
     </footer>
     <!-- ##### Footer Area End ##### -->
 
-
-
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <!-- <script src="js/jquery/jquery-2.2.4.min.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
 
     <!-- <script src="js/jquery/jquery-1.11.3.min.js" type="text/javascript"></script> -->
 
@@ -161,7 +157,7 @@
         });
     </script>
 
-    <script>
+    <!-- <script>
         var chatbox = document.getElementById('fb-customer-chat');
         chatbox.setAttribute("page_id", "105932671830866");
         chatbox.setAttribute("attribution", "biz_inbox");
@@ -181,4 +177,4 @@
             js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script> -->

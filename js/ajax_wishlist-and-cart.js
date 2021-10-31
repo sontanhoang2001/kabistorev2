@@ -288,15 +288,11 @@ $('.input-quantity').each(function (index, val) {
         $(this).css("box-shadow", "0 2px 5px rgb(0 0 0 / 50%");
         $(this).css("border", "1px solid rgb(33 37 41 / 0%");
         $(this).css("border-radius", "5px");
-        // $(".stockStatus").css("display", "none");
         quantityBefore = $(this).val();
     });
 
     $(this).focusout(function () {
         $(this).css("box-shadow", "0 2px 5px rgb(0 0 0 / 30%)");
-        // $(this).css("border", "none");
-        $(this).css("border-radius", "5px");
-        // $(".stockStatus").css("display", "inline-block");
 
         var cartId = $(this).attr("data-id-1"),
             productId = $(this).attr("data-id-2"),

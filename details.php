@@ -14,103 +14,11 @@ if ($login_check) {
 	Session::set('REQUEST_URI', $actual_link);
 	$customer_id = 0;
 }
-
 include 'inc/facebookPlugin.php';
 ?>
-
-<style>
-	.nice-number button {
-		display: block !important;
-	}
-</style>
-
-
 <link rel="stylesheet" href="css/details.css">
-<!-- jQuery Nice Number CSS -->
-<link rel="stylesheet" href="css/jquery.nice-number.min.css">
-<script src="js/audio-message.js"></script>
 
 <body>
-	<!-- ##### Right Side Cart Area ##### -->
-	<!-- <div class="cart-bg-overlay"></div> -->
-
-	<!-- <div class="right-side-cart-area">
-		Cart Button
-		<div class="cart-button">
-			<a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
-		</div>
-
-		<div class="cart-content d-flex">
-
-			Cart List Area
-			<div class="cart-list">
-				Single Cart Item
-				<div class="single-cart-item">
-					<a href="#" class="product-image">
-						<img src="img/product-img/product-1.jpg" class="cart-thumb" alt="">
-						Cart Item Desc
-						<div class="cart-item-desc">
-							<span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-							<span class="badge"></span>
-							<h6>Button Through Strap Mini Dress</h6>
-							<p class="size">Size: S</p>
-							<p class="color">Color: Red</p>
-							<p class="price">$45.00</p>
-						</div>
-					</a>
-				</div>
-
-				Single Cart Item
-				<div class="single-cart-item">
-					<a href="#" class="product-image">
-						<img src="img/product-img/product-2.jpg" class="cart-thumb" alt="">
-						Cart Item Desc
-						<div class="cart-item-desc">
-							<span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-							<span class="badge">Mango</span>
-							<h6>Button Through Strap Mini Dress</h6>
-							<p class="size">Size: S</p>
-							<p class="color">Color: Red</p>
-							<p class="price">$45.00</p>
-						</div>
-					</a>
-				</div>
-
-				Single Cart Item
-				<div class="single-cart-item">
-					<a href="#" class="product-image">
-						<img src="img/product-img/product-3.jpg" class="cart-thumb" alt="">
-						Cart Item Desc
-						<div class="cart-item-desc">
-							<span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-							<span class="badge">Mango</span>
-							<h6>Button Through Strap Mini Dress</h6>
-							<p class="size">Size: S</p>
-							<p class="color">Color: Red</p>
-							<p class="price">$45.00</p>
-						</div>
-					</a>
-				</div>
-			</div>
-
-			Cart Summary
-			<div class="cart-amount-summary">
-
-				<h2>Summary</h2>
-				<ul class="summary-table">
-					<li><span>subtotal:</span> <span>$274.00</span></li>
-					<li><span>delivery:</span> <span>Free</span></li>
-					<li><span>discount:</span> <span>-15%</span></li>
-					<li><span>total:</span> <span>$232.00</span></li>
-				</ul>
-				<div class="checkout-btn mt-100">
-					<a href="checkout.html" class="btn essence-btn">check out</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- ##### Right Side Cart End ##### -->
-
 	<!-- ##### Single Product Details Area Start ##### -->
 	<?php
 	$get_product_details = $product->get_details($productid);
@@ -164,13 +72,11 @@ include 'inc/facebookPlugin.php';
 											<option value="value">Màu: Đỏ</option> -->
 							</select>
 						</div>
-
 						<div class="mb-3">
 							<b class="mr-2">Số Lượng:</b>
 							<input class="input-quantity" type="number" class="buyfield" name="quantity" id="quantity" value="1" min="1" max="10" require="required" />
 						</div>
 						<div id="error-qty"></div>
-
 						<!-- Cart & Favourite Box -->
 						<div class="cart-fav-box d-flex align-items-center mb-2">
 							<!-- Cart -->
@@ -221,7 +127,7 @@ include 'inc/facebookPlugin.php';
 		</ul>
 
 		<!-- Tab panes -->
-		<div class="tab-content">
+		<div class="tab-content mb-5">
 			<div id="home" class="container tab-pane active">
 				<div class="row">
 					<div class="col-12">
@@ -251,14 +157,16 @@ include 'inc/facebookPlugin.php';
 			</div>
 		</div>
 	</div>
-	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i class="fa fa-arrow-left"></i></a>
+	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 </body>
 
 <?php
 include 'inc/footer.php';
 ?>
+<script src="js/jquery/jquery-2.2.4.min.js"></script>
 
 <!-- jQuery Nice Number JS -->
 <script src="js/jquery.nice-number.js"></script>
+<link rel="stylesheet" href="css/jquery.nice-number.min.css">
 <script src="js/nice-number.js"></script>
 <script src="js/ajax_wishlist-and-cart.js"></script>

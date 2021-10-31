@@ -672,7 +672,7 @@ img {
     color: #f15836;
     font-weight: 700;
     position: absolute;
-    top: -10px;
+    top: -12px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -1800,7 +1800,7 @@ img {
 }
 
 .breadcumb_area .page-title h2 {
-    font-size: 30px;
+    font-size: 20px;
     text-transform: uppercase;
     font-weight: 700;
     font-family: "Ubuntu", sans-serif;
@@ -1917,9 +1917,8 @@ img {
 
 .widget.price .range-price {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: 15px;
-    text-transform: uppercase;
 }
 
 .widget.color .widget-desc ul {
@@ -4183,3 +4182,5 @@ hr.new1 {
 }
 
 /* END SUCCESS */
+
+
