@@ -6,8 +6,8 @@ $subtotal = Session::get('sum');
 $ship = Session::get('ship');
 $discount = session::get('discountMoney');
 $get_amount = Session::get('grandTotal');
-if (isset($_SESSION['discountMoney'])) {
-    $discount = "- ".$fm->format_currency(session::get('discountMoney'));
+if ($discount != 0) {
+    $discount = "- " . $fm->format_currency($discount);
 } else {
     $discount = "...";
 }

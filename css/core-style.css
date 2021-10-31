@@ -354,6 +354,54 @@ img {
 
 /* goBack */
 
+#openHelp {
+    position: fixed;
+    z-index: 2147483647;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 0;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 40px;
+    right: 60px;
+    bottom: 110px;
+    cursor: pointer;
+    animation-name: openHelp;
+    animation-direction: 4s;
+}
+
+@keyframes openHelp {
+    0% {
+        background-color: red;
+        left: 0px;
+        top: 0px;
+    }
+    25% {
+        background-color: yellow;
+        left: 200px;
+        top: 0px;
+    }
+    50% {
+        background-color: blue;
+        left: 200px;
+        top: 200px;
+    }
+    75% {
+        background-color: green;
+        left: 0px;
+        top: 200px;
+    }
+    100% {
+        background-color: red;
+        left: 0px;
+        top: 0px;
+    }
+}
+
 #goBack {
     background-color: #d0021b;
     border-radius: 0;
@@ -371,6 +419,10 @@ img {
 
 @media only screen and (max-width: 767px) {
     #goBack {
+        bottom: 80px;
+        right: 30px;
+    }
+    #openHelp {
         bottom: 80px;
         right: 30px;
     }
@@ -4182,5 +4234,3 @@ hr.new1 {
 }
 
 /* END SUCCESS */
-
-

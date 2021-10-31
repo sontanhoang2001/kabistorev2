@@ -51,14 +51,32 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 <html lang="vn">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
     <!-- Title  -->
-    <title>Vũng Liêm Now - Giao hàng siêu tốc</title>
+    <title>Kabistore.tk - Cửa hàng đồ gia dụng - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long</title>
+    <meta name="keywords" content="kabistore.tk, kabistore, kabistore gia se re, kabistore gía siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore do gia dung, kabistore đồ gia dụng, kabistore lam dep, kabistore Làm đẹp, kabistore my pham, kabistore mỹ phẩm, kabistore cham soc ca nhan, kabistore chăm sóc cá nhân, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sĩ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sĩ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long" />
+    <meta name="description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore VN" />
+    <meta property="og:title" content="Kabistore.tk - Cửa hàng đồ gia dụng - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
+    <meta property="og:description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore VN" />
+
+    <meta charset="UTF-8">
+    <meta content="INDEX,FOLLOW" name="robots" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="copyright" content="Trang mua sắm trực tuyến Kabistore.tk" />
+    <meta name="author" content="Trang mua sắm trực tuyến Kabistore.tk" />
+    <meta http-equiv="audience" content="General" />
+    <meta name="resource-type" content="Document" />
+    <meta name="distribution" content="Global" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="GENERATOR" content="Trang mua sắm trực tuyến Kabistore.tk" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link href="/favicon_TGDD.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/favicon_TGDD.ico" rel="apple-touch-icon" />
+    <link href="/favicon_TGDD.ico" rel="apple-touch-icon-precomposed" />
+    <meta property="og:site_name" content="Kabistore.tk" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="fb:pages" content="105932671830866" />
+    <meta http-equiv="x-dns-prefetch-control" content="on">
 
     <!-- <base href="http://192.168.1.4/"> -->
     <base href="https://webcuatoi.vn/">

@@ -332,8 +332,6 @@ function product_list() {
             type: $('select[name="type"] option:selected').val()
         };
 
-        alert(formData.type);
-
         if (formData.category == 0) {
             var message = "Bạn chưa chọn loại sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
@@ -442,7 +440,6 @@ function product_list() {
                 productId: productId
             },
             success: function (data) {
-                console.log(data);
                 var res = JSON.parse(data),
                     Status = res.status;
                 switch (Status) {

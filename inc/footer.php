@@ -45,7 +45,7 @@
                 <!-- Single Widget Area -->
                 <div class="col-12 col-md-6 d-none d-sm-block">
                     <p>Liên hệ với chúng tôi thông qua địa chỉ:</p>
-                    <p><span class="fa fa-map-marker"></span> Khóm 2, TT. Vũng Liêm</p>
+                    <p><span class="fa fa-map-marker"></span> Số 38H11/7, Khu vực 3, An Khánh, Ninh Kiều, Cần Thơ</p>
                     <p><span class="fa fa-phone"></span> +09 21 843 042</p>
                     <p><span class="fa fa-envelope"></span> kabistore@gmail.com</p>
                     <!-- Single Widget Area -->
@@ -60,16 +60,16 @@
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-10">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15712.366199359074!2d106.18537190217526!3d10.091584468669756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a00d8feaf41705%3A0x70d113d48b272939!2zVE0gVEVBIC0gVHLDoCBT4buvYSAmIENow6ggxJDDoGkgTG9hbg!5e0!3m2!1svi!2s!4v1596645312399!5m2!1svi!2s" width="100%" height="220px" frameborder="0" style="border:10;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26428.777715681143!2d105.74198926611305!3d10.044781603808914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0629f6de3edb7%3A0x527f09dbfb20b659!2zQ-G6p24gVGjGoSwgTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1635689373454!5m2!1svi!2s" width="100%" height="220px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
 
                 <!-- Single Widget Area -->
                 <div class="col-12 col-md-6 d-md-none">
                     <br>
                     <p>Liên hệ với chúng tôi thông qua địa chỉ:</p>
-                    <p><span class="fa fa-map-marker"></span> Khóm 2, TT. Vũng Liêm</p>
+                    <p><span class="fa fa-map-marker"></span> Số 38H11/7, Khu vực 3, An Khánh, Ninh Kiều, Cần Thơ</p>
                     <p><span class="fa fa-phone"></span> +09 21 843 042</p>
-                    <p><span class="fa fa-envelope"></span> hoangsonytb123@gmail.com</p>
+                    <p><span class="fa fa-envelope"></span> kabistore@gmail.com</p>
                     <!-- Single Widget Area -->
                     <div class="single_widget_area">
                         <div class="footer_social_area">

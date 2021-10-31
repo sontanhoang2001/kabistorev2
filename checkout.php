@@ -14,7 +14,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
 ?>
 <link rel="stylesheet" type="text/css" href="css/map.css">
 
-<div class="container pt-4">
+<div class="container pt-4 mb-5">
     <h1 class="projTitle">Thanh Toán an toàn<span>-và</span> đơn giản</h1>
     <div class="card-body p-0">
         <div class="row upper">
@@ -109,11 +109,8 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                     <div id="geo-text" class="text-danger">Hãy nhấn chọn vị trí trên bản đồ nơi mà bạn muốn giao hàng...</div>
                                 </div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gpsModal">
-                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                    </button>
+                            <div class="row">
+                                <div class="col-md-12 mt-3">
                                     <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Tìm vị trí hiện tại</button>
                                     <button type="button" onclick="add_markers_to_geolocate_save_control(<?php echo $lng ?>, <?php echo $lat ?>);" class="btn btn-info btn-lock"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Vị trí đã lưu</button>
                                 </div>
@@ -301,7 +298,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                             </div>
                             <p class="text-muted text-center">Thông tin thanh toán sẽ được mã hóa</p>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -320,19 +316,16 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <img src="img/core-img/helpGps.gif">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Tìm vị trí hiện tại</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đã hiểu</button>
+                <a href="#location-group" id="btnOpenHelp" onclick="getLocation();" class="btn btn-danger btn-lock" data-dismiss="modal"><i class="fa fa-map-marker" aria-hidden="true"></i> Tìm vị trí hiện tại</a>
             </div>
         </div>
     </div>
 </div>
-<a id="goBack" style="position: fixed; z-index: 2147483647;" data-toggle="modal" data-target="#gpsModal"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gpsModal">
-    <i class="fa fa-question-circle" aria-hidden="true"></i>
-</button>
+<a id="openHelp" data-toggle="modal" data-target="#gpsModal"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
 <?php
 include 'inc/footer.php';
 ?>
