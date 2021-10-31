@@ -57,6 +57,8 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <meta name="description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore VN" />
     <meta property="og:title" content="Kabistore.tk - Cửa hàng đồ gia dụng - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
     <meta property="og:description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore VN" />
+    <meta property="og:url" content="kabistore.tk">
+    <meta property="og:image" content="https://kabistore.tk/upload/slider/67abc42107.jpg">
 
     <meta charset="UTF-8">
     <meta content="INDEX,FOLLOW" name="robots" />
@@ -69,9 +71,9 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <meta name="revisit-after" content="1 days" />
     <meta name="GENERATOR" content="Trang mua sắm trực tuyến Kabistore.tk" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link href="/favicon_TGDD.ico" rel="shortcut icon" type="image/x-icon" />
-    <link href="/favicon_TGDD.ico" rel="apple-touch-icon" />
-    <link href="/favicon_TGDD.ico" rel="apple-touch-icon-precomposed" />
+    <link href="img/core-img/icon-web.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="img/core-img/icon-web.ico" rel="apple-touch-icon" />
+    <link href="img/core-img/icon-web.ico" rel="apple-touch-icon-precomposed" />
     <meta property="og:site_name" content="Kabistore.tk" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="vi_VN" />
@@ -80,17 +82,12 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
     <!-- <base href="http://192.168.1.4/"> -->
     <base href="https://webcuatoi.vn/">
-    <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/icon-web.ico">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link href="css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />
 
     <!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-    <script src="js/OneSignalSDKWorker.js"></script>
-    <script src="js/OneSignalSDKUpdaterWorker.js"></script>
-
     <script>
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
@@ -117,7 +114,9 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
             });
         });
     </script> -->
-    <!-- <script src="js/security.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/security.js"></script>
+
     <link rel="stylesheet" href="css/message.css">
 </head>
 
