@@ -392,6 +392,7 @@ img {
     right: 60px;
     text-align: center;
     width: 40px;
+    z-index: 100 !important;
 }
 
 @media only screen and (max-width: 767px) {
@@ -2699,9 +2700,31 @@ span.current {
 
 /*# sourceMappingURL=core-style.css.map */
 
-.nice-toast-wrapper[class*=' bottom'] {
+/* .nice-toast-wrapper[class*=' bottom'] {
     bottom: 15% !important;
+} */
+
+.nice-toast-wrapper[class$=left] .nice-toast {
+    z-index: 2147483660 !important;
 }
+
+/* Start effect del cart */
+
+.effectDelCart {
+    animation-name: effectDelCart;
+    animation-duration: 2s;
+}
+
+@keyframes effectDelCart {
+    0% {
+        margin-left: 0px;
+    }
+    100% {
+        margin-left: -100%;
+    }
+}
+
+/* End effect del cart */
 
 /* Start index */
 

@@ -5,4 +5,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $formData = $_POST['formData'];
     echo $login_Customer = $cs->insert_customer($formData);
+} else {
+    header("location:../404.php");
 }

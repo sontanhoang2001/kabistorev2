@@ -30,7 +30,8 @@ $('a#remove-cart').each(function (index, val) {
                         break;
                     }
                     case 1: {
-                        $(cartWrapIndex).fadeOut(500);
+                        $(".cartSection.removeWrap").eq(index).css("display", "none");
+                        $(cartWrapIndex).addClass("effectDelCart").fadeOut(1500);
                         $(".number_cart").html(res.number_cart);
                         if ($('#discountPrice').text() == "Chưa nhập mã") {
                             resetDiscount();

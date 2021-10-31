@@ -45,3 +45,6 @@ if (isset($_POST['searchText'])) {
         }
     }
 }
+else {
+    header("location:../404.php");
+}

@@ -1,7 +1,7 @@
 var indexCountMessage = 0;
 $(".add_to_wishlist").click(function (event) {
     var class_localtion = $(this);
-    var productId = $(this).attr("href");
+    var productId = $(this).attr("data-productid");
 
     event.preventDefault();
     $.ajax({
@@ -125,7 +125,7 @@ $('a#remove-wishlist').each(function (index, val) {
                 Status = JSON.parse(data).status;
                 switch (Status) {
                     case 3: {
-                        $(cartWrapIndex).fadeOut(2000);
+                        $(cartWrapIndex).addClass("effectDelCart").fadeOut(1500);
                         var message = "Xóa yêu thích thành công";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                         toast.change('Đã xóa và thay đổi...', 2000);
@@ -150,7 +150,7 @@ $('a#remove-wishlist').each(function (index, val) {
 
 // Add to cart
 $(".add_to_cart").click(function (event) {
-    var productId = $(this).attr("href"),
+    var productId = $(this).attr("data-productid");
         productSize = $(this).attr("data-id-1");
     event.preventDefault();
     $.ajax({

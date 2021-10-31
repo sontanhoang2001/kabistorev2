@@ -611,3 +611,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		echo json_encode($result_json[] = ['status' => 0]); // gửi email thất bại
 	}
 }
+ else {
+    header("location:../404.php");
+ }

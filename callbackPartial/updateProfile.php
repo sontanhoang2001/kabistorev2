@@ -9,4 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $formData = $_POST['formData'];
     echo $UpdateCustomers = $cs->update_customers($formData, $customer_id);
+} else {
+    header("location:../404.php");
 }

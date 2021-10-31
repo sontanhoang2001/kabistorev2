@@ -9,4 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $formData = $_POST['formData'];
     echo $update_customers_password = $cs->update_customers_password($customer_id, $formData);
+} else {
+    header("location:../404.php");
 }
