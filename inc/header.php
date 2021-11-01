@@ -46,6 +46,8 @@ if (isset($_SESSION['customer_login'])) {
         } else {
             echo '<script>var loginAlert = false;</script>';
         }
+    } else {
+        echo '<script>var loginAlert = false;</script>';
     }
 }
 
@@ -67,6 +69,10 @@ header("Cache-Control: max-age=2592000");
 <html lang="vn">
 
 <head>
+    <!-- <base href="http://192.168.1.4/"> -->
+    <!-- <base href="https://kabistore.tk/"> -->
+    <base href="https://webcuatoi.vn/">
+
     <!-- Title  -->
     <title>Kabistore.tk - Cửa hàng đồ gia dụng - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long</title>
     <meta name="keywords" content="kabistore.tk, kabistore, kabistore gia se re, kabistore gía siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore do gia dung, kabistore đồ gia dụng, kabistore lam dep, kabistore Làm đẹp, kabistore my pham, kabistore mỹ phẩm, kabistore cham soc ca nhan, kabistore chăm sóc cá nhân, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sĩ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sĩ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long" />
@@ -96,9 +102,6 @@ header("Cache-Control: max-age=2592000");
     <meta property="fb:pages" content="105932671830866" />
     <meta http-equiv="x-dns-prefetch-control" content="on">
 
-    <!-- <base href="http://192.168.1.4/"> -->
-    <!-- <base href="https://kabistore.tk/"> -->
-    <base href="https://webcuatoi.vn/">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">

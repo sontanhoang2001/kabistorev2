@@ -255,6 +255,14 @@ $fm = new format();
 								<div class="col-md-12">
 									<div class="panelmapOrderAddress">
 										<div id="map"></div>
+										<div id="menu-map">
+											<input id="satellite-v9" type="radio" name="rtoggle" value="satellite" checked="checked">
+											<label for="satellite-v9">vệ tinh</label>
+											<input id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked">
+											<label for="streets-v11">đường phố</label>
+											<input id="dark-v10" type="radio" name="rtoggle" value="dark">
+											<label for="dark-v10">tối</label>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -263,7 +271,6 @@ $fm = new format();
 									<div class="py-3">
 										<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ đăng ký</span> <span class="bottom" id="geocodingOrderAddress">Đang tìm vị trí...</span> </div>
 										<a id="googlemapOrderAddress" href="#" target="_blank">Xem với Google map</a>
-
 									</div>
 								</div>
 							</div>

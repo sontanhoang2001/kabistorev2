@@ -48,7 +48,7 @@ include 'inc/global.php';
     <div class="container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item active">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Hot Nhất</a>
+                <a class="nav-link active" id="productHot-tab" data-toggle="tab" href="#productHot" role="tab" aria-controls="productHot" aria-selected="true">Hot Nhất</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#category" role="tab" aria-controls="profile" aria-selected="false">Danh Mục</a>
@@ -58,7 +58,7 @@ include 'inc/global.php';
             </li>
         </ul>
         <div class="tab-content" id="myTabProduct">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active" id="productHot" role="tabpanel" aria-labelledby="productHot-tab">
                 <!-- Swiper -->
                 <div class="wrapper" id="wrapper_product">
                     <div class="carousel-product owl-carousel">
@@ -192,15 +192,13 @@ include 'inc/global.php';
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-            <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            </div> -->
         </div>
         <div class="view-all">
             <div class="py-5 text-center"><a href="san-pham-f0p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
         </div>
     </div>
     <!-- START PROMOTION -->
-    <div class="container-fluid" style="background-color: #eff0f5;">
+    <div class="container-fluid pb-3" style="background-color: #eff0f5;">
         <div class="container">
             <h2 class="pt-4"><i class="fa fa-percent" aria-hidden="true"></i> Mã Giảm Giá</h2>
             <p>Nhấn vào đi đến shop để mua nhiều sản phẩm hơn</p>

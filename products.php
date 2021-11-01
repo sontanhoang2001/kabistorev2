@@ -399,7 +399,6 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
 
 
 <?php
-include 'inc/bs-modal.php';
 include 'inc/footer.php';
 ?>
 <script src="js/function.js"></script>
