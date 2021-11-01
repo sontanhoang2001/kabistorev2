@@ -180,7 +180,6 @@
     </script> -->
 
     <script type="text/javascript"> 
-        console.log(loginAlert);
         $(document).ready(function() {
             if (loginAlert == true) {
                 var message = "Bạn đã đăng nhập thành công!";

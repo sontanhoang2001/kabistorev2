@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="container mt-5 mb-5">
   <div class="row flex-lg-nowrap">
-    <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+    <div class="col-12 col-lg-auto mb-3 col-responsive" style="width: 200px;">
       <div class="card bg-light shadow p-3">
         <div class="e-navlist e-navlist--active-bg">
           <ul class="nav">
@@ -55,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ?>
         <div class="col">
           <div class="row">
-            <div class="col mb-3">
+            <div class="col mb-3 col-responsive">
               <div class="card bg-light shadow">
-                <div class="card-body">
+                <div class="card-body card-body-responsive">
                   <div class="e-profile">
                     <div class="row m-3">
                       <div class="col-12 col-sm-auto mb-3 mt-2">
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" name="fullName" id="fullName" class="form-control" aria-label="fullname" aria-describedby="basic-addon1" value="<?php echo $result['name']; ?>" required>
+                                <input type="text" name="fullName" id="fullName" class="form-control" aria-label="fullname" aria-describedby="basic-addon1" value="<?php echo $result['name']; ?>" required placeholder="Vd: Nguyễn Thị  A...">
                               </div>
                               <div class="error mb-2" id="error-fullname">Họ và tên không được bỏ trống! hãy ghi tên để chúng tôi dễ xưng hô với bạn.</div>
                             </div>
@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-phone"></i></span>
                                 </div>
-                                <input type="number" name="phone" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="0<?php echo $result['phone']; ?>">
+                                <input type="number" name="phone" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="0<?php echo $result['phone']; ?>" require placeholder="Vd: 0976943...">
                               </div>
                               <div class="error mb-2" id="error-phone1">Số điện thoại không được bỏ trống!!!</div>
                               <div class="error mb-2" id="error-phone2">Số điện thoại sai cú pháp!!!</div>
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-envelope-o"></i></span>
                                 </div>
-                                <input type="email" name="email" class="form-control" aria-label="email" aria-describedby="basic-addon1" value="<?php echo $result['email']; ?>">
+                                <input type="email" name="email" class="form-control" aria-label="email" aria-describedby="basic-addon1" value="<?php echo $result['email']; ?>" require placeholder="Vd: kabistore@gmail.com">
                               </div>
                               <div class="error mb-2" id="error-email1">Email không được bỏ trống!!!</div>
                               <div class="error mb-2" id="error-email2">Email bạn vừa nhập sai cú pháp!!!<br>
@@ -296,7 +296,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
         ?>
 
-        <div class="col-12 col-md-3 mb-3">
+        <div class="col-12 col-md-3 mb-3 row-responsive">
           <form method="get" action="cart.html ">
             <div class="card bg-light shadow mb-3">
               <div class="card-body">
@@ -310,7 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </form>
 
-          <div class="card bg-light shadow">
+          <div class="card bg-light shadow row-responsive">
             <div class="card-body">
               <h6 class="card-title font-weight-bold">Hỗ trợ</h6>
               <p class="card-text">Nhận trợ giúp miễn phí từ các trợ lý thân thiện của chúng tôi.</p>
@@ -373,4 +373,5 @@ include 'inc/footer.php';
   updateProfile();
   changePassword();
   uploadAvatar();
+  navProfile();
 </script>

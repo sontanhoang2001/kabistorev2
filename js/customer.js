@@ -69,7 +69,6 @@ function login() {
                 },
                 success: function (data) {
                     var res = JSON.parse(JSON.stringify(data))
-                    console.log(res.status);
                     var Status = res.status,
                         Url = res.url;
                     switch (Status) {
@@ -279,9 +278,6 @@ function updateProfile() {
             data_right = false;
             // fullName không được bỏ trống
             $("#error-fullname").show();
-            var message = "Bạn chưa nhập họ và tên!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng thử lại...', 3500);
         } else {
             $("#btnUpdateInfo").removeAttr("disabled");
             data_right = true;
@@ -294,9 +290,6 @@ function updateProfile() {
             $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
             $("#error-phone1").show();
-            var message = "Bạn chưa nhập số điện thoại!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng thử lại...', 3500);
         } else {
             $("#btnUpdateInfo").removeAttr("disabled");
             data_right = true;
@@ -313,9 +306,6 @@ function updateProfile() {
             data_right = false;
             // phone sai cú pháp
             $("#error-phone2").show();
-            var message = "Số điện thoại sai cú pháp!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng thử lại...', 3500);
         }
     });
 
@@ -324,9 +314,6 @@ function updateProfile() {
             $("#btnUpdateInfo").removeAttr("disabled");
             data_right = false;
             $("#error-email1").show();
-            var message = "Bạn chưa nhập email!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng thử lại...', 3500);
         } else {
             $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = true;
@@ -343,9 +330,6 @@ function updateProfile() {
             data_right = false;
             // phone sai cú pháp
             $("#error-email2").show();
-            var message = "Email sai cú pháp!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng thử lại...', 3500);
         }
     });
 

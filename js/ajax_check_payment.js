@@ -22,7 +22,7 @@ $('#f_order input').on('change', function () {
 
 $('#f_order').submit(function (e) {
     e.preventDefault();
-    if (allow_order == false) {
+    if (allow_order == false) { 
         e.preventDefault();
         audioError.play();
         $("#error-geocoder").show().delay(5000).fadeOut(1000);

@@ -1703,13 +1703,14 @@ img {
         padding: 35px 0 40px;
     }
     .footer_area .single_widget_area .footer_menu ul li a {
-        font-size: 2ex;
+        font-size: 13px;
         color: rgba(255, 255, 255, 0.6);
         display: block;
         font-weight: 400;
         font-family: "Ubuntu", sans-serif;
         padding: 0 6px;
         text-transform: capitalize;
+        margin-top: 23px;
     }
 }
 
@@ -1737,6 +1738,7 @@ img {
         font-family: "Ubuntu", sans-serif;
         padding: 0 10px;
         text-transform: capitalize;
+        margin-top: 45px;
     }
 }
 
@@ -3760,7 +3762,7 @@ h3.name-cart {
 
 #itemImg {
     width: 110px;
-    height: 110px;
+    height: auto;
     object-fit: cover;
 }
 
@@ -4141,7 +4143,7 @@ input:focus::-webkit-input-placeholder {
 
 .left-panel {
     background-color: #ffffff;
-    padding: 18px
+    padding: 28px
 }
 
 .right-panel {
@@ -4233,3 +4235,66 @@ hr.new1 {
 }
 
 /* END SUCCESS */
+
+/* START LOGIN */
+
+.global-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #f5f5f5; */
+}
+
+.card-title {
+    font-weight: 300;
+}
+
+.login-form {
+    width: 330px;
+    margin: 20px;
+}
+
+.sign-up {
+    text-align: center;
+    padding: 20px 0 0;
+}
+
+.icon-facebook {
+    width: 35px;
+    margin-left: 62px;
+}
+
+.icon-google {
+    width: 35px;
+    margin-left: -6px;
+}
+
+.icon-zalo {
+    width: 35px;
+    margin-left: -18px;
+}
+
+.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+}
+
+.bg-light {
+    background-color: #f8f9fa!important;
+}
+
+/* END LOGIN */
+
+/* START RESPONSIVE */
+
+@media screen and (max-width: 600px) {
+    .col-responsive {
+        padding-right: 9px !important;
+        padding-left: 9px !important;
+    }
+    .card-body-responsive {
+        padding: 6px !important;
+    }
+}
+
+/* END RESPONSIVE */

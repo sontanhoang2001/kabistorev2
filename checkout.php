@@ -24,7 +24,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
         </div>
         <form id="f_order" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-7 col-responsive">
                     <div class="left-panel border bg-light shadow">
                         <div class="header">Thông tin giao hàng</div>
                         <!-- <div class="icons"> <img src="https://img.icons8.com/color/48/000000/visa.png" /> <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" /> <img src="https://img.icons8.com/color/48/000000/maestro.png" /> </div> -->
@@ -65,7 +65,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
 
                                     <div class="form-group" id="location-group">
                                         <div class="row-flex">
-                                            <label for="maps_address"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Ghim vị và xác nhận trí giao hàng</label>
+                                            <label for="maps_address"><i class="fa fa-thumb-tack" aria-hidden="true"></i> <b>Ghim vị và xác nhận trí giao hàng</b></label>
                                             <!-- <input type="text" class="form-control" name="maps_address" id="maps_address" value="" placeholder="Nhập tên địa điểm cần tìm"> -->
                                             <div id="maps_maparea">
                                                 <div class="panel-google-maps">
@@ -99,19 +99,19 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         <div class="form-group">
                             <div class="row pt-2">
                                 <div class="col-md-12 col-xs-12">
-                                    <label for="address"><i class="fa fa-pencil" aria-hidden="true"></i> Ghi chú địa chỉ cụ thể (nếu cần):</label>
+                                    <label for="address"><i class="fa fa-pencil" aria-hidden="true"></i> <b>Ghi chú địa chỉ cụ thể (nếu cần):</b></label>
                                     <textarea type="text" class="form-control" id="note" name="note"></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mt-3">
-                                    <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại của bạn:</label>
+                                    <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> <b>Vị trí hiện tại của bạn:</b></label>
                                     <div id="geo-text" class="text-danger">Hãy nhấn chọn vị trí trên bản đồ nơi mà bạn muốn giao hàng...</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mt-3">
-                                    <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Tìm vị trí hiện tại</button>
+                                    <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
                                     <button type="button" onclick="add_markers_to_geolocate_save_control(<?php echo $lng ?>, <?php echo $lat ?>);" class="btn btn-info btn-lock"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Vị trí đã lưu</button>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 $get_product_cart = $ct->get_product_cart($customer_id);
                 $num_rows = mysqli_num_rows($get_product_cart);
                 ?>
-                <div class="col-md-5">
+                <div class="col-md-5 col-responsive">
                     <div class="right-panel border bg-light shadow">
                         <div class="header">Thông tin đơn hàng</div>
                         <p><?php echo $num_rows ?> sản phẩm</p>
@@ -212,7 +212,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         ?>
                         <hr>
                         <div class="form-group">
-                            <label class="mb-4" for="label-payment" id="label_payment"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Phương thức thanh toán</label>
+                            <label class="mb-4" for="label-payment" id="label_payment"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> <b>Phương thức thanh toán</b></label>
                             <div class="col-md-12">
                                 <label>
                                     <input type="radio" name="payment_methods" class="card-input-element" value="1" checked="checked" />
@@ -325,7 +325,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
         </div>
     </div>
 </div>
-<a id="openHelp" data-toggle="modal" data-target="#gpsModal"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+<a id="openHelp" data-toggle="modal" data-target="#gpsModal"><i class="fa fa-question-circle" aria-hidden="true" style="margin-top: 10px;"></i></a>
 <?php
 include 'inc/footer.php';
 ?>

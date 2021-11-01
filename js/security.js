@@ -4,7 +4,6 @@ jQuery(document).ready(function () {
         e.preventDefault();
     });
     jQuery("body").on("contextmenu", function (e) {
-        console.log("body");
         return false;
     });
 });

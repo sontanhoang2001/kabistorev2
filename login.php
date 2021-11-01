@@ -12,18 +12,6 @@ if ($login_check) {
 }
 ?>
 
-<?php
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
-//   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-//   $login_Customer = $cs->login_customer($_POST); // hàm check catName khi submit lên
-// }
-
-
-?>
-
-<link rel="stylesheet" type="text/css" href="css/login-client.css">
-
-
 <div class="global-container mt-100 mb-5">
   <div class="card login-form">
     <div class="card-body bg-light shadow">
@@ -41,17 +29,17 @@ if ($login_check) {
           <!-- to error: add class "has-danger" -->
           <div class="form-group pt-10 mt-30">
             <label for="username">Tên đăng nhập</label>
-            <input type="text" class="form-control form-control-sm" name="username" id="username">
+            <input type="text" class="form-control form-control-sm" name="username" id="username" placeholder="Nhập tên đăng nhâp.." required>
           </div>
           <div class="error mb-2" id="error-username">Tên đăng nhập không được bỏ trống!!!</div>
           <div class="form-group">
             <label for="password">Mật khẩu</label>
             <a href="forgotPassword.html" style="float:right;font-size:12px;">Quên mật khẩu?</a>
-            <input type="password" class="form-control form-control-sm" name="password" id="password">
+            <input type="password" class="form-control form-control-sm" name="password" id="password" placeholder="Nhập mật khẩu..." required>
           </div>
       </div>
-      <div class="error  mb-2" id="error-password1">Mật khẩu không được bỏ trống!!!</div>
-      <div class="error  mb-2" id="error-password2">
+      <div class="error mb-2" id="error-password1">Mật khẩu không được bỏ trống!!!</div>
+      <div class="error mb-2" id="error-password2">
         Mật khẩu sai cú pháp!!!<br>
         Tối thiểu tám ký tự, ít nhất một chữ cái và một số</div>
       <div class="checkbox">

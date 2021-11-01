@@ -157,9 +157,8 @@ include 'inc/facebookPlugin.php';
 			</div>
 		</div>
 	</div>
-	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i style="margin-top: 10px;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
 </body>
-
 <?php
 include 'inc/footer.php';
 ?>
