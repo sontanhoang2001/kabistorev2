@@ -49,7 +49,7 @@ if ($login_check == false) {
 								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
 									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
 								</a>
-								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></small></p>
+								<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></small></p>
 								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
 									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								</a>

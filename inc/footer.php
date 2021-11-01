@@ -151,7 +151,7 @@
                 threshold: 0,
                 visibleOnly: true,
                 onError: function(element) {
-                    console.log('error loading ' + element.data('src'));
+                    // console.log('error loading ' + element.data('src'));
                 }
             });
         });
@@ -178,3 +178,14 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script> -->
+
+    <script type="text/javascript"> 
+        console.log(loginAlert);
+        $(document).ready(function() {
+            if (loginAlert == true) {
+                var message = "Bạn đã đăng nhập thành công!";
+                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                toast.change('Thoải mái mua sắm ngay bây giờ...', 2000);
+            }
+        });
+    </script>

@@ -351,7 +351,6 @@ include 'inc/global.php';
                     <div class="wrapper" id="wrapper_productRank">
                         <div class="carousel-product owl-carousel">
                             <?php
-                            $seo = "-re-nhat-can-tho";
                             $get_all_product_Featured = $product->get_all_product_rank();
                             if ($get_all_product_Featured) {
                                 while ($result = $get_all_product_Featured->fetch_assoc()) {
@@ -366,30 +365,30 @@ include 'inc/global.php';
                                         <div class="product-img">
                                             <img data-src="<?php echo $product_img ?>" class="lazy">
                                             <ul class="card-button-shop">
-                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+                                                <li>
+                                                    <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                    <a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+                                                </li>
                                                 <?php
                                                 $wishlist_check = $product->wishlist_check($customer_id, $productId);
                                                 $login_check = Session::get('customer_login');
                                                 if ($login_check) {
                                                     if ($wishlist_check) {
                                                 ?>
-                                                        <li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" href="<?php echo $productId ?>"></a></li>
+                                                        <li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" data-productid="<?php echo $productId ?>"></a></li>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" href="<?php echo $productId ?>"></i></a></li>
+                                                        <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
                                                     <?php
                                                     }
                                                 } else {
                                                     ?>
-                                                    <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" href="<?php echo $productId ?>"></a></li>
+                                                    <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></a></li>
                                                 <?php
                                                 }
                                                 ?>
-                                                <li>
-                                                    <img style="width: 1px; height: 1px;" class="lazy img-clone" data-src="<?php echo $product_img ?>" alt="cart icon" />
-                                                    <a class="add_to_cart" href="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
-                                                </li>
+                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
                                             </ul>
 
                                             <!-- Product Badge -->

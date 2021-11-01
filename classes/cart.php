@@ -412,6 +412,7 @@ class cart
 		// $geocoder = $data['geocoder'];
 		$note_address = $data['note'];
 		$sId = session_id();
+		$sId = $sId . "-" . date("d/m/Y h:m:s");
 		$discount = session::get('discountMoney');
 
 		// Tìm cart = customer_id

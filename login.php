@@ -6,7 +6,9 @@ include 'lib/Social-Network-API/facebook_source.php';
 
 $login_check = Session::get('customer_login');
 if ($login_check) {
-  header('Location:index.php');
+  header('Location:index.html');
+} else {
+  $login_check = false;
 }
 ?>
 
@@ -22,7 +24,7 @@ if ($login_check) {
 <link rel="stylesheet" type="text/css" href="css/login-client.css">
 
 
-<div class="global-container">
+<div class="global-container mt-100 mb-5">
   <div class="card login-form">
     <div class="card-body bg-light shadow">
       <h3 class="card-title text-center">Đăng nhập</h3>

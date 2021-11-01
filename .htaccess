@@ -7,6 +7,9 @@ RewriteEngine On
 
 
 #https://youtu.be/Qavbzr22OKs
+
+#DirectoryIndex index.html
+
 Options All -Indexes
 
 RewriteCond %{REQUEST_FILENAME} !-d

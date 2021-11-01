@@ -68,7 +68,7 @@ $discount = session::set('discountMoney', 0);
 								<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
 									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
 								</a>
-								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
+								<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></p>
 								<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
 								<!-- <input type="text" class="qty" id="qty1_<?php echo $cartId; ?>" value="<?php echo $quantity ?>" /> -->
 								<p class="mb-0">

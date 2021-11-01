@@ -127,6 +127,7 @@ class customer
 				if ($result_check != false) {
 					$value = $result_check->fetch_assoc();
 					$customer_id = $value['id'];
+					Session::set('loginAlert', true);
 					Session::set('customer_login', true);
 					Session::set('customer_id', $customer_id);
 					Session::set('customer_username', $value['username']);
@@ -187,6 +188,7 @@ class customer
 
 				$value = $result_check->fetch_assoc();
 				$customer_id = $value['id'];
+				Session::set('loginAlert', true);
 				Session::set('customer_login', true);
 				Session::set('account_type', 0);
 				Session::set('customer_id', $customer_id);
@@ -211,7 +213,7 @@ class customer
 				$name = 'is_login';
 				$value = json_encode($result_cookie[] = ['username' => $username, 'password' => $password, 'type' => 0]);
 				$expire = time() + 3600;
-				$path = '/index.html';
+				$path = '/';
 				setcookie($name, $value, $expire, $path);
 
 				return json_encode($result_json[] = ['status' => 1, 'url' => $header]);
@@ -243,6 +245,7 @@ class customer
 				$result = $this->db->select($select_loginFromSocial);
 				$value_select = $result->fetch_assoc();
 
+				Session::set('loginAlert', true);
 				Session::set('customer_login', true);
 				Session::set('account_type', 1);
 				Session::set('customer_id', $value_select['id']);
@@ -263,7 +266,7 @@ class customer
 				$name = 'is_login';
 				$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value_select['password'], 'type' => 1]);
 				$expire = time() + 3600;
-				$path = '/index.html';
+				$path = '/';
 				setcookie($name, $value, $expire, $path);
 
 				$customer_id = $value_select['id'];
@@ -278,6 +281,7 @@ class customer
 			$value = $result_check->fetch_assoc();
 			$customer_id = $value['id'];
 
+			Session::set('loginAlert', true);
 			Session::set('customer_login', true);
 			Session::set('account_type', 1);
 			Session::set('customer_id', $customer_id);
@@ -288,7 +292,7 @@ class customer
 			$name = 'is_login';
 			$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value['password'], 'type' => 1]);
 			$expire = time() + 3600;
-			$path = '/index.html';
+			$path = '/';
 			setcookie($name, $value, $expire, $path);
 
 			$extra = Session::get('REQUEST_URI');

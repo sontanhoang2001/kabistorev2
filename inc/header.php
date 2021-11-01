@@ -23,28 +23,44 @@ $cat = new category();
 $product = new product();
 $bra = new brand();
 
-
+// Check login
 if (isset($_SESSION['customer_login'])) {
     $login_check = Session::get('customer_login');
+    // check hiển thị thông báo đăng nhập
+    if (isset($_SESSION['loginAlert'])) {
+        $loginAlert = Session::get('loginAlert');
+        Session::set('loginAlert', false);
+        if ($loginAlert == true) {
+            echo '<script>var loginAlert = true;</script>';
+        } else {
+            echo '<script>var loginAlert = false;</script>';
+        }
+    } else {
+        echo '<script>var loginAlert = false;</script>';
+    }
 } else {
     if (isset($_COOKIE['is_login'])) {
-        $cs->login_cookie();
+        $login_cookie = $cs->login_cookie();
+        if ($login_cookie == true) {
+            echo '<script>var loginAlert = true;</script>';
+        } else {
+            echo '<script>var loginAlert = false;</script>';
+        }
     }
 }
-
 
 //Loout
 if (isset($_GET['customer_id'])) {
     $customer_id = $_GET['customer_id'];
     // $delCart = $ct->del_all_data_cart($customer_id);
-    setcookie('is_login', '', time() - 3600, '/index.html');
+    setcookie('is_login', '', time() - 3600, '/');
     Session::destroy();
 }
 
-// header("Cache-Control: no-cache, must-revalidate");
-// header("Pragma: no-cache");
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-// header("Cache-Control: max-age=2592000");
+header("Cache-Control: max-age=2592000");
 ?>
 
 <!DOCTYPE html>
@@ -81,13 +97,14 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <meta http-equiv="x-dns-prefetch-control" content="on">
 
     <!-- <base href="http://192.168.1.4/"> -->
+    <!-- <base href="https://kabistore.tk/"> -->
     <base href="https://webcuatoi.vn/">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link href="css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <!-- 
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     <script>
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
@@ -114,8 +131,8 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
             });
         });
     </script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/security.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/security.js"></script> -->
 
     <link rel="stylesheet" href="css/message.css">
 </head>

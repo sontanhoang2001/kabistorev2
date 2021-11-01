@@ -68,7 +68,7 @@ if ($login_check == false) {
 		if ($get_cart_ordered) {
 			$i = 0;
 			$qty = 0;
-			$date_orderTemp[0] = "0000-00-00 00:00:00";
+			$address_idTemp[0] = "0000-00-00 00:00:00";
 			while ($result = $get_cart_ordered->fetch_assoc()) {
 				$i++;
 				$address_id = $result['address_id'];
@@ -77,14 +77,14 @@ if ($login_check == false) {
 				$note_address = $result['note_address'];
 				$status = $result['status'];
 				$date_order = $result['date_create'];
-				$date_orderTemp[$i + 1] = $date_order;
+				$address_idTemp[$i + 1] = $address_id;
 				$quantity = $result['quantity'];
 				$product_img =  json_decode($result['image']);
 				$product_img = $product_img[0]->image;
 				$productSize = $result['productSize'];
 		?>
 				<div class="border-group text-right mt-2">
-					<?php if ($date_order != $date_orderTemp[$i - 1]) {
+					<?php if ($address_id != $address_idTemp[$i - 1]) {
 					?>
 						<p style="border-top: 2px dashed #bfbfbf;"></p>
 						<p>
