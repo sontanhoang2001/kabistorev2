@@ -168,7 +168,7 @@ header("Cache-Control: max-age=2592000");
                 <div id="PriceShip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý giá ship:</h6>
-                        <a class="collapse-item" href="updatePriceShip"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </i> Cập nhật</a>
+                        <a class="collapse-item" href="updatePriceShipping"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </i> Cập nhật</a>
                     </div>
                 </div>
             </li>
@@ -181,8 +181,8 @@ header("Cache-Control: max-age=2592000");
                 <div id="discount" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Ql mã giảm giá:</h6>
-                        <a class="collapse-item" href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm slider</a>
-                        <a class="collapse-item" href="discount-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                        <a class="collapse-item" href="add-promotion"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm slider</a>
+                        <a class="collapse-item" href="promotions-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
                     </div>
                 </div>
             </li>

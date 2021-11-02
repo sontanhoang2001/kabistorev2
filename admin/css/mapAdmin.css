@@ -2,6 +2,17 @@ a.mapboxgl-ctrl-logo {
     display: none !important;
 }
 
+#menu-map {
+    z-index: 3;
+    position: absolute;
+    background: #efefef;
+    padding: 4px;
+    /* font-family: 'Open Sans', sans-serif; */
+    bottom: 0px;
+    height: 25px;
+}
+
+
 #map {
     position: absolute;
     top: 0;

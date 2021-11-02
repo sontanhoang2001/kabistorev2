@@ -807,6 +807,50 @@ class product
 		$result = $this->db->select($query);
 		return $result;
 	}
+
+	public function get_priceShipping()
+	{
+		$query = "SELECT price FROM tbl_priceshipping WHERE priceshippingId = '1' ";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+	public function update_priceShipping($priceShipping)
+	{
+		$type = mysqli_real_escape_string($this->db->link, $priceShipping);
+		$query = "UPDATE tbl_priceshipping SET price= '$priceShipping' WHERE priceshippingId = '1'";
+		$result = $this->db->update($query);
+		if ($result) {
+			return '<div class="text-success">Bạn đã cập nhật giá ship thành công!</div>';
+		} else {
+			return '<div class="text-danger">Bạn đã cập nhật giá ship thất bại!</div>';
+		}
+	}
+
+	public function get_AllPromotions()
+	{
+		$query = "SELECT `promotionsId`, `promotionsCode`, `promotionsName`, `description`, `condition`, `discountMoney`, `style`, `creation_date`, `start_date`, `end_date`, `status` FROM `tbl_promotions`";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+	public function update_statusPromotions($promotionsId, $status)
+	{
+		$query = "UPDATE tbl_promotions SET `status`='$status' WHERE promotionsId = '$promotionsId'";
+		$result = $this->db->update($query);
+		if ($result) {
+			return $result;
+		}
+	}
+
+	public function del_Promotions($promotionsId)
+	{
+		$query = "DELETE FROM tbl_promotions WHERE promotionsId = '$promotionsId'";
+		$result = $this->db->update($query);
+		if ($result) {
+			return $result;
+		}
+	}
 }
 
 ?>

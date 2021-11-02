@@ -8,11 +8,7 @@ function loadCustomerMap() {
     });
 
     // load map order address
-    $("#btnloadCustomerMap").click(function () {
-        console.log(mapLat);
-        console.log(mapLng);
-
-
+    $("#btnloadCustomerMap").click(function () {    
         var lng = mapLng, lat = mapLat;
         // lấy tên vị trí bản đồ
         getGeocodingOrderMap(lng, lat);
