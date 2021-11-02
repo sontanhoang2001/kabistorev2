@@ -1,14 +1,15 @@
 ﻿<?php include 'inc/header.php'; ?>
 <?php
 $filepath = realpath(dirname(__FILE__));
-include_once($filepath . '/../classes/cart.php');
+include_once($filepath . '/../classes/customer.php');
 include_once($filepath . '/../helpers/format.php');
-$ct = new cart();
+$cs = new customer();
 $fm = new format();
 ?>
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
 <link rel="stylesheet" href="css/mapAdmin.css">
+
 </head>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="LMMRbqRK"></script>
@@ -17,16 +18,16 @@ $fm = new format();
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Quản lý Đơn hàng</h1>
+	<h1 class="h3 mb-2 text-gray-800">Quản lý khách hàng</h1>
 	<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
 		For more information about DataTables.
-		<br><a href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm Đơn hàng</a>.
+		<br><a href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm khách hàng</a>.
 	</p>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4 mt-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các Đơn hàng</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các khách hàng</h6>
 		</div>
 
 		<div class="card-body">
@@ -35,58 +36,37 @@ $fm = new format();
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th>Ngày đặt</th>
-							<th>Tên sản phẩm</th>
-							<th>SL</th>
-							<th>T.Toán</th>
-							<th>Khách hàng</th>
-							<th>Trạng thái đơn hàng</th>
+							<th>UserName/ Tên khách hàng</th>
+							<th>Gia nhập</th>
+							<!-- <th>Địa chỉ</th> -->
 						</tr>
 					</thead>
 					<!-- <tfoot>
                         <tr>
                             <th>No.</th>
-                            <th>Đơn hàng</th>
+                            <th>khách hàng</th>
                             <th>Tùy chọn</th>
                         </tr>
                     </tfoot> -->
 					<tbody>
 						<?php
-						$list_order = $ct->get_inbox_order();
-						if ($list_order) {
+						$show_customers = $cs->show_AllCustomersAdmin();
+						if ($show_customers) {
 							$i = 0;
-							while ($result = $list_order->fetch_assoc()) {
+							while ($result = $show_customers->fetch_assoc()) {
 								$i++;
-								$orderId = $result['id'];
-								$productId = $result['productId'];
-								$quantity = $result['quantity'];
-								$address_id = $result['address_id'];
-								$status = $result['status'];
+								$maps_maplat = $result['maps_maplat'];
+								$maps_maplat = ($maps_maplat == null) ? 0 : $maps_maplat;
+								$maps_maplng = $result['maps_maplng'];
+								$maps_maplng = ($maps_maplng == null) ? 0 : $maps_maplng;
+
 						?>
 								<tr class="odd gradeX">
 									<td><?php echo $i ?></td>
-									<td><a href="#" data-orderid="<?php echo $address_id ?>" onclick="pasteFindByAttr(this, 'orderid')"><i class="fa fa-clipboard" aria-hidden="true"></i></a> ID: <?php echo $address_id . "<br>" . (date('d-m-Y h:m:s', strtotime($result['date_create']))); ?></td>
 									<td>
-										<a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
+										<a href="#" data-customerid="<?php echo $result['id'] ?>" data-lat="<?php echo $maps_maplat ?>" data-lng="<?php echo $maps_maplng ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['username'] . " - " . $result['name'] ?></a>
 									</td>
-									<td><?php echo $quantity ?></td>
-									<td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
-									<td>
-										<a href="#" data-addressid="<?php echo $address_id ?>" data-customerid="<?php echo $result['customer_id'] ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['name'] ?></a>
-									</td>
-									<td>
-										<?php
-										if ($status == 0) {
-										?>
-											<a href="#" data-status="0" data-orderid="<?php echo $orderId ?>" data-qty="<?php echo $quantity ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal0"><i class="fa fa-clock-o" aria-hidden="true"></i> Chờ duyệt...</a>
-										<?php
-										} elseif ($status == 1) {
-										?>
-											<a href="#" data-status="1" data-orderid="<?php echo $orderId ?>" data-qty="<?php echo $quantity ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal1"><i class="fa fa-truck" aria-hidden="true"></i> Đang giao...</a>
-										<?php
-										}
-										?>
-									</td>
+									<td><?php echo (date('d-m-Y h:m:s', strtotime($result['date_Joined']))); ?></td>
 								</tr>
 						<?php
 							}
@@ -99,73 +79,6 @@ $fm = new format();
 	</div>
 </div>
 <!-- /.container-fluid -->
-
-<!-- product Modal -->
-<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Thông tin sản phẩm</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<!-- <div class="modal-body"></div> -->
-			<div class="modal-body">
-				<form>
-					<div class="form-group">
-						<div id="facebookPluginModel" class="fb-post" data-href="" data-width="470	" data-show-text="true" data-lazy="true"></div>
-					</div>
-					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">Mã sản phẩm</label>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"> <i class="fa fa-qrcode" aria-hidden="true"></i></span>
-							</div>
-							<input type="text" class="form-control" id="productCodeModel" readonly>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">Tên sản phẩm</label>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"> <i class="fa fa-font" aria-hidden="true"></i></span>
-							</div>
-							<input type="text" class="form-control" id="productNameModel" readonly value="Bánh quy bơ">
-						</div>
-					</div>
-
-					<div class="row mt-4">
-						<div class="col-md-6 col-sm-12">
-							<label for="recipient-name" class="col-form-label">Giá bán</label>
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="basic-addon1"> <i class="fa fa-line-chart" aria-hidden="true"></i></span>
-								</div>
-								<input type="text" class="form-control" id="priceModel" readonly value="19k">
-							</div>
-						</div>
-						<div class="col-md-6 col-sm-12">
-							<label for="recipient-name" class="col-form-label">Số lượng trong kho</label>
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="basic-addon1"> <i class="fa fa-truck" aria-hidden="true"></i></span>
-								</div>
-								<input type="text" class="form-control" id="remainModel" readonly value="19k">
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" id="copyProductName" class="btn btn-primary" onclick="pasteFind('#productNameModel');">Group</button>
-				<a href="#" id="productDetaild" class="btn btn-info">Chi tiết</a>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Load Facebook SDK for JavaScript -->
 
 <!-- customer Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
@@ -185,7 +98,7 @@ $fm = new format();
 						<a class="nav-link active" id="btnViewInfo" data-toggle="pill" href="#info">Thông tin</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="btnOrderAddress" data-toggle="pill" href="#orderAddress">Vị trí giao hàng</a>
+						<a class="nav-link" id="btnloadCustomerMap" data-toggle="pill" href="#loadCustomerMap">Vị trí giao hàng</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="btnOrderHistory" data-toggle="pill" href="#orderHistory">Lịch sử mua hàng</a>
@@ -232,7 +145,7 @@ $fm = new format();
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane container fade" id="orderAddress">
+					<div class="tab-pane container fade" id="loadCustomerMap">
 						<div class="mt-4">
 							<div class="row">
 								<div class="col-md-12">
@@ -257,19 +170,7 @@ $fm = new format();
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">Ghi chú của khách hàng</label>
-										<div class="input-group ">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="basic-addon1"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
-											</div>
-											<input type="text" class="form-control" id="cusNoteModel" readonly>
-										</div>
-									</div>
-								</div>
-							</div>
+
 						</div>
 					</div>
 					<div class="tab-pane container fade" id="orderHistory">
@@ -316,62 +217,6 @@ $fm = new format();
 	</div>
 </div>
 
-<!-- accept Modal = 0 -->
-<div class="modal fade" id="statusModal0" tabindex="-1" role="dialog" aria-labelledby="statusModal0Label" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="delModallLabel">Cập nhật trạng thái đơn hàng</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="recipient-name" class="col-form-label">Trạng thái</label>
-					<select class="form-control" id="statusOrder0">
-						<option value="0">-Chọn trạng thái-</option>
-						<option value="1">Chấp nhận đơn hàng</option>
-						<option value="3">Hủy đơn</option>
-					</select>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-				<button type="button" class="btn btn-success" id="updateStatusBtn0" disabled>Cập nhật</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!-- accept Modal = 1 -->
-<div class="modal fade" id="statusModal1" tabindex="-1" role="dialog" aria-labelledby="statusModal1Label" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="delModallLabel">Cập nhật trạng thái đơn hàng</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="recipient-name" class="col-form-label">Trạng thái</label>
-					<select class="form-control" id="statusOrder1">
-						<option value="0">-Chọn trạng thái-</option>
-						<option value="2">Đã giao hàng</option>
-						<option value="4">Hủy đơn, khách không nhận hàng</option>
-					</select>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-				<button type="button" class="btn btn-success" id="updateStatusBtn1" disabled>Cập nhật</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 <?php include 'inc/footer.php'; ?>
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
@@ -379,9 +224,10 @@ $fm = new format();
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
 <script src="../js/map-api-admin.js"></script>
 <script src="js/order.js"></script>
+<script src="js/customer.js"></script>
 <script src="js/helpers.js"></script>
 <script>
 	order();
 	loadOrderMap(12.550343, 55.665957);
-	// mapSave(cusMaps_maplng, cusMaps_maplat);
+	loadCustomerMap();
 </script>

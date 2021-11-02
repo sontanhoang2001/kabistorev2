@@ -1,0 +1,18 @@
+a.mapboxgl-ctrl-logo {
+    display: none !important;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.panelmapOrderAddress {
+    margin-top: 300px;
+}
+
+.mapboxgl-ctrl-bottom-right {
+    display: none
+}

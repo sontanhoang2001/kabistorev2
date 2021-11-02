@@ -322,6 +322,14 @@ class customer
 		$this->connection->close();
 	}
 
+	public function show_AllCustomersAdmin()
+	{
+		$query = "SELECT id, username, name, maps_maplat, maps_maplng, date_Joined FROM tbl_customer
+        ORDER BY id DESC";
+		$show_AllCustomersAdmin = $this->db->select($query);
+		return $show_AllCustomersAdmin;
+	}
+
 	// public function update_customers($data, $id)
 	// {
 	// 	$fullName = mysqli_real_escape_string($this->db->link, $data['fullName']);

@@ -84,8 +84,6 @@ function order() {
                 } else if (statusOrder == 3) {
                     acctionMessage = "Hủy đơn hàng ";
                 }
-                console.log(statusOrder);
-
                 switch (Status) {
                     case 0: {
                         var message = acctionMessage + " thất bại!";
@@ -300,6 +298,7 @@ function order() {
                         break;
                     }
                     case 1: {
+                        
                         var lng = cusMaps_maplng, lat = cusMaps_maplat;
                         // lấy tên vị trí bản đồ
                         getGeocodingInfo(lng, lat);

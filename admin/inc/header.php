@@ -117,9 +117,6 @@ header("Cache-Control: max-age=2592000");
                 </div>
             </li>
 
-
-
-
             <!-- Heading -->
             <div class="sidebar-heading">
                 Quản lý sản phẩm
@@ -128,7 +125,7 @@ header("Cache-Control: max-age=2592000");
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productPages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="fa fa-gift" aria-hidden="true"></i>
                     <span>Sản phẩm</span>
                 </a>
                 <div id="productPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -150,6 +147,45 @@ header("Cache-Control: max-age=2592000");
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fa fa-address-book" aria-hidden="true"></i>
+                    <span>Khách hàng</span>
+                </a>
+                <div id="customer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý khách hàng:</h6>
+                        <a class="collapse-item" href="customer-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PriceShip" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fa fa-ship" aria-hidden="true"></i>
+                    <span>Giá ship</span>
+                </a>
+                <div id="PriceShip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý giá ship:</h6>
+                        <a class="collapse-item" href="updatePriceShip"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </i> Cập nhật</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discount" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fa fa-percent" aria-hidden="true"></i>
+                    <span>Mã giảm giá</span>
+                </a>
+                <div id="discount" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Ql mã giảm giá:</h6>
+                        <a class="collapse-item" href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm slider</a>
+                        <a class="collapse-item" href="discount-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                    </div>
+                </div>
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#slider" aria-expanded="true" aria-controls="collapseTwo">
@@ -161,6 +197,20 @@ header("Cache-Control: max-age=2592000");
                         <h6 class="collapse-header">Quản lý slider:</h6>
                         <a class="collapse-item" href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm slider</a>
                         <a class="collapse-item" href="slider-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#changePassword" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                    <span>Mật khẩu</span>
+                </a>
+                <div id="changePassword" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Đổi mật khẩu</h6>
+                        <a class="collapse-item" href="changepassword"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </i> Cập nhật</a>
                     </div>
                 </div>
             </li>
