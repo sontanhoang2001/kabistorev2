@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     switch ($case) {
         case 1: {
                 $orderId = $_POST['orderId'];
+                // Trạng thái
                 $num_status = $_POST['num_status'];
                 echo $order_status = $ct->order_status($orderId, $num_status);
                 break;

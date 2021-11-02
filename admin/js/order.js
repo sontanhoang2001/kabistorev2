@@ -6,11 +6,6 @@ function order() {
         status = $(this).attr("data-status");
         orderId = $(this).attr("data-orderid");
         productId = $(this).attr("data-productid");
-    });
-    $(".btn[data-target='#statusModal1']").click(function () {
-        status = $(this).attr("data-status");
-        orderId = $(this).attr("data-orderid");
-        productId = $(this).attr("data-productid");
 
         // lấy dữ liệu row vị trí hiện tại
         var columnHeadings = $("thead th").map(function () {
@@ -23,6 +18,23 @@ function order() {
         quantity = columnValues[3];
     });
 
+    $(".btn[data-target='#statusModal1']").click(function () {
+
+        status = $(this).attr("data-status");
+        orderId = $(this).attr("data-orderid");
+        productId = $(this).attr("data-productid");
+        qty = $(this).attr("data-qty");
+
+        // lấy dữ liệu row vị trí hiện tại
+        var columnHeadings = $("thead th").map(function () {
+            return $(this).text();
+        }).get();
+        columnHeadings.pop();
+        var columnValues = $(this).parent().siblings().map(function () {
+            return $(this).text();
+        }).get();
+        quantity = columnValues[3];
+    });
 
     // kiểm tra row index hện tai
     var tr_index;
@@ -40,7 +52,7 @@ function order() {
             $("#updateStatusBtn0").removeAttr("disabled");
         }
     });
-    
+
     $("#statusOrder1").change(function (event) {
         statusOrder = $(this).val();
         if (statusOrder == 0) {
@@ -55,6 +67,7 @@ function order() {
     // hủy đơn : 3
     $("#updateStatusBtn0").click(function (event) {
         event.preventDefault();
+
         $.ajax({
             type: "POST",
             url: "~/../callbackPartial/order.php",
@@ -71,6 +84,7 @@ function order() {
                 } else if (statusOrder == 3) {
                     acctionMessage = "Hủy đơn hàng ";
                 }
+                console.log(statusOrder);
 
                 switch (Status) {
                     case 0: {
@@ -116,11 +130,13 @@ function order() {
     // hủy đơn, khách ko nhận hàng : 4
     $("#updateStatusBtn1").click(function (event) {
         event.preventDefault();
+        var num_case;
         if (statusOrder == 2) {
-            var num_case = 2;
+            num_case = 2;
         } else if (statusOrder == 4) {
-            var num_case = 1;
+            num_case = 1;
         }
+
         $.ajax({
             type: "POST",
             url: "~/../callbackPartial/order.php",
@@ -169,8 +185,6 @@ function order() {
             }
         });
     });
-
-
 
     // lấy dữ liệu row table hiện tại cho productModal
     $(".btn[data-target='#productModal']").click(function () {
@@ -227,6 +241,19 @@ function order() {
             }
         });
     });
+
+    // statusModal0 bị ẩn
+    $("#statusModal0").on('hide.bs.modal', function () {
+        $("#statusOrder0 option[value=0]").attr('selected', 'selected');
+        $("#statusOrder1 option[value=0]").attr('selected', 'selected');
+    });
+
+    // statusModal1 bị ẩn
+    $("#statusModal1").on('hide.bs.modal', function () {
+        $("#statusOrder0 option[value=0]").attr('selected', 'selected');
+        $("#statusOrder1 option[value=0]").attr('selected', 'selected');
+    });
+
     // productModal bị ẩn
     $('#productModal').on('hide.bs.modal', function () {
         $('#productCodeModel').val("");

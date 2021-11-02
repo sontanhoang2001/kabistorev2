@@ -78,6 +78,7 @@ $fm = new format();
 								$i++;
 								$orderId = $result['id'];
 								$productId = $result['productId'];
+								$quantity = $result['quantity'];
 								$address_id = $result['address_id'];
 								$status = $result['status'];
 						?>
@@ -87,7 +88,7 @@ $fm = new format();
 									<td>
 										<a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
 									</td>
-									<td><?php echo $result['quantity'] ?></td>
+									<td><?php echo $quantity ?></td>
 									<td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
 									<td>
 										<a href="#" data-addressid="<?php echo $address_id ?>" data-customerid="<?php echo $result['customer_id'] ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['name'] ?></a>
@@ -96,11 +97,11 @@ $fm = new format();
 										<?php
 										if ($status == 0) {
 										?>
-											<a href="#" data-status="0" data-orderid="<?php echo $orderId ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal0"><i class="fa fa-clock-o" aria-hidden="true"></i> Chờ duyệt...</a>
+											<a href="#" data-status="0" data-orderid="<?php echo $orderId ?>" data-qty="<?php echo $quantity ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal0"><i class="fa fa-clock-o" aria-hidden="true"></i> Chờ duyệt...</a>
 										<?php
 										} elseif ($status == 1) {
 										?>
-											<a href="#" data-orderid="<?php echo $orderId ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal1"><i class="fa fa-truck" aria-hidden="true"></i> Đang giao...</a>
+											<a href="#" data-status="1" data-orderid="<?php echo $orderId ?>" data-qty="<?php echo $quantity ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal1"><i class="fa fa-truck" aria-hidden="true"></i> Đang giao...</a>
 										<?php
 										}
 										?>

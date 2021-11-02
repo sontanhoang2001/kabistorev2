@@ -1,25 +1,17 @@
 <?php
 include 'inc/header.php';
 include 'lib/Social-Network-API/facebook_source.php';
-include 'callbackPartial/sendMailForgotPassword.php';
+//include 'callbackPartial/sendMailForgotPassword.php';
 // include 'lib/Social-Network-API/google_source.php';
 //Social-Network-API
 
 $login_check = Session::get('customer_login');
 if ($login_check) {
-  header('Location:index.php');
+  header('Location:index.php'); 
 }
 ?>
 
-<?php
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sendEmail'])) {
-//   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-//   $checkSendMail = checkSendMail($_POST); // hàm check catName khi submit lên
-// }
-?>
-
 <link rel="stylesheet" type="text/css" href="css/login-client.css">
-
 
 <div class="global-container">
   <div class="card login-form">
