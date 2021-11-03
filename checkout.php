@@ -119,7 +119,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                     </div>
                 </div>
                 <?php unset($_SESSION['cart_payment']);
-                $i = 1;
                 $subtotal = 0;
                 $ship = 0;
 
@@ -127,10 +126,10 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 while ($result_price = $get_price_ship->fetch_assoc()) {
                     $price_ship = $result_price['price'];
                 }
-
                 $customer_id = Session::get('customer_id');
                 $get_product_cart = $ct->get_product_cart($customer_id);
                 $num_rows = mysqli_num_rows($get_product_cart);
+                session::set("numberOfOrders", $num_rows);
                 ?>
                 <div class="col-md-5 col-responsive">
                     <div class="right-panel border bg-light shadow">
@@ -304,7 +303,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
         </form>
     </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="gpsModal" tabindex="-1" role="dialog" aria-labelledby="gpsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

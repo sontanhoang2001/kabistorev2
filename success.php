@@ -12,17 +12,17 @@ if ($discount != 0) {
     $discount = "...";
 }
 
-if (isset($get_payment)) {
-    if ($get_payment == false) {
-        header('Location:404.html');
-    } else {
-        $delCart = $ct->del_all_data_cart($customer_id);
-        if ($delCart) {
-            session::set("number_cart", 0);
-        }
-        Session::set('payment', false);
-    }
-}
+// if (isset($get_payment)) {
+//     if ($get_payment == false) {
+//         header('Location:404.html');
+//     } else {
+//         $delCart = $ct->del_all_data_cart($customer_id);
+//         if ($delCart) {
+//             session::set("number_cart", 0);
+//         }
+//         Session::set('payment', false);
+//     }
+// }
 ?>
 
 
@@ -35,11 +35,11 @@ if (isset($get_payment)) {
                 </div>
                 <div class="content m-4">
                     <h5 class="text-uppercase text-susscess">Thanh toán thành công!</h5>
-                    <h4 class="mt-4 theme-color mb-2 text-thankyou">Cảm ơn bạn đã ủng hộ</h4> <span class="theme-color">Tóm tắt hóa đơn</span>
-                    <div class="mb-3">
-                        <hr class="new1">
+                    <h4 class="mt-3 theme-color mb-2 text-thankyou">Cảm ơn bạn đã ủng hộ</h4>
+                    <div class="font-weight-bold mt-4">Tóm tắt hóa đơn</div>
+                    <div class="mb-3 mt-3">
+                        <p style="border-top: 2px dashed #bfbfbf;"></p>
                     </div>
-
                     <div class="row lower">
                         <strong class="col text-muted text-left">Tạm tính</strong>
                         <div class="col text-right"><?php echo $fm->format_currency($subtotal) . " ₫"  ?></div>
@@ -57,8 +57,10 @@ if (isset($get_payment)) {
                         <div class="col text-right"><b><span class="font-weight-bold theme-color"><?php echo $fm->format_currency($get_amount) . " ₫" ?></span></b>
                         </div>
                     </div>
-                    <div class="text-center mt-5"> <a class="btn btn-viewOrderDetails" href="orderdetails.html">Xem đơn hàng</a> </div>
-
+                    <div class="text-center mt-4"> <a class="btn btn-viewOrderDetails" href="orderdetails.html"><i class="fa fa-file-text-o" aria-hidden="true"></i> Xem đơn hàng</a> </div>
+                    <div class="row lower mt-3">
+                        <p class="col text-left"><b>Lưu ý:</b> Nhân viên của shop sẽ liên hệ đến bạn sớm nhất để xác nhận đơn hàng. bạn nhớ giữ liên lạc với Shop nhé!</p>
+                    </div>
                 </div>
             </div>
         </div>

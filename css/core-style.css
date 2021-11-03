@@ -4173,11 +4173,6 @@ input:focus::-webkit-input-placeholder {
     color: #30a728
 }
 
-hr.new1 {
-    border-top: 2px dashed #fff;
-    margin: 0.4rem 0
-}
-
 .btn-viewOrderDetails {
     color: #fff;
     background-color: #7fad39;

@@ -42,6 +42,8 @@ $('#f_order').submit(function (e) {
         $("#error-payment-methods2").show().delay(7000).fadeOut(1000);
     }
     else {
+        $('#orders').attr("disabled", "disabled");
+        $('#orders').text("Đang xử lý giao dịch...");
         var formData = {
             maps_maplat: $("#lat").val(),
             maps_maplng: $("#lng").val(),
@@ -65,6 +67,14 @@ $('#f_order').submit(function (e) {
                         $("#error-payment-methods_ajax" + indexCountMessage).show().delay(10000).fadeOut(1000).queue(function () { $(this).remove(); });
                         break;
                     } case 1: {
+                        $.ajax({
+                            type: "POST",
+                            url: "~/../callbackPartial/newOrderNotification.php",
+                            dataType: 'json',
+                            data: {},
+                            success: function (data) {
+                            }
+                        })
                         window.location.replace(getAbsolutePath() + "success.html");
                         break;
                     } case 2: {
@@ -75,12 +85,16 @@ $('#f_order').submit(function (e) {
                         $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods_ajax' + indexCountMessage + '"><strong>Cảnh báo!</strong><p class="text-success-result">Bạn đã đặt sản phẩm: <b> ' + productName + ' </b></p> với số lượng là ' + quantity + ' Chúng tôi chỉ còn ' + product_remain + ' sản phẩm. Vui lòng chỉnh sửa lại số lượng. <a href ="cart" class="alert-link">Chỉnh sửa</a ></div>');
                         $("#error-payment-methods_ajax" + i).show().delay(10000).fadeOut(1000).queue(function () { $(this).remove(); });
                         $("div#c" + cartId).css("background-color", "pink");
+                        $('#orders').text('<i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng');
+                        $('#orders').removeAttr("disabled");
                         break;
                     }
                     default: {
                         var message = "Lỗi máy chủ!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
+                        $('#orders').text('<i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng');
+                        $('#orders').removeAttr("disabled");
                     }
                 }
             }, error: function (data) {
@@ -88,6 +102,8 @@ $('#f_order').submit(function (e) {
                 var message = "Lỗi máy chủ!";
                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                 toast.change('Vui lòng thử lại...', 3500);
+                $('#orders').text('<i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng');
+                $('#orders').removeAttr("disabled");
             }
         });
         // e.preventDefault(success);

@@ -198,7 +198,6 @@ $('.input-quantitys').each(function (index, val) {
                         'quantity': quantity
                     },
                     success: function (data) {
-                        console.log(data);
                         // cập nhật lại giá rowPrice
                         rowTotalPrice = currency_vn(rowTotalPrice * quantity);
                         $('p#rowTotalPrice').eq(index).text(rowTotalPrice);
