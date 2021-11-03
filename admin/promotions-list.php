@@ -1,7 +1,5 @@
 <?php include 'inc/header.php';
 include '../classes/product.php';
-include '../classes/category.php';
-include '../classes/brand.php';
 require_once '../helpers/format.php';
 $product = new product();
 $fm = new Format();
@@ -86,7 +84,7 @@ if (isset($_GET['delpromotions']) && (isset($_GET['promotionsId']))) {
                                 $style = $result['style'];
                                 $creation_date = $result['creation_date'];
                                 $start_date = $result['start_date'];
-                                $start_end = $result['end_date'];
+                                $end_date = $result['end_date'];
                                 $status = $result['status'];
                         ?>
                                 <tr class="odd gradeX">
@@ -115,24 +113,24 @@ if (isset($_GET['delpromotions']) && (isset($_GET['promotionsId']))) {
                                         <?php echo $start_date ?>
                                     </td>
                                     <td>
-                                        <?php echo $start_end ?>
+                                        <?php echo $end_date ?>
                                     </td>
                                     <td>
                                         <?php
                                         if ($status == 1) {
                                         ?>
-                                            <a class="btn btn btn-success" href="?promotionsId=<?php echo $promotionsId ?>&status=0"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
+                                            <a class="btn btn btn-success" href="?update_statusPromotions=true&promotionsId=<?php echo $promotionsId ?>&status=0"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
                                         <?php
                                         } else {
                                         ?>
-                                            <a class="btn btn btn-warning" href="?promotionsId=<?php echo $promotionsId ?>&status=1"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
+                                            <a class="btn btn btn-warning" href="?update_statusPromotions=true&promotionsId=<?php echo $promotionsId ?>&status=1"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
                                         <?php
                                         }
                                         ?>
                                     </td>
                                     <td>
-                                        <a href="updatePromotions/promotionsId=<?php echo $promotionsId ?>" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="?delpromotions=true&promotionsId=<?php echo $promotionsId ?>" class="btn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        <a class="edit mr-2" href="update-Promotion?promotionsId=<?php echo $promotionsId ?>" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a class="delete" href="?delpromotions=true&promotionsId=<?php echo $promotionsId ?>" class="btn" data-confirm="Bạn có muốn xóa khuyến mãi không?"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                         <?php
@@ -154,4 +152,14 @@ if (isset($_GET['delpromotions']) && (isset($_GET['promotionsId']))) {
 <script>
     order();
     product_list();
+
+    $('.delete').on("click", function(e) {
+        e.preventDefault();
+
+        var choice = confirm($(this).attr('data-confirm'));
+
+        if (choice) {
+            window.location.href = $(this).attr('href');
+        }
+    });
 </script>

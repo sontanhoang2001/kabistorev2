@@ -51,7 +51,6 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
 <link rel="stylesheet" href="css/price_range_style.css">
 
 
-
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
     <div class="container h-100">

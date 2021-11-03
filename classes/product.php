@@ -851,6 +851,64 @@ class product
 			return $result;
 		}
 	}
-}
 
+	// Nhập sản phẩm admin
+	public function insert_promotions($formData)
+	{
+		$promotionsCode = mysqli_real_escape_string($this->db->link, $formData['promotionsCode']);
+		$promotionsName = mysqli_real_escape_string($this->db->link, $formData['promotionsName']);
+		$description = mysqli_real_escape_string($this->db->link, $formData['description']);
+		$condition = mysqli_real_escape_string($this->db->link, $formData['condition']);
+		$discountMoney = mysqli_real_escape_string($this->db->link, $formData['discountMoney']);
+		$style = mysqli_real_escape_string($this->db->link, $formData['style']);
+		$start_date = mysqli_real_escape_string($this->db->link, $formData['start_date']);
+		$end_date = mysqli_real_escape_string($this->db->link, $formData['end_date']);
+		$status = mysqli_real_escape_string($this->db->link, $formData['status']);
+
+		// 0 các trường ko đc bỏ trống
+		if ($promotionsCode == "" || $promotionsName == "" || $description == "" || $condition == "" || $discountMoney == "" || $style == "" || $start_date == "" || $end_date == "" || $status == "") {
+			return "Các trường không được bỏ trống!";
+		} else {
+			$query = "INSERT INTO `tbl_promotions` (`promotionsId`, `promotionsCode`, `promotionsName`, `description`, `condition`, `discountMoney`, `style`, `start_date`, `end_date`, `status`) VALUES (NULL, '$promotionsCode', '$promotionsName', '$description', '$condition', '$discountMoney', '$style', '$start_date', '$end_date', '$status');";
+			$result = $this->db->insert($query);
+			if ($result) {
+				// 1 thành công
+				return '<div class="text-success">Đã thêm mã giảm giá thành công!</div>';
+			} else {
+				// 2 thất bại
+				return '<div class="text-danger">Đã thêm mã giảm giá thất bại!!</div>';
+			}
+			//promotionsId`, `promotionsCode`, `promotionsName`, `description`, `condition`, `discountMoney`, `style`, `creation_date`, `start_date`, `end_date`, `status`
+		}
+	}
+
+	public function get_AllPromotion($promotionsId)
+	{
+		$query = "SELECT `promotionsId`, `promotionsCode`, `promotionsName`, `description`, `condition`, `discountMoney`, `style`, `creation_date`, `start_date`, `end_date`, `status` FROM `tbl_promotions` WHERE promotionsId = '$promotionsId'";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+	public function update_Promotion($promotionsId, $formData)
+	{
+		$promotionsCode = mysqli_real_escape_string($this->db->link, $formData['promotionsCode']);
+		$promotionsName = mysqli_real_escape_string($this->db->link, $formData['promotionsName']);
+		$description = mysqli_real_escape_string($this->db->link, $formData['description']);
+		$condition = mysqli_real_escape_string($this->db->link, $formData['condition']);
+		$discountMoney = mysqli_real_escape_string($this->db->link, $formData['discountMoney']);
+		$style = mysqli_real_escape_string($this->db->link, $formData['style']);
+		$start_date = mysqli_real_escape_string($this->db->link, $formData['start_date']);
+		$end_date = mysqli_real_escape_string($this->db->link, $formData['end_date']);
+		$status = mysqli_real_escape_string($this->db->link, $formData['status']);
+		$query = "UPDATE `tbl_promotions` SET `promotionsCode`='$promotionsCode',`promotionsName`='$promotionsName',`description`='$description',`condition`='$condition',`discountMoney`='$discountMoney',`style`='$style',`start_date`='$start_date',`end_date`='$end_date',`status`='$status' WHERE promotionsId = '$promotionsId'";
+		$result = $this->db->update($query);
+		if ($result) {
+			// 1 thành công
+			return '<div class="text-success">Đã thêm mã giảm giá thành công!</div>';
+		} else {
+			// 2 thất bại
+			return '<div class="text-danger">Đã thêm mã giảm giá thất bại!!</div>';
+		}
+	}
+}
 ?>

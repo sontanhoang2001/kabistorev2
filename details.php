@@ -18,6 +18,12 @@ include 'inc/facebookPlugin.php';
 ?>
 <link rel="stylesheet" href="css/details.css">
 
+<!-- <link rel="stylesheet" href="css/index.css"> -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+
+
 <body>
 	<!-- ##### Single Product Details Area Start ##### -->
 	<?php
@@ -157,6 +163,170 @@ include 'inc/facebookPlugin.php';
 			</div>
 		</div>
 	</div>
+
+	<!-- Swiper -->
+	<div class="wrapper" id="wrapper_product">
+		<div class="carousel-product owl-carousel">
+			<?php
+			$get_all_product_Featured = $product->get_all_product_Featured();
+			if ($get_all_product_Featured) {
+				while ($result = $get_all_product_Featured->fetch_assoc()) {
+					$productId = $result['productId'];
+					$product_img =  json_decode($result['image']);
+					echo $product_img = $product_img[0]->image;
+			?>
+					<!-- Single Product -->
+					<div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
+						<!-- Product Image -->
+						<div class="product-img">
+							<img src="<?php echo $product_img ?>" loading="lazy">
+							<ul class="card-button-shop">
+								<li>
+									<img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+									<a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+								</li>
+								<?php
+								$wishlist_check = $product->wishlist_check($customer_id, $productId);
+								$login_check = Session::get('customer_login');
+								if ($login_check) {
+									if ($wishlist_check) {
+								?>
+										<li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" data-productid="<?php echo $productId ?>"></a></li>
+									<?php
+									} else {
+									?>
+										<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
+									<?php
+									}
+								} else {
+									?>
+									<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></a></li>
+								<?php
+								}
+								?>
+								<li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+							</ul>
+
+							<!-- Product Badge -->
+							<?php
+							$old_price = $result['old_price'];
+							$price = $result['price'];
+							if ($old_price != 0) {
+								$per = round($temp = (($price * 100) / $old_price) - 100);
+								echo '<div class="product-badge offer-badge"><span>';
+								echo $per . " %";
+								echo '</span></div>';
+							}
+							?>
+							<!-- Favourite -->
+							<!-- <div class="product-favourite">
+                                                    <?php
+													$result['productId'];
+													$customer_id = Session::get('customer_id');
+													$wishlist_check = $product->wishlist_check($customer_id, $result['productId']);
+
+													$login_check = Session::get('customer_login');
+													if ($login_check) {
+														if ($wishlist_check) {
+															echo '<a href="#" class="favme active fa fa-heart"></a>';
+														} else {
+															echo '<a href="#" class="favme fa fa-heart"></a>';
+														}
+													}
+													?>
+                                                </div> -->
+						</div>
+						<!-- Product Description -->
+						<div class="product-description">
+							<span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
+							<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+								<div class="text-dark"><?php echo $result['productName'] ?></div>
+							</a>
+							<p class="product-price">
+								<?php if ($old_price != 0) {
+								?>
+									<span class="old-price"><?php echo $fm->format_currency($old_price) . " " . "VND" ?></span>&nbsp;
+								<?php
+								}
+								?>
+								<?php echo $fm->format_currency($result['price']) . " ₫" ?>
+							<div class="sell-out">Đã bán <?php echo $result['product_soldout'] ?></div>
+							</p>
+						</div>
+					</div>
+
+			<?php
+				}
+			}
+			?>
+		</div>
+		<!-- Add Pagination -->
+		<div class="swiper-pagination"></div>
+	</div>
+
+	<div class="row">
+
+		<!-- Gallery item -->
+		<div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+			<div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" class="lazy img-fluid card-img-top" lazy>
+				<div class="p-4">
+					<h5> <a href="#" class="text-dark">Red paint cup</a></h5>
+					<p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+					<div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+						<p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+						<div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+
+		<!-- Gallery item -->
+		<div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+			<div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" class="lazy img-fluid card-img-top" lazy>
+				<div class="p-4">
+					<h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+					<p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+					<div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+						<p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
+						<div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+
+		<!-- Gallery item -->
+		<div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+			<div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" class="lazy img-fluid card-img-top" lazy>
+				<div class="p-4">
+					<h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+					<p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+					<div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+						<p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+						<div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+
+		<!-- Gallery item -->
+		<div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+			<div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" class="lazy img-fluid card-img-top">
+				<div class="p-4">
+					<h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+					<p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+					<div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+						<p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
+						<div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+	</div>
+
 	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i style="margin-top: 10px;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
 </body>
 <?php

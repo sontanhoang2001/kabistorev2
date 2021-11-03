@@ -5,16 +5,11 @@
 <?php
 
 $pd = new product();
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-//     $insertProduct = $pd->insert_product($_POST, $_FILES);
-// }
-?>
-
-<?php
-if (isset($insertProduct)) {
-    echo $insertProduct;
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+    $insert_promotions = $pd->insert_promotions($_POST);
 }
 ?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -38,39 +33,45 @@ if (isset($insertProduct)) {
 
                             <div class="form-group">
                                 <label for="validation1">Mã giảm giá</label>
-                                <input class="form-control" id="validation1" type="text" name="product_code" placeholder="Vd: 4583258743857..." required>
+                                <input class="form-control" id="validation1" type="text" name="promotionsCode" placeholder="Vd: hellokabistore..." required>
                                 <div class="valid-feedback">Looks good!</div>
                             </div>
                             <div class="form-group">
                                 <label for="validation2">Tên mã giảm giá</label>
-                                <input class="form-control" id="validation2" type="text" name="productName" placeholder="Vd: búp bê baby..." required>
+                                <input class="form-control" id="validation2" type="text" name="promotionsName" placeholder="Vd: Mừng ngày khai trương..." required>
                                 <div class="valid-feedback">Looks good!</div>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputdefault">Mô tả mã giảm giá</label>
-                                <textarea class="form-control" id="product_desc" class="tinymce" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <textarea class="form-control" id="description" name="description" style="vertical-align: top; padding-top: 9px; width: 100%;" placeholder="Vd: Mô tả ngắn gọn..." required></textarea>
                             </div>
 
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="validation3">Đơn mua tối thiểu</label>
-                                        <input class="form-control" id="validation3" type="number" name="productQuantity" placeholder="Vd: 900" min="1" required>
+                                        <input class="form-control" id="validation3" type="number" name="condition" min="1" placeholder="Vd: 50000..." required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
                                         <label for="validation5">Số tiền giảm giá</label>
-                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" required>
+                                        <input class="form-control" id="validation5" type="number" name="discountMoney" min="0" placeholder="Vd: 5000..." required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
                                         <label for="sel1">Màu sắc</label>
-                                        <select class="form-control" id="select" name="brand">
-                                            <option value="0">Lựa chọn</option>
-                                            <option value=""></option>
+                                        <select class="form-control" id="select" name="style">
+                                            <option value="null">Lựa chọn</option>
+                                            <option selected value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
                                         </select>
                                     </div>
                                 </div>
@@ -80,13 +81,13 @@ if (isset($insertProduct)) {
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="validation3">Ngày bắt đầu khuyến mãi</label>
-                                        <input class="form-control" id="validation3" type="datetime-local" name="productQuantity" placeholder="Vd: 900" min="1" required>
+                                        <input class="form-control" id="validation3" type="datetime-local" name="start_date" placeholder="Vd: 900" min="1" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="validation5">Ngày kết thúc khuyến mãi</label>
-                                        <input class="form-control" id="validation5" type="datetime-local" name="old_price" placeholder="Vd: 900" min="0" required>
+                                        <input class="form-control" id="validation5" type="datetime-local" name="end_date" placeholder="Vd: 900" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
                                 </div>
@@ -95,10 +96,10 @@ if (isset($insertProduct)) {
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label for="sel1">Trạng thái</label>
-                                        <select class="form-control" id="type" name="type">
+                                        <select class="form-control" id="type" name="status">
                                             <option selected value="null">Lựa chọn</option>
                                             <option value="0">Tắt</option>
-                                            <option value="1">Bật</option>
+                                            <option selected value="1">Bật</option>
                                         </select>
                                     </div>
                                 </div>
@@ -108,6 +109,13 @@ if (isset($insertProduct)) {
                                 <button type="reset" class="btn btn-danger"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                             </div>
                         </form>
+                        <div class="form-group">
+                            <?php
+                            if (isset($insert_promotions)) {
+                                echo $insert_promotions;
+                            }
+                            ?>
+                        </div>
                     </div>
                 </div>
                 <div class="text-right">
@@ -115,17 +123,9 @@ if (isset($insertProduct)) {
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
-`promotionsId`, `promotionsCode`, `promotionsName`, `description`, `condition`, `discountMoney`, `style`, `creation_date`, `start_date`, `end_date`, `status`
-
-<!-- Load TinyMCE -->
-
-<!-- Load TinyMCE -->
 <?php include 'inc/footer.php'; ?>
 <script src="js/product.js"></script>
-<script>
-    add_product();
-</script>
+<script src="js/bs-validation.js"></script>

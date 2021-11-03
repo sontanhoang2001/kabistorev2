@@ -335,7 +335,8 @@ $fm = new Format();
 
                             <div class="form-group">
                                 <label for="inputdefault">Mô tả sản phẩm</label>
-                                <textarea class="form-control" id="product_desc" class="tinymce" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <button type="button" class="btn-light pull-right" id="btnEditor">editor</button>
+                                <textarea class="form-control tinymce" id="product_desc" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -393,3 +394,21 @@ $fm = new Format();
     order();
     product_list();
 </script>
+
+<!-- BEGIN: load jquery -->
+<script type="text/javascript" src="js/jquery-ui/jquery.ui.core.min.js"></script>
+<script src="js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
+
+<!-- END: load jquery -->
+<script src="js/setup.js" type="text/javascript"></script>
+<script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $('#btnEditor').click(function() {
+        setupTinyMCE();
+        // setDatePicker('date-picker');
+        // $('input[type="checkbox"]').fancybutton();
+        // $('input[type="radio"]').fancybutton();
+    })
+</script>
+<!-- Load TinyMCE -->

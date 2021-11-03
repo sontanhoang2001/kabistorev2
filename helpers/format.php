@@ -38,6 +38,11 @@ class Format
       return date('Y-m-d H:i:s');
    }
 
+   public function formatDateTimeSetTimestampl($date)
+   {
+      return date_format(date_create()->setTimestamp(strtotime($date))->setTimezone(new DateTimeZone('Asia/Hong_Kong')), 'c');
+   }
+
    public function formatDateTime()
    {
       date_default_timezone_set('Asia/Ho_Chi_Minh');

@@ -3,18 +3,9 @@
 <?php include '../classes/brand.php';  ?>
 <?php include '../classes/product.php';  ?>
 <?php
-
 $pd = new product();
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-//     $insertProduct = $pd->insert_product($_POST, $_FILES);
-// }
 ?>
 
-<?php
-if (isset($insertProduct)) {
-    echo $insertProduct;
-}
-?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -126,7 +117,8 @@ if (isset($insertProduct)) {
                             </div>
                             <div class="form-group">
                                 <label for="inputdefault">Mô tả sản phẩm</label>
-                                <textarea class="form-control" id="product_desc" class="tinymce" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <button type="button" class="btn-light pull-right" id="btnEditor">editor</button>
+                                <textarea class="form-control tinymce" id="product_desc" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -162,6 +154,26 @@ if (isset($insertProduct)) {
 <!-- Load TinyMCE -->
 <?php include 'inc/footer.php'; ?>
 <script src="js/product.js"></script>
+<script src="js/bs-validation.js"></script>
 <script>
     add_product();
 </script>
+
+<!-- BEGIN: load jquery -->
+<script type="text/javascript" src="js/jquery-ui/jquery.ui.core.min.js"></script>
+<script src="js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
+
+<!-- END: load jquery -->
+<script src="js/setup.js" type="text/javascript"></script>
+<script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $('#btnEditor').click(function() {
+        $('#description').removeClass().addClass("tinymce");
+        setupTinyMCE();
+        // setDatePicker('date-picker');
+        // $('input[type="checkbox"]').fancybutton();
+        // $('input[type="radio"]').fancybutton();
+    })
+</script>
+<!-- Load TinyMCE -->

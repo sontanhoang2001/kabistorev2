@@ -31,7 +31,7 @@ class adminlogin
 
 		if (empty($adminUser) || empty($adminPass)) {
 			$alert = "User and Pass không nhập rỗng";
-			return $alert;	
+			return $alert;
 		} else {
 			$query = "SELECT * FROM tbl_admin WHERE adminUser = '$adminUser' AND adminPass = '$adminPass' LIMIT 1 ";
 			$result = $this->db->select($query);
@@ -48,8 +48,7 @@ class adminlogin
 				Session::set('adminName', $value['adminName']);
 				header("Location:index.php");
 			} else {
-				$alert = "User and Pass not match";
-				return $alert;
+				return '<div class="text-danger">Mật khẩu vừa nhập không đúng!</div>';
 			}
 		}
 		$this->db = null;
