@@ -66,24 +66,12 @@ include_once "inc/checkManager.php";
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link href="css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />
-    <!-- 
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-    <script>
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "0d28d541-beb1-40cc-8d00-785bb0e91d63",
-            });
-        });
-    </script> -->
-
 
     <!-- Latest compiled and minified CSS & JS -->
 
     <!-- <link rel="stylesheet" type="text/css" href="css/loader.css" /> -->
 
     <!-- <link rel="stylesheet" href="jquery-lib/jquery-ui.css"/>     -->
-    <!-- <link rel="stylesheet" type="text/css" href="css/theme-general.css"> -->
 
     <!-- <script type="text/javascript">
         $(document).ready(function($) {
@@ -94,8 +82,8 @@ include_once "inc/checkManager.php";
             });
         });
     </script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/security.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/security.js"></script>
 
     <link rel="stylesheet" href="css/message.css">
 </head>
@@ -240,41 +228,6 @@ include_once "inc/checkManager.php";
                                                 }
                                                 ?>&nbsp;</span>
                 </a>
-
-                <!-- <a href="#" id="essenceCartBtn" data-toggle="dropdown" role="button" aria-expanded="false">&nbsp<img src="img/core-img/bag.svg" alt=""></a>
-                    <ul class="dropdown-menu dropdown-cart" role="menu">
-                        <li>
-                            <span class="item">
-                                <span class="item-left">
-                                    <img src="http://www.prepbootstrap.com/Content/images/template/menucartdropdown/item_4.jpg" alt="" />
-                                    <span class="item-info">
-                                        <span>Item name</span>
-                                        <span>Giá: 7$</span>
-                                    </span>
-                                </span>
-                                <span class="item-right">
-                                    <button class="btn btn-danger  fa fa-close"></button>
-                                </span>
-                            </span>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <span>
-                                <?php
-                                // $check_cart = $ct->check_cart();
-                                // if ($check_cart) {
-                                //     $sum = Session::get("sum");
-                                //     $qty = Session::get("qty");
-                                //     echo $fm->format_currency($sum) . 'Đ' . ' ' . ' SL: ' . $qty;
-                                // } else {
-                                //     echo '0';
-                                // }
-                                ?>
-                            </span>
-                        </li>
-                        <li><a class="text-center" href="#">Xem vỏ hàng</a></li>
-                    </ul>
-                    </a> -->
             </div>
 
             <!-- User Login Info -->

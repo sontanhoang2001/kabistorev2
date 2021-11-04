@@ -151,7 +151,7 @@ $('a#remove-wishlist').each(function (index, val) {
 // Add to cart
 $(".add_to_cart").click(function (event) {
     var productId = $(this).attr("data-productid");
-        productSize = $(this).attr("data-id-1");
+    productSize = $(this).attr("data-id-1");
     event.preventDefault();
     $.ajax({
         type: "POST",

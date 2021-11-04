@@ -67,14 +67,6 @@ $('#f_order').submit(function (e) {
                         $("#error-payment-methods_ajax" + indexCountMessage).show().delay(10000).fadeOut(1000).queue(function () { $(this).remove(); });
                         break;
                     } case 1: {
-                        $.ajax({
-                            type: "POST",
-                            url: "~/../callbackPartial/newOrderNotification.php",
-                            dataType: 'json',
-                            data: {},
-                            success: function (data) {
-                            }
-                        })
                         window.location.replace(getAbsolutePath() + "success.html");
                         break;
                     } case 2: {

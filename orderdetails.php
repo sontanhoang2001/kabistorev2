@@ -160,7 +160,7 @@ if ($login_check == false) {
 									} else {
 									?>
 										<td>
-											<div class="float-right"><?php echo 'Đã giao'; ?></div>
+											<div class="float-right"><i class="fa fa-check-circle" aria-hidden="true" style="color: #4caf50;"></i> Đã nhận hàng</div>
 										</td>
 									<?php
 									}

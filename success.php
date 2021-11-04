@@ -70,9 +70,4 @@ if (isset($get_payment)) {
 <?php
 include 'inc/footer.php';
 ?>
-<script>
-    $(document).ready(function() {
-        audioSuccess.play();
-        $(".number_cart").html("0");
-    });
-</script>
+<script src="js/success.js"></script>

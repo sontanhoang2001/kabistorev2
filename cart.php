@@ -15,8 +15,6 @@ $discount = session::set('discountMoney', 0);
 // }
 ?>
 
-<link rel="stylesheet" href="css/theme-general.css">
-<!-- <link rel="stylesheet" href="css/cart.css"> -->
 <!-- jQuery Nice Number CSS -->
 <link rel="stylesheet" href="css/jquery.nice-number.min.css">
 

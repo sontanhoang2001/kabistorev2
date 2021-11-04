@@ -279,9 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 <!-- ##### Shop Grid Area End ##### -->
 
 
-
 <?php
-include 'inc/bs-modal.php';
 include 'inc/footer.php';
 ?>
 

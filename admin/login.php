@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../js/security.js"></script>
 </head>
+
 <body class="bg-gradient-primary">
     <div class="container">
         <!-- Outer Row -->
@@ -87,5 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 </body>
+
 </html>
 <script src="../js/customer.js"></script>

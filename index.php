@@ -330,10 +330,10 @@ include 'inc/global.php';
                 <div class="row mt-5">
                     <div class="col-md-6">
                         <!-- Your embedded video player code -->
-                        <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/10153231379946729/" data-width="500" data-show-text="false" data-lazy="true">
+                        <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/<?php echo $video1 ?>/" data-width="500" data-show-text="false" data-lazy="true">
                             <div class="fb-xfbml-parse-ignore">
-                                <blockquote cite="https://www.facebook.com/facebook/videos/10153231379946729/">
-                                    <a href="https://www.facebook.com/facebook/videos/10153231379946729/">How to Share With Just Friends</a>
+                                <blockquote cite="https://www.facebook.com/facebook/videos/<?php echo $video1 ?>/">
+                                    <a href="https://www.facebook.com/facebook/videos/<?php echo $video1 ?>/">How to Share With Just Friends</a>
                                     <p>How to share with just friends.</p>
                                     Posted by <a href="https://www.facebook.com/facebook/">Facebook</a> on Friday, December 5, 2014
                                 </blockquote>
@@ -342,17 +342,16 @@ include 'inc/global.php';
                     </div>
                     <div class="col-md-6">
                         <!-- Your embedded video player code -->
-                        <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/10153231379946729/" data-width="500" data-show-text="false" data-lazy="true">
+                        <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/<?php echo $video2 ?>/" data-width="500" data-show-text="false" data-lazy="true">
                             <div class="fb-xfbml-parse-ignore">
-                                <blockquote cite="https://www.facebook.com/facebook/videos/10153231379946729/">
-                                    <a href="https://www.facebook.com/facebook/videos/10153231379946729/">How to Share With Just Friends</a>
+                                <blockquote cite="https://www.facebook.com/facebook/videos/<?php echo $video2 ?>/">
+                                    <a href="https://www.facebook.com/facebook/videos/<?php echo $video2 ?>/">How to Share With Just Friends</a>
                                     <p>How to share with just friends.</p>
                                     Posted by <a href="https://www.facebook.com/facebook/">Facebook</a> on Friday, December 5, 2014
                                 </blockquote>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -382,9 +381,9 @@ include 'inc/global.php';
                     <div class="row">
                         <!--Grid column-->
                         <div class="col-md-4 mb-3">
-                            <i class="fa fa-handshake-o fa-4x orange-text"></i>
-                            <h4 class="my-4 font-weight-bold">Đối Tác</h4>
-                            <p class="grey-text">Hiện nay chúng tôi đã có hơn 100+ đối tác các shop lớn nhỏ trong trung tâm.</p>
+                            <i class="fa fa-newspaper-o fa-4x orange-text"></i>
+                            <h4 class="my-4 font-weight-bold">Cập nhật mới nhất</h4>
+                            <p class="grey-text">Sản phẩm của chúng tôi luôn được cập nhật mới nhất, tầng suất mỗi ngày.</p>
                         </div>
                         <!--Grid column-->
                         <!--Grid column-->
@@ -396,9 +395,9 @@ include 'inc/global.php';
                         <!--Grid column-->
                         <!--Grid column-->
                         <div class="col-md-4 mb-3">
-                            <i class="fa fa-newspaper-o fa-4x orange-text"></i>
-                            <h4 class="my-4 font-weight-bold">Cổng Thông Tin</h4>
-                            <p class="grey-text">Chúng tôi luôn cập nhật thông tin chính thống mới nhất đến người tiêu dùng thông minh.</p>
+                            <i class="fa fa-handshake-o fa-4x orange-text"></i>
+                            <h4 class="my-4 font-weight-bold">Đối Tác</h4>
+                            <p class="grey-text">Hiện nay chúng tôi đã có hơn 50+ đối tác các shop lớn nhỏ trong trung tâm.</p>
                         </div>
                         <!--Grid column-->
                     </div>
