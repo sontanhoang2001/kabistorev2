@@ -1,5 +1,7 @@
 <?php
 include 'inc/header.php';
+include 'inc/global.php';
+
 if (!isset($_GET['proid']) || $_GET['proid'] == NULL) {
 	echo "<script> window.location = '404.php' </script>";
 } else {
@@ -162,6 +164,7 @@ include 'inc/facebookPlugin.php';
 		</div>
 	</div>
 
+
 	<div class="container mb-5">
 		<h5 class="mb-5">Sản phẩm gợi ý cho bạn</h5>
 
@@ -169,9 +172,9 @@ include 'inc/facebookPlugin.php';
 		<div class="wrapper" id="wrapper_product">
 			<div class="carousel-relatedProduct owl-carousel">
 				<?php
-				$get_all_product_Featured = $product->get_all_product_Featured();
-				if ($get_all_product_Featured) {
-					while ($result = $get_all_product_Featured->fetch_assoc()) {
+				$get_relatedProduct = $product->get_relatedProduct($productid);
+				if ($get_relatedProduct) {
+					while ($result = $get_relatedProduct->fetch_assoc()) {
 						$productId = $result['productId'];
 						$product_img =  json_decode($result['image']);
 						$product_img = $product_img[0]->image;
@@ -184,7 +187,7 @@ include 'inc/facebookPlugin.php';
 								<ul class="card-button-shop">
 									<li>
 										<img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
-										<a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+										<a class="add_to_cart fa fa-cart-plus" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"></a>
 									</li>
 									<?php
 									$wishlist_check = $product->wishlist_check($customer_id, $productId);
@@ -205,7 +208,7 @@ include 'inc/facebookPlugin.php';
 									<?php
 									}
 									?>
-									<li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+									<li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
 								</ul>
 
 								<!-- Product Badge -->
@@ -239,8 +242,7 @@ include 'inc/facebookPlugin.php';
 							</div>
 							<!-- Product Description -->
 							<div class="product-description">
-								<span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
-								<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+								<a href="details/<?php echo $productId ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
 									<div class="text-dark"><?php echo $result['productName'] ?></div>
 								</a>
 								<p class="product-price">

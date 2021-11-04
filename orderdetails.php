@@ -49,6 +49,12 @@ if ($login_check == false) {
 	}
 </style>
 
+<!-- Messenger Plugin chat Code -->
+<div id="fb-root"></div>
+
+<!-- Your Plugin chat code -->
+<div id="fb-customer-chat" class="fb-customerchat"></div>
+
 <h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 <div class="wrap cf">
 	<div class="heading cf" style="border-bottom: none">
@@ -302,3 +308,4 @@ include 'inc/footer.php';
 	loadOrderMap(12.550343, 55.665957);
 	// mapSave(cusMaps_maplng, cusMaps_maplat);
 </script>
+<script src="js/fbchat.js"></script>

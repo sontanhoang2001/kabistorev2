@@ -274,7 +274,7 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                                 <?php
                                                 }
                                                 ?>
-                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                             </ul>
                                             <!-- Product Badge -->
 

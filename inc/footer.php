@@ -1,10 +1,3 @@
-    <!-- Messenger Plugin chat Code -->
-    <!-- <div id="fb-root"></div> -->
-
-    <!-- Your Plugin chat code -->
-    <!-- <div id="fb-customer-chat" class="fb-customerchat">
-    </div> -->
-
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
         <div class="container">
@@ -51,7 +44,7 @@
                     <!-- Single Widget Area -->
                     <div class="single_widget_area">
                         <div class="footer_social_area">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="https://www.facebook.com/ilovekabistore" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
@@ -157,29 +150,7 @@
         });
     </script>
 
-    <!-- <script>
-        var chatbox = document.getElementById('fb-customer-chat');
-        chatbox.setAttribute("page_id", "105932671830866");
-        chatbox.setAttribute("attribution", "biz_inbox");
-
-        window.fbAsyncInit = function() {
-            FB.init({
-                xfbml: true,
-                version: 'v12.0'
-            });
-        };
-
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script> -->
-
-    <script type="text/javascript"> 
+    <script type="text/javascript">
         $(document).ready(function() {
             if (loginAlert == true) {
                 var message = "Bạn đã đăng nhập thành công!";

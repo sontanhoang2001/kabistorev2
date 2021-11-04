@@ -910,5 +910,21 @@ class product
 			return '<div class="text-danger">Đã thêm mã giảm giá thất bại!!</div>';
 		}
 	}
+
+	public function get_relatedProduct($productid)
+	{
+		$query = "SELECT catId FROM `tbl_product` WHERE productId = '$productid'";
+		$get_relatedProduct = $this->db->select($query);
+		if ($get_relatedProduct) {
+			$result = $get_relatedProduct->fetch_assoc();
+			$catId = $result['catId'];
+
+			$query = "SELECT productId, productName, `type` ,product_soldout,old_price, price, `image`, size
+		FROM tbl_product
+		WHERE  catId = '$catId' ORDER BY productId DESC LIMIT 12";
+			$result = $this->db->select($query);
+			return $result;
+		}
+	}
 }
 ?>

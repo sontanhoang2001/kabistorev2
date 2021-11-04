@@ -203,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 													<?php
 													} else {
 													?>
-														<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
+														<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></a></li>
 													<?php
 													}
 												} else {

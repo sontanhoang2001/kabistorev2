@@ -2,8 +2,6 @@
 include 'inc/header.php';
 include 'inc/slider.php';
 include 'inc/global.php';
-
-// echo session::get('accessToken');
 ?>
 
 <!-- All css index -->
@@ -12,39 +10,9 @@ include 'inc/global.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 
-<!-- API Voice Robot -->
-<!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=5CJ9DfAD"></script>
-<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<input id="text" type="hidden" value="Chào mừng Độ Nguyễn đã đến với Tấn Hoàng Shop"></input>
-<input id="voiceselection" type="hidden" value="Vietnamese Female"></input> -->
-
-
-<script>
-    //Populate voice selection dropdown
-    // var voicelist = responsiveVoice.getVoices();
-    // var vselect = $("#voiceselection");
-    // $.each(voicelist, function() {
-    //     vselect.append($("<option />").val(this.name).text(this.name));
-    // });
-
-
-    // responsiveVoice.speak($('#text').val(),$('#voiceselection').val());
-
-    // window.document.onload = function() {
-    //     // alert("Image is loaded");
-    //     //setTimeout(responsiveVoice.speak("Welcome to the Responsive Voice website","Vietnamese Female"),150);
-    // }
-</script>
-<!-- <input id="click-robot" onclick="responsiveVoice.speak($('#text').val(),$('#voiceselection').val());" type="button" value="🔊 Play"/> -->
-
-<!-- API Voice Robot -->
-
 <!-- <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false"> -->
 
 <body>
-
     <div class="container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item active">
@@ -99,7 +67,7 @@ include 'inc/global.php';
                                             <?php
                                             }
                                             ?>
-                                            <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+                                            <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                         </ul>
 
                                         <!-- Product Badge -->
@@ -162,7 +130,7 @@ include 'inc/global.php';
             <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="profile-tab">
                 <!-- Swiper -->
                 <div class="wrapper">
-                    <div class="carousel-product owl-carousel">
+                    <div class="carousel-relatedProduct owl-carousel">
                         <?php
                         foreach ($_SESSION['menuCategory'] as $val) {
                             $catId = $val['catId'];
@@ -170,13 +138,13 @@ include 'inc/global.php';
                             $product_img = $val['product_img'];
                         ?>
                             <!-- Single Product -->
-                            <div class="single-product-wrapper">
+                            <div class="single-product-wrapper categoryWrapper">
 
                                 <!-- Product Image -->
-                                <div class="product-img">
+                                <div class="product-img relatedProducts">
                                     <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html">
                                         <img src="<?php echo $product_img ?>" loading="lazy">
-                                        <h5 class="categories_name"><?php echo $catName; ?></h5>
+                                        <h5 class="categories_name" id="categoryNameWrapper"><?php echo $catName; ?></h5>
                                     </a>
                                     <!-- Product Badge -->
                                 </div>
@@ -383,7 +351,7 @@ include 'inc/global.php';
                                                 <?php
                                                 }
                                                 ?>
-                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye"></i></a></li>
+                                                <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                             </ul>
 
                                             <!-- Product Badge -->
@@ -429,71 +397,42 @@ include 'inc/global.php';
             <div class="py-5 text-center"><a href="san-pham-f3p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
         </div>
 
+        <!-- Load Facebook SDK for JavaScript -->
+        <div id="fb-root"></div>
+        <script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+
         <div class="px-lg-5">
             <div class="container">
-                <h2 class="pt-4"><i class="fa fa-plug" aria-hidden="true"></i> Tiện ích kabistore</h2>
-                <p>Đây là các dịch vụ mà chúng tôi đang phát triển</p>
+                <h2 class="pt-4"><i class="fa fa-plug" aria-hidden="true"></i> Hướng dẫn mua hàng</h2>
+                <p>Video hướng dẫn cách bước đặt hàng tại Kabistore vô cùng đơn giản</p>
 
                 <div class="row mt-5">
-                    <!-- Gallery item -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                        <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" class="lazy img-fluid card-img-top" lazy>
-                            <div class="p-4">
-                                <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
-                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                    <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
-                                </div>
+                    <div class="col-md-6">
+                        <!-- Your embedded video player code -->
+                        <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/10153231379946729/" data-width="500" data-show-text="false" data-lazy="true">
+                            <div class="fb-xfbml-parse-ignore">
+                                <blockquote cite="https://www.facebook.com/facebook/videos/10153231379946729/">
+                                    <a href="https://www.facebook.com/facebook/videos/10153231379946729/">How to Share With Just Friends</a>
+                                    <p>How to share with just friends.</p>
+                                    Posted by <a href="https://www.facebook.com/facebook/">Facebook</a> on Friday, December 5, 2014
+                                </blockquote>
                             </div>
                         </div>
                     </div>
-                    <!-- End -->
+                    <div class="col-md-6">
+                        <!-- Your embedded video player code -->
+                        <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/10153231379946729/" data-width="500" data-show-text="false" data-lazy="true">
+                            <div class="fb-xfbml-parse-ignore">
+                                <blockquote cite="https://www.facebook.com/facebook/videos/10153231379946729/">
+                                    <a href="https://www.facebook.com/facebook/videos/10153231379946729/">How to Share With Just Friends</a>
+                                    <p>How to share with just friends.</p>
+                                    Posted by <a href="https://www.facebook.com/facebook/">Facebook</a> on Friday, December 5, 2014
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!-- Gallery item -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                        <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" class="lazy img-fluid card-img-top" lazy>
-                            <div class="p-4">
-                                <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                                    <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End -->
-
-                    <!-- Gallery item -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                        <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" class="lazy img-fluid card-img-top" lazy>
-                            <div class="p-4">
-                                <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End -->
-
-                    <!-- Gallery item -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                        <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" class="lazy img-fluid card-img-top">
-                            <div class="p-4">
-                                <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
-                                    <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End -->
                 </div>
             </div>
         </div>
