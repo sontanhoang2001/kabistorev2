@@ -1,11 +1,11 @@
 <?php
 include 'inc/header.php';
+Session::set('REQUEST_URI', getRequestUrls()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 ?>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="L6upGdNR"></script>
 
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -19,8 +19,6 @@ include 'inc/header.php';
             </div>
         </div>
     </div>
-    </div>
-
 </body>
 
 <?php include 'inc/footer.php' ?>

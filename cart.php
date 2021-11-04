@@ -2,7 +2,7 @@
 include 'inc/header.php';
 include 'inc/global.php';
 
-Session::set('REQUEST_URI', getRequestUrl()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
+Session::set('REQUEST_URI', getRequestUrls(0)); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 $login_check = Session::get('customer_login');
 if ($login_check == false) {
 	header('Location:login.php');
