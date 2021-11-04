@@ -501,8 +501,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                             role="presentation">
                                                             Tên khách hàng: ' . $customer_username . ' - ' . $customer_name . '
                                                             <tr>
-                                                                <td class="attributes_item"><a href="#">' . $numberOfOrders . ' sản phẩm</a>
-                                                                    <span> - Tổng thanh toán: ' . $fm->format_currency($grandTotal) . ' ₫' . '</span>
+                                                                <td class="attributes_item">
+                                                                    <span>' . $numberOfOrders . '  sản phẩm</span> - Tổng thanh toán: 
+                                                                    <a href="#">' . $fm->format_currency($grandTotal) . ' ₫' . '</a>
                                                                 </td>
                                                             </tr>
                                                         </table>

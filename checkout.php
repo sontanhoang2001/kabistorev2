@@ -1,8 +1,6 @@
 <?php
 include 'inc/header.php';
-?>
 
-<?php
 $disable_check_out = Session::get('disable_check_out');
 if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
     if (Session::get('payment') == false) {

@@ -12,17 +12,17 @@ if ($discount != 0) {
     $discount = "...";
 }
 
-// if (isset($get_payment)) {
-//     if ($get_payment == false) {
-//         header('Location:404.html');
-//     } else {
-//         $delCart = $ct->del_all_data_cart($customer_id);
-//         if ($delCart) {
-//             session::set("number_cart", 0);
-//         }
-//         Session::set('payment', false);
-//     }
-// }
+if (isset($get_payment)) {
+    if ($get_payment == false) {
+        header('Location:404.html');
+    } else {
+        $delCart = $ct->del_all_data_cart($customer_id);
+        if ($delCart) {
+            session::set("number_cart", 0);
+        }
+        Session::set('payment', false);
+    }
+}
 ?>
 
 

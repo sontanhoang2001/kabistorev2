@@ -563,7 +563,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                     <td>
                                                         <p class="f-fallback sub">Nếu như bạn gặp sự cố về vấn đề nào
                                                             đó. VD: như đơn hàng..., hãy liên hệ trực tiếp qua.</p>
-                                                        <p class="f-fallback sub">{{action_url}}</p>
+                                                        <p class="f-fallback sub">https://www.facebook.com/ilovekabistore</p>
                                                     </td>
                                                 </tr>
                                             </table>

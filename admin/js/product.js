@@ -358,12 +358,16 @@ function product_list() {
                             $("#editModal .close").click()
 
 
-                            // lấy img từ input
-                            const obj_img = JSON.parse(formData.image);
-
                             // cập nhật dữ liệu vào bảng
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 1).empty().append(formData.product_code);
-                            $('tbody tr td').eq((tr_index * 11) + tr_index + 2).empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
+
+                            try {
+                                // lấy img từ input
+                                const obj_img = JSON.parse(formData.image);
+                                $('tbody tr td').eq((tr_index * 11) + tr_index + 2).empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
+                            } catch (error) {
+
+                            }
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 3).empty().append(formData.productName);
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 7).empty().append(currency_vn(formData.price));
                             $('tbody tr td').eq((tr_index * 11) + tr_index + 8).empty().append(categoryTxt);

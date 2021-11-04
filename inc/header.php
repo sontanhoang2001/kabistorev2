@@ -22,47 +22,7 @@ $cs = new customer();
 $cat = new category();
 $product = new product();
 $bra = new brand();
-
-// Check login
-if (isset($_SESSION['customer_login'])) {
-    $login_check = Session::get('customer_login');
-    // check hiển thị thông báo đăng nhập
-    if (isset($_SESSION['loginAlert'])) {
-        $loginAlert = Session::get('loginAlert');
-        Session::set('loginAlert', false);
-        if ($loginAlert == true) {
-            echo '<script>var loginAlert = true;</script>';
-        } else {
-            echo '<script>var loginAlert = false;</script>';
-        }
-    } else {
-        echo '<script>var loginAlert = false;</script>';
-    }
-} else {
-    if (isset($_COOKIE['is_login'])) {
-        $login_cookie = $cs->login_cookie();
-        if ($login_cookie == true) {
-            echo '<script>var loginAlert = true;</script>';
-        } else {
-            echo '<script>var loginAlert = false;</script>';
-        }
-    } else {
-        echo '<script>var loginAlert = false;</script>';
-    }
-}
-
-//Loout
-if (isset($_GET['customer_id'])) {
-    $customer_id = $_GET['customer_id'];
-    // $delCart = $ct->del_all_data_cart($customer_id);
-    setcookie('is_login', '', time() - 3600, '/');
-    Session::destroy();
-}
-
-header("Cache-Control: no-cache, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-header("Cache-Control: max-age=2592000");
+include_once "inc/checkManager.php";
 ?>
 
 <!DOCTYPE html>
@@ -200,94 +160,88 @@ header("Cache-Control: max-age=2592000");
                             <li><a href="index.html"><i class="fa fa-home iconfa" aria-hidden="true"></i> Trang Chủ</a>
                             <li><a href="#"><i class="fa fa-shopping-cart iconfa" aria-hidden="true"></i> Shop</a>
                                 <div class="megamenu">
-                                    <ul class="single-mega cn-col-4">
-                                        <li class="title">Sen Đá</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Blouses &amp; Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Rompers</a></li>
-                                        <li><a href="shop.html">Bras &amp; Panties</a></li>
-                                    </ul>
-                                    <ul class="single-mega cn-col-4">
-                                        <li class="title">Men's Collection</li>
-                                        <li><a href="shop.html">T-Shirts</a></li>
-                                        <li><a href="shop.html">Polo</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
-                                    </ul>
-                                    <ul class="single-mega cn-col-4">
-                                        <li class="title">Kid's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
-                                    </ul>
-                                    <div class="single-mega cn-col-4">
-                                        <img src="img/bg-img/bg-6.jpg" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li><a href="#"><i class="fa fa-bars iconfa" aria-hidden="true"></i> Menu</a>
-                                <ul class="dropdown">
-                                    <li><a href="index.html">Trang Chủ</a></li>
-                                    <li><a href="san-pham-f0p1t0smem.html">Tất Cả Sản Phẩm</a></li>
                                     <?php
-                                    $customer_id = Session::get('customer_id');
-                                    $login_check = Session::get('customer_login');
-                                    if ($login_check) {
-                                    ?>
-                                        <li><a href="cart.html">Giỏ hàng</a></li>
-                                        <li><a href="orderdetails.html">Đơn hàng</a></li>
-                                        <li><a href="profile.html">Thông tin Cá nhân</a></li>
-                                        <li><a href="wishlist.html">Yêu thích</a> </li>
-                                        <li><a href="?customer_id=' . $customer_id . ' ">Đăng xuất</a></li>
-                                    <?php
-                                    } else {
-                                        echo '<li><a href="login.html">Đăng nhập</a><li>';
+                                    $numberMenuCategory = count($_SESSION['menuCategory']);
+                                    $tableMenuCategory = $numberMenuCategory / 3;
+                                    $menuCategoryIndex = 0;
+                                    foreach ($_SESSION['menuCategory'] as $val) {
+                                        $menuCategoryIndex++;
+                                        $catId = $val['catId'];
+                                        $catName = $val['catName'];
+
+                                        echo ($menuCategoryIndex == 1) ?
+                                            '<ul class="single-mega cn-col-4">
+                                            <li class="title">Đơn giản</li>' : '' ?>
+                            <li><a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html"><?php echo $catName ?></a></li>
+                        <?php
+                                        echo ($menuCategoryIndex == 2) ? '</ul>' : '';
                                     }
-                                    ?>
-                                </ul>
-                            </li>
-                            <li><a href="blog.html"><i class="fa fa-rss iconfa" aria-hidden="true"></i> Blog</a></li>
-                            <li><a href="contact.html"><i class="fa fa-phone-square iconfa" aria-hidden="true"></i> Liên Hệ</a></li>
-                        </ul>
+                        ?>
+
+                        <div class="single-mega cn-col-4">
+                            <img src="img/bg-img/bg-6.jpg" alt="">
+                        </div>
                     </div>
-                    <!-- Nav End -->
+                    </li>
+                    <li><a href="#"><i class="fa fa-bars iconfa" aria-hidden="true"></i> Menu</a>
+                        <ul class="dropdown">
+                            <li><a href="index.html">Trang Chủ</a></li>
+                            <li><a href="san-pham-f0p1t0smem.html">Tất Cả Sản Phẩm</a></li>
+                            <?php
+                            $customer_id = Session::get('customer_id');
+                            $login_check = Session::get('customer_login');
+                            if ($login_check) {
+                            ?>
+                                <li><a href="cart.html">Giỏ hàng</a></li>
+                                <li><a href="orderdetails.html">Đơn hàng</a></li>
+                                <li><a href="profile.html">Thông tin Cá nhân</a></li>
+                                <li><a href="wishlist.html">Yêu thích</a> </li>
+                                <li><a href="?customer_id=' . $customer_id . ' ">Đăng xuất</a></li>
+                            <?php
+                            } else {
+                                echo '<li><a href="login.html">Đăng nhập</a><li>';
+                            }
+                            ?>
+                        </ul>
+                    </li>
+                    <li><a href="blog.html"><i class="fa fa-rss iconfa" aria-hidden="true"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="fa fa-phone-square iconfa" aria-hidden="true"></i> Liên Hệ</a></li>
+                    </ul>
                 </div>
-            </nav>
+                <!-- Nav End -->
+        </div>
+        </nav>
 
-            <!-- Header Meta Data -->
-            <div class="header-meta d-flex clearfix justify-content-end">
-                <!-- Search Area -->
-                <div class="search-area">
-                    <form action="search.html" method="GET">
-                        <input type="search" name="key" id="search-text" placeholder="Tìm kiếm sản phẩm">
-                        <button type="submit"><i class="fa fa-search" aria-hidden="true" name="search_product" value="Tìm Kiếm"></i></button>
-                    </form>
-                    <ul id="suggestion"></ul>
-                </div>
+        <!-- Header Meta Data -->
+        <div class="header-meta d-flex clearfix justify-content-end">
+            <!-- Search Area -->
+            <div class="search-area">
+                <form action="search.html" method="GET">
+                    <input type="search" name="key" id="search-text" placeholder="Tìm kiếm sản phẩm">
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true" name="search_product" value="Tìm Kiếm"></i></button>
+                </form>
+                <ul id="suggestion"></ul>
+            </div>
 
 
-                <!-- Favourite Area -->
-                <div class="favourite-area">
-                    <a href="wishlist.html">&nbsp<img src="img/core-img/heart.svg" alt=""></a>
-                </div>
+            <!-- Favourite Area -->
+            <div class="favourite-area">
+                <a href="wishlist.html">&nbsp<img src="img/core-img/heart.svg" alt=""></a>
+            </div>
 
-                <!-- Cart Area -->
-                <div class="cart-area">
-                    <a href="cart.html" id="essenceCartBtn">&nbsp<img id="cart-img" src="img/core-img/cart.svg" alt="">
-                        <span class="number_cart"><?php
-                                                    if (isset($_SESSION['number_cart'])) {
-                                                        echo session::get('number_cart');
-                                                    } else {
-                                                        echo "0";
-                                                    }
-                                                    ?>&nbsp;</span>
-                    </a>
+            <!-- Cart Area -->
+            <div class="cart-area">
+                <a href="cart.html" id="essenceCartBtn">&nbsp<img id="cart-img" src="img/core-img/cart.svg" alt="">
+                    <span class="number_cart"><?php
+                                                if (isset($_SESSION['number_cart'])) {
+                                                    echo session::get('number_cart');
+                                                } else {
+                                                    echo "0";
+                                                }
+                                                ?>&nbsp;</span>
+                </a>
 
-                    <!-- <a href="#" id="essenceCartBtn" data-toggle="dropdown" role="button" aria-expanded="false">&nbsp<img src="img/core-img/bag.svg" alt=""></a>
+                <!-- <a href="#" id="essenceCartBtn" data-toggle="dropdown" role="button" aria-expanded="false">&nbsp<img src="img/core-img/bag.svg" alt=""></a>
                     <ul class="dropdown-menu dropdown-cart" role="menu">
                         <li>
                             <span class="item">
@@ -321,43 +275,43 @@ header("Cache-Control: max-age=2592000");
                         <li><a class="text-center" href="#">Xem vỏ hàng</a></li>
                     </ul>
                     </a> -->
-                </div>
+            </div>
 
-                <!-- User Login Info -->
-                <div class="user-login-info">
-                    <a href="#" data-toggle="dropdown">&nbsp<img src="img/core-img/user.svg" alt=""></a>
-                    <ul class="dropdown-menu dropdown-cart" role="menu">
+            <!-- User Login Info -->
+            <div class="user-login-info">
+                <a href="#" data-toggle="dropdown">&nbsp<img src="img/core-img/user.svg" alt=""></a>
+                <ul class="dropdown-menu dropdown-cart" role="menu">
+                    <?php
+                    $login_check = Session::get('customer_login');
+                    $customer_name = Session::get('customer_username');
+                    // if ($login_check == false) {
+                    //     echo '<div> Đăng nhập</div>';
+                    // } else {
+                    //     echo '<div>' . $customer_name . '</div>';
+                    // }
+                    // 
+                    ?>
+
+                    <span class="arrow_carrot-down"></span>
+                    <ul>
                         <?php
                         $login_check = Session::get('customer_login');
-                        $customer_name = Session::get('customer_username');
-                        // if ($login_check == false) {
-                        //     echo '<div> Đăng nhập</div>';
-                        // } else {
-                        //     echo '<div>' . $customer_name . '</div>';
-                        // }
-                        // 
+                        if ($login_check == false) {
+                            echo '<a class="user-login-option" href="login.html"><i class="fa fa-user"></i> Đăng nhập</a>';
+                        } else {
                         ?>
-
-                        <span class="arrow_carrot-down"></span>
-                        <ul>
-                            <?php
-                            $login_check = Session::get('customer_login');
-                            if ($login_check == false) {
-                                echo '<a class="user-login-option" href="login.html"><i class="fa fa-user"></i> Đăng nhập</a>';
-                            } else {
-                            ?>
-                                <li><a class="user-login-option" href="orderdetails.html"><i class="fa fa-clock-o" aria-hidden="true"></i> Đơn hàng</a></li>
-                                <li><a class="user-login-option" href="wishlist.html"><i class="fa fa-heart" aria-hidden="true"></i> Yêu thích</a></li>
-                                <li><a class="user-login-option" href="profile.html"><i class="fa fa-info-circle"></i> Cá nhân</a></li>
-                                <li><a class="user-login-option" href="?customer_id=' . Session::get('customer_id') . ' "><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
-                            <?php
-                            }
-                            ?>
-                            </li>
-                        </ul>
+                            <li><a class="user-login-option" href="orderdetails.html"><i class="fa fa-clock-o" aria-hidden="true"></i> Đơn hàng</a></li>
+                            <li><a class="user-login-option" href="wishlist.html"><i class="fa fa-heart" aria-hidden="true"></i> Yêu thích</a></li>
+                            <li><a class="user-login-option" href="profile.html"><i class="fa fa-info-circle"></i> Cá nhân</a></li>
+                            <li><a class="user-login-option" href="?customer_id=' . Session::get('customer_id') . ' "><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
+                        <?php
+                        }
+                        ?>
+                        </li>
                     </ul>
-                </div>
+                </ul>
             </div>
+        </div>
         </div>
     </header>
     <!-- ##### Header Area End ##### -->

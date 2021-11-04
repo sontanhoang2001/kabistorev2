@@ -57,11 +57,11 @@ class category
 	// hiển thị loại sản phẩm có hình ảnh
 	public function show_category_img()
 	{
-		$query = "SELECT tbl_category.catId, tbl_category.catName , tbl_product.image
-		FROM tbl_product
-		inner join tbl_category
-		on tbl_category.catId = tbl_product.catId
-		group by tbl_category.catId";
+		$query = "SELECT c.catId, c.catName, p.image
+		FROM tbl_product as p
+		inner join tbl_category as c
+		on c.catId = p.catId
+		group by c.catId";
 		$result = $this->db->select($query);
 		return $result;
 	}

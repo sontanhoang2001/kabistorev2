@@ -164,27 +164,24 @@ include 'inc/global.php';
                 <div class="wrapper">
                     <div class="carousel-product owl-carousel">
                         <?php
-                        $show_category_img = $cat->show_category_img();
-                        if ($show_category_img) {
-                            while ($result = $show_category_img->fetch_assoc()) {
-                                $catName = $result['catName'];
-                                $product_img =  json_decode($result['image']);
-                                $product_img = $product_img[0]->image;
+                        foreach ($_SESSION['menuCategory'] as $val) {
+                            $catId = $val['catId'];
+                            $catName = $val['catName'];
+                            $product_img = $val['product_img'];
                         ?>
-                                <!-- Single Product -->
-                                <div class="single-product-wrapper">
+                            <!-- Single Product -->
+                            <div class="single-product-wrapper">
 
-                                    <!-- Product Image -->
-                                    <div class="product-img">
-                                        <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $result['catId'] ?>smem.html">
-                                            <img src="<?php echo $product_img ?>" loading="lazy">
-                                            <h5 class="categories_name"><?php echo $catName; ?></h5>
-                                        </a>
-                                        <!-- Product Badge -->
-                                    </div>
+                                <!-- Product Image -->
+                                <div class="product-img">
+                                    <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html">
+                                        <img src="<?php echo $product_img ?>" loading="lazy">
+                                        <h5 class="categories_name"><?php echo $catName; ?></h5>
+                                    </a>
+                                    <!-- Product Badge -->
                                 </div>
+                            </div>
                         <?php
-                            }
                         }
                         ?>
                     </div>
@@ -342,12 +339,12 @@ include 'inc/global.php';
     <div class="container-fluid">
         <div class="px-lg-5">
             <div class="container">
-                <h2 class="pt-4"><i class="fa fa-trophy"></i> Xếp hạng cao nhất</h2>
+                <h2 class="pt-4"><i class="fa fa-trophy" aria-hidden="true"></i> Xếp hạng cao nhất</h2>
                 <p>Xếp hạng dựa trên số lượt tìm kiếm và đánh giá của khách hàng</p>
 
                 <div class="row mt-5">
                     <div class="wrapper" id="wrapper_productRank">
-                        <div class="carousel-product owl-carousel">
+                        <div class="carousel-relatedProduct owl-carousel">
                             <?php
                             $get_all_product_Featured = $product->get_all_product_rank();
                             if ($get_all_product_Featured) {
@@ -358,9 +355,9 @@ include 'inc/global.php';
                             ?>
                                     <!-- Single Product -->
 
-                                    <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
+                                    <div id="single-product-wrapper" class="single-product-wrapper relatedProducts bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                         <!-- Product Image -->
-                                        <div class="product-img">
+                                        <div class="product-img relatedProducts">
                                             <img data-src="<?php echo $product_img ?>" class="lazy">
                                             <ul class="card-button-shop">
                                                 <li>
@@ -432,67 +429,73 @@ include 'inc/global.php';
             <div class="py-5 text-center"><a href="san-pham-f3p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
         </div>
 
-        <div class="row">
+        <div class="px-lg-5">
+            <div class="container">
+                <h2 class="pt-4"><i class="fa fa-plug" aria-hidden="true"></i> Tiện ích kabistore</h2>
+                <p>Đây là các dịch vụ mà chúng tôi đang phát triển</p>
 
-            <!-- Gallery item -->
-            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" class="lazy img-fluid card-img-top" lazy>
-                    <div class="p-4">
-                        <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
-                        <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                        <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                            <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                            <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+                <div class="row mt-5">
+                    <!-- Gallery item -->
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                        <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" class="lazy img-fluid card-img-top" lazy>
+                            <div class="p-4">
+                                <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
+                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                                    <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- End -->
+                    <!-- End -->
 
-            <!-- Gallery item -->
-            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" class="lazy img-fluid card-img-top" lazy>
-                    <div class="p-4">
-                        <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                        <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                        <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                            <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                            <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
+                    <!-- Gallery item -->
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                        <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" class="lazy img-fluid card-img-top" lazy>
+                            <div class="p-4">
+                                <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
+                                    <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- End -->
+                    <!-- End -->
 
-            <!-- Gallery item -->
-            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" class="lazy img-fluid card-img-top" lazy>
-                    <div class="p-4">
-                        <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                        <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                        <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                            <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                            <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
+                    <!-- Gallery item -->
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                        <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" class="lazy img-fluid card-img-top" lazy>
+                            <div class="p-4">
+                                <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
+                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- End -->
+                    <!-- End -->
 
-            <!-- Gallery item -->
-            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" class="lazy img-fluid card-img-top">
-                    <div class="p-4">
-                        <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
-                        <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                        <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                            <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
-                            <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
+                    <!-- Gallery item -->
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                        <div class="bg-white rounded shadow-sm"><img data-src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" class="lazy img-fluid card-img-top">
+                            <div class="p-4">
+                                <h5> <a href="#" class="text-dark">Lorem ipsum dolor</a></h5>
+                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
+                                    <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- End -->
                 </div>
             </div>
-            <!-- End -->
         </div>
     </div>
 
@@ -543,7 +546,6 @@ include 'inc/global.php';
                     <!--Grid row-->
                 </section>
                 <!--Section: Best Features-->
-                <hr class="my-5">
             </div>
         </div>
     </main>
