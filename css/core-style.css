@@ -2791,6 +2791,14 @@ li.nav-item.active {
     background-color: #ffffff;
 }
 
+.single-product-wrapper.page-product:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.349) !important;
+}
+
+.single-product-wrapper.categoryWrapper:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.349) !important;
+}
+
 #single-product-wrapper:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.349) !important;
 }

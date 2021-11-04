@@ -85,13 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                         <label for="sel1">Màu sắc</label>
                                         <select class="form-control" id="select" name="style">
                                             <option value="null">Lựa chọn</option>
-                                            <option <?php echo ($style == 1) ? 'selected' : '' ?> value="1">1</option>
-                                            <option <?php echo ($style == 2) ? 'selected' : '' ?> value="2">2</option>
-                                            <option <?php echo ($style == 3) ? 'selected' : '' ?> value="3">3</option>
-                                            <option <?php echo ($style == 4) ? 'selected' : '' ?> value="4">4</option>
-                                            <option <?php echo ($style == 5) ? 'selected' : '' ?> value="5">5</option>
-                                            <option <?php echo ($style == 6) ? 'selected' : '' ?> value="6">6</option>
-                                            <option <?php echo ($style == 7) ? 'selected' : '' ?> value="7">7</option>
+                                            <option <?php echo ($style == 1) ? 'selected' : '' ?> value="1">blue - Blue</option>
+                                            <option <?php echo ($style == 2) ? 'selected' : '' ?> value="2">yellow - red</option>
+                                            <option <?php echo ($style == 3) ? 'selected' : '' ?> value="3">white - green</option>
+                                            <option <?php echo ($style == 4) ? 'selected' : '' ?> value="4">green - blue</option>
+                                            <option <?php echo ($style == 5) ? 'selected' : '' ?> value="5">red - orange</option>
+                                            <option <?php echo ($style == 6) ? 'selected' : '' ?> value="6">white - blue</option>
                                         </select>
                                     </div>
                                 </div>
@@ -160,7 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 <script src="js/setup.js" type="text/javascript"></script>
 <script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
 <script type="text/javascript">
-
     $('#btnEditor').click(function() {
         $('#description').removeClass().addClass("tinymce");
         setupTinyMCE();

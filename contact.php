@@ -8,11 +8,7 @@ include 'inc/header.php';
 		background-position: center center;
 	}
 </style>
-<!-- Messenger Plugin chat Code -->
-<div id="fb-root"></div>
 
-<!-- Your Plugin chat code -->
-<div id="fb-customer-chat" class="fb-customerchat"></div>
 <section class="ftco-section mt-100">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -74,6 +70,11 @@ include 'inc/header.php';
 		</div>
 	</div>
 </section>
+<!-- Messenger Plugin chat Code -->
+<div id="fb-root"></div>
+
+<!-- Your Plugin chat code -->
+<div id="fb-customer-chat" class="fb-customerchat"></div>
 <?php
 include 'inc/footer.php';
 ?>

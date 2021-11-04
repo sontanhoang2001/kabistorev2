@@ -100,7 +100,7 @@ include 'inc/global.php';
                                                 </div> -->
                                     </div>
                                     <!-- Product Description -->
-                                    <div class="product-description">
+                                    <div class="product-description mr-3 ml-3">
                                         <span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
                                         <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
                                             <div class="text-dark"><?php echo $result['productName'] ?></div>
@@ -141,7 +141,7 @@ include 'inc/global.php';
                             <div class="single-product-wrapper categoryWrapper">
 
                                 <!-- Product Image -->
-                                <div class="product-img relatedProducts">
+                                <div class="product-img relatedProducts bg-white rounded shadow-sm">
                                     <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html">
                                         <img src="<?php echo $product_img ?>" loading="lazy">
                                         <h5 class="categories_name" id="categoryNameWrapper"><?php echo $catName; ?></h5>
@@ -190,9 +190,12 @@ include 'inc/global.php';
                                     echo "promoBox success-ribbon";
                                     break;
                                 case "4":
-                                    echo "promo";
+                                    echo "promoBox success-box info-ribbon";
                                     break;
                                 case "5":
+                                    echo "promoBox danger-box warning-ribbon";
+                                    break;
+                                case "6":
                                     echo "promoBox";
                                     break;
                                 default:
@@ -214,96 +217,13 @@ include 'inc/global.php';
                         }
                     } ?>
 
-                    <!-- <div class="promoBox info-box info-ribbon">
-                        <aside>
-                            <p>Mua từ 120k</p>
-                        </aside>
-                        <h4>Giảm 50k</h4>
-                        <p>Kỷ niệm ngày . Khuyến mãi từ ngày 06-08-2021 đến ngày 10-08-2021.</p>
-                        <div class="row ml-2">
-                            <p style="color: green;">Mã giảm giá: <span class="promoCode">BOH232</span></p>
-                            <button type="button" class="btn ml-4">sao chép</button>
-                        </div>
-                    </div>
-
-                    <div class="promoBox warning-box danger-ribbon">
-                        <aside>
-                            <p>Ribbon Text</p>
-                        </aside>
-                        <h4>Hero Text Goes Here Yo!</h4>
-                        <p>This is where I would type real copy if this wasn't just in codepen!</p>
-                        <div class="row ml-2">
-                            <p style="color: green;">Mã giảm giá: <span class="promoCode">BOH232</span></p>
-                            <button type="button" class="btn ml-4">sao chép</button>
-                        </div>
-                    </div>
-
-                    <div class="promoBox success-ribbon">
-                        <aside>
-                            <p>Ribbon Text</p>
-                        </aside>
-                        <h4>Hero Text Goes Here Yo!</h4>
-                        <p>This is where I would type real copy if this wasn't just in codepen!</p>
-                        <div class="row ml-2">
-                            <p style="color: green;">Mã giảm giá: <span class="promoCode">BOH232</span></p>
-                            <button type="button" class="btn ml-4">sao chép</button>
-                        </div>
-                    </div>
-
-                    <div class="promoBox success-box info-ribbon">
-                        <aside>
-                            <p>Ribbon Text</p>
-                        </aside>
-                        <h4>Hero Text Goes Here Yo!</h4>
-                        <p>This is where I would type real copy if this wasn't just in codepen!</p>
-                        <div class="row ml-2">
-                            <p style="color: green;">Mã giảm giá: <span class="promoCode">BOH232</span></p>
-                            <button type="button" class="btn ml-4">sao chép</button>
-                        </div>
-                    </div>
-
-                    <div class="promo">
-                        <div class="promoBox danger-box warning-ribbon">
-                            <aside>
-                                <p>Ribbon Text</p>
-                            </aside>
-                            <h4>Hero Text Goes Here Yo!</h4>
-                            <p>This is where I would type real copy if this wasn't just in codepen!</p>
-                            <div class="row ml-2">
-                                <p style="color: green;">Mã giảm giá: <span class="promoCode">BOH232</span></p>
-                                <button type="button" class="btn ml-4">sao chép</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="promoBox">
-                        <aside>
-                            <p>Ribbon Text</p>
-                        </aside>
-                        <h4>Hero Text Goes Here Yo!</h4>
-                        <p>This is where I would type real copy if this wasn't just in codepen!</p>
-                        <div class="row ml-2">
-                            <p style="color: green;">Mã giảm giá: <span class="promoCode">BOH232</span></p>
-                            <button type="button" class="btn ml-4">sao chép</button>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
     </div>
     <!-- END PROTION -->
 
-    <!-- <div class="testprin">day nè</div> -->
 
-
-    <?php
-    // $get_all_product_rank = $product->get_all_product_rank();
-    // if ($show_promotion) {
-    //     while ($result = $get_all_product_rank->fetch_assoc()) {
-    //         $img_array[] =  $result['image'];
-    //     }
-    // }
-    ?>
     <div class="container-fluid">
         <div class="px-lg-5">
             <div class="container">
@@ -367,8 +287,8 @@ include 'inc/global.php';
                                             ?>
                                         </div>
                                         <!-- Product Description -->
-                                        <div class="product-description ml-4 mr-4">
-                                            <span class="small text-muted"><?php echo $result['catName'] ?></span>
+                                        <div class="product-description ml-3 mr-3">
+                                            <span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
                                             <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
                                                 <div class="text-dark"><?php echo $result['productName'] ?></div>
                                             </a>
@@ -404,7 +324,7 @@ include 'inc/global.php';
 
         <div class="px-lg-5">
             <div class="container">
-                <h2 class="pt-4"><i class="fa fa-plug" aria-hidden="true"></i> Hướng dẫn mua hàng</h2>
+                <h2 class="pt-4"><i class="fa fa-question-circle" aria-hidden="true"></i> Hướng dẫn mua hàng</h2>
                 <p>Video hướng dẫn cách bước đặt hàng tại Kabistore vô cùng đơn giản</p>
 
                 <div class="row mt-5">

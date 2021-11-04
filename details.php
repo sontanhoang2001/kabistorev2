@@ -183,7 +183,7 @@ include 'inc/facebookPlugin.php';
 						<div id="single-product-wrapper" class="single-product-wrapper relatedProducts bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
 							<!-- Product Image -->
 							<div class="product-img relatedProducts">
-								<img src="<?php echo $product_img ?>" loading="lazy">
+								<img data-src="<?php echo $product_img ?>" class="lazy">
 								<ul class="card-button-shop">
 									<li>
 										<img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />

@@ -65,13 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                         <label for="sel1">Màu sắc</label>
                                         <select class="form-control" id="select" name="style">
                                             <option value="null">Lựa chọn</option>
-                                            <option selected value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
+                                            <option value="1">blue - Blue</option>
+                                            <option value="2">yellow - red</option>
+                                            <option value="3">white - green</option>
+                                            <option value="4">green - blue</option>
+                                            <option value="5">red - orange</option>
+                                            <option value="6">white - blue</option>
                                         </select>
                                     </div>
                                 </div>

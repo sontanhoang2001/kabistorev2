@@ -796,7 +796,7 @@ class product
 	// hiển thị khuyến mãi
 	public function show_promotion()
 	{
-		$query = "SELECT promotionsCode, description, `condition`, discountMoney, style FROM tbl_promotions order by promotionsId asc";
+		$query = "SELECT promotionsCode, description, `condition`, discountMoney, style FROM tbl_promotions WHERE `status` = '1'  order by promotionsId asc";
 		$result = $this->db->select($query);
 		return $result;
 	}
