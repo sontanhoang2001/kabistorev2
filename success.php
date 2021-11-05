@@ -21,6 +21,7 @@ if (isset($get_payment)) {
             session::set("number_cart", 0);
         }
         Session::set('payment', false);
+        Session::set('allowSendMail', true);
     }
 }
 ?>

@@ -71,13 +71,8 @@ Session::set('REQUEST_URI', getRequestUrls()); // lưu vị trí đường dẫn
 		</div>
 	</div>
 </section>
-<!-- Messenger Plugin chat Code -->
-<div id="fb-root"></div>
 
-<!-- Your Plugin chat code -->
-<div id="fb-customer-chat" class="fb-customerchat"></div>
 <?php
 include 'inc/footer.php';
 ?>
 <script src="js/feedbackCustomer.js"></script>
-<script src="js/fbchat.js"></script>

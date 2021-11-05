@@ -1,4 +1,61 @@
 function add_product() {
+    // Hiển thị số tiền keyup
+    var root_price;
+    $("input[name=root_price]").keyup(function () {
+        root_price = $(this).val();
+        if (root_price.length == 0) {
+            $('#root_priceText').text(currency_vn(0));
+        } else {
+            var root_price = $(this).val();
+            $('#root_priceText').text(currency_vn(root_price));
+        }
+    })
+    $("input[name=old_price]").keyup(function () {
+        if ($(this).val().length == 0) {
+            $('#old_priceText').text(currency_vn(0));
+        } else {
+            var old_price = $(this).val();
+            $('#old_priceText').text(currency_vn(old_price));
+        }
+    })
+    $("input[name=price]").keyup(function () {
+        if ($(this).val().length == 0) {
+            $('#priceText').text(currency_vn(0));
+        } else {
+            var price = $(this).val();
+            $('#priceText').text(currency_vn(price));
+        }
+    })
+
+    $("input[name=priceShipping]").keyup(function () {
+        if ($(this).val().length == 0) {
+            $('#priceShippingText').text(currency_vn(0));
+        } else {
+            var price = $(this).val();
+            $('#priceShippingText').text(currency_vn(price));
+        }
+    })
+
+    // Tính tiền lãi khi nhập giá bán
+    var interestRate;
+    $("input[name=price]").keyup(function () {
+        var root_price = $("input[name=root_price]").val();
+        var price = $(this).val();
+        var priceShipping = $("input[name=priceShipping]").val();
+        interestRate = price - root_price;
+        var totalPrice = Number(interestRate) + Number(priceShipping);
+
+        $("input[name=interestRate]").val(currency_vn(interestRate));
+        $("input[name=totalPrice]").val(currency_vn(totalPrice));
+    })
+
+
+    $("input[name=priceShipping]").keyup(function () {
+        var priceShipping = $("input[name=priceShipping]").val();
+        var totalPrice = Number(interestRate) + Number(priceShipping);
+        $("input[name=totalPrice]").val(currency_vn(totalPrice));
+    })
+
     // Tạo review Image cho hình ảnh
     var jsonImageArray;
     $("#image").blur(function () {
@@ -25,6 +82,7 @@ function add_product() {
             productQuantity: $("input[name=productQuantity]").val(),
             category: $('select[name="category"] option:selected').val(),
             brand: $('select[name="brand"] option:selected').val(),
+            root_price: $("input[name=root_price]").val(),
             old_price: $("input[name=old_price]").val(),
             price: $("input[name=price]").val(),
             size: $('select[name="size"] option:selected').val(),
@@ -73,7 +131,7 @@ function add_product() {
                         case 1: {
                             var message = "Thêm sản phẩm thành công!";
                             let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
+                            toast.change('Đã đưa vào danh sách...', 3500);
                             break;
                         }
                         case 2: {
@@ -207,6 +265,7 @@ function product_list() {
         brandId,
         product_desc,
         size,
+        root_price,
         old_price,
         price,
         image,
@@ -235,6 +294,7 @@ function product_list() {
                         brandId = res.brandId,
                         product_desc = res.product_desc,
                         type = res.type,
+                        root_price = res.root_price,
                         old_price = res.old_price,
                         price = res.price,
                         image = res.image,
@@ -244,8 +304,16 @@ function product_list() {
                     $('#category option[value=" ' + catId + ' "]').attr('selected', 'selected');
                     $('#brand option[value=" ' + brandId + ' "]').attr('selected', 'selected');
                     $('#size option[value="' + size + '"]').attr('selected', 'selected');
+                    
+                    $('#root_priceText').text(currency_vn(root_price));
+                    $("input[name=root_price]").val(root_price);
+
+                    $('#old_priceText').text(currency_vn(old_price));
                     $("input[name=old_price]").val(old_price);
+
+                    $('#priceText').text(currency_vn(price));
                     $("input[name=price]").val(price);
+
                     $('#size option[value=" ' + size + ' "]').attr('selected', 'selected');
                     $("#product_desc").val(product_desc);
                     $('#type option[value="' + type + '"]').attr('selected', 'selected');
@@ -275,6 +343,65 @@ function product_list() {
             }
         });
     })
+
+    // Hiển thị số tiền keyup
+    var root_price;
+    $("input[name=root_price]").keyup(function () {
+        root_price = $(this).val();
+        if (root_price.length == 0) {
+            $('#root_priceText').text(currency_vn(0));
+        } else {
+            var root_price = $(this).val();
+            $('#root_priceText').text(currency_vn(root_price));
+        }
+    })
+    $("input[name=old_price]").keyup(function () {
+        if ($(this).val().length == 0) {
+            $('#old_priceText').text(currency_vn(0));
+        } else {
+            var old_price = $(this).val();
+            $('#old_priceText').text(currency_vn(old_price));
+        }
+    })
+    $("input[name=price]").keyup(function () {
+        if ($(this).val().length == 0) {
+            $('#priceText').text(currency_vn(0));
+        } else {
+            var price = $(this).val();
+            $('#priceText').text(currency_vn(price));
+        }
+    })
+
+    $("input[name=priceShipping]").keyup(function () {
+        if ($(this).val().length == 0) {
+            $('#priceShippingText').text(currency_vn(0));
+        } else {
+            var price = $(this).val();
+            $('#priceShippingText').text(currency_vn(price));
+        }
+    })
+
+    // Tính tiền lãi khi nhập giá bán
+    var interestRate;
+    $("input[name=price]").keyup(function () {
+        var root_price = $("input[name=root_price]").val();
+        var price = $(this).val();
+        var priceShipping = $("input[name=priceShipping]").val();
+        interestRate = price - root_price;
+        var totalPrice = Number(interestRate) + Number(priceShipping);
+
+        $("input[name=interestRate]").val(currency_vn(interestRate));
+        $("input[name=totalPrice]").val(currency_vn(totalPrice));
+    })
+
+
+    $("input[name=priceShipping]").keyup(function () {
+        var priceShipping = $("input[name=priceShipping]").val();
+        var totalPrice = Number(interestRate) + Number(priceShipping);
+        $("input[name=totalPrice]").val(currency_vn(totalPrice));
+    })
+    // Hiển thị số tiền keyup
+
 
     // Tạo review Image cho hình ảnh
     $("#image").blur(function () {
@@ -306,6 +433,7 @@ function product_list() {
             productQuantity: $("input[name=productQuantity]").val(),
             category: $('select[name="category"] option:selected').val(),
             brand: $('select[name="brand"] option:selected').val(),
+            root_price: $("input[name=root_price]").val(),
             old_price: $("input[name=old_price]").val(),
             price: $("input[name=price]").val(),
             size: $('select[name="size"] option:selected').val(),
@@ -341,6 +469,7 @@ function product_list() {
                     formData: formData
                 },
                 success: function (data) {
+                    console.log(data);
                     var res = JSON.parse(data),
                         Status = res.status;
 
@@ -398,10 +527,15 @@ function product_list() {
         $('#category option[value=" ' + category + ' "]').removeAttr('selected');
         $('#brand option[value=" ' + brandId + ' "]').removeAttr('selected', 'selected');
         $('#size option[value="' + size + '"]').removeAttr('selected', 'selected');
+        $("input[name=root_price]").val("");
         $("input[name=old_price]").val("");
         $("input[name=price]").val("");
         $("#product_desc").val("");
         $('#type option[value="' + type + '"]').removeAttr('selected');
+
+        $('#root_priceText').text(currency_vn(0));
+        $('#old_priceText').text(currency_vn(0));
+        $('#priceText').text(currency_vn(0));
     })
 
     // Khi mở delModal

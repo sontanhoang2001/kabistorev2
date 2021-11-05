@@ -5,7 +5,6 @@ $("input[name='priceShipping']").keyup(function (event) {
     } else {
         $("button[name='submit']").removeAttr("disabled");
         var priceShipping = $(this).val();
-        console.log(priceShipping);
         $('#priceShippingNew').text(currency_vn(priceShipping));
     }
 });
@@ -17,7 +16,6 @@ $("input[name='priceShipping']").blur(function (event) {
     } else {
         $("button[name='submit']").removeAttr("disabled");
         var priceShipping = $(this).val();
-        console.log(priceShipping);
         $('#priceShippingNew').text(currency_vn(priceShipping));
     }
 });

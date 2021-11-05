@@ -12,7 +12,7 @@
                         <!-- Footer Menu -->
                         <div class="footer_menu col-md-6">
                             <ul>
-                                <li><a href="shop.html">Shop</a></li>
+                                <li><a href="product.html">Shop</a></li>
                                 <li><a href="blog.html">Blog</a></li>
                                 <li><a href="contact.html">Liên hệ</a></li>
                             </ul>
@@ -23,7 +23,7 @@
                 <div class="col-12 col-md-6">
                     <div class="single_widget_area mb-30">
                         <ul class="footer_widget_menu">
-                            <li><a href="#">Tình Trạng đơn hàng</a></li>
+                            <li><a href="orderdetails.html">Tình Trạng đơn hàng</a></li>
                             <li><a href="#">Thanh toán</a></li>
                             <li><a href="#">Vận chuyển và giao hàng</a></li>
                             <li><a href="#">Hướng dẫn</a></li>
@@ -90,61 +90,67 @@
     </footer>
     <!-- ##### Footer Area End ##### -->
 
-    <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
 
-    <!-- <script src="js/jquery/jquery-1.11.3.min.js" type="text/javascript"></script> -->
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
 
-    <!-- Popper js -->
-    <script src="js/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Plugins js -->
-    <script src="js/plugins.js"></script>
-    <!-- Classy Nav js -->
-    <script src="js/classy-nav.min.js"></script>
-    <!-- Active js -->
-    <script src="js/active.js"></script>
-    <script src="js/audio-message.js"></script>
+        <!-- jQuery (Necessary for All JavaScript Plugins) -->
+        <script src="js/jquery/jquery-2.2.4.min.js"></script>
 
-    <!-- Include Plugin JS file -->
-    <script src="js/nice-toast/nice-toast-js.min.js" type="text/javascript"></script>
-    <!-- niceToast -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $.niceToast.setup({
-                position: "bottom-left",
-                timeout: 4000,
+        <!-- <script src="js/jquery/jquery-1.11.3.min.js" type="text/javascript"></script> -->
+
+        <!-- Popper js -->
+        <script src="js/popper.min.js"></script>
+        <!-- Bootstrap js -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Plugins js -->
+        <script src="js/plugins.js"></script>
+        <!-- Classy Nav js -->
+        <script src="js/classy-nav.min.js"></script>
+        <!-- Active js -->
+        <script src="js/active.js"></script>
+        <script src="js/audio-message.js"></script>
+
+        <!-- Include Plugin JS file -->
+        <script src="js/nice-toast/nice-toast-js.min.js" type="text/javascript"></script>
+        <!-- niceToast -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.niceToast.setup({
+                    position: "bottom-left",
+                    timeout: 4000,
+                });
             });
-        });
-    </script>
-    <script src="js/live-search.js"></script>
+        </script>
+        <script src="js/live-search.js"></script>
 
-    <!-- cdnjs -->
-    <script type="text/javascript" src="js/lazy/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="js/lazy/jquery.lazy.plugins.min.js"></script>
-    <script>
-        $(function() {
-            $('.lazy').Lazy({
-                // your configuration goes here
-                scrollDirection: 'vertical',
-                effect: 'fadeIn',
-                effectTime: 1000,
-                threshold: 0,
-                visibleOnly: true,
-                onError: function(element) {
-                    // console.log('error loading ' + element.data('src'));
+        <!-- cdnjs -->
+        <script type="text/javascript" src="js/lazy/jquery.lazy.min.js"></script>
+        <script type="text/javascript" src="js/lazy/jquery.lazy.plugins.min.js"></script>
+        <script>
+            $(function() {
+                $('.lazy').Lazy({
+                    // your configuration goes here
+                    scrollDirection: 'vertical',
+                    effect: 'fadeIn',
+                    effectTime: 1000,
+                    threshold: 0,
+                    visibleOnly: true,
+                    onError: function(element) {
+                        // console.log('error loading ' + element.data('src'));
+                    }
+                });
+            });
+        </script>
+        <script src="js/fbchat.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                if (loginAlert == true) {
+                    var message = "Bạn đã đăng nhập thành công!";
+                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                    toast.change('Thoải mái mua sắm ngay bây giờ...', 2000);
                 }
             });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            if (loginAlert == true) {
-                var message = "Bạn đã đăng nhập thành công!";
-                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                toast.change('Thoải mái mua sắm ngay bây giờ...', 2000);
-            }
-        });
-    </script>
+        </script>

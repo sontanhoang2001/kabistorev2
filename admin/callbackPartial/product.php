@@ -35,21 +35,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         case 4: {
                 // select data product for edit product
                 $productId = $_POST['productId'];
-                $getroductForEdit = $product->getroductForEdit($productId);
-                if ($getroductForEdit) {
-                    while ($result =  $getroductForEdit->fetch_assoc()) {
+                $getproductForEdit = $product->getproductForEdit($productId);
+                if ($getproductForEdit) {
+                    while ($result =  $getproductForEdit->fetch_assoc()) {
                         $productName = $result['productName'];
                         $product_code = $result['product_code'];
                         $catId = $result['catId'];
                         $brandId = $result['brandId'];
                         $product_desc = $result['product_desc'];
                         $type = $result['type'];
+                        $root_price = $result['root_price'];
                         $old_price = $result['old_price'];
                         $price = $result['price'];
                         $image = $result['image'];
                         $size = $result['size'];
                     }
-                    echo json_encode($result_json[] = ['status' => 1, 'product_code' => $product_code, 'productName' => $productName, 'catId' => $catId, 'brandId' => $brandId, 'product_desc' => $product_desc, 'type' => $type, 'old_price' => $old_price, 'price' => $price, 'image' => $image, 'size' => $size]);
+                    echo json_encode($result_json[] = ['status' => 1, 'product_code' => $product_code, 'productName' => $productName, 'catId' => $catId, 'brandId' => $brandId, 'product_desc' => $product_desc, 'type' => $type, 'root_price' => $root_price, 'old_price' => $old_price, 'price' => $price, 'image' => $image, 'size' => $size]);
                 } else {
                     echo json_encode($result_json[] = ['status' => 0]);
                 }

@@ -17,9 +17,8 @@ $fm = new Format();
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Quản lý sản phẩm</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables.
-        <br><a href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm Đơn hàng</a>.
+    <p class="mb-4">Một ngày tràng đầy năng lượng, giàu sức khỏe, mua may bán đắt, tiền vô như nước tiền ra như giọt coffee đặc.
+        <br><a href="add-product"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm sản phẩm</a>.
     </p>
 
     <!-- DataTales Example -->
@@ -262,7 +261,7 @@ $fm = new Format();
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label for="sel1">Loại sản phẩm </label>
                                         <select class="form-control" id="category" name="category">
                                             <option value="0">Lựa chọn</option>
@@ -281,7 +280,7 @@ $fm = new Format();
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label for="sel1">Thương hiệu</label>
                                         <select class="form-control" id="brand" name="brand">
                                             <option value="0">Lựa chọn</option>
@@ -298,32 +297,56 @@ $fm = new Format();
                                             ?>
                                         </select>
                                     </div>
-
-                                    <div class="form-group col-md-4">
-                                        <label for="sel1">Size</label>
-                                        <select class="form-control" id="size" name="size">
-                                            <option value="null">Lựa chọn</option>
-                                            <option selected value="0">Không</option>
-                                            <option value="1">Có size</option>
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="validation5">Giá cũ</label>
-                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" required>
+                                    <div class="form-group col-md-4">
+                                        <label for="validation5">Giá gốc <div class="text-success" id="root_priceText">0 ₫</div></label>
+                                        <input class="form-control" id="validation5" type="number" name="root_price" placeholder="Vd: 900" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
-                                    <div class="form-group col-md-6">
-                                        <label for="validation6">Giá mới</label>
+                                    <div class="form-group col-md-4">
+                                        <label for="validation5">Giá cũ <div class="text-success" id="old_priceText">0 ₫</div></label>
+                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" value="0">
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="validation6">Giá mới <div class="text-success" id="priceText">0 ₫</div></label>
                                         <input class="form-control" id="validation6" type="number" name="price" placeholder="Vd: 40000" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="validation6">Tiền lãi ước tính</label>
+                                        <input class="form-control" id="validation6" type="text" name="interestRate" min="0" readonly>
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="validation6" style="margin-bottom: 0px;">Ship: <label class="text-success" id="priceShippingText">0 ₫</label></label>
+                                        <input class="form-control" id="validation6" type="number" name="priceShipping" min="0" value="0">
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="validation6">Tổng cộng</label>
+                                        <input class="form-control" id="validation6" type="text" name="totalPrice" min="0" readonly>
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
 
                             <div class="form-group">
                                 <label for="inputdefault">Hình ảnh</label>
@@ -340,7 +363,7 @@ $fm = new Format();
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-8">
                                         <label for="sel1">Trạng thái & Xếp loại sản phẩm</label>
                                         <select class="form-control" id="type" name="type">
                                             <option value="null">Lựa chọn</option>
@@ -348,6 +371,14 @@ $fm = new Format();
                                             <option value="1">Hot nhất</option>
                                             <option value="2">Xếp cao nhất</option>
                                             <option value="9">Ngưng kinh doanh</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="sel1">Size</label>
+                                        <select class="form-control" id="size" name="size">
+                                            <option value="null">Lựa chọn</option>
+                                            <option selected value="0">Không</option>
+                                            <option value="1">Có size</option>
                                         </select>
                                     </div>
                                 </div>

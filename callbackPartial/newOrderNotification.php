@@ -1,8 +1,12 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    include '../lib/session.php';
+include '../lib/session.php';
+Session::init();
+
+$allowSendMail = Session::get('allowSendMail');
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $allowSendMail == true) {
+    Session::set('allowSendMail', false);
+
     include '../helpers/format.php';
-    Session::init();
     $fm = new Format();
 
     $customer_username = Session::get('customer_username');

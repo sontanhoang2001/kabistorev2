@@ -18,8 +18,7 @@ if (isset($_GET['slider_del'])) {
 
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">Quản lý slider</h1>
-	<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-		For more information about DataTables.
+	<p class="mb-4">Một ngày tràng đầy năng lượng, giàu sức khỏe, mua may bán đắt, tiền vô như nước tiền ra như giọt coffee đặc.
 		<br><a href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm slider</a>.
 	</p>
 

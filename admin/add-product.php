@@ -88,26 +88,48 @@ $pd = new product();
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-group col-md-4">
-                                        <label for="validation5">Giá cũ</label>
-                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" required>
+                                        <label for="validation5">Giá gốc <div class="text-success" id="root_priceText">0 ₫</div></label>
+                                        <input class="form-control" id="validation5" type="number" name="root_price" placeholder="Vd: 900" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label for="validation6">Giá mới</label>
+                                        <label for="validation5">Giá cũ <div class="text-success" id="old_priceText">0 ₫</div></label>
+                                        <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" value="0">
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="validation6">Giá mới <div class="text-success" id="priceText">0 ₫</div></label>
                                         <input class="form-control" id="validation6" type="number" name="price" placeholder="Vd: 40000" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="sel1">Size</label>
-                                        <select class="form-control" id="select" name="size">
-                                            <option value="null">Lựa chọn</option>
-                                            <option selected value="0">Không</option>
-                                            <option value="1">Có size</option>
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="validation6">Tiền lãi ước tính</label>
+                                        <input class="form-control" id="validation6" type="text" name="interestRate" min="0" readonly>
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="validation6" style="margin-bottom: 0px;">Ship: <label class="text-success" id="priceShippingText">0 ₫</label></label>
+                                        <input class="form-control" id="validation6" type="number" name="priceShipping" min="0" value="0">
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="validation6">Tổng cộng</label>
+                                        <input class="form-control" id="validation6" type="text" name="totalPrice" min="0" readonly>
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="inputdefault">Hình ảnh sản phẩm</label>
                                 <div class="form-group" id="reviewImage">
@@ -120,9 +142,10 @@ $pd = new product();
                                 <button type="button" class="btn-light pull-right" id="btnEditor">editor</button>
                                 <textarea class="form-control tinymce" id="product_desc" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-9">
                                         <label for="sel1">Trạng thái & Xếp loại sản phẩm</label>
                                         <select class="form-control" id="type" name="type">
                                             <option value="null">Lựa chọn</option>
@@ -131,10 +154,21 @@ $pd = new product();
                                             <option value="2">Xếp cao nhất</option>
                                         </select>
                                     </div>
+
+                                    <div class="form-group col-md-3">
+                                        <label for="sel1">Size</label>
+                                        <select class="form-control" id="select" name="size">
+                                            <option value="null">Lựa chọn</option>
+                                            <option selected value="0">Không</option>
+                                            <option value="1">Có size</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
+
+
                             <div class="form-group">
-                                <button type="submit" name="submit" id="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                <button type="submit" name="submit" id="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Thêm</button>
                                 <button type="reset" class="btn btn-danger"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                             </div>
                         </form>
@@ -153,6 +187,7 @@ $pd = new product();
 
 <!-- Load TinyMCE -->
 <?php include 'inc/footer.php'; ?>
+<script src="js/helpers.js"></script>
 <script src="js/product.js"></script>
 <script src="js/bs-validation.js"></script>
 <script>

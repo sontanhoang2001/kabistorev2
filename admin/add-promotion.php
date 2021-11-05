@@ -15,8 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Thêm mã giảm giá</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables.
+    <p class="mb-4">Một ngày tràng đầy năng lượng, giàu sức khỏe, mua may bán đắt, tiền vô như nước tiền ra như giọt coffee đặc.
     </p>
 
     <!-- DataTales Example -->

@@ -57,6 +57,7 @@ class product
 		$productQuantity = mysqli_real_escape_string($this->db->link, $formData['productQuantity']);
 		$category = mysqli_real_escape_string($this->db->link, $formData['category']);
 		$brand = mysqli_real_escape_string($this->db->link, $formData['brand']);
+		$root_price = mysqli_real_escape_string($this->db->link, $formData['root_price']);
 		$old_price = mysqli_real_escape_string($this->db->link, $formData['old_price']);
 		$price = mysqli_real_escape_string($this->db->link, $formData['price']);
 		$type = mysqli_real_escape_string($this->db->link, $formData['type']);
@@ -65,7 +66,7 @@ class product
 		$size = mysqli_real_escape_string($this->db->link, $formData['size']);
 
 		// 0 các trường ko đc bỏ trống
-		if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $price == "" || $type == "" || $image == "" || $size == "") {
+		if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == "" || $size == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$query = "SELECT product_code FROM tbl_product WHERE product_code = '$product_code'";
@@ -74,7 +75,7 @@ class product
 				// 3 Mã sản phẩm này đã tồn tại
 				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type,old_price,price,image, size) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$old_price','$price', '$image', '$size') ";
+				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type, root_price, old_price, price,image, size) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$root_price', '$old_price','$price', '$image', '$size') ";
 				$result = $this->db->insert($query);
 				if ($result) {
 					// 1 thành công
@@ -316,6 +317,7 @@ class product
 		$brand = mysqli_real_escape_string($this->db->link, $data['brand']);
 		$category = mysqli_real_escape_string($this->db->link, $data['category']);
 		$product_desc = mysqli_real_escape_string($this->db->link, $data['product_desc']);
+		$root_price = mysqli_real_escape_string($this->db->link, $data['root_price']);
 		$old_price = mysqli_real_escape_string($this->db->link, $data['old_price']);
 		$price = mysqli_real_escape_string($this->db->link, $data['price']);
 		$type = mysqli_real_escape_string($this->db->link, $data['type']);
@@ -323,7 +325,7 @@ class product
 		$size = mysqli_real_escape_string($this->db->link, $data['size']);
 
 
-		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $price == "" || $type == "" || $image == "" || $size == "") {
+		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == "" || $size == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$query = "UPDATE tbl_product SET
@@ -332,6 +334,7 @@ class product
 					brandId = '$brand',
 					catId = '$category', 
 					type = '$type',
+					root_price = '$root_price',
 					old_price = '$old_price',
 					price = '$price', 
 					product_desc = '$product_desc',
@@ -396,9 +399,9 @@ class product
 	}
 
 	// lấy sản phẩm cho edit product
-	public function getroductForEdit($id)
+	public function getproductForEdit($id)
 	{
-		$query = "SELECT productName, product_code, catId, brandId, product_desc, type, old_price, price, image, size FROM tbl_product WHERE productId = '$id'";
+		$query = "SELECT productName, product_code, catId, brandId, product_desc, type, root_price, old_price, price, image, size FROM tbl_product WHERE productId = '$id'";
 		$result = $this->db->select($query);
 		return $result;
 	}
