@@ -2,5 +2,9 @@
 // Seo từ khóa
 $seo = "-re-nhat-can-tho";
 // Video hướng dẫn mua hàng
-$video1 = "10153231379946729";
-$video2 = "10153231379946729";
+$thumbnailVideo1 = "https://mdbootstrap.com/img/screens/yt/screen-video-1.jpg";
+$video1 = "https://www.youtube.com/embed/A3PDXmYoF5U";
+$thumbnailVideo2 = "https://mdbootstrap.com/img/screens/yt/screen-video-2.jpg";
+$video2 = "https://www.youtube.com/embed/wTcNtgA6gHs";
+$thumbnailVideo3 = "https://mdbootstrap.com/img/screens/yt/screen-video-3.jpg";
+$video3 = "https://www.youtube.com/embed/vlDzYIIOYmM";

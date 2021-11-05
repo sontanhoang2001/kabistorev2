@@ -107,17 +107,6 @@
     <script src="js/active.js"></script>
     <script src="js/audio-message.js"></script>
 
-
-    <!-- <script>
-    $(document).keydown(function(event) {
-        if (event.keyCode == 123) { // Prevent F12
-            return false;
-        } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
-            return false;
-        }
-    });
-</script> -->
-
     <!-- Include Plugin JS file -->
     <script src="js/nice-toast/nice-toast-js.min.js" type="text/javascript"></script>
     <!-- niceToast -->

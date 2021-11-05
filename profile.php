@@ -300,12 +300,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <form method="get" action="cart.html ">
             <div class="card bg-light shadow mb-3">
               <div class="card-body">
-                <div class="px-xl-3">
-                  <button class="btn btn-block btn-secondary" type="submit">
-                    <i class="fa fa-sign-out"></i>
-                    <span>Thanh toán</span>
-                  </button>
-                </div>
+                <button class="btn btn-block btn-secondary" type="submit">
+                  <i class="fa fa-sign-out"></i>
+                  <span>Thanh toán</span>
+                </button>
               </div>
             </div>
           </form>
@@ -314,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="card-body">
               <h6 class="card-title font-weight-bold">Hỗ trợ</h6>
               <p class="card-text">Nhận trợ giúp miễn phí từ các trợ lý thân thiện của chúng tôi.</p>
-              <button type="button" class="btn btn-primary">Liên hệ chúng tôi</button>
+              <a href="https://www.facebook.com/ilovekabistore" target="_blank" class="btn btn-primary">Liên hệ chúng tôi</a>
             </div>
           </div>
         </div>

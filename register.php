@@ -9,21 +9,6 @@ if ($login_check) {
 }
 ?>
 
-<?php
-// gọi class category
-
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-//   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-//   $insertCustomer = $cs->insert_customer($_POST); // hàm check catName khi submit lên
-// }
-?>
-
-<head>
-  <link rel="stylesheet" type="text/css" href="css/login-client.css">
-</head>
-
-
-
 <div class="global-container">
   <div class="card login-form">
     <div class="card-body bg-light shadow">

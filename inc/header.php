@@ -34,15 +34,20 @@ include_once "inc/checkManager.php";
     <base href="https://webcuatoi.vn/">
 
     <!-- Title  -->
-    <title>Kabistore.tk - Cửa hàng đồ gia dụng - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long</title>
-    <meta name="keywords" content="kabistore.tk, kabistore, kabistore gia se re, kabistore gía siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore do gia dung, kabistore đồ gia dụng, kabistore lam dep, kabistore Làm đẹp, kabistore my pham, kabistore mỹ phẩm, kabistore cham soc ca nhan, kabistore chăm sóc cá nhân, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sĩ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sĩ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long" />
+    <meta charset="UTF-8">
+    <title>Kabistore.tk - Cửa hàng đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long</title>
+    <meta name="keywords" content="kabistore.tk, kabistore, kabistore gia se re, kabistore gía siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore do gia dung, kabistore đồ gia dụng, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore lam dep, kabistore Làm đẹp, kabistore my pham, kabistore mỹ phẩm, kabistore cham soc ca nhan, kabistore chăm sóc cá nhân, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sĩ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sĩ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long" />
     <meta name="description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
-    <meta property="og:title" content="Kabistore.tk - Cửa hàng đồ gia dụng - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
+
+    <meta property="og:title" content="Kabistore.tk - Cửa hàng đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
     <meta property="og:description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
     <meta property="og:url" content="kabistore.tk">
-    <meta property="og:image" content="https://kabistore.tk/img/thumbnail/kabistore.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta property="og:image" content="https://kabistore.tk/img/thumbnail/img-thumbnail.jpg">
+    <meta property="og:image:secure_url" content="https://kabistore.tk/img/thumbnail/img-thumbnail.jpg" />
 
-    <meta charset="UTF-8">
     <meta content="INDEX,FOLLOW" name="robots" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="copyright" content="Trang mua sắm trực tuyến Kabistore.tk" />
@@ -60,6 +65,7 @@ include_once "inc/checkManager.php";
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="vi_VN" />
     <meta property="fb:pages" content="105932671830866" />
+    <meta property="fb:app_id" content="1661876167354932">
     <meta http-equiv="x-dns-prefetch-control" content="on">
 
 
@@ -82,8 +88,8 @@ include_once "inc/checkManager.php";
             });
         });
     </script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/security.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/security.js"></script> -->
 
     <link rel="stylesheet" href="css/message.css">
 </head>
@@ -134,8 +140,11 @@ include_once "inc/checkManager.php";
                                 <?php } else { ?>
                                     <div class="col-12 col-sm-auto mb-4" id="user-infor">
                                         <div class="mx-auto" style="width: 100px;">
+
                                             <div class="d-flex justify-content-center align-items-center">
-                                                <span><img class="avatar img-thumbnail border-1 avatar-nav" src="upload/default-user-image.jpg" /></span>
+                                                <span>
+                                                    <img class="avatar img-thumbnail border-1 avatar-nav" src="upload/default-user-image.jpg" />
+                                                </span>
                                             </div>
                                         </div>
                                         <div class=" text-center mt-2 mb-0">
@@ -174,7 +183,8 @@ include_once "inc/checkManager.php";
                     <li><a href="#"><i class="fa fa-bars iconfa" aria-hidden="true"></i> Menu</a>
                         <ul class="dropdown">
                             <li><a href="index.html">Trang Chủ</a></li>
-                            <li><a href="san-pham-f0p1t0smem.html">Tất Cả Sản Phẩm</a></li>
+                            <li><a href="musiccoffee">Music coffee</a></li>
+                            <li><a href="san-pham-f0p1t0smem.html">Tất cả sản phẩm</a></li>
                             <?php
                             $customer_id = Session::get('customer_id');
                             $login_check = Session::get('customer_login');
@@ -234,17 +244,6 @@ include_once "inc/checkManager.php";
             <div class="user-login-info">
                 <a href="#" data-toggle="dropdown">&nbsp<img src="img/core-img/user.svg" alt=""></a>
                 <ul class="dropdown-menu dropdown-cart" role="menu">
-                    <?php
-                    $login_check = Session::get('customer_login');
-                    $customer_name = Session::get('customer_username');
-                    // if ($login_check == false) {
-                    //     echo '<div> Đăng nhập</div>';
-                    // } else {
-                    //     echo '<div>' . $customer_name . '</div>';
-                    // }
-                    // 
-                    ?>
-
                     <span class="arrow_carrot-down"></span>
                     <ul>
                         <?php
@@ -268,18 +267,3 @@ include_once "inc/checkManager.php";
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-    <!-- <script>
-        window.addEventListener("load", function() {
-                const loader = document.querySelector(".loader-wrapper") // loader.className += "hidden";
-                document.getElementsByClassName('loader-wrapper')[0].style.visibility = 'hidden';
-            }
-
-        );
-    </script> -->
-
-    <!-- <script>
-        window.addEventListener("load", function() {
-            const loader = document.querySelector(".loader-wrapper")
-            loader.className += "hidden";
-        });
-    </script> -->
