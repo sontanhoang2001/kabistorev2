@@ -108,7 +108,7 @@ include 'inc/global.php';
                                         <p class="product-price">
                                             <?php if ($old_price != 0) {
                                             ?>
-                                                <span class="old-price"><?php echo $fm->format_currency($old_price) . " " . "VND" ?></span>&nbsp;
+                                                <span class="old-price"><?php echo $fm->format_currency($old_price) . " ₫" ?></span>&nbsp;
                                             <?php
                                             }
                                             ?>
@@ -295,7 +295,7 @@ include 'inc/global.php';
                                             <p class="product-price">
                                                 <?php if ($old_price != 0) {
                                                 ?>
-                                                    <span class="old-price"><?php echo $fm->format_currency($old_price) . " " . "VND" ?></span>&nbsp;
+                                                    <span class="old-price"><?php echo $fm->format_currency($old_price) . " ₫" ?></span>&nbsp;
                                                 <?php
                                                 }
                                                 ?>

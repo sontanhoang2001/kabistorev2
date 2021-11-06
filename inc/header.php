@@ -158,26 +158,27 @@ include_once "inc/checkManager.php";
                             <li><a href="#"><i class="fa fa-shopping-cart iconfa" aria-hidden="true"></i> Shop</a>
                                 <div class="megamenu">
                                     <?php
-                                    $numberMenuCategory = count($_SESSION['menuCategory']);
-                                    $tableMenuCategory = $numberMenuCategory / 3;
-                                    $menuCategoryIndex = 0;
-                                    foreach ($_SESSION['menuCategory'] as $val) {
-                                        $menuCategoryIndex++;
-                                        $catId = $val['catId'];
-                                        $catName = $val['catName'];
 
-                                        echo ($menuCategoryIndex == 1) ?
-                                            '<ul class="single-mega cn-col-4">
+                                    if (isset($_SESSION['menuCategory'])) {
+                                        $menuCategory = $_SESSION['menuCategory'];
+                                        $numberMenuCategory = count($_SESSION['menuCategory']);
+                                        $tableMenuCategory = $numberMenuCategory / 3;
+                                        for ($i = 1; $i < $numberMenuCategory; $i++) {
+                                            $catId = $menuCategory[$i]['catId'];
+                                            $catName = $menuCategory[$i]['catName'];
+                                            echo ($i == 1) ?
+                                                '<ul class="single-mega cn-col-4">
                                             <li class="title">Đơn giản</li>' : '' ?>
                             <li><a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html"><?php echo $catName ?></a></li>
-                        <?php
-                                        echo ($menuCategoryIndex == 2) ? '</ul>' : '';
+                    <?php
+                                            echo ($i == 2) ? '</ul>' : '';
+                                        }
                                     }
-                        ?>
+                    ?>
 
-                        <div class="single-mega cn-col-4">
-                            <img src="img/bg-img/bg-6.jpg" alt="">
-                        </div>
+                    <div class="single-mega cn-col-4">
+                        <img src="img/bg-img/bg-6.jpg" alt="">
+                    </div>
                     </div>
                     </li>
                     <li><a href="#"><i class="fa fa-bars iconfa" aria-hidden="true"></i> Menu</a>

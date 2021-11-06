@@ -1,4 +1,5 @@
 <?php
+
 // begin init category
 if (!isset($_SESSION['menuCategoryStatus'])) {
     $show_category_img = $cat->show_category_img();
