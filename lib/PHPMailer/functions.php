@@ -1,6 +1,8 @@
 <?php
-$user = "Cskhkabistore@gmail.com";
-$password = "hoangthao123";
+// $user = "Cskhkabistore@gmail.com";
+// $password = "hoangthao123";
+$user = "hotrokhachhang@kabistore.tk";
+$password = "sieubaomat96308520@";
 
 function sendMail($user, $password, $title, $content, $nTo, $mTo, $diachicc = '')
 {
@@ -14,7 +16,7 @@ function sendMail($user, $password, $title, $content, $nTo, $mTo, $diachicc = ''
 	$mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
 	$mail->SMTPAuth   = true;                  	// enable SMTP authentication
 	$mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-	$mail->Host       = "smtp.gmail.com";
+	$mail->Host       = "mail.kabistore.tk"; //smtp.gmail.com
 	$mail->Port       = 465;
 	$mail->Username   = $mFrom;  // GMAIL username
 	$mail->Password   = $mPass;           	 // GMAIL password
@@ -31,7 +33,7 @@ function sendMail($user, $password, $title, $content, $nTo, $mTo, $diachicc = ''
 	$mail->MsgHTML($body);
 	$address = $mTo;
 	$mail->AddAddress($address, $nTo);
-	$mail->AddReplyTo('admin@kabistore.tk', 'kabistore.tk');
+	$mail->AddReplyTo('hotrokhachhang@kabistore.tk', 'https://kabistore.tk');
 	if (!$mail->Send()) {
 		return 0;
 	} else {

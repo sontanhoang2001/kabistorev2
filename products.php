@@ -173,7 +173,7 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                             <!-- Single Item -->
                                             <li data-toggle="collapse" data-target="#brand">
                                                 <!-- Widget Title -->
-                                                <h6 class="widget-title2 mb-2">Thương hiệu</h6>
+                                                <h6 class="widget-title2 mb-2">Mã kho</h6>
                                                 <!-- <a href="#">Tất cả</a> -->
                                                 <ul class="sub-menu collapse show" id="brand">
                                                     <?php

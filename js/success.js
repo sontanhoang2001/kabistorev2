@@ -7,6 +7,7 @@ $(document).ready(function () {
         url: "callbackPartial/newOrderNotification.php",
         dataType: 'json',
         data: {},
-        success: function (data) { }
+        success: function (data) {
+        }
     })
 });
