@@ -609,7 +609,7 @@ class product
 	public function get_details($id)
 	{
 		$query =
-			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.productQuantity, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.old_price , tbl_product.price , tbl_product.image, tbl_product.size, tbl_category.catName, tbl_brand.brandName
+			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.productQuantity, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.old_price , tbl_product.price , tbl_product.image, tbl_product.size, tbl_category.catName, tbl_brand.brandName
 
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId

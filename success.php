@@ -71,4 +71,5 @@ if (isset($get_payment)) {
 <?php
 include 'inc/footer.php';
 ?>
+<script src="js/audio-message.js"></script>
 <script src="js/success.js"></script>

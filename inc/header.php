@@ -30,8 +30,8 @@ include_once "inc/checkManager.php";
 
 <head>
     <!-- <base href="http://192.168.1.4/"> -->
-    <!-- <base href="https://kabistore.tk/"> -->
-    <base href="https://webcuatoi.vn/">
+    <base href="https://kabistore.tk/">
+    <!-- <base href="https://webcuatoi.vn/"> -->
 
     <!-- Title  -->
     <meta charset="UTF-8">
@@ -39,14 +39,18 @@ include_once "inc/checkManager.php";
     <meta name="keywords" content="kabistore.tk, kabistore, kabistore gia se re, kabistore gía siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore do gia dung, kabistore đồ gia dụng, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore lam dep, kabistore Làm đẹp, kabistore my pham, kabistore mỹ phẩm, kabistore cham soc ca nhan, kabistore chăm sóc cá nhân, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sĩ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sĩ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long" />
     <meta name="description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
 
-    <meta property="og:title" content="Kabistore.tk - Cửa hàng đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
-    <meta property="og:description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
-    <meta property="og:url" content="kabistore.tk">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="600">
-    <meta property="og:image:height" content="600">
-    <meta property="og:image" content="https://kabistore.tk/img/thumbnail/img-thumbnail.jpg">
-    <meta property="og:image:secure_url" content="https://kabistore.tk/img/thumbnail/img-thumbnail.jpg" />
+    <?php $GET_URI = substr($_SERVER['REQUEST_URI'], 1, 7);
+    if (!$GET_URI == "details") {
+    ?>
+        <meta property="og:title" content="Kabistore.tk - Cửa hàng đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
+        <meta property="og:description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
+        <meta property="og:url" content="kabistore.tk">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="600">
+        <meta property="og:image:height" content="600">
+        <meta property="og:image" content="https://kabistore.tk/img/thumbnail/img-thumbnail.jpg">
+        <meta property="og:image:secure_url" content="https://kabistore.tk/img/thumbnail/img-thumbnail.jpg" />
+    <?php } ?>
 
     <meta content="INDEX,FOLLOW" name="robots" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -67,6 +71,7 @@ include_once "inc/checkManager.php";
     <meta property="fb:pages" content="105932671830866" />
     <meta property="fb:app_id" content="1661876167354932">
     <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta name="facebook-domain-verification" content="gii64klu6w14w32p49su7u18l8r7h2" />
 
 
     <!-- Core Style CSS -->

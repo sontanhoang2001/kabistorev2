@@ -3,7 +3,9 @@ include 'inc/header.php';
 include 'inc/global.php';
 
 if (!isset($_GET['proid']) || $_GET['proid'] == NULL) {
-	echo "<script> window.location = '404.php' </script>";
+	echo "<script>
+	window.location = '404.php'
+</script>";
 } else {
 	$productid = $_GET['proid']; // Lấy productid trên host
 }
@@ -16,6 +18,27 @@ if ($login_check) {
 	Session::set('REQUEST_URI', $actual_link);
 	$customer_id = 0;
 }
+$seoUrl = "https://kabistore.tk/" . getRequestUrls();
+
+// Seo link
+$get_product_details = $product->get_details($productid);
+if ($get_product_details) {
+	$result_details = $get_product_details->fetch_assoc();
+	$productName = $result_details['productName'];
+	$productType = $result_details['type'];
+	$product_imgJson =  json_decode($result_details['image']);
+	$product_img = $product_imgJson[0]->image;
+?>
+	<meta property="og:title" content="<?php echo $productName ?>" />
+	<meta property="og:description" content="Nhấn vào liên kết để kiểm tra tình trạng của sản phẩm. Đặt hàng nhanh tức thì chỉ bằng một liên kết..." />
+	<meta property="og:url" content="<?php echo $seoUrl ?>">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:image:width" content="600">
+	<meta property="og:image:height" content="600">
+	<meta property="og:image" content="<?php echo $product_img ?>">
+	<meta property="og:image:secure_url" content="<?php echo $product_img ?>" />
+<?php }
+
 include 'inc/facebookPlugin.php';
 ?>
 <link rel="stylesheet" href="css/details.css">
@@ -29,33 +52,27 @@ include 'inc/facebookPlugin.php';
 <body>
 	<!-- ##### Single Product Details Area Start ##### -->
 	<?php
-	$get_product_details = $product->get_details($productid);
 	if ($get_product_details) {
-		$i = 0;
-		while ($result_details = $get_product_details->fetch_assoc()) {
-			$product_imgJson =  json_decode($result_details['image']);
-			// echo count($product_img);
-			// echo $product_img[$i]->image;
 	?>
-			<section class="single_product_details_area d-flex align-items-center">
-				<!-- Single Product Thumb -->
-				<div class="single_product_thumb">
-					<div class="product_thumbnail_slides owl-carousel">
-						<?php foreach ($product_imgJson as $product_img) { ?>
-							<img src="<?php echo $product_img->image ?>">
-						<?php
-						}  ?>
-					</div>
+		<section class="single_product_details_area d-flex align-items-center">
+			<!-- Single Product Thumb -->
+			<div class="single_product_thumb">
+				<div class="product_thumbnail_slides owl-carousel">
+					<?php foreach ($product_imgJson as $product_img) { ?>
+						<img src="<?php echo $product_img->image ?>">
+					<?php
+					}  ?>
 				</div>
+			</div>
 
-				<!-- Single Product Description -->
-				<div class="single_product_desc clearfix">
-					<span><?php echo $result_details['brandName'] ?></span>
-					<div class="fb-like" data-href="https://webcuatoi.vn/kabistore/details.php?proid=<?php echo $productid ?>" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
-					<h4><?php echo $result_details['productName'] ?></h4>
-					<p class="product-price"><span class="old-price mr-1"><?php echo  $fm->format_currency($result_details['old_price']) . " ₫" ?></span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
-					<!-- <p><b>Loại sản phẩm:</b> <?php echo $result_details['catName'] ?></p> -->
-					<!-- <p class="product-desc"><?php echo $fm->textShorten($result_details['product_desc'], 150) ?></p> -->
+			<!-- Single Product Description -->
+			<div class="single_product_desc clearfix">
+				<span><?php echo $result_details['brandName'] ?></span>
+				<div class="fb-like" data-href="https://webcuatoi.vn/kabistore/details.php?proid=<?php echo $productid ?>" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+				<h4><?php echo $productName ?></h4>
+				<p class="product-price"><span class="old-price mr-1"><?php echo  $fm->format_currency($result_details['old_price']) . " ₫" ?></span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
+				<?php if ($productType != 9) { ?>
+
 					<form id="cartSubmit">
 						<!-- Select Box -->
 						<div class="select-box d-flex mb-15">
@@ -105,17 +122,15 @@ include 'inc/facebookPlugin.php';
 						</div>
 						<div id="error-submit"></div>
 					</form>
-					<?php
-					// if (isset($AddtoCart)) {
-					// 	echo '<span style="color:red; font-size:18px;">Sản phẩm đã được bạn thêm vào giỏ hàng</span>';
-					// }
-					?>
-					</form>
-				</div>
-				<!-- Cart -->
-			</section>
+				<?php } else {
+				?>
+					<div class="text-danger">Sản phẩm này đã ngưng kinh doanh</div>
+				<?php
+				} ?>
+			</div>
+			<!-- Cart -->
+		</section>
 	<?php
-		}
 	}
 	?>
 	<!-- ##### Single Product Details Area End ##### -->
@@ -149,22 +164,20 @@ include 'inc/facebookPlugin.php';
 							}
 						}
 						?>
-
-						<!-- <div class="mt-4 fb-post" data-href="https://www.facebook.com/ilovekabistore/posts/117390824018384/" data-width="750" data-show-text="true" data-lazy="true"></div> -->
 					</div>
 				</div>
 			</div>
 			<div id="menu1" class="container tab-pane fade"><br>
 				<div class="row">
 					<div class="col-12">
-						<div class="fb-comments" data-href="https://webcuatoi.vn/kabistore/details.php?proid=<?php echo $productid; ?>" data-width="100%" data-numposts="10" data-lazy="true" data-mobile="true"></div>
+						<div class="fb-comments" data-href="https://kabistore.comment?productid=<?php echo $productId ?>" data-width="100%" data-numposts="10" data-lazy="true" data-mobile="true"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-
+	<!-- Gợi ý sp -->
 	<div class="container mb-5">
 		<h5 class="mb-5">Sản phẩm gợi ý cho bạn</h5>
 
@@ -266,6 +279,7 @@ include 'inc/facebookPlugin.php';
 			<div class="swiper-pagination"></div>
 		</div>
 	</div>
+
 
 	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i style="margin-top: 10px;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
 </body>

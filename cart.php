@@ -211,7 +211,5 @@ include 'inc/footer.php';
 	var disable_check_out = <?php echo $disable_check_out ?>;
 	var promoCode = "";
 </script>
+<script src="js/audio-message.js"></script>
 <script src="js/cart.js"></script>
-<!-- <script src="js/ajax_wishlist-and-cart.js"></script> -->
-<script>
-</script>
