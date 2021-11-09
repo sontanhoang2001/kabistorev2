@@ -539,4 +539,7 @@ include 'inc/global.php';
 </script>
 <script src="js/ajax_wishlist-and-cart.js"></script>
 <script src="js/function.js"></script>
+<script>
+    scrollingForIndex();
+</script>
 <script src="js/videoHelp.js"></script>

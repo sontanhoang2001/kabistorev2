@@ -351,4 +351,7 @@ include 'inc/footer.php';
 <!-- <script src="javascript/googleMaps.js"></script> -->
 <!-- <script src="js/allow_location.js"></script> -->
 <script src="js/function.js"></script>
+<script>
+    scrolling();
+</script>
 <script src="js/ajax_check_payment.js"></script>

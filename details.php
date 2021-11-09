@@ -18,7 +18,7 @@ if ($login_check) {
 	Session::set('REQUEST_URI', $actual_link);
 	$customer_id = 0;
 }
-$seoUrl = "https://kabistore.tk/" . getRequestUrls();
+$seoUrl = "https://kabistore.com.vn/" . getRequestUrls();
 
 // Seo link
 $get_product_details = $product->get_details($productid);

@@ -38,7 +38,7 @@ if ($login_check) {
             <input type="password" class="form-control form-control-sm" name="password" id="password" placeholder="Nhập mật khẩu..." required>
           </div>
       </div>
-      <div class="error mb-2" id="error-password1">Mật khẩu không được bỏ trống!!!</div>
+      <div class="error mb-2" id="error-password1">Bạn chưa nhập mật khẩu!</div>
       <div class="error mb-2" id="error-password2">
         Mật khẩu sai cú pháp!!!<br>
         Tối thiểu tám ký tự, ít nhất một chữ cái và một số</div>

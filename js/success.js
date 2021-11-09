@@ -8,6 +8,9 @@ $(document).ready(function () {
         dataType: 'json',
         data: {},
         success: function (data) {
+            console.log(data);
+        }, error: function (data) {
+            console.log(data);
         }
     })
 });

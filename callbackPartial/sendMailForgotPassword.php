@@ -1,42 +1,42 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	include_once "../classes/customer.php";
-	$cs = new customer();
+    include_once "../classes/customer.php";
+    $cs = new customer();
 
-	$email =  $_POST['email'];
-	$findEmailForgot = $cs->findEmailForgot($email);
+    $email =  $_POST['email'];
+    $findEmailForgot = $cs->findEmailForgot($email);
 
-	$result_infor = json_decode($findEmailForgot);
-	$status = $result_infor->status;
-	if ($status == 1) {
-		$username = $result_infor->username;
-		$name = $result_infor->name;
-		$password = $result_infor->password;
-	}
+    $result_infor = json_decode($findEmailForgot);
+    $status = $result_infor->status;
+    if ($status == 1) {
+        $username = $result_infor->username;
+        $name = $result_infor->name;
+        $password = $result_infor->password;
+    }
 
-	if ($status == 2) {
-		echo json_encode($result_json[] = ['status' => 2]); // email ko tồn tại trong hệ thống
-		die;
-	}
-	if ($status == 0) {
-		echo json_encode($result_json[] = ['status' => 3]); // email ko đc bỏ trống
-		die;
-	}
+    if ($status == 2) {
+        echo json_encode($result_json[] = ['status' => 2]); // email ko tồn tại trong hệ thống
+        die;
+    }
+    if ($status == 0) {
+        echo json_encode($result_json[] = ['status' => 3]); // email ko đc bỏ trống
+        die;
+    }
 
-	// giải md5 to string
-	$hash = $password;
-	$hash_type = "md5";
-	$emailAPI = "hoangsonytb123@gmail.com";
-	$code = "01564c9af82dcb78";
-	$responsePassword = file_get_contents("https://md5decrypt.net/en/Api/api.php?hash=" . $hash . "&hash_type=" . $hash_type . "&email=" . $emailAPI . "&code=" . $code);
-	$check_responsePassword = substr($responsePassword, 13);
-	if (!$check_responsePassword == "003") {
-		//goi thu vien
-		include('../lib/PHPMailer/class.smtp.php');
-		include "../lib/PHPMailer/class.phpmailer.php";
-		include "../lib/PHPMailer/functions.php";
-		$title = 'HỖ TRỢ KHÔI PHỤC MẬT KHẨU ĐĂNG NHẬP';
-		$content = '
+    // giải md5 to string
+    $hash = $password;
+    $hash_type = "md5";
+    $emailAPI = "hoangsonytb123@gmail.com";
+    $code = "01564c9af82dcb78";
+    $responsePassword = file_get_contents("https://md5decrypt.net/en/Api/api.php?hash=" . $hash . "&hash_type=" . $hash_type . "&email=" . $emailAPI . "&code=" . $code);
+    $check_responsePassword = substr($responsePassword, 13);
+    if (!$check_responsePassword == "003") {
+        //goi thu vien
+        include('../lib/PHPMailer/class.smtp.php');
+        include "../lib/PHPMailer/class.phpmailer.php";
+        include "../lib/PHPMailer/functions.php";
+        $title = 'HỖ TRỢ KHÔI PHỤC MẬT KHẨU ĐĂNG NHẬP';
+        $content = '
 		<!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -504,7 +504,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                         <td class="email-masthead">
-                            <a href="https://example.com" class="f-fallback email-masthead_name">
+                            <a href="#" class="f-fallback email-masthead_name">
                                 HỖ TRỢ TÌM LẠI MẬT KHẨU ĐĂNG NHẬP KABISTORE
                             </a>
                         </td>
@@ -540,7 +540,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                             role="presentation">
                                                             <tr>
                                                                 <td align="center">
-                                                                    <a href="https://kabistore.tk/login.html"
+                                                                    <a href="https://kabistore.com.vn/login.html"
                                                                         class="f-fallback button button--green"
                                                                         target="_blank">Đi đến đăng nhập</a>
                                                                 </td>
@@ -551,7 +551,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </table>
                                             <p>Bây giờ bạn đã có thể đăng nhập vào không cần phải reset lại mật khẩu.
                                                 Đừng quên ghé thăm <a
-                                                    href="https://kabistore.tk/san-pham-f0p1t0smem.html">Shop </a>
+                                                    href="https://kabistore.com.vn/san-pham-f0p1t0smem.html">Shop </a>
                                                 với nhiều sản phẩm mới và hấp dẫn được cập nhật mỗi ngày.</p>
                                             <p>Cảm ơn bạn đã đọc hết mail này, chúc bạn một ngày tốt lành,
 
@@ -599,18 +599,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </html>
 		';
-		$nTo = 'Gửi đến ' . $name;
-		$mTo = $email;
-		$diachi = 'kabistore24h@gmail.com';
-		//test gui mail
-		$mail = sendMail($user, $password, $title, $content, $nTo, $mTo, $diachi = '');
-		if ($mail == 1)
-			echo json_encode($result_json[] = ['status' => 1]); // gửi email thành công
-		else echo json_encode($result_json[] = ['status' => 0]); // gửi email thất bại
-	} else {
-		echo json_encode($result_json[] = ['status' => 0]); // gửi email thất bại
-	}
-}
- else {
+        $nTo = 'Gửi đến ' . $name;
+        $mTo = $email;
+        $diachi = 'hotrokhachhang@kabistore.com.vn';
+        //test gui mail
+        $mail = sendMail($user, $password, $title, $content, $nTo, $mTo, $diachi = '');
+        if ($mail == 1)
+            echo json_encode($result_json[] = ['status' => 1]); // gửi email thành công
+        else echo json_encode($result_json[] = ['status' => 0]); // gửi email thất bại
+    } else {
+        echo json_encode($result_json[] = ['status' => 0]); // gửi email thất bại
+    }
+} else {
     header("location:../404.php");
- }
+}

@@ -91,10 +91,10 @@
     <!-- ##### Footer Area End ##### -->
 
     <!-- Messenger Plugin chat Code -->
-    <div id="fb-root"></div>
+    <!-- <div id="fb-root"></div> -->
 
     <!-- Your Plugin chat code -->
-    <div id="fb-customer-chat" class="fb-customerchat"></div>
+    <!-- <div id="fb-customer-chat" class="fb-customerchat"></div> -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
@@ -143,7 +143,7 @@
             });
         });
     </script>
-    <script src="js/fbchat.js"></script>
+    <!-- <script src="js/fbchat.js"></script> -->
     <script type="text/javascript">
         $(document).ready(function() {
             if (loginAlert == true) {

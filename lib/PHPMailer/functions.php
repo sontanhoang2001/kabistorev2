@@ -1,12 +1,12 @@
 <?php
 // $user = "Cskhkabistore@gmail.com";
 // $password = "hoangthao123";
-$user = "hotrokhachhang@kabistore.tk";
+$user = "hotrokhachhang@kabistore.com.vn";
 $password = "sieubaomat96308520@";
 
 function sendMail($user, $password, $title, $content, $nTo, $mTo, $diachicc = '')
 {
-	$nFrom = 'Kabistore.tk';
+	$nFrom = 'Kabistore.com.vn';
 	$mFrom = $user;	//dia chi email cua ban 
 	$mPass = $password;		//mat khau email cua ban
 	$mail             = new PHPMailer();
@@ -16,7 +16,7 @@ function sendMail($user, $password, $title, $content, $nTo, $mTo, $diachicc = ''
 	$mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
 	$mail->SMTPAuth   = true;                  	// enable SMTP authentication
 	$mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-	$mail->Host       = "mail.kabistore.tk"; //smtp.gmail.com
+	$mail->Host       = "mail.kabistore.com.vn"; //smtp.gmail.com
 	$mail->Port       = 465;
 	$mail->Username   = $mFrom;  // GMAIL username
 	$mail->Password   = $mPass;           	 // GMAIL password
@@ -33,7 +33,7 @@ function sendMail($user, $password, $title, $content, $nTo, $mTo, $diachicc = ''
 	$mail->MsgHTML($body);
 	$address = $mTo;
 	$mail->AddAddress($address, $nTo);
-	$mail->AddReplyTo('hotrokhachhang@kabistore.tk', 'https://kabistore.tk');
+	$mail->AddReplyTo('hotrokhachhang@kabistore.com.vn', 'https://Kabistore.com.vn');
 	if (!$mail->Send()) {
 		return 0;
 	} else {
