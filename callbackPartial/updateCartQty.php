@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+    include '../inc/global.php';
     include '../lib/session.php';
     include '../helpers/format.php';
     include_once "../classes/cart.php";
@@ -32,11 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $price_ship = $result_price['price'];
                 }
 
+                // lấy tổng số lượng
+                $quantityTotal = Session::get('quantityTotal');
+
                 // $price_ship = 5000;
                 $subtotal = Session::get('sum');
                 // lấy ship cũ
                 $ship = Session::get('ship');
-                $ship = $ship + $quantityNew * $price_ship;
+                if ($quantityTotal > 1) {
+                    $ship =  $maxShip + $shipAdd * ($quantityTotal + $quantityNew);
+                } else {
+                    $ship = $ship + $quantityNew * $price_ship;
+                }
+                //Lưu giá trị khi ở trong ajax
+                Session::set('quantityTotal', $quantityTotal + $quantityNew);
+
                 Session::set('ship', $ship);
 
                 $subtotal = $subtotal + ($price * $quantityNew);
@@ -44,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $grandTotal = $subtotal + $ship;
                 Session::set('grandTotal', $grandTotal);
-                echo json_encode($result_json[] = ['subtotal' => $fm->format_currency($subtotal) . " ₫", 'ship' => $fm->format_currency($ship) . " ₫", 'total' => $fm->format_currency($grandTotal) . " ₫"]);
+                echo json_encode($result_json[] = ['subtotal' => $fm->format_currency($subtotal) . " ₫", 'ship' => $ship, 'total' => $fm->format_currency($grandTotal) . " ₫"]);
             } else {
                 $cartSess = $_SESSION['cart'][$cart_Id];
                 $price = $cartSess['price'];
@@ -55,10 +65,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $price_ship = $result_price['price'];
                 }
 
+                // lấy tổng số lượng
+                $quantityTotal = Session::get('quantityTotal');
+
                 // $price_ship = 5000;
                 $subtotal = Session::get('sum');
                 $ship = Session::get('ship');
-                $ship = $ship - $quantityNew * $price_ship;
+
+                if ($quantityTotal > 1) {
+                    $ship =  $maxShip + $shipAdd * ($quantityTotal - $quantityNew);
+                } else if ($quantityTotal <= 1) {
+                    $ship =  $price_ship;
+                } else {
+                    $ship = $ship - $quantityNew * $price_ship;
+                }
+                //Lưu giá trị khi ở trong ajax
+                Session::set('quantityTotal', $quantityTotal - $quantityNew);
+
                 Session::set('ship', $ship);
 
                 $subtotal = $subtotal - ($price * $quantityNew);
@@ -66,12 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $grandTotal = $subtotal + $ship;
                 Session::set('grandTotal', $grandTotal);
-                echo json_encode($result_json[] = ['subtotal' => $fm->format_currency($subtotal) . " ₫", 'ship' => $fm->format_currency($ship) . " ₫", 'total' => $fm->format_currency($grandTotal) . " ₫"]);
+                echo json_encode($result_json[] = ['subtotal' => $fm->format_currency($subtotal) . " ₫", 'ship' => $ship, 'total' => $fm->format_currency($grandTotal) . " ₫"]);
             }
             break;
         default:
     }
 } else {
     header("location:../404.php");
- }
+}
 // <li class="totalRow"><a href="checkout" class="btn continue">Vào thanh Toán</a></li>

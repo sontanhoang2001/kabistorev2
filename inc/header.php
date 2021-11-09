@@ -72,7 +72,8 @@ include_once "inc/checkManager.php";
     <meta property="fb:app_id" content="1661876167354932">
     <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta name="google-site-verification" content="ngOfSvh8AOWkNpFQ-rHOwpugk4-wOl9xFFH-KlASdRU" />
-
+    <meta name="facebook-domain-verification" content="ycjxgr2xgj6t34d9ot90h6u9kyymxr" />
+    
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link href="css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />

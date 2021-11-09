@@ -43,6 +43,11 @@ $discount = session::set('discountMoney', 0);
 			$price_ship = $result_price['price'];
 		}
 		$i = 0;
+		$quantityTotal = 0;
+		// tiền ship tối đa
+		$maxShip = 38499;
+		// Cộng thêm mỗi đơn hàng
+		$shipAdd = 2500;
 		$subtotal = 0;
 		$ship = 0;
 		// Khởi tạo session cho mỗi lần truy cập
@@ -105,11 +110,10 @@ $discount = session::set('discountMoney', 0);
 					<!--<li class="items even">Item 2</li>-->
 				</ul>
 		<?php
+				echo $quantityTotal =  (int)$quantityTotal + (int)$quantity;
 				$cart = array();
 				$cart = ['price' => $price];
 				$_SESSION['cart'][$cartId] = $cart;
-
-				$ship = $ship + $quantity * $price_ship;
 				$subtotal += $total;
 			}
 		} else {
@@ -121,12 +125,18 @@ $discount = session::set('discountMoney', 0);
 		} else {
 			Session::set('disable_check_out', 0);
 		}
+		Session::set('quantityTotal', $quantityTotal);
+
+		if ($quantityTotal > 1) {
+			$ship =  (int)$maxShip +  (int)$shipAdd * (int)$quantityTotal - (int)$shipAdd;
+		} else {
+			$ship = $ship + $quantity * $price_ship;
+		}
 		?>
 	</div>
 
 
 	<div class="row" style="margin-right: -4px; margin-left: -4px;" id="payGroup">
-
 		<?php
 		$check_cart = $ct->check_cart($customer_id);
 		if ($check_cart) {
@@ -144,7 +154,9 @@ $discount = session::set('discountMoney', 0);
 						</div>
 					</div>
 				</form>
+				<p class="font-italic mb-4">Lưu ý: Shop sẽ check vị trí của Khách hàng để giảm phí giao hàng xuống mức thấp nhất có thể và gửi hóa đơn cho bạn trước khi giao hàng. Bạn có thể liên hệ shop để yêu cầu mã giảm giá.</p>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="p-4">
 					<form id="f_cart" method="POST" action="checkout.html" enctype="multipart/form-data">
@@ -180,7 +192,6 @@ $discount = session::set('discountMoney', 0);
 						</div>
 						<li class="errorRow"></li>
 					</div>
-
 				</div>
 			</div>
 		<?php

@@ -3552,7 +3552,7 @@ h3.name-cart {
 
 #itemImg {
     width: 110px;
-    height: auto;
+    height: 110px;
     object-fit: cover;
 }
 

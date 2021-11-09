@@ -204,7 +204,7 @@ include 'inc/global.php';
                                     <p>Mua từ <?php echo $fm->format_currency($result['condition']) . " ₫" ?></p>
                                 </aside>
                                 <h5>Giảm <?php echo $fm->format_currency($result['discountMoney']) . " ₫" ?></h5>
-                                <p class="row col-10"><?php echo $result['description'] ?></p>
+                                <p class="row col-8"><?php echo $result['description'] ?></p>
                                 <div class="row">
                                     <div class="col-12 mt-2">
                                         <p style="color: green;">Mã giảm giá: <span class="promoCode" id="promocode-<?php echo $promotion_index ?>"><?php echo $result['promotionsCode'] ?></span></p>

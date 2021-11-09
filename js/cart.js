@@ -204,7 +204,8 @@ $('.input-quantitys').each(function (index, val) {
 
                         var res = JSON.parse(data);
                         $('#subtotal').text(res.subtotal);
-                        $('#ship').text("+ " + res.ship);
+                        console.log(res.ship);
+                        $('#ship').text("+ " + currency_vn(res.ship));
                         $('#discountPrice').text("Chưa nhập mã");
                         $('#total').text(res.total);
 

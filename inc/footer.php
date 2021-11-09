@@ -40,7 +40,7 @@
                     <p>Liên hệ với chúng tôi thông qua địa chỉ:</p>
                     <p><span class="fa fa-map-marker"></span> Số 38H11/7, Khu vực 3, An Khánh, Ninh Kiều, Cần Thơ</p>
                     <p><span class="fa fa-phone"></span> +09 21 843 042</p>
-                    <p><span class="fa fa-envelope"></span> kabistore@gmail.com</p>
+                    <p><span class="fa fa-envelope"></span> hotrokhachhang@kabistore.com.vn</p>
                     <!-- Single Widget Area -->
                     <div class="single_widget_area">
                         <div class="footer_social_area">
@@ -62,7 +62,7 @@
                     <p>Liên hệ với chúng tôi thông qua địa chỉ:</p>
                     <p><span class="fa fa-map-marker"></span> Số 38H11/7, Khu vực 3, An Khánh, Ninh Kiều, Cần Thơ</p>
                     <p><span class="fa fa-phone"></span> +09 21 843 042</p>
-                    <p><span class="fa fa-envelope"></span> kabistore@gmail.com</p>
+                    <p><span class="fa fa-envelope"></span> hotrokhachhang@kabistore.com.vn</p>
                     <!-- Single Widget Area -->
                     <div class="single_widget_area">
                         <div class="footer_social_area">
@@ -89,12 +89,6 @@
         </div>
     </footer>
     <!-- ##### Footer Area End ##### -->
-
-    <!-- Messenger Plugin chat Code -->
-    <!-- <div id="fb-root"></div> -->
-
-    <!-- Your Plugin chat code -->
-    <!-- <div id="fb-customer-chat" class="fb-customerchat"></div> -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
@@ -143,7 +137,6 @@
             });
         });
     </script>
-    <!-- <script src="js/fbchat.js"></script> -->
     <script type="text/javascript">
         $(document).ready(function() {
             if (loginAlert == true) {
@@ -153,3 +146,10 @@
             }
         });
     </script>
+
+    <!-- Messenger Plugin chat Code -->
+    <!-- <div id="fb-root"></div> -->
+
+    <!-- Your Plugin chat code -->
+    <!-- <div id="fb-customer-chat" class="fb-customerchat"></div>
+    <script src="js/fbchat.js"></script> -->

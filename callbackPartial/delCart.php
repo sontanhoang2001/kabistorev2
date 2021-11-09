@@ -1,5 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include '../inc/global.php';
     include '../lib/session.php';
     include '../helpers/format.php';
     include_once "../classes/cart.php";
@@ -27,7 +28,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // $price_ship = 5000;
                 $subtotal = Session::get('sum');
                 $ship = Session::get('ship');
-                $ship = $ship - $quantity * $price_ship;
+                // lấy tổng số lượng
+                $quantityTotal = Session::get('quantityTotal');
+
+                if ($quantityTotal > 1) {
+                    $ship =  $maxShip + $shipAdd * ($quantityTotal - $quantity);
+                } else if ($quantityTotal == 1) {
+                    $ship =  $price_ship;
+                } else {
+                    $ship = $ship - $quantity * $price_ship;
+                }
+
                 Session::set('ship', $ship);
 
                 $subtotal = $subtotal - ($price * $quantity);

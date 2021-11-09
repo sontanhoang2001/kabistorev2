@@ -170,7 +170,7 @@ include 'inc/facebookPlugin.php';
 			<div id="menu1" class="container tab-pane fade"><br>
 				<div class="row">
 					<div class="col-12">
-						<div class="fb-comments" data-href="https://kabistore.comment?productid=<?php echo $productId ?>" data-width="100%" data-numposts="10" data-lazy="true" data-mobile="true"></div>
+						<div class="fb-comments" data-href="https://kabistore.com.vn/details/<?php echo $productId ?>" data-width="100%" data-numposts="10" data-lazy="true" data-mobile="true"></div>
 					</div>
 				</div>
 			</div>
