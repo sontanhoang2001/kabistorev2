@@ -1,10 +1,10 @@
 <?php
+include '~/../../inc/global.php';
 include '../lib/session.php';
 Session::checkSession();
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     Session::destroy();
 }
-$avatar_img = "https://scontent.fvca1-2.fna.fbcdn.net/v/t39.30808-6/249015990_3089363401394248_7932884467724236860_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=Hs96PbnxFfAAX_gXwX0&_nc_ht=scontent.fvca1-2.fna&oh=42d1644219ca5eaa492b83be224e877d&oe=6187ACE8";
 
 header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
@@ -386,7 +386,7 @@ header("Cache-Control: max-age=2592000");
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo Session::get('adminName'); ?></span>
-                                <img class="img-profile rounded-circle" src="<?php echo $avatar_img ?>">
+                                <img class="img-profile rounded-circle" src="<?php echo $avatarAdmin_img ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

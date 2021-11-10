@@ -325,7 +325,7 @@ include 'inc/global.php';
         <div class="px-lg-5">
             <div class="container">
                 <h2 class="pt-4"><i class="fa fa-question-circle" aria-hidden="true"></i> Hướng dẫn mua hàng</h2>
-                <p>Video hướng dẫn cách bước đặt hàng tại Kabistore vô cùng đơn giản</p>
+                <p>Video hướng dẫn cách bước đặt hàng tại Kabistore vô cùng đơn giản.</p>
 
                 <div class="row mt-5">
                     <!-- Grid column -->

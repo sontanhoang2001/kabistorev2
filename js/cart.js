@@ -203,11 +203,10 @@ $('.input-quantitys').each(function (index, val) {
                         $('p#rowTotalPrice').eq(index).text(rowTotalPrice);
 
                         var res = JSON.parse(data);
-                        $('#subtotal').text(res.subtotal);
-                        console.log(res.ship);
+                        $('#subtotal').text(currency_vn(res.subtotal));
                         $('#ship').text("+ " + currency_vn(res.ship));
                         $('#discountPrice').text("Chưa nhập mã");
-                        $('#total').text(res.total);
+                        $('#total').text(currency_vn(res.total));
 
                         var promotionCode = $('#promotion_code').val();
                         if (promotionCode !== "") {
@@ -294,10 +293,10 @@ function CheckPostPromotion(status, type, data) {
                 },
                 success: function (data) {
                     var res = JSON.parse(data);
-                    $('#subtotal').text(res.subtotal);
-                    $('#ship').text("+ " + res.ship);
-                    $('#discountPrice').text("- " + res.discount);
-                    $('#total').text(res.total);
+                    $('#subtotal').text(currency_vn(res.subtotal));
+                    $('#ship').text("+ " + currency_vn(res.ship));
+                    $('#discountPrice').text("- " + currency_vn(res.discount));
+                    $('#total').text(currency_vn(res.total));
 
                 }
             });
@@ -341,10 +340,10 @@ function resetDiscount() {
         },
         success: function (data) {
             var res = JSON.parse(data);
-            $('#subtotal').text(res.subtotal);
-            $('#ship').text(res.ship);
+            $('#subtotal').text(currency_vn(res.subtotal));
+            $('#ship').text("+ " + currency_vn(res.ship));
             $('#discountPrice').text("Chưa nhập mã");
-            $('#total').text(res.total);
+            $('#total').text(currency_vn(res.total));
         }
     });
 }

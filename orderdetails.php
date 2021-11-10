@@ -139,24 +139,42 @@ if ($login_check == false) {
 								</div>
 								<div class="mt-2">
 									<?php
-									if ($status == 0) {
+									switch ($status) {
+										case 0:
 									?>
-										<td>
-											<div class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo 'Đang chờ xác nhận...'; ?></div>
-										</td>
+											<td>
+												<div class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo 'Đang chờ xác nhận...'; ?></div>
+											</td>
+										<?php
+											break;
+										case 1:
+										?>
+											<td>
+												<div class="float-right"><i class="fa fa-truck" aria-hidden="true"></i> Chờ nhận hàng...</div>
+											</td>
+										<?php
+											break;
+										case 2:
+										?>
+											<td>
+												<div class="float-right"><i class="fa fa-check-circle" aria-hidden="true" style="color: #4caf50;"></i> Đã nhận hàng</div>
+											</td>
+										<?php
+											break;
+										case 3:
+										?>
+											<td>
+												<div class="float-right"><i class="fa fa-ban" aria-hidden="true" style="color: red;"></i> Đã hủy đơn</div>
+											</td>
+										<?php
+											break;
+										case 4:
+										?>
+											<td>
+												<div class="float-right"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color: red;"></i> Đơn hàng lỗi</div>
+											</td>
 									<?php
-									} elseif ($status == 1) {
-									?>
-										<td>
-											<div class="float-right"><i class="fa fa-truck" aria-hidden="true"></i> Chờ nhận hàng...</div>
-										</td>
-									<?php
-									} else {
-									?>
-										<td>
-											<div class="float-right"><i class="fa fa-check-circle" aria-hidden="true" style="color: #4caf50;"></i> Đã nhận hàng</div>
-										</td>
-									<?php
+										default:
 									}
 									?>
 								</div>
@@ -298,7 +316,3 @@ include 'inc/footer.php';
 <script src="js/map-api-admin.js"></script>
 <script src="js/getLocaltionOrder.js"></script>
 <script src="js/function.js"></script>
-<script>
-	loadOrderMap(12.550343, 55.665957);
-	// mapSave(cusMaps_maplng, cusMaps_maplat);
-</script>

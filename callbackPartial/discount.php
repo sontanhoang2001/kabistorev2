@@ -4,7 +4,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once "../classes/cart.php";
 
     Session::init();
-    $fm = new Format();
     $ct = new cart();
     $case = $_POST['case'];
     $promoCode = $_POST['promoCode'];
@@ -26,8 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Session::set('sum', $subtotal);
 
             $grandTotal = $subtotal + $ship - $discount;
+
             Session::set('grandTotal', $grandTotal);
-            echo json_encode($result_json[] = ['subtotal' => $fm->format_currency($subtotal) . " ₫", 'ship' => $fm->format_currency($ship) . " ₫", 'total' => $fm->format_currency($grandTotal) . " ₫", 'discount' => $fm->format_currency($discount) . " ₫"]);
+            echo json_encode($result_json[] = ['subtotal' => $subtotal, 'ship' => $ship, 'total' => $grandTotal, 'discount' => $discount]);
             break;
         case 2:
             $subtotal = Session::get('sum');
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $grandTotal = $subtotal + $ship;
             Session::set('grandTotal', $grandTotal);
-            echo json_encode($result_json[] = ['subtotal' => $fm->format_currency($subtotal) . " ₫", 'ship' => $fm->format_currency($ship) . " ₫", 'total' => $fm->format_currency($grandTotal) . " ₫"]);
+            echo json_encode($result_json[] = ['subtotal' => $subtotal, 'ship' => $ship, 'total' => $grandTotal]);
             break;
         default:
     }

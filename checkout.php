@@ -1,4 +1,5 @@
 <?php
+include 'inc/global.php';
 include 'inc/header.php';
 
 $disable_check_out = Session::get('disable_check_out');
@@ -119,6 +120,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 <?php unset($_SESSION['cart_payment']);
                 $subtotal = 0;
                 $ship = 0;
+                $quantityTotal = 0;
 
                 $get_price_ship = $ct->get_price_ship();
                 while ($result_price = $get_price_ship->fetch_assoc()) {
@@ -193,6 +195,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                     </div>
                                 </div>
                         <?php
+                                $quantityTotal =  (int)$quantityTotal + (int)$quantity;
                                 //set sesstion to cart
                                 $cart = array();
                                 $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity, 'productSize' => $productSize];
@@ -203,8 +206,8 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         }
                         ?>
                         <?php
-                        // $check_cart = $ct->check_cart();
-                        // if ($check_cart) {
+                        Session::set('quantityTotal', $quantityTotal);
+                        $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
                         $discount = 0;
                         ?>
                         <hr>
@@ -235,23 +238,16 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         </div>
                         <hr>
                         <div class="form-group">
-
-                            <!-- <div class="promoCode">
-                                <label for="promo">Mã Giảm Giá</label>
-                                <input class="form-control" type="text" name="promo"value="<?php echo $promo_code; ?>" />
-                                <!-- <a href="" class="btn" id="discount"></a> -->
-                            <!-- </div> -->
-
-
                             <?php
                             $discount = session::get('discountMoney');
                             ?>
                             <div class="row lower">
                                 <strong class="col text-muted text-left">Tạm tính</strong>
-                                <div class="col text-right"><?php echo $fm->format_currency($subtotal) . " ₫";
-                                                            Session::set('sum', $subtotal);
-                                                            Session::set('ship', $ship);
-                                                            ?>
+                                <div class="col text-right">
+                                    <?php echo $fm->format_currency($subtotal) . " ₫";
+                                    Session::set('sum', $subtotal);
+                                    Session::set('ship', $ship);
+                                    ?>
                                 </div>
                             </div>
                             <div class="row lower">

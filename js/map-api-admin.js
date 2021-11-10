@@ -29,6 +29,7 @@ async function getGeocodingOrderMap(lng, lat) {
 mapboxgl.accessToken = 'pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA';
 
 function loadOrderMap(cusMaps_maplat, cusMaps_maplng) {
+    $('#map').empty();
     const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',

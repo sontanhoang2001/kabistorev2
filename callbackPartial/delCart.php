@@ -31,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // lấy tổng số lượng
                 $quantityTotal = Session::get('quantityTotal');
 
-                if ($quantityTotal > 1) {
-                    $ship =  $maxShip + $shipAdd * ($quantityTotal - $quantity);
-                } else if ($quantityTotal == 1) {
-                    $ship =  $price_ship;
-                } else {
-                    $ship = $ship - $quantity * $price_ship;
-                }
+                //$ship = $ship - $quantity * $price_ship;
+                $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - (int)$quantity - 1);
+                // } else {
+                //     $ship =  $price_ship;
+                // }
+                //Lưu giá trị khi ở trong ajax
+                Session::set('quantityTotal', $quantityTotal - $quantity);
 
                 Session::set('ship', $ship);
 

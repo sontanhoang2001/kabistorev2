@@ -135,7 +135,7 @@ class product
 	// 		}
 	// 	}
 	// }
-	
+
 	public function insert_slider($data, $files)
 	{
 		$sliderTitle = mysqli_real_escape_string($this->db->link, $data['sliderTitle']);
@@ -457,7 +457,7 @@ class product
 						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
-						WHERE tbl_product.price BETWEEN '$priceStart' and '$priceEnd' AND `type` != 9
+						WHERE tbl_product.price BETWEEN $priceStart and $priceEnd AND `type` != 9
 						order by productId desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -468,7 +468,7 @@ class product
 						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, old_price, price, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
-						WHERE tbl_product.price BETWEEN '$priceStart' AND '$priceEnd' AND `type` != 9
+						WHERE tbl_product.price BETWEEN $priceStart AND $priceEnd AND `type` != 9
 						order by product_soldout desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -480,7 +480,7 @@ class product
 						FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
-						where old_price != 0 and tbl_product.price BETWEEN '$priceStart' and '$priceEnd' AND `type` != 9
+						where old_price != 0 and tbl_product.price BETWEEN $priceStart and $priceEnd AND `type` != 9
 						order by old_price desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -492,7 +492,7 @@ class product
 						FROM tbl_product as p 
 						inner join tbl_category as c
 						on p.catId = c.catId
-						where p.type = 2 AND p.price BETWEEN '$priceStart' AND '$priceEnd' AND `type` != 9
+						where p.type = 2 AND p.price BETWEEN $priceStart AND $priceEnd AND `type` != 9
 						order by productId desc LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -509,7 +509,7 @@ class product
 						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
 						FROM tbl_product
 						inner join tbl_category on tbl_product.catId = tbl_category.catId
-						where tbl_category.catId = '$catId' AND `type` != 9 AND tbl_product.price BETWEEN '$priceStart' AND '$priceEnd'
+						where tbl_category.catId = '$catId' AND `type` != 9 AND tbl_product.price BETWEEN $priceStart AND $priceEnd
 						LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -519,7 +519,7 @@ class product
 						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.old_price, tbl_product.price, tbl_product.image
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
-						where tbl_brand.brandId = '$brandId' AND `type` != 9 AND tbl_product.price BETWEEN '$priceStart' AND '$priceEnd'
+						where tbl_brand.brandId = '$brandId' AND `type` != 9 AND tbl_product.price BETWEEN $priceStart AND $priceEnd
 						LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -544,7 +544,7 @@ class product
 				case 0: {
 						// Đếm tất cả sản phẩm select = 0
 						$query = "SELECT COUNT(productId) as totalRow FROM tbl_product
-						where price BETWEEN '$priceStart' AND '$priceEnd' AND `type` != 9";
+						where price BETWEEN $priceStart AND $priceEnd AND `type` != 9";
 						$result = $this->db->select($query);
 						return $result;
 						break;
@@ -552,7 +552,7 @@ class product
 				case 1: {
 						// Đếm Sản phẩm bán nhiều nhất select = 2
 						$query = "SELECT COUNT(productId) as totalRow FROM tbl_product
-						where price BETWEEN '$priceStart' AND '$priceEnd' AND `type` != 9";
+						where price BETWEEN $priceStart AND $priceEnd AND `type` != 9";
 						$result = $this->db->select($query);
 						return $result;
 						break;
@@ -561,7 +561,7 @@ class product
 						// Đếm tất cả Sản phẩm khuyến mãi select = 3
 						$query = "SELECT COUNT(productId) as totalRow
 					FROM tbl_product
-					where old_price != 0 AND `type` != 9 AND price BETWEEN '$priceStart' AND '$priceEnd'";
+					where old_price != 0 AND `type` != 9 AND price BETWEEN $priceStart AND $priceEnd";
 						$result = $this->db->select($query);
 						return $result;
 						break;
@@ -570,7 +570,7 @@ class product
 						// Lấy tất cả Sản phẩm đc đánh giá cao nhât 3
 						$query = "SELECT COUNT(productId) as totalRow
 						FROM tbl_product
-						where type = 2 AND `type` != 9 AND price BETWEEN '$priceStart' AND '$priceEnd'";
+						where type = 2 AND `type` != 9 AND price BETWEEN $priceStart AND $priceEnd";
 						$result = $this->db->select($query);
 						return $result;
 						break;
@@ -585,7 +585,7 @@ class product
 						$query = "SELECT COUNT(tbl_product.productId) as totalRow
 						FROM tbl_product
 						inner join tbl_category on tbl_product.catId = tbl_category.catId
-						where tbl_category.catId = '$catId' AND `type` != 9 AND price BETWEEN '$priceStart' AND '$priceEnd'";
+						where tbl_category.catId = '$catId' AND `type` != 9 AND price BETWEEN $priceStart AND $priceEnd";
 						$result = $this->db->select($query);
 						return $result;
 						break;
@@ -594,7 +594,7 @@ class product
 						$query = "SELECT COUNT(tbl_product.productId) as totalRow
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
-						where tbl_brand.brandId = '$brandId' AND `type` != 9 AND price BETWEEN '$priceStart' AND '$priceEnd'";
+						where tbl_brand.brandId = '$brandId' AND `type` != 9 AND price BETWEEN $priceStart AND $priceEnd";
 						$result = $this->db->select($query);
 						return $result;
 						break;

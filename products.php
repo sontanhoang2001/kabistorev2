@@ -198,7 +198,6 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                 </div>
             </div>
             <?php
-            $product_num = 3;
             $product_all = $product->get_all_product($filter, $page, $type, $product_num, $priceStart, $priceEnd);
             $amount_all_product = $product->get_amount_all_product($filter, $type, $priceStart, $priceEnd);
             $result = $amount_all_product->fetch_assoc();
@@ -436,7 +435,7 @@ include 'inc/footer.php';
             range: true,
             orientation: "horizontal",
             min: 0,
-            max: 500000,
+            max: 200000,
             values: [<?php echo $priceStart ?>, <?php echo $priceEnd ?>],
             step: 100,
 

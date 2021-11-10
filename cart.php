@@ -110,7 +110,7 @@ $discount = session::set('discountMoney', 0);
 					<!--<li class="items even">Item 2</li>-->
 				</ul>
 		<?php
-				echo $quantityTotal =  (int)$quantityTotal + (int)$quantity;
+				$quantityTotal =  (int)$quantityTotal + (int)$quantity;
 				$cart = array();
 				$cart = ['price' => $price];
 				$_SESSION['cart'][$cartId] = $cart;
@@ -126,15 +126,10 @@ $discount = session::set('discountMoney', 0);
 			Session::set('disable_check_out', 0);
 		}
 		Session::set('quantityTotal', $quantityTotal);
+		$ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
 
-		if ($quantityTotal > 1) {
-			$ship =  (int)$maxShip +  (int)$shipAdd * (int)$quantityTotal - (int)$shipAdd;
-		} else {
-			$ship = $ship + $quantity * $price_ship;
-		}
 		?>
 	</div>
-
 
 	<div class="row" style="margin-right: -4px; margin-left: -4px;" id="payGroup">
 		<?php
@@ -167,7 +162,7 @@ $discount = session::set('discountMoney', 0);
 									Session::set('sum', $subtotal);
 									Session::set('ship', $ship);
 									?></strong></li>
-							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí giao hàng</strong><strong id="ship">
+							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí giao hàng ước tính</strong><strong id="ship">
 									<?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></strong></li>
 
 							<li class="d-flex justify-content-between py-3 border-bottom none"><strong class="text-muted">Giảm giá</strong><strong id="discountPrice">Chưa nhập mã</strong></li>

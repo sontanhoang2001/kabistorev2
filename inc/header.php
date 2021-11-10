@@ -36,36 +36,36 @@ include_once "inc/checkManager.php";
     <!-- Title  -->
     <meta charset="UTF-8">
     <title>Kabi Store - Cửa hàng tổng hợp đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long</title>
-    <meta name="keywords" content="kabistore.com.vn , kabistore, kabistore gia se re, kabistore gía siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore tong hop, kabistore tổng hợp, kabistore do gia dung, kabistore đồ gia dụng, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore lam dep, kabistore Làm đẹp, kabistore my pham, kabistore mỹ phẩm, kabistore cham soc ca nhan, kabistore chăm sóc cá nhân, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sĩ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sĩ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long" />
-    <meta name="description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
+    <meta name="keywords" content="kabistore.com.vn , kabistore, kabistore gia sieu re, kabistore giá siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore tong hop, kabistore tổng hợp, kabistore do gia dung, kabistore đồ gia dụng, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore lam dep, kabistore Làm đẹp, kabistore my pham, kabistore mỹ phẩm, kabistore cham soc ca nhan, kabistore chăm sóc cá nhân, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sĩ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sĩ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long, tan hoang kabistore, Tấn Hoàng kabistore" />
+    <meta name="description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
 
     <?php $GET_URI = substr($_SERVER['REQUEST_URI'], 1, 7);
     if (!$GET_URI == "details") {
     ?>
         <meta property="og:title" content="Kabi Store - Cửa hàng tổng hợp đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
-        <meta property="og:description" content="Kabistore trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
+        <meta property="og:description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
         <meta property="og:url" content="kabistore.com.vn">
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:image:width" content="600">
         <meta property="og:image:height" content="600">
-        <meta property="og:image" content="https://kabistore.tk/img/thumbnail/img-thumbnail.jpg">
-        <meta property="og:image:secure_url" content="https://kabistore.tk/img/thumbnail/img-thumbnail.jpg" />
+        <meta property="og:image" content="https:/www.Kabistore.com.vn/img/thumbnail/img-thumbnail.jpg">
+        <meta property="og:image:secure_url" content="https:/www.Kabistore.com.vn/img/thumbnail/img-thumbnail.jpg" />
     <?php } ?>
 
     <meta content="INDEX,FOLLOW" name="robots" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="copyright" content="Trang mua sắm trực tuyến Kabistore.tk" />
-    <meta name="author" content="Trang mua sắm trực tuyến Kabistore.tk" />
+    <meta name="copyright" content="Trang mua sắm trực tuyến Kabistore.com.vn" />
+    <meta name="author" content="Trang mua sắm trực tuyến Kabistore.com.vn" />
     <meta http-equiv="audience" content="General" />
     <meta name="resource-type" content="Document" />
     <meta name="distribution" content="Global" />
     <meta name="revisit-after" content="1 days" />
-    <meta name="GENERATOR" content="Trang mua sắm trực tuyến Kabistore.tk" />
+    <meta name="GENERATOR" content="Trang mua sắm trực tuyến Kabistore.com.vn" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link href="img/core-img/icon-web.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="img/core-img/icon-web.ico" rel="apple-touch-icon" />
     <link href="img/core-img/icon-web.ico" rel="apple-touch-icon-precomposed" />
-    <meta property="og:site_name" content="Kabistore.tk" />
+    <meta property="og:site_name" content="Kabistore.com.vn" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="vi_VN" />
     <meta property="fb:pages" content="105932671830866" />
@@ -73,7 +73,7 @@ include_once "inc/checkManager.php";
     <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta name="google-site-verification" content="ngOfSvh8AOWkNpFQ-rHOwpugk4-wOl9xFFH-KlASdRU" />
     <meta name="facebook-domain-verification" content="ycjxgr2xgj6t34d9ot90h6u9kyymxr" />
-    
+
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link href="css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />
@@ -165,18 +165,23 @@ include_once "inc/checkManager.php";
                                     <?php
 
                                     if (isset($_SESSION['menuCategory'])) {
+                                        // xử lý hàng và cột của bảng từ json
                                         $menuCategory = $_SESSION['menuCategory'];
                                         $numberMenuCategory = count($_SESSION['menuCategory']);
-                                        $tableMenuCategory = $numberMenuCategory / 3;
-                                        for ($i = 1; $i < $numberMenuCategory; $i++) {
+                                        $tableMenuCategoryRow = 3;
+                                        $tableMenuCategory = $numberMenuCategory / $tableMenuCategoryRow;
+
+                                        // title json
+                                        $titleCategory = array("Đơn giản", "", "", "Tinh tế", "", "", "Chất lượng", "", "");
+                                        for ($i = 0; $i < $numberMenuCategory; $i++) {
                                             $catId = $menuCategory[$i]['catId'];
                                             $catName = $menuCategory[$i]['catName'];
-                                            echo ($i == 1) ?
+                                            echo ($i == 0 || $i == 3 || $i == 6) ?
                                                 '<ul class="single-mega cn-col-4">
-                                            <li class="title">Đơn giản</li>' : '' ?>
+                                            <li class="title">' . $titleCategory[$i]  . '</li>' : '' ?>
                             <li><a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html"><?php echo $catName ?></a></li>
                     <?php
-                                            echo ($i == 2) ? '</ul>' : '';
+                                            echo ($i == 2 || $i == 5 || $i == 8) ? '</ul>' : '';
                                         }
                                     }
                     ?>

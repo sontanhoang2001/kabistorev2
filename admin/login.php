@@ -68,13 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             ?>
                                         </div>
                                     </form>
-                                    <hr>
+                                    <!-- <hr>
                                     <div class="text-center">
                                         <a class="small" href="#">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="#">Create an Account!</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

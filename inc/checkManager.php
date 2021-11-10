@@ -3,6 +3,7 @@
 // begin init category
 if (!isset($_SESSION['menuCategoryStatus'])) {
     $show_category_img = $cat->show_category_img();
+    
     if ($show_category_img) {
         // Trạng thái đã có sesstion menuCategory
         session::set("menuCategoryStatus", true);

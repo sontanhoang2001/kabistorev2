@@ -404,7 +404,7 @@ img {
 }
 
 #goBack {
-    background-color: #d0021b;
+    background-color: #f35836;
     border-radius: 0;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
     color: #ffffff;
@@ -432,9 +432,10 @@ img {
 /* goBack */
 
 /* ScrollUp */
+/* d0021b */
 
 #scrollUp {
-    background-color: #d0021b;
+    background-color: #f35836;
     border-radius: 0;
     bottom: 60px;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
@@ -3163,11 +3164,16 @@ a.pageCatName {
 
 /* START PROMOTION */
 
+.promoBox:hover {
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
 .promoBox {
     display: inline-block;
     position: relative;
     margin: 5px;
-    padding: 14px;
+    padding: 14px;  
     width: 300px;
     border: 2px solid #ddd;
     -webkit-border-radius: 8px;
@@ -3181,8 +3187,6 @@ a.pageCatName {
     background: -ms-linear-gradient(-45deg, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
     background: linear-gradient(135deg, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=1);
-    -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .promoBox aside {
@@ -3447,6 +3451,10 @@ li.errorRow {
 
 .alert-danger {
     display: none;
+}
+
+strong#discountPrice {
+    color: #28a745;
 }
 
 /* END ERROR ROW */

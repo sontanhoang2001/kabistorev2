@@ -227,6 +227,5 @@ $fm = new format();
 <script src="js/helpers.js"></script>
 <script>
 	order();
-	loadOrderMap(12.550343, 55.665957);
 	loadCustomerMap();
 </script>

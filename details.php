@@ -30,7 +30,7 @@ if ($get_product_details) {
 	$product_img = $product_imgJson[0]->image;
 ?>
 	<meta property="og:title" content="<?php echo $productName ?>" />
-	<meta property="og:description" content="Nhấn vào liên kết để kiểm tra tình trạng của sản phẩm. Đặt hàng nhanh tức thì chỉ bằng một liên kết..." />
+	<meta property="og:description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Nhấn vào liên kết để kiểm tra tình trạng của sản phẩm. Đặt hàng nhanh tức thì chỉ bằng một liên kết..." />
 	<meta property="og:url" content="<?php echo $seoUrl ?>">
 	<meta property="og:image:type" content="image/jpeg">
 	<meta property="og:image:width" content="600">
@@ -279,9 +279,6 @@ include 'inc/facebookPlugin.php';
 			<div class="swiper-pagination"></div>
 		</div>
 	</div>
-
-
-	<a id="goBack" style="position: fixed; z-index: 2147483647;"><i style="margin-top: 10px;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
 </body>
 
 <script src="js/carousel.js"></script>

@@ -263,7 +263,7 @@ $fm = new format();
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="basic-addon1"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
 											</div>
-											<input type="text" class="form-control" id="cusNoteModel" readonly>
+											<textarea  class="form-control"id="cusNoteModel" readonly></textarea>
 										</div>
 									</div>
 								</div>
@@ -380,6 +380,4 @@ $fm = new format();
 <script src="js/helpers.js"></script>
 <script>
 	order();
-	loadOrderMap(12.550343, 55.665957);
-	// mapSave(cusMaps_maplng, cusMaps_maplat);
 </script>
