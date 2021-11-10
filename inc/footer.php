@@ -154,8 +154,8 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/success.html") {
 </script>
 
 <!-- Messenger Plugin chat Code -->
-<!-- <div id="fb-root"></div> -->
+<div id="fb-root"></div>
 
 <!-- Your Plugin chat code -->
-<!-- <div id="fb-customer-chat" class="fb-customerchat"></div>
-    <script src="js/fbchat.js"></script> -->
+<div id="fb-customer-chat" class="fb-customerchat"></div>
+    <script src="js/fbchat.js"></script>

@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cart_Id = $_POST['cartId'];
     $quantity = $_POST['quantity'];
 
-
     switch ($case) {
         case 0:
             $productId = $_POST['productId'];

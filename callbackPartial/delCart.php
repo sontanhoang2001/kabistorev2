@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 session::set("number_cart", (int)$number_cart);
                 $number_cart =  session::get('number_cart');
 
-                // nếu grandTotal = 0 thì không cho chuyển trang checkout
-                if ($grandTotal == 0) {
+                // nếu number_cart = 0 thì không cho chuyển trang checkout
+                if ($number_cart == 0) {
                     Session::set('payment', false);
                     // 2 ko còn sp trong giỏ hàng
                     echo json_encode($_result_json[] = ['status' => 2, 'number_cart' => $number_cart]);

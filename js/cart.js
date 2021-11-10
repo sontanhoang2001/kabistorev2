@@ -297,7 +297,6 @@ function CheckPostPromotion(status, type, data) {
                     $('#ship').text("+ " + currency_vn(res.ship));
                     $('#discountPrice').text("- " + currency_vn(res.discount));
                     $('#total').text(currency_vn(res.total));
-
                 }
             });
             break;
@@ -362,6 +361,7 @@ $('#promotion_code').change(function () {
         promotiontAllow = 0;
     }
 });
+
 $('#promotion_code').keyup(function () {
     if ($('#promotion_code').val() == "") {
         // Trả nút xác nhận đơn hàng về trại thái ban đầu
