@@ -1,6 +1,6 @@
 <?php
 // Seo từ khóa
-$seo = "-re-nhat-can-tho";
+$seo = "-gia-re-nhat";
 // Video hướng dẫn mua hàng
 $thumbnailVideo1 = "https://mdbootstrap.com/img/screens/yt/screen-video-1.jpg";
 $video1 = "https://www.youtube.com/embed/A3PDXmYoF5U";

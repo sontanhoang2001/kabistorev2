@@ -1,6 +1,6 @@
 <?php
 $RequestUrl = getRequestUrls(0);
-if ($RequestUrl != "/index.html" && $RequestUrl != "/success.html") {
+if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/success.html") {
 ?>
     <a id="goBack" style="position: fixed; z-index: 2147483647;"><i style="margin-top: 10px;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
 <?php } ?>
@@ -87,7 +87,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/success.html") {
                 <p>
                     Bản quyền &copy;<script>
                         document.write(new Date().getFullYear());
-                    </script> Tất cả các quyền | sở hữu thuộc về  <a style="color: #007bff;" href="#" target="_blank">Kabi Store</a>
+                    </script> Tất cả các quyền | sở hữu thuộc về <a style="color: #007bff;" href="#" target="_blank">Kabi Store</a>
                 </p>
             </div>
         </div>
@@ -158,4 +158,4 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/success.html") {
 
 <!-- Your Plugin chat code -->
 <div id="fb-customer-chat" class="fb-customerchat"></div>
-    <script src="js/fbchat.js"></script>
+<script src="js/fbchat.js"></script>

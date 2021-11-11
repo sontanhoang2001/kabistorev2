@@ -64,6 +64,7 @@ class product
 		$image = mysqli_real_escape_string($this->db->link, $formData['image']);
 		$product_desc = mysqli_real_escape_string($this->db->link, $formData['product_desc']);
 		$size = mysqli_real_escape_string($this->db->link, $formData['size']);
+		$product_soldout = mysqli_real_escape_string($this->db->link, $formData['product_soldout']);
 
 		// 0 các trường ko đc bỏ trống
 		if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == "" || $size == "") {
@@ -75,7 +76,7 @@ class product
 				// 3 Mã sản phẩm này đã tồn tại
 				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity,catId,brandId,product_desc,type, root_price, old_price, price,image, size) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$category','$brand','$product_desc','$type', '$root_price', '$old_price','$price', '$image', '$size') ";
+				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type, root_price, old_price, price,image, size) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$product_soldout','$category','$brand','$product_desc','$type', '$root_price', '$old_price','$price', '$image', '$size') ";
 				$result = $this->db->insert($query);
 				if ($result) {
 					// 1 thành công
@@ -334,10 +335,11 @@ class product
 					product_code = '$product_code',
 					brandId = '$brand',
 					catId = '$category', 
-					type = '$type',
+					`type` = '$type',
 					root_price = '$root_price',
 					old_price = '$old_price',
 					price = '$price', 
+					`image` = '$image',
 					product_desc = '$product_desc',
 					size = '$size'
 					WHERE productId = '$productId'";

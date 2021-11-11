@@ -141,7 +141,7 @@ header("Cache-Control: max-age=2592000");
                         <a class="collapse-item" href="category-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds danh mục</a>
                         <h6 class="collapse-header"><i class="fa fa-university" aria-hidden="true"></i> Thương hiệu:</h6>
                         <a class="collapse-item" href="add-brand"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm thương hiệu</a>
-                        <a class="collapse-item" href="category-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds thương hiệu</a>
+                        <a class="collapse-item" href="brand-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds thương hiệu</a>
                         <h6 class="collapse-header"><i class="fa fa-truck" aria-hidden="true"></i> Kho hàng:</h6>
                         <a class="collapse-item" href="warehouse-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds kho hàng</a>
                     </div>

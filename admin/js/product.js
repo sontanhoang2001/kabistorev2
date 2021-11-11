@@ -88,7 +88,8 @@ function add_product() {
             size: $('select[name="size"] option:selected').val(),
             image: jsonImageArray,
             product_desc: $("#product_desc").val(),
-            type: $('select[name="type"] option:selected').val()
+            type: $('select[name="type"] option:selected').val(),
+            product_soldout: $("input[name=product_soldout]").val()
         };
 
         if (formData.category == 0) {
@@ -304,7 +305,7 @@ function product_list() {
                     $('#category option[value=" ' + catId + ' "]').attr('selected', 'selected');
                     $('#brand option[value=" ' + brandId + ' "]').attr('selected', 'selected');
                     $('#size option[value="' + size + '"]').attr('selected', 'selected');
-                    
+
                     $('#root_priceText').text(currency_vn(root_price));
                     $("input[name=root_price]").val(root_price);
 
@@ -469,10 +470,8 @@ function product_list() {
                     formData: formData
                 },
                 success: function (data) {
-                    console.log(data);
                     var res = JSON.parse(data),
                         Status = res.status;
-
                     switch (Status) {
                         case 0: {
                             var message = "Các trường không được bỏ trống!";

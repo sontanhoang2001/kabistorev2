@@ -30,8 +30,8 @@ include_once "inc/checkManager.php";
 
 <head>
     <!-- <base href="http://192.168.1.4/"> -->
-    <base href="https://kabistore.com.vn/">
-    <!-- <base href="https://webcuatoi.vn/"> -->
+    <!-- <base href="https://kabistore.com.vn/"> -->
+    <base href="https://webcuatoi.vn/">
 
     <!-- Title  -->
     <meta charset="UTF-8">
@@ -94,8 +94,8 @@ include_once "inc/checkManager.php";
         });
     </script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-    <script src="js/jquery/jquery-3.6.0.min.js"></script>
-    <script src="js/security.js"></script>
+    <!-- <script src="js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="js/security.js"></script> -->
 
     <link rel="stylesheet" href="css/message.css">
 </head>

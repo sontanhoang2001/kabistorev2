@@ -145,7 +145,7 @@ $pd = new product();
 
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-9">
+                                    <div class="form-group col-md-5">
                                         <label for="sel1">Trạng thái & Xếp loại sản phẩm</label>
                                         <select class="form-control" id="type" name="type">
                                             <option value="null">Lựa chọn</option>
@@ -155,7 +155,7 @@ $pd = new product();
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-5">
                                         <label for="sel1">Size</label>
                                         <select class="form-control" id="select" name="size">
                                             <option value="null">Lựa chọn</option>
@@ -163,9 +163,14 @@ $pd = new product();
                                             <option value="1">Có size</option>
                                         </select>
                                     </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label for="validation6">Đã bán:</label>
+                                        <input class="form-control" id="validation6" type="number" name="product_soldout" min="0" value="0">
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
                                 </div>
                             </div>
-
 
                             <div class="form-group">
                                 <button type="submit" name="submit" id="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Thêm</button>

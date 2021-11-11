@@ -68,7 +68,7 @@ include 'inc/facebookPlugin.php';
 			<!-- Single Product Description -->
 			<div class="single_product_desc clearfix">
 				<span><?php echo $result_details['brandName'] ?></span>
-				<div class="fb-like" data-href="https://webcuatoi.vn/kabistore/details.php?proid=<?php echo $productid ?>" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+				<div class="fb-like" data-href="https://kabistore.com.vn/details/<?php echo $productid ?>" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
 				<h4><?php echo $productName ?></h4>
 				<p class="product-price"><span class="old-price mr-1"><?php echo  $fm->format_currency($result_details['old_price']) . " ₫" ?></span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
 				<?php if ($productType != 9) { ?>
