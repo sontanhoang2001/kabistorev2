@@ -2,7 +2,7 @@
 $RequestUrl = getRequestUrls(0);
 if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/success.html") {
 ?>
-    <a id="goBack" style="position: fixed; z-index: 2147483647;"><i style="margin-top: 10px;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    <a id="goBack"><i style="margin-top: 10px;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
 <?php } ?>
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer_area clearfix">

@@ -579,7 +579,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 role="presentation">
                                 <tr>
                                     <td class="content-cell" align="center">
-                                        <p class="f-fallback sub align-center">&copy; 2021 kabistore.tk. All rights
+                                        <p class="f-fallback sub align-center">&copy; 2021 kabistore.com.vn . All rights
                                             reserved.</p>
                                         <p class="f-fallback sub align-center">
                                             [Kabi Store, LLC]

@@ -19,3 +19,9 @@ $avatarAdmin_img = "https://scontent.fvca1-2.fna.fbcdn.net/v/t39.30808-6/2490159
 
 // Số sản phẩm hiển thị trong 1 trang sản phẩm
 $product_num = 50;
+
+// Gửi email khi có đơn hàng
+$to = array(
+    'hoangsonytb123@gmail.com',
+    'phuongthaocmc7f@gmail.com'
+);

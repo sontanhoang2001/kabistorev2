@@ -328,7 +328,11 @@ function product_list() {
                         // Khởi lại lại ảnh sản phẩm
                         $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + obj_img[i]['image'] + '">');
                         // Khởi tạo lại chuỗi json thành text
-                        imageTemp = imageTemp.concat(obj_img[i]['image']) + ",";
+                        if (i == obj_img.length - 1) {
+                            imageTemp = imageTemp.concat(obj_img[i]['image']);
+                        } else {
+                            imageTemp = imageTemp.concat(obj_img[i]['image']) + ",";
+                        }
                     });
                     jsonImageArray = imageTemp;
                     $("#image").val(imageTemp);
@@ -419,13 +423,22 @@ function product_list() {
         jsonImageArray = JSON.stringify(imageArrayArg);
     })
 
-
     // Khi nhấn nút cập nhật
     $("#btnUpdateProduct").click(function () {
         // Lấy thông tin sản phẩm
         var categoryTxt = $('select[name="category"] option:selected').text(),
             brandTxt = $('select[name="brand"] option:selected').text(),
             typeTxt = $('select[name="type"] option:selected').text();
+
+        // Lấy url ảnh chuyển thành mảng json
+        var array = $("#image").val().split(",");
+        var imageArrayArg = new Array();
+        $.each(array, function (i) {
+            var jsonObj = new Object();
+            jsonObj.image = array[i];
+            imageArrayArg.push(jsonObj);
+        });
+        jsonImageArray = JSON.stringify(imageArrayArg);
 
         var formData = {
             productId: productId,
@@ -535,6 +548,11 @@ function product_list() {
         $('#root_priceText').text(currency_vn(0));
         $('#old_priceText').text(currency_vn(0));
         $('#priceText').text(currency_vn(0));
+
+        $('#product_desc').css("display", "block");
+        $('#product_desc_parent').remove();
+        editorStatus = false;
+        $('#btnEditor').removeAttr("disabled");
     })
 
     // Khi mở delModal

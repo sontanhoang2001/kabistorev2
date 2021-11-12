@@ -24,6 +24,7 @@ $seoUrl = "https://kabistore.com.vn/" . getRequestUrls();
 $get_product_details = $product->get_details($productid);
 if ($get_product_details) {
 	$result_details = $get_product_details->fetch_assoc();
+	$old_price = $result_details['old_price'];
 	$productName = $result_details['productName'];
 	$productType = $result_details['type'];
 	$product_imgJson =  json_decode($result_details['image']);
@@ -70,7 +71,11 @@ include 'inc/facebookPlugin.php';
 				<span><?php echo $result_details['brandName'] ?></span>
 				<div class="fb-like" data-href="https://kabistore.com.vn/details/<?php echo $productid ?>" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
 				<h4><?php echo $productName ?></h4>
-				<p class="product-price"><span class="old-price mr-1"><?php echo  $fm->format_currency($result_details['old_price']) . " ₫" ?></span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
+				<p class="product-price"><span class="old-price mr-1">
+						<?php if ($old_price != 0) {
+							echo $fm->format_currency($result_details['old_price']) . " ₫";
+						}
+						?></span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
 				<?php if ($productType != 9) { ?>
 
 					<form id="cartSubmit">

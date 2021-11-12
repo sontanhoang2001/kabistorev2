@@ -238,9 +238,9 @@ $fm = new Format();
 <!-- edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content colMax">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Chỉ sửa sản phẩm</h5>
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa sản phẩm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -435,8 +435,17 @@ $fm = new Format();
 <script src="js/setup.js" type="text/javascript"></script>
 <script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
 <script type="text/javascript">
+    var editorStatus = false;
     $('#btnEditor').click(function() {
-        setupTinyMCE();
+        if (editorStatus == false) {
+            setupTinyMCE();
+            editorStatus = true;
+            $('#btnEditor').attr("disabled","disabled");
+        } else {
+            $('#product_desc').css("display", "block");
+            $('#product_desc_parent').remove();
+        }
+
         // setDatePicker('date-picker');
         // $('input[type="checkbox"]').fancybutton();
         // $('input[type="radio"]').fancybutton();

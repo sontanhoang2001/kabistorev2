@@ -1,11 +1,9 @@
 <?php
+include '../inc/global.php';
 include '../lib/session.php';
 Session::init();
 
-$allowSendMail = Session::get('allowSendMail');
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && $allowSendMail == true) {
-    Session::set('allowSendMail', false);
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include '../helpers/format.php';
     $fm = new Format();
 
@@ -532,7 +530,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $allowSendMail == true) {
                                 role="presentation">
                                 <tr>
                                     <td class="content-cell" align="center">
-                                        <p class="f-fallback sub align-center">&copy; 2021 kabistore.tk. All rights
+                                        <p class="f-fallback sub align-center">&copy; 2021 kabistore.com.vn . All rights
                                             reserved.</p>
                                         <p class="f-fallback sub align-center">
                                             [Kabi Store, LLC]
@@ -556,14 +554,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $allowSendMail == true) {
     // $mTo = 'hoangsonytb123@gmail.com';
     $diachi = 'hotrokhachhang@kabistore.com.vn';
 
+    // include từ global
     // $to = array(
     //     'hoangsonytb123@gmail.com',
-    //     'sthoanga19057@cusc.ctu.edu.vn',
-    //     'phuongthaocmc7f@gmail.com'
     // );
-    $to = array(
-        'hoangsonytb123@gmail.com',
-    );
     foreach ($to as $mTo) {
         $mail = sendMail($user, $password, $title, $content, $nTo, $mTo, $diachi = '');
     }

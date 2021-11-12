@@ -36,7 +36,7 @@ if (isset($_POST['searchText'])) {
                 "
                 <li>
                     <a href='details/" . $result['productId'] . '/' . $fm->vn_to_str($productName) . $seo . ".html' class='link-product-result'>
-                        <img class='img-result' src='admin/uploads/" . $img . "'>
+                        <img class='img-result' src='" . $product_img . "'>
                         <p class='name-product-result'>" . $result['productName'] . "</p>
                         <span class='price-result'>" . $fm->format_currency($price) . '₫' . "</span>
                     </a>
@@ -44,7 +44,6 @@ if (isset($_POST['searchText'])) {
             }
         }
     }
-}
-else {
+} else {
     header("location:../404.php");
 }

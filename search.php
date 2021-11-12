@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		<div class="row h-100 align-items-center">
 			<div class="col-12">
 				<div class="page-title text-center">
-					<h2>dresses</h2>
+					<h2>Tìm những thứ bạn cần</h2>
 				</div>
 			</div>
 		</div>
@@ -247,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 										<!-- Product Description -->
 										<div class="product-description">
 											<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName'])  . $seo ?>.html">
-												<div class="product-name page-product"><?php echo $result['productName'] ?></div>
+												<div class="block-ellipsis text-dark"><?php echo $result['productName'] ?></div>
 											</a>
 											<p class="product-price">
 												<?php if ($old_price != 0) {

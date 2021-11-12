@@ -42,14 +42,14 @@ include_once "inc/checkManager.php";
     <?php $GET_URI = substr($_SERVER['REQUEST_URI'], 1, 7);
     if (!$GET_URI == "details") {
     ?>
-        <meta property="og:title" content="Kabi Store - Cửa hàng tổng hợp đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
-        <meta property="og:description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
+        <meta property="og:title" content="⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 Kabi Store - Cửa hàng tổng hợp đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
+        <meta property="og:description" content="Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
         <meta property="og:url" content="kabistore.com.vn">
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:image:width" content="600">
         <meta property="og:image:height" content="600">
-        <meta property="og:image" content="https:/www.Kabistore.com.vn/img/thumbnail/img-thumbnail.jpg">
-        <meta property="og:image:secure_url" content="https:/www.Kabistore.com.vn/img/thumbnail/img-thumbnail.jpg" />
+        <meta property="og:image" content="https://www.kabistore.com.vn/img/thumbnail/img-thumbnail.jpg">
+        <meta property="og:image:secure_url" content="https://www.kabistore.com.vn/img/thumbnail/img-thumbnail.jpg" />
     <?php } ?>
 
     <meta content="INDEX,FOLLOW" name="robots" />

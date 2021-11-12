@@ -311,7 +311,7 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                                 <span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
                                             <?php } ?>
                                             <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-                                                <div class="text-dark"><?php echo $result['productName'] ?></div>
+                                                <div class="block-ellipsis text-dark"><?php echo $result['productName'] ?></div>
                                             </a>
                                             <p class="product-price">
                                                 <?php if ($old_price != 0) {

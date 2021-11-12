@@ -208,9 +208,17 @@ $pd = new product();
 <script src="js/setup.js" type="text/javascript"></script>
 <script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
 <script type="text/javascript">
+    var editorStatus = false;
     $('#btnEditor').click(function() {
-        $('#description').removeClass().addClass("tinymce");
-        setupTinyMCE();
+        if (editorStatus == false) {
+            setupTinyMCE();
+            editorStatus = true;
+            $('#btnEditor').remove();
+        } else {
+            $('#product_desc').css("display", "block");
+            $('#product_desc_parent').remove();
+        }
+
         // setDatePicker('date-picker');
         // $('input[type="checkbox"]').fancybutton();
         // $('input[type="radio"]').fancybutton();

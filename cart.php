@@ -149,7 +149,7 @@ $discount = session::set('discountMoney', 0);
 						</div>
 					</div>
 				</form>
-				<p class="font-italic mb-4">Lưu ý: Shop sẽ check vị trí của Khách hàng để giảm phí giao hàng xuống mức thấp nhất có thể và gửi hóa đơn cho bạn trước khi giao hàng. Bạn có thể liên hệ shop để yêu cầu mã giảm giá.</p>
+				<p class="font-italic mb-4">Lưu ý: Shop sẽ check vị trí của Khách hàng để giảm phí giao hàng xuống mức thấp nhất có thể và gửi hóa đơn cho bạn trước khi giao hàng.</p>
 			</div>
 
 			<div class="col-lg-6">

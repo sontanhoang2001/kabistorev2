@@ -19,13 +19,13 @@ table td input {
     box-sizing: border-box;
 }
 
-.customerModal {
-    width: 700px;
+.colMax {
+    width: 800px;
     min-height: 400px;
 }
 
 @media only screen and (max-width: 600px) {
-    .customerModal {
+    .colMax {
         width: 400px;
         min-height: 400px;
     }

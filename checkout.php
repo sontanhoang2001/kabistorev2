@@ -17,7 +17,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
     <h1 class="projTitle">Thanh Toán an toàn<span>-và</span> đơn giản</h1>
     <div class="card-body p-0">
         <div class="row upper">
-            <span><i class="fa fa-check-circle-o"></i> Giỏ hàng</span>
+            <span style="color: #28a745;"><i class="fa fa-check-circle-o"></i> Giỏ hàng</span>
             <span id="payment"><span id="number-circle">2</span> Thanh toán</span>
             <span id="payment"><span id="number-circle">3</span> Hoàn tất</span>
         </div>
@@ -105,7 +105,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                             <div class="row">
                                 <div class="col-md-12 mt-3">
                                     <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> <b>Vị trí hiện tại của bạn:</b></label>
-                                    <div id="geo-text" class="text-danger">Hãy nhấn chọn vị trí trên bản đồ nơi mà bạn muốn giao hàng...</div>
+                                    <div id="geo-text" class="text-danger"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i> Hãy nhấn chọn vị trí trên bản đồ nơi mà bạn muốn giao hàng...</div>
                                 </div>
                             </div>
                             <div class="row">
@@ -276,16 +276,16 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 <div class="col text-left"><a href="cart.html"><u>Sửa mã giảm giá</u></a></div>
                             </div>
                             <div class="row mt-4 mb-2">
-                                <button id="orders" class="btn btn-success rounded-pill py-2 btn-block" type="submit" name="orders" disabled><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng</button>
+                                <button id="orders" class="btn btn-success rounded-pill py-2 btn-block" type="submit" name="orders" disabled><i id="ordersIcon" class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng</button>
                                 <div class="from-group error-group mt-4">
                                     <div class="alert alert-danger" id="error-geocoder">
                                         <strong>Cảnh báo!</strong> Vui lòng nhấn vào nút xác nhận vị trí, để tiếp tục đặt hàng. <a href="checkout.html#location-group" class="alert-link">Sửa lỗi</a>.
                                     </div>
                                     <div class="alert alert-danger" id="error-payment-methods1">
-                                        <strong>Cảnh báo!</strong> Thanh toán Momo đang được nâng cấp. Vui lòng chọn phương thức thanh toán khác. <a href="#" class="alert-link">Sửa lỗi</a>.
+                                        <strong>Cảnh báo!</strong> Thanh toán Momo đang được nâng cấp. Vui lòng chọn phương thức thanh toán khác.
                                     </div>
                                     <div class="alert alert-danger" id="error-payment-methods2">
-                                        <strong>Cảnh báo!</strong> Thanh toán Visa đang được nâng cấp. Vui lòng chọn phương thức thanh toán khác. <a href="#" class="alert-link">Sửa lỗi</a>.
+                                        <strong>Cảnh báo!</strong> Thanh toán Visa đang được nâng cấp. Vui lòng chọn phương thức thanh toán khác.
                                     </div>
                                 </div>
                             </div>
@@ -318,6 +318,8 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
     </div>
 </div>
 <a id="openHelp" data-toggle="modal" data-target="#gpsModal"><i class="fa fa-question-circle" aria-hidden="true" style="margin-top: 10px;"></i></a>
+
+<script src="js/audio-message.js"></script>
 <?php
 include 'inc/footer.php';
 ?>

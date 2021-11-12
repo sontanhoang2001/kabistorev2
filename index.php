@@ -103,7 +103,7 @@ include 'inc/global.php';
                                     <div class="product-description mr-3 ml-3">
                                         <span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
                                         <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-                                            <div class="text-dark"><?php echo $result['productName'] ?></div>
+                                            <div class="block-ellipsis text-dark"><?php echo $result['productName'] ?></div>
                                         </a>
                                         <p class="product-price">
                                             <?php if ($old_price != 0) {
@@ -231,6 +231,7 @@ include 'inc/global.php';
                 <p>Xếp hạng dựa trên số lượt tìm kiếm và đánh giá của khách hàng</p>
 
                 <div class="row mt-5">
+                    <!-- Single Product -->
                     <div class="wrapper" id="wrapper_productRank">
                         <div class="carousel-relatedProduct owl-carousel">
                             <?php
@@ -241,8 +242,6 @@ include 'inc/global.php';
                                     $product_img =  json_decode($result['image']);
                                     $product_img = $product_img[0]->image;
                             ?>
-                                    <!-- Single Product -->
-
                                     <div id="single-product-wrapper" class="single-product-wrapper relatedProducts bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                         <!-- Product Image -->
                                         <div class="product-img relatedProducts">
@@ -290,7 +289,7 @@ include 'inc/global.php';
                                         <div class="product-description ml-3 mr-3">
                                             <span class="small text-muted mb-2"><?php echo $result['catName'] ?></span>
                                             <a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-                                                <div class="text-dark"><?php echo $result['productName'] ?></div>
+                                                <div class="block-ellipsis text-dark"><?php echo $result['productName'] ?></div>
                                             </a>
                                             <p class="product-price">
                                                 <?php if ($old_price != 0) {
@@ -475,8 +474,7 @@ include 'inc/global.php';
                         <div class="col-md-8">
 
                             <!-- Description -->
-                            <p class="grey-text">Chúng tôi cung cấp dịch vụ phân phối vào giao hàng tốt nhất và nhanh nhất trong khu vực trung tâm, với công nghệ hiện đại dễ dàng giúp người tiêu dùng và người kinh doanh kết nối lại với nhau một cách hiệu quả và tiềm năng nhất.</p>
-
+                            <p class="grey-text">Chúng tôi chuyên bán những sản phẩm độc và lạ, những sản phẩm mà bạn khó có thể mua được ở các tiệm tập hóa, hay các cửa hàng ở xung quanh bạn. Chất lượng sản phẩm và giao hàng tốt nhất nhất với công nghệ hiện đại sẽ giúp người tiêu dùng dễ dàng kết nối với chúng tôi một cách hiệu quả và tiềm năng hơn.</p>
                         </div>
                         <!--Grid column-->
                     </div>
@@ -501,7 +499,7 @@ include 'inc/global.php';
                         <div class="col-md-4 mb-3">
                             <i class="fa fa-handshake-o fa-4x orange-text"></i>
                             <h4 class="my-4 font-weight-bold">Đối Tác</h4>
-                            <p class="grey-text">Hiện nay chúng tôi đã có hơn 50+ đối tác các shop lớn nhỏ trong trung tâm.</p>
+                            <p class="grey-text">Hiện nay chúng tôi đã có hơn 10+ đối tác các shop lớn nhỏ trong trung tâm.</p>
                         </div>
                         <!--Grid column-->
                     </div>

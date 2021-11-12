@@ -9,7 +9,7 @@ $get_amount = Session::get('grandTotal');
 if ($discount != 0) {
     $discount = "- " . $fm->format_currency($discount);
 } else {
-    $discount = "...";
+    $discount = "chưa nhập mã";
 }
 
 if (isset($get_payment)) {
@@ -21,7 +21,6 @@ if (isset($get_payment)) {
             session::set("number_cart", 0);
         }
         Session::set('payment', false);
-        Session::set('allowSendMail', true);
     }
 }
 ?>

@@ -43,7 +43,8 @@ $('#f_order').submit(function (e) {
     }
     else {
         $('#orders').attr("disabled", "disabled");
-        $('#orders').text("Đang xử lý giao dịch...");
+        $("#orders").empty().append('<i class="fa fa-spinner fa-spin fa-fw"></i>&nbsp;Đang Xử Lý Giao Dịch...');
+
         var formData = {
             maps_maplat: $("#lat").val(),
             maps_maplng: $("#lng").val(),
@@ -65,8 +66,22 @@ $('#f_order').submit(function (e) {
                     case 0: {
                         $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods_ajax' + indexCountMessage + '"><strong>Cảnh báo!</strong><p class="text-success-result">Lỗi không thể đặt hàng!</div>');
                         $("#error-payment-methods_ajax" + indexCountMessage).show().delay(10000).fadeOut(1000).queue(function () { $(this).remove(); });
+                        $('#orders').empty().text('<i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng');
+                        $('#orders').removeAttr("disabled");
                         break;
                     } case 1: {
+                        $.ajax({
+                            async: true,
+                            type: "POST",
+                            url: "callbackPartial/newOrderNotification.php",
+                            dataType: 'json',
+                            data: {},
+                            success: function (data) {
+                                console.log(data);
+                            }, error: function (data) {
+                                console.log(data);
+                            }
+                        })
                         window.location.replace(getAbsolutePath() + "success.html");
                         break;
                     } case 2: {
@@ -77,7 +92,7 @@ $('#f_order').submit(function (e) {
                         $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods_ajax' + indexCountMessage + '"><strong>Cảnh báo!</strong><p class="text-success-result">Bạn đã đặt sản phẩm: <b> ' + productName + ' </b></p> với số lượng là ' + quantity + ' Chúng tôi chỉ còn ' + product_remain + ' sản phẩm. Vui lòng chỉnh sửa lại số lượng. <a href ="cart" class="alert-link">Chỉnh sửa</a ></div>');
                         $("#error-payment-methods_ajax" + i).show().delay(10000).fadeOut(1000).queue(function () { $(this).remove(); });
                         $("div#c" + cartId).css("background-color", "pink");
-                        $('#orders').text('<i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng');
+                        $('#orders').empty().text('<i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng');
                         $('#orders').removeAttr("disabled");
                         break;
                     }
@@ -85,7 +100,7 @@ $('#f_order').submit(function (e) {
                         var message = "Lỗi máy chủ!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
-                        $('#orders').text('<i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng');
+                        $('#orders').empty().text('<i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng');
                         $('#orders').removeAttr("disabled");
                     }
                 }
