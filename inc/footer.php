@@ -1,9 +1,18 @@
 <?php
 $RequestUrl = getRequestUrls(0);
+if ($RequestUrl == "/index.html" || $RequestUrl == "/") {
+?>
+    <a id="goChatFacebook" class="goChatFacebookIndex"><img src="img/core-img/messenger.svg" alt=""></a>
+<?php
+} else if ($RequestUrl != "/contact.html") {
+?>
+    <a id="goChatFacebook" class="goChatFacebook"><img src="img/core-img/messenger.svg" alt=""></a>
+<?php }
 if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/success.html") {
 ?>
     <a id="goBack"><i style="margin-top: 10px;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
 <?php } ?>
+
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer_area clearfix">
     <div class="container">
@@ -152,10 +161,3 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
         }
     });
 </script>
-
-<!-- Messenger Plugin chat Code -->
-<div id="fb-root"></div>
-
-<!-- Your Plugin chat code -->
-<div id="fb-customer-chat" class="fb-customerchat"></div>
-<script src="js/fbchat.js"></script>

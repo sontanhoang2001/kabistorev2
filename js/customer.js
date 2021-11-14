@@ -667,6 +667,67 @@ function uploadAvatar() {
     $('input[name="avatar"]').change(function (e) {
         $('#f_avatar').submit();
     });
+
+    $('#f_avatar').on('submit', function (e) {
+        e.preventDefault();
+
+        // var formData = new FormData($(this)[0]);
+
+        // // Check file selected or not
+        // formData.append('avatar', $('input[type=file]')[0].files[0]);
+        // formData.append('avatarold', $('input[type=text]')[0]);
+
+        $.ajax({
+            url: "~/../callbackPartial/updateAvatar.php",
+            method: "POST",
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                var res = JSON.parse(data);
+                var Status = res.status;
+                var SrcImage = res.srcImage;
+
+                switch (Status) {
+                    case 0: {
+                        var message = "Cập nhật ảnh không thành công!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 1: {
+                        var avatarImage = "upload/avatars/" + SrcImage;
+                        $("#avatarImage").attr("src", avatarImage);
+                        $("#avatarold").val(SrcImage);
+
+                        var message = "Cập nhận ảnh thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Ảnh đại diện đã được thay đổi!', 2000);
+                        break;
+                    }
+                    case 2: {
+                        var message = "Ảnh lỗi";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 3: {
+                        var message = "Ảnh phải tối thiểu dưới 1MB!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        })
+    });
+
+
+
 }
 
 function navProfile() {

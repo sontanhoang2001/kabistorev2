@@ -18,7 +18,9 @@ Session::set('REQUEST_URI', getRequestUrls()); // lưu vị trí đường dẫn
 					<div class="row">
 						<div class="col-md-9 col-lg-7">
 							<div class="contact-wrap w-100 p-md-5 p-4">
-								<h3 class="mb-4">Phản hồi của khách hàng</h3>
+								<div class="fb-page" data-href="https://www.facebook.com/ilovekabistore" data-width="350" data-hide-cover="false" data-show-facepile="false"></div>
+
+								<h3 class="mb-4 mt-5">Phản hồi của khách hàng</h3>
 								<div id="form-message-warning" class="mb-4"></div>
 								<div id="form-message-success" class="mb-4">
 									Cảm ơn bạn! Chúng tôi sẽ gửi phản hồi cho bạn sớm nhất
@@ -76,3 +78,10 @@ Session::set('REQUEST_URI', getRequestUrls()); // lưu vị trí đường dẫn
 include 'inc/footer.php';
 ?>
 <script src="js/feedbackCustomer.js"></script>
+
+<!-- Messenger Plugin chat Code -->
+<div id="fb-root"></div>
+
+<!-- Your Plugin chat code -->
+<div id="fb-customer-chat" class="fb-customerchat"></div>
+<script src="js/fbchat.js"></script>

@@ -30,9 +30,9 @@ if ($login_check) {
             <!-- to error: add class "has-danger" -->
             <div class="form-group pt-10 mt-30">
               <label for="username">Tên đăng nhập</label>
-              <input type="text" class="form-control form-control-sm" name="username" id="username" placeholder="Nhập tên đăng nhâp.." required>
+              <input type="text" class="form-control form-control-sm" name="username" id="username" placeholder="Nhập tên đăng nhâp..." required>
             </div>
-            <div class="error mb-2" id="error-username">Tên đăng nhập không được bỏ trống!!!</div>
+            <div class="error mb-2" id="error-username">Bạn chưa nhập tên đăng nhập!</div>
             <div class="form-group">
               <label for="password">Mật khẩu</label>
               <a href="forgotPassword.html" style="float:right;font-size:12px;">Quên mật khẩu?</a>

@@ -189,55 +189,21 @@ if ($login_check == false) {
 		}
 		?>
 	</div>
+	
 	<!-- Pagination -->
-	<ul class="pagination ml-2 mt-5 mb-5">
-		<?php
-		if ($product_count >= $product_num) {
-			$product_button = ceil(($product_count) / $product_num);
-			$page_now = $page;
-			if ($page_now == 0) {
-				$page_now = (int)$query_string + 1;
-			}
-			if ($page_now != 1) {
-				$page_now_index = $page_now - 1;
-				echo '<li class="page-item"><a class="page-link" href="orderdetails-' . $page_now_index . '.html">❮</a></li>';
-				// << previous
-			}
-		?>
-			<?php
-			$max = 0;
-			for ($i = 1; $i <= $product_button; $i++) {
-				if ($i == 1) {
-			?>
-					<li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-right:0px"><a class="page-link" href="orderdetails-<?php echo $i ?>.html"><?php echo $i ?></a></li>
-					<?php
-				} else {
-					if ($i == $page_now) {
-						if ($i == $max + 1) {
-					?>
-							<li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-left:0px"><a class="page-link" href="orderdetails-<?php echo $i ?>.html"><?php echo $i ?></a></li>
-						<?php
-						} else {
-						?>
-							<li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="orderdetails-<?php echo $i ?>.html"><?php echo $i ?></a></li>
-						<?php
-						}
-					} else {
-						?>
-						<li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="orderdetails-<?php echo $i ?>.html"><?php echo $i ?></a></li>
-		<?php
-					}
-				}
-				$max++;
-			}
-			if ($page_now != $max) {
-				$page_now_index = $page_now + 1;
-				echo '<li class="page-item"><a class="page-link" href="orderdetails-' . $page_now_index . '.html">❯</a></li>';
-				// >> next
-			}
-		}
-		?>
+	<?php
+	if ($product_count >= $product_num) {
+		$product_button = ceil(($product_count) / $product_num);
+		$page_now = $page;
+	}
+	?>
+	<div class="container mt-5 mb-4">
+		<nav aria-label="Page navigation">
+			<ul class="pagination" id="pagination"></ul>
+		</nav>
+	</div>
 </div>
+
 
 <!-- customer Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
@@ -316,3 +282,19 @@ include 'inc/footer.php';
 <script src="js/map-api-admin.js"></script>
 <script src="js/getLocaltionOrder.js"></script>
 <script src="js/function.js"></script>
+<script src="js/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function() {
+		window.pagObj = $('#pagination').twbsPagination({
+            totalPages: "<?php echo $product_button ?>",
+			visiblePages: 4,
+			startPage: <?php echo $page_now ?>,
+			onPageClick: function(event, page) {
+				// console.info(page + ' (from options)');
+			}
+		}).on('page', function(event, page) {
+			// console.info(page + ' (from event listening)');
+			location.href = "orderdetails-" + page + ".html";
+		});
+	});
+</script>

@@ -368,7 +368,7 @@ img {
     line-height: 40px;
     text-align: center;
     width: 40px;
-    left: 60px;
+    right: 60px;
     bottom: 160px;
     cursor: pointer;
     animation-name: openHelp;
@@ -403,11 +403,24 @@ img {
     }
 }
 
-#goBack {
-    background-color: #f35836;
+.goChatFacebookIndex {
     border-radius: 0;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
-    color: #ffffff;
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 40px;
+    right: 60px;
+    bottom: 110px;
+    cursor: pointer;
+    position: fixed;
+    z-index: 100;
+}
+
+.goChatFacebook {
+    border-radius: 0;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
     font-size: 18px;
     height: 40px;
     line-height: 40px;
@@ -420,22 +433,22 @@ img {
     z-index: 100;
 }
 
-@media only screen and (max-width: 767px) {
-    #goBack {
-        bottom: 80px;
-        left: 30px;
-    }
-    #openHelp {
-        bottom: 130px;
-        left: 30px;
-    }
+#goBack {
+    background-color: #f35836;
+    border-radius: 0;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 40px;
+    right: 60px;
+    bottom: 110px;
+    cursor: pointer;
+    position: fixed;
+    z-index: 100;
 }
-
-/* goBack */
-
-/* ScrollUp */
-
-/* d0021b */
 
 #scrollUp {
     background-color: #f35836;
@@ -446,18 +459,40 @@ img {
     font-size: 24px;
     height: 40px;
     line-height: 40px;
-    left: 60px;
+    right: 60px;
     text-align: center;
     width: 40px;
     z-index: 100 !important;
 }
 
 @media only screen and (max-width: 767px) {
+    #goBack {
+        bottom: 80px;
+        right: -6px;
+    }
+    #openHelp {
+        bottom: 130px;
+        right: -6px;
+    }
+    .goChatFacebookIndex {
+        bottom: 80px;
+        right: -6px;
+    }
+    .goChatFacebook {
+        bottom: 30px;
+        left: -6px;
+    }
     #scrollUp {
         bottom: 30px;
-        left: 30px;
+        right: -6px;
     }
 }
+
+/* goBack */
+
+/* ScrollUp */
+
+/* d0021b */
 
 /* Essence Button */
 

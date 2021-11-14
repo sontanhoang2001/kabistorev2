@@ -511,7 +511,7 @@ class customer
 			$file_ext = strtolower(end($div));
 			$unique_image = substr(md5($id . " " . $file_name), 0, 32) . '.' . $file_ext;
 			//Thư mục bạn sẽ lưu file upload
-			$target_dir    = "upload/avatars/" . $unique_image;
+			$target_dir    = "~/../../upload/avatars/" . $unique_image;
 			//Vị trí file lưu tạm trong server
 			$target_file   = $target_dir;
 			$update_target_dir = $unique_image;
@@ -524,17 +524,17 @@ class customer
 			////Những loại file được phép upload
 			$allowtypes    = array('jpg', 'png', 'jpeg', 'gif', null);
 
-			if (isset($_POST["save"])) {
-				//Kiểm tra xem có phải là ảnh
-				$check = ($_FILES["avatar"]["tmp_name"]);
-				if ($check != false) {
-					//echo "Đây là file ảnh - " . $check["mime"] . ".";
-					$allowUpload = true;
-				} else {
-					//echo "Không phải file ảnh.";
-					$allowUpload = false;
-				}
+			// if (isset($_POST["save"])) {
+			//Kiểm tra xem có phải là ảnh
+			$check = ($_FILES["avatar"]["tmp_name"]);
+			if ($check != false) {
+				//echo "Đây là file ảnh - " . $check["mime"] . ".";
+				$allowUpload = true;
+			} else {
+				//echo "Không phải file ảnh.";
+				$allowUpload = false;
 			}
+			//}
 
 			// Kiểm tra nếu file đã tồn tại thì không cho phép ghi đè
 			if (file_exists($target_file)) {
@@ -543,9 +543,8 @@ class customer
 			}
 			// // Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
 			if ($_FILES["avatar"]["size"] > $maxfilesize) {
-				$alert = "<p class='text-danger'>Cập nhật thất bại ảnh nhỏ hơn 1MB.</p>";
-
-				return $alert;
+				// ảnh phải nhỏ hơn 1 MB
+				return  json_encode($result_json[] = ['status' => 3, 'srcImage' => 0]);
 				$allowUpload = false;
 			}
 
@@ -555,7 +554,7 @@ class customer
 				$allowUpload = false;
 			}
 
-			$files = glob("upload/avatars/$avatarold"); // get all file names
+			$files = glob("~/../../upload/avatars/$avatarold"); // get all file names
 			foreach ($files as $file) { // iterate files
 
 				if (is_file($file))
@@ -576,18 +575,18 @@ class customer
 
 			if ($result) {
 				Session::set('avatar', $update_target_dir);
-				$alert = '<p class="text-success">Bạn đã cập nhật avatar thành công!</p>';
-				return $alert;
+				//Bạn đã cập nhật avatar thành công!
+				return  json_encode($result_json[] = ['status' => 1, 'srcImage' => $update_target_dir]);
 			} else {
-				$alert = '<p class="text-danger">Bạn đã cập nhật avatar không thành công!</p>';
-				return $alert;
+				//Bạn đã cập nhật avatar không thành công!
+				return  json_encode($result_json[] = ['status' => 0, 'srcImage' => 0]);
 			}
 		} else {
-			$alert = '<p class="alert-danger">Avatar đang tồn tại!</p>';
-			return $alert;
+			// Avatar này đang tồn tại
+			return  json_encode($result_json[] = ['status' => 2, 'srcImage' => 0]);
 		}
-		$this->connection->close();
 	}
+
 
 	public function update_customers_password($customer_id, $data)
 	{

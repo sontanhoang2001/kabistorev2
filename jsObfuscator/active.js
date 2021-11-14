@@ -7,8 +7,11 @@
 // const loader = document.querySelector(".loader-wrapper")
 // loader.className += "hidden";
 
+$('#goChatFacebook').click(function (event) {
+    location.href = "contact.html";
+});
+
 $('#goBack').click(function (event) {
-    event.preventDefault();
     history.back(1);
 });
 

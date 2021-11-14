@@ -38,6 +38,7 @@ if (!isset($_GET['typeName'])) {
 } else {
     $typeName = $_GET['typeName'];
 }
+
 Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 ?>
 <style>
@@ -66,7 +67,7 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
 <!-- ##### Breadcumb Area End ##### -->
 
 <!-- ##### Shop Grid Area Start ##### -->
-<section class="shop_grid_area section-padding-80">
+<section class="shop_grid_area mt-5">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-4 col-lg-3">
@@ -334,58 +335,19 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                         ?>
                     </div>
                 </div>
-
-                <!-- Pagination -->
-                <ul class="pagination">
-                    <?php
-                    if ($product_count >= $product_num) {
-                        $product_button = ceil(($product_count) / $product_num);
-
-                        $page_now = $page;
-                        if ($page_now == 0) {
-                            $page_now = (int)$query_string + 1;
-                        }
-                        if ($page_now != 1) {
-                            $page_now_index = $page_now - 1;
-                            echo '<li class="page-item"><a class="page-link" href="' . $typeName . '-f' . $filter . 'p' . $page_now_index . 't' . $type . 's' . $priceStart . 'e' . $priceEnd . '.html">❮</a></li>';
-                            // << previous
-                        }
-                    ?>
-                        <?php
-                        $max = 0;
-                        for ($i = 1; $i <= $product_button; $i++) {
-                            if ($i == 1) {
-                        ?>
-                                <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-right:0px"><a class="page-link" href="<?php echo $typeName ?>-f<?php echo $filter ?>p<?php echo $i ?>t<?php echo $type ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $i ?></a></li>
-                                <?php
-                            } else {
-                                if ($i == $page_now) {
-                                    if ($i == $max + 1) {
-                                ?>
-                                        <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>" style="margin-left:0px"><a class="page-link" href="<?php echo $typeName ?>-f<?php echo $filter ?>p<?php echo $i ?>t<?php echo $type ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $i ?></a></li>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="<?php echo $typeName ?>-f<?php echo $filter ?>p<?php echo $i ?>t<?php echo $type ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $i ?></a></li>
-                                    <?php
-                                    }
-                                } else {
-                                    ?>
-                                    <li class="page-item <?php echo ($i == $page_now) ? 'active' : '' ?>"><a class="page-link" href="<?php echo $typeName ?>-f<?php echo $filter ?>p<?php echo $i ?>t<?php echo $type ?>s<?php echo $priceStart ?>e<?php echo $priceEnd ?>.html"><?php echo $i ?></a></li>
-                    <?php
-                                }
-                            }
-                            $max++;
-                        }
-                        if ($page_now != $max) {
-                            $page_now_index = $page_now + 1;
-                            echo '<li class="page-item"><a class="page-link" href="' . $typeName . '-f' . $filter . 'p' . $page_now_index . 't' . $type . 's' . $priceStart . 'e' . $priceEnd . '.html">❯</a></li>';
-                            // >> next
-                        }
-                    }
-                    ?>
-                </ul>
             </div>
+        </div>
+        <!-- Pagination -->
+        <?php
+        if ($product_count >= $product_num) {
+            $product_button = ceil(($product_count) / $product_num);
+            $page_now = $page;
+        }
+        ?>
+        <div class="mt-5 mb-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination" id="pagination"></ul>
+            </nav>
         </div>
     </div>
 </section>
@@ -458,5 +420,21 @@ include 'inc/footer.php';
             style: 'currency',
             currency: 'VND'
         }).format($("#slider-range").slider("values", 1)));
+    });
+</script>
+<script src="js/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function() {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages: "<?php echo $product_button ?>",
+            visiblePages: 4,
+            startPage: <?php echo $page_now ?>,
+            onPageClick: function(event, page) {
+                // console.info(page + ' (from options)');
+            }
+        }).on('page', function(event, page) {
+            // console.info(page + ' (from event listening)');
+            location.href = "<?php echo $paginationHref =  $typeName . '-f' . $filter . 'p' ?>" + page + "<?php echo  't' . $type . 's' . $priceStart . 'e' . $priceEnd; ?>" + ".html";
+        });
     });
 </script>

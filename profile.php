@@ -5,13 +5,13 @@ if ($login_check == false) {
   header('Location:login.php');
 }
 
-$id = Session::get('customer_id');
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-  if ($_FILES['avatar']['name'] != null) {
-    $UpdateCustomers = $cs->update_avatar($_POST, $id); // hàm check catName khi submit lên
-  }
-}
+// $id = Session::get('customer_id');
+// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//   // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
+//   if ($_FILES['avatar']['name'] != null) {
+//     $UpdateCustomers = $cs->update_avatar($_POST, $id); // hàm check catName khi submit lên
+//   }
+// }
 ?>
 <link rel="stylesheet" type="text/css" href="css/map.css">
 
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                       <div class="col-12 col-sm-auto mb-3 mt-2">
                         <div class="mx-auto" style="width: 140px; height: 140px;">
                           <div class="d-flex justify-content-center align-items-center rounded" style="height: 120px; background-color: rgb(233, 236, 239);">
-                            <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="<?php echo (session::get('account_type') == 0) ?  "upload/avatars/" .  session::get('avatar') : session::get('avatar') ?>" /></span>
+                            <span><img id="avatarImage" style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="<?php echo (session::get('account_type') == 0) ?  "upload/avatars/" .  session::get('avatar') : session::get('avatar') ?>" /></span>
                           </div>
                         </div>
                       </div>
@@ -75,11 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           <div class="mt-2">
                             <?php if (session::get('account_type') == 0) { ?>
                               <form id="f_avatar" method="POST" enctype="multipart/form-data">
-                                <label class="btn btn-primary"><input type="file" name="avatar" hidden>
+                                <label class="btn btn-primary"><input type="file" name="avatar"  hidden>
                                   <i class="fa fa-fw fa-camera"></i>
                                   <span>Chọn ảnh</span></input>
                                 </label>
-                                <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
+                                <input type="text" id="avatarold" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
                                 <?php if (isset($UpdateCustomers)) {
                                   echo $UpdateCustomers;
                                 } ?>

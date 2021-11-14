@@ -17,7 +17,8 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
     <h1 class="projTitle">Thanh Toán an toàn<span>-và</span> đơn giản</h1>
     <div class="card-body p-0">
         <div class="row upper">
-            <span style="color: #28a745;"><i class="fa fa-check-circle-o"></i> Giỏ hàng</span>
+
+            <span class="text-success" id="payment"><span style="border: 1px solid #28a745;" id="number-circle">✔</span> Giỏ hàng</span>
             <span id="payment"><span id="number-circle">2</span> Thanh toán</span>
             <span id="payment"><span id="number-circle">3</span> Hoàn tất</span>
         </div>
