@@ -2,7 +2,6 @@
 include 'inc/header.php';
 include 'inc/global.php';
 
-
 if (!isset($_GET['page'])) {
 	$page = 1;
 } else {
@@ -60,7 +59,7 @@ if ($login_check == false) {
 	<div class="cart">
 		<?php
 		$customer_id = Session::get('customer_id');
-		$product_num = 12;
+		$product_num = 10;
 		$get_cart_ordered = $ct->get_cart_ordered($customer_id, $page, $product_num);
 		$amount_all_cart = $ct->get_amount_all_cart($customer_id);
 		$result = $amount_all_cart->fetch_assoc();

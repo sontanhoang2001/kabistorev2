@@ -316,7 +316,8 @@ function product_list() {
                     $("input[name=price]").val(price);
 
                     $('#size option[value=" ' + size + ' "]').attr('selected', 'selected');
-                    $("#product_desc").val(product_desc);
+                    YourEditor.setData(product_desc);
+
                     $('#type option[value="' + type + '"]').attr('selected', 'selected');
 
                     // load ảnh
@@ -452,7 +453,7 @@ function product_list() {
             price: $("input[name=price]").val(),
             size: $('select[name="size"] option:selected').val(),
             image: jsonImageArray,
-            product_desc: $("#product_desc").val(),
+            product_desc: YourEditor.data.get(),
             type: $('select[name="type"] option:selected').val()
         };
 
@@ -505,7 +506,7 @@ function product_list() {
                             try {
                                 // lấy img từ input
                                 const obj_img = JSON.parse(formData.image);
-                                $('tbody tr td').eq((tr_index * 11) + tr_index + 2).empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
+                                $('tbody tr td').eq((tr_index * 11) + tr_index + 2).find("a").empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
                             } catch (error) {
 
                             }
@@ -517,7 +518,7 @@ function product_list() {
                             break;
                         }
                         case 2: {
-                            var message = "Cập nhật sản phẩm tthất bại!";
+                            var message = "Cập nhật sản phẩm thất bại!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
                             break;
@@ -542,16 +543,14 @@ function product_list() {
         $("input[name=root_price]").val("");
         $("input[name=old_price]").val("");
         $("input[name=price]").val("");
-        $("#product_desc").val("");
+        YourEditor.setData("");
         $('#type option[value="' + type + '"]').removeAttr('selected');
 
         $('#root_priceText').text(currency_vn(0));
         $('#old_priceText').text(currency_vn(0));
         $('#priceText').text(currency_vn(0));
 
-        $('#product_desc').css("display", "block");
         $('#product_desc_parent').remove();
-        editorStatus = false;
         $('#btnEditor').removeAttr("disabled");
     })
 

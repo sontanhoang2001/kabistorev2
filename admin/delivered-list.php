@@ -146,7 +146,7 @@ $fm = new format();
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="copyProductName" class="btn btn-primary" onclick="pasteFind('#productNameModel');">Group</button>
-				<a href="#" id="productDetaild" class="btn btn-info">Chi tiết</a>
+				<a href="#" id="productDetaild" target="_blank" class="btn btn-info">Chi tiết</a>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
 			</div>
 		</div>

@@ -139,8 +139,7 @@ $pd = new product();
                             </div>
                             <div class="form-group">
                                 <label for="inputdefault">Mô tả sản phẩm</label>
-                                <button type="button" class="btn-light pull-right" id="btnEditor">editor</button>
-                                <textarea class="form-control tinymce" id="product_desc" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <textarea class="form-control" id="product_desc"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -184,13 +183,9 @@ $pd = new product();
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
-<!-- Load TinyMCE -->
-
-<!-- Load TinyMCE -->
 <?php include 'inc/footer.php'; ?>
 <script src="js/helpers.js"></script>
 <script src="js/product.js"></script>
@@ -199,29 +194,13 @@ $pd = new product();
     add_product();
 </script>
 
-<!-- BEGIN: load jquery -->
-<script type="text/javascript" src="js/jquery-ui/jquery.ui.core.min.js"></script>
-<script src="js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
-<script src="js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
-
-<!-- END: load jquery -->
-<script src="js/setup.js" type="text/javascript"></script>
-<script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
-<script type="text/javascript">
-    var editorStatus = false;
-    $('#btnEditor').click(function() {
-        if (editorStatus == false) {
-            setupTinyMCE();
-            editorStatus = true;
-            $('#btnEditor').remove();
-        } else {
-            $('#product_desc').css("display", "block");
-            $('#product_desc_parent').remove();
-        }
-
-        // setDatePicker('date-picker');
-        // $('input[type="checkbox"]').fancybutton();
-        // $('input[type="radio"]').fancybutton();
-    })
+<script src="js/ckeditor/ckeditor.js"></script>
+<script>
+    let YourEditor;
+    ClassicEditor
+        .create(document.querySelector('#product_desc'))
+        .then(editor => {
+            window.editor = editor;
+            YourEditor = editor;
+        })
 </script>
-<!-- Load TinyMCE -->

@@ -365,7 +365,7 @@ include 'inc/global.php';
                         </div>
                         <!--Modal: Name-->
 
-                        <a><img class="img-fluid z-depth-1" src="<?php echo $thumbnailVideo1 ?>" alt="video" data-toggle="modal" data-target="#modal1"></a>
+                        <a><img class="img-fluid z-depth-1 lazy" data-src="<?php echo $thumbnailVideo1 ?>" alt="video" data-toggle="modal" data-target="#modal1"></a>
 
                     </div>
                     <!-- Grid column -->
@@ -409,7 +409,7 @@ include 'inc/global.php';
                         </div>
                         <!--Modal: Name-->
 
-                        <a><img class="img-fluid z-depth-1" src="<?php echo $thumbnailVideo2 ?>" alt="video" data-toggle="modal" data-target="#modal6"></a>
+                        <a><img class="img-fluid z-depth-1 lazy" data-src="<?php echo $thumbnailVideo2 ?>" alt="video" data-toggle="modal" data-target="#modal6"></a>
 
                     </div>
                     <!-- Grid column -->
@@ -451,7 +451,7 @@ include 'inc/global.php';
                         </div>
                         <!--Modal: Name-->
 
-                        <a><img class="img-fluid z-depth-1" src="<?php echo $thumbnailVideo3 ?>" alt="video" data-toggle="modal" data-target="#modal4"></a>
+                        <a><img class="img-fluid z-depth-1 lazy" data-src="<?php echo $thumbnailVideo3 ?>" alt="video" data-toggle="modal" data-target="#modal4"></a>
 
                     </div>
                     <!-- Grid column -->

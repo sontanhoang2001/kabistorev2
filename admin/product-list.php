@@ -6,9 +6,16 @@
 <?php
 $pd = new product();
 $fm = new Format();
+
+if (!isset($_GET['page'])) {
+    $page = 1;
+} else {
+    $page = $_GET['page'];
+}
 ?>
 
 <link rel="stylesheet" href="css/style.css">
+
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="LMMRbqRK"></script>
 
@@ -55,7 +62,11 @@ $fm = new Format();
                     </tfoot> -->
                     <tbody>
                         <?php
-                        $list_product = $pd->show_product();
+                        $product_num = 50;
+                        $list_product = $pd->show_product($page, $product_num);
+                        $get_amount_all_show_product = $pd->get_amount_all_show_product();
+                        $result = $get_amount_all_show_product->fetch_assoc();
+                        $product_count = $result['totalRow'];
                         if ($list_product) {
                             $i = 0;
                             while ($result = $list_product->fetch_assoc()) {
@@ -70,9 +81,9 @@ $fm = new Format();
                                 <tr class="odd gradeX">
                                     <td><?php echo $i ?></td>
                                     <td data-productcode="<?php echo $product_code ?>" onclick="pasteFindByAttr(this, 'productcode')"><?php echo $product_code ?></td>
-                                    <td><img data-src="<?php echo $product_img ?>" width="100px" height="100px" class="lazy"></td>
+                                    <td><a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><img data-src="<?php echo $product_img ?>" width="100px" height="100px" class="lazy"></a></td>
 
-                                    <td><a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></a></td>
+                                    <td><?php echo $result['productName'] ?></td>
                                     <td>
                                         <?php echo $result['productQuantity'] ?>
                                     </td>
@@ -114,6 +125,18 @@ $fm = new Format();
                         ?>
                     </tbody>
                 </table>
+                <!-- Pagination -->
+                <?php
+                if ($product_count >= $product_num) {
+                    $product_button = ceil(($product_count) / $product_num);
+                    $page_now = $page;
+                }
+                ?>
+                <div class="container mt-5 mb-4">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination" id="pagination"></ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -179,7 +202,7 @@ $fm = new Format();
             </div>
             <div class="modal-footer">
                 <button type="button" id="copyProductName" class="btn btn-primary" onclick="pasteFind('#productNameModel');">Group</button>
-                <a href="#" id="productDetaild" class="btn btn-info">Chi tiết</a>
+                <a href="#" id="productDetaild" target="_blank" class="btn btn-info">Chi tiết</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
         </div>
@@ -346,8 +369,6 @@ $fm = new Format();
                                 </div>
                             </div>
 
-
-
                             <div class="form-group">
                                 <label for="inputdefault">Hình ảnh</label>
                                 <div class="form-group" id="reviewImage">
@@ -358,8 +379,7 @@ $fm = new Format();
 
                             <div class="form-group">
                                 <label for="inputdefault">Mô tả sản phẩm</label>
-                                <button type="button" class="btn-light pull-right" id="btnEditor">editor</button>
-                                <textarea class="form-control tinymce" id="product_desc" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <textarea class="form-control" id="product_desc"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -417,7 +437,16 @@ $fm = new Format();
 </div>
 
 
+<!-- Load TinyMCE -->
 <?php include 'inc/footer.php'; ?>
+<script>
+    $(document).ready(function() {
+        $("#sidebarToggleTop").click();
+    })
+    $('#dataTable').dataTable({
+        "paging": false
+    });
+</script>
 <script src="js/helpers.js"></script>
 <script src="js/order.js"></script>
 <script src="js/product.js"></script>
@@ -426,29 +455,30 @@ $fm = new Format();
     product_list();
 </script>
 
-<!-- BEGIN: load jquery -->
-<script type="text/javascript" src="js/jquery-ui/jquery.ui.core.min.js"></script>
-<script src="js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
-<script src="js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
-
-<!-- END: load jquery -->
-<script src="js/setup.js" type="text/javascript"></script>
-<script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
-<script type="text/javascript">
-    var editorStatus = false;
-    $('#btnEditor').click(function() {
-        if (editorStatus == false) {
-            setupTinyMCE();
-            editorStatus = true;
-            $('#btnEditor').attr("disabled","disabled");
-        } else {
-            $('#product_desc').css("display", "block");
-            $('#product_desc_parent').remove();
-        }
-
-        // setDatePicker('date-picker');
-        // $('input[type="checkbox"]').fancybutton();
-        // $('input[type="radio"]').fancybutton();
-    })
+<script src="js/ckeditor/ckeditor.js"></script>
+<script>
+    let YourEditor;
+    ClassicEditor
+        .create(document.querySelector('#product_desc'))
+        .then(editor => {
+            window.editor = editor;
+            YourEditor = editor;
+        })
 </script>
-<!-- Load TinyMCE -->
+
+<script src="../js/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function() {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages: "<?php echo $product_button ?>",
+            visiblePages: 4,
+            startPage: <?php echo $page_now ?>,
+            onPageClick: function(event, page) {
+                // console.info(page + ' (from options)');
+            }
+        }).on('page', function(event, page) {
+            // console.info(page + ' (from event listening)');
+            location.href = "product-list?page=" + page;
+        });
+    });
+</script>
