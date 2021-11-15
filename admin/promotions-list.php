@@ -128,7 +128,7 @@ if (isset($_GET['delpromotions']) && (isset($_GET['promotionsId']))) {
                                         ?>
                                     </td>
                                     <td>
-                                        <a class="edit mr-2" href="update-Promotion?promotionsId=<?php echo $promotionsId ?>" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a class="edit mr-2" href="update-promotion?promotionsId=<?php echo $promotionsId ?>" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a class="delete" href="?delpromotions=true&promotionsId=<?php echo $promotionsId ?>" class="btn" data-confirm="Bạn có muốn xóa khuyến mãi không?"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
