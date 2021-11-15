@@ -85,7 +85,11 @@ if (isset($_GET['slider_del'])) {
 											}
 											?>
 										</div>
-										<div class="col-6 mt-2">
+										<div class="col-3 mt-2">
+											<a class="btn btnn btn-info" href="update-slider?sliderId=<?php echo $result_slider['sliderId'] ?>"><i class="fa fa-edit" aria-hidden="true"></i></a>
+										</div>
+
+										<div class="col-3 mt-2">
 											<a class="btn btnn btn-danger" href="?slider_del=<?php echo $result_slider['sliderId'] ?>&amp;img=<?php echo $result_slider['slider_image'] ?>" onclick="return confirm('Are you sure to Delete!');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 										</div>
 									</td>

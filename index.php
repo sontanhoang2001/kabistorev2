@@ -162,8 +162,9 @@ include 'inc/global.php';
             <div class="py-5 text-center"><a href="san-pham-f0p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
         </div>
     </div>
+
     <!-- START PROMOTION -->
-    <div class="container-fluid pb-3" style="background-color: #eff0f5;">
+    <div class="container-fluid pb-3" style="background-color: #eff0f5;" id="coupon">
         <div class="container">
             <h2 class="pt-4"><i class="fa fa-percent" aria-hidden="true"></i> Mã Giảm Giá</h2>
             <p>Nhấn vào đi đến shop để mua nhiều sản phẩm hơn</p>

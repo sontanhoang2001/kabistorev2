@@ -148,22 +148,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 <?php include 'inc/footer.php'; ?>
 <script src="js/product.js"></script>
 <script src="js/bs-validation.js"></script>
-
-<!-- BEGIN: load jquery -->
-<script type="text/javascript" src="js/jquery-ui/jquery.ui.core.min.js"></script>
-<script src="js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
-<script src="js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
-
-<!-- END: load jquery -->
-<script src="js/setup.js" type="text/javascript"></script>
-<script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $('#btnEditor').click(function() {
-        $('#description').removeClass().addClass("tinymce");
-        setupTinyMCE();
-        // setDatePicker('date-picker');
-        // $('input[type="checkbox"]').fancybutton();
-        // $('input[type="radio"]').fancybutton();
-    })
-</script>
-<!-- Load TinyMCE -->

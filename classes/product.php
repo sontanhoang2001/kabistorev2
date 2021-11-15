@@ -205,6 +205,122 @@ class product
 		return $result;
 	}
 
+	// hiển thị slider list admin
+	public function show_sliderEdit($sliderId)
+	{
+		$query = "SELECT sliderId, sliderTitle, sliderContent, sliderLink, slider_image, type FROM tbl_slider WHERE sliderId = '$sliderId' order by sliderId desc";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+	// cập nhật sản phẩm admin
+	public function update_slider($sliderId, $data)
+	{
+		$sliderId = mysqli_real_escape_string($this->db->link, $sliderId);
+		// $slider_image = mysqli_real_escape_string($this->db->link, $data['slider_image']);
+		$sliderTitle = mysqli_real_escape_string($this->db->link, $data['sliderTitle']);
+		$sliderContent = mysqli_real_escape_string($this->db->link, $data['sliderContent']);
+		$sliderLink = mysqli_real_escape_string($this->db->link, $data['sliderLink']);
+		$type = mysqli_real_escape_string($this->db->link, $data['type']);
+		$imgOld = mysqli_real_escape_string($this->db->link, $data['slider_image_old']);
+
+
+		$file_name = $_FILES['slider_image']['name'];
+		if ($file_name != null) {
+			//dinh dang ten file
+			$div = explode('.', $file_name);
+			$file_ext = strtolower(end($div));
+			$unique_image = substr(md5(time()), 0, 10) . '.' . $file_ext;
+			//Thư mục bạn sẽ lưu file upload
+			$target_dir    = "~/../../upload/slider/" . $unique_image;
+			//Vị trí file lưu tạm trong server
+			$target_file   = $target_dir;
+			// $update_target_dir = $unique_image;
+
+			$allowUpload   = true;
+			//Lấy phần mở rộng của file
+			$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+			$maxfilesize   = 1000000; //(bytes) 2100000byte = 1mb
+
+			////Những loại file được phép upload
+			$allowtypes    = array('jpg', 'png', 'jpeg', 'gif', null);
+
+			// if (isset($_POST["save"])) {
+			//Kiểm tra xem có phải là ảnh
+			$check = ($_FILES["slider_image"]["tmp_name"]);
+			if ($check != false) {
+				//echo "Đây là file ảnh - " . $check["mime"] . ".";
+				$allowUpload = true;
+			} else {
+				//echo "Không phải file ảnh.";
+				$allowUpload = false;
+			}
+			//}
+
+			// Kiểm tra nếu file đã tồn tại thì không cho phép ghi đè
+			if (file_exists($target_file)) {
+				//echo "File đã tồn tại.";
+				$allowUpload = false;
+			}
+
+			// // Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+			if ($_FILES["slider_image"]["size"] > $maxfilesize) {
+				// ảnh phải nhỏ hơn 1 MB
+				return '<div class="text-danger">Ảnh phải nhỏ hơn 1MB!</div>';
+				$allowUpload = false;
+			}
+
+			// Kiểm tra kiểu file
+			if (!in_array($imageFileType, $allowtypes)) {
+				return "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
+				$allowUpload = false;
+			}
+
+			if ($sliderId == "" || $sliderTitle == "" || $sliderContent == "" || $sliderLink == "" || $type == "" || $imgOld == "") {
+				return "Các trường không được bỏ trống";
+			} else {
+				if ($allowUpload) {
+					$query = "UPDATE `tbl_slider`
+					 SET `sliderTitle`='$sliderTitle', `sliderContent`='$sliderContent', 
+					 `sliderLink`='$sliderLink', `slider_image`='$unique_image', `type`='$type'
+					WHERE sliderId = '$sliderId'";
+
+					$result = $this->db->update($query);
+					if ($result) {
+						$files = glob("~/../../upload/slider/" . $imgOld); // get all file names
+						foreach ($files as $file) { // iterate files
+
+							if (is_file($file))
+								if ($_FILES["slider_image"]["tmp_name"] == null) {
+									break;
+								} else {
+									unlink($file); // delete file
+								}
+						}
+
+						// Check if $uploadOk is set to 0 by an error
+						move_uploaded_file($_FILES["slider_image"]["tmp_name"], $target_file);
+
+						return '<div class="text-success">Cập nhật thành công!</div>';
+					} else {
+						return '<div class="text-success">Cập nhật thất bại!</div>';
+					}
+				}
+			}
+		} else {
+			$query = "UPDATE `tbl_slider` SET `sliderTitle`='$sliderTitle', `sliderContent`='$sliderContent', 
+				`sliderLink`='$sliderLink', `type`='$type'
+				WHERE sliderId = '$sliderId'";
+			$result = $this->db->update($query);
+			if ($result) {
+				return '<div class="text-success">Cập nhật thành công!</div>';
+			} else {
+				return '<div class="text-success">Cập nhật thất bại!</div>';
+			}
+		}
+	}
+
+
 	// hiểu thị trong trang quản lý kho admin
 	public function show_product_warehouse()
 	{
