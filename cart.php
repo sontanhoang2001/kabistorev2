@@ -147,6 +147,10 @@ $discount = session::set('discountMoney', 0);
 								<button type="submit" class="btn btn-dark px-4 rounded-pill" id="discount"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Áp dụng</button>
 							</div>
 						</div>
+						<div class="alert alert-success" id="success-promo" role="alert">
+						</div>
+						<div class="alert alert-danger" id="error-promo">
+						</div>
 					</div>
 				</form>
 				<p class="font-italic mb-4">Lưu ý: Shop sẽ check vị trí của Khách hàng để giảm phí giao hàng xuống mức thấp nhất có thể và gửi hóa đơn cho bạn trước khi giao hàng.</p>
@@ -179,12 +183,6 @@ $discount = session::set('discountMoney', 0);
 						<button name="cartcheckout" id="btn_checkout" class="btn btn-dark rounded-pill py-2 btn-block">Đi đến thanh toán</button>
 					</form>
 					<div class="mt-4">
-						<div class="alert alert-danger" id="error-promo">
-							<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
-						</div>
-						<div class="alert alert-success" id="success-promo" role="alert">
-							<strong>Cảnh báo!</strong> Đơn hàng đang hết hàng. Vui lòng chỉnh sửa lại số lượng hoặc xóa đơn hàng! <a href="#location-group" class="alert-link">Sửa lỗi</a>.
-						</div>
 						<li class="errorRow"></li>
 					</div>
 				</div>

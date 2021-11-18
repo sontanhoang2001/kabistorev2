@@ -125,12 +125,23 @@ include_once "inc/checkManager.php";
                     <div class="classynav">
                         <ul>
                             <li>
-                                <?php if (Session::get('customer_login') == true) { ?>
+                                <?php
+                                $avatar = session::get('avatar');
+                                if ($avatar != null) {
+                                    if (session::get('account_type') == 0) {
+                                        $avatar =  "upload/avatars/" .  session::get('avatar');
+                                    } else {
+                                        $avatar =  session::get('avatar');
+                                    }
+                                } else {
+                                    $avatar =  "upload/default-user-image.jpg";
+                                }
+                                if (Session::get('customer_login') == true) { ?>
                                     <div class="row">
                                         <div class="col-12 mb-4" id="user-infor">
                                             <div class="mx-auto">
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <span><a href="profile.html"><img style="width: 115px; height: 115px; " class="avatar img-thumbnail border-1 avatar-nav" src="<?php echo (session::get('account_type') == 0) ?  "upload/avatars/" . session::get('avatar')  : session::get('avatar') ?>" /></a></span>
+                                                    <span><a href="profile.html"><img style="width: 115px; height: 115px; " class="avatar img-thumbnail border-1 avatar-nav" src="<?php echo $avatar; ?>" /></a></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -138,7 +149,7 @@ include_once "inc/checkManager.php";
                                     <div class="row">
                                         <div class="col-12 mb-2 mt-2" id="user-infor">
                                             <div class="text-center mt-5 mb-2">
-                                                <h5 class="pb-1 mb-0 text-nowrap"><?php echo Session::get('customer_name') ?></h5>
+                                                <h5 class="pb-1 mb-0 text-nowrap"><?php echo (Session::get('customer_name') == null) ? 'Chưa đặt tên' : Session::get('customer_name') ?></h5>
                                                 <div class="text-muted"><small>Số dư 360 xu</small></div>
                                             </div>
                                         </div>

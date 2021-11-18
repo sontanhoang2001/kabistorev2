@@ -36,22 +36,45 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 // neu sesstion da dc ta thi gan ga tri sesstion
                                 $lng = $result['maps_maplng'];
                                 $lat = $result['maps_maplat'];
+                                $email = $result['email'];
+                                if ($email != null) {
+                                    $email = $result['email'];
+                                } else {
+                                    $email = "Chưa nhập email";
+                                }
+
                                 $phone = $result['phone'];
+                                $Phone =  $phone;
+                                if ($phone != null) {
+                                    $phone = "0" . $result['phone'];
+                                } else {
+                                    $phone = "Chưa nhập số điện thoại";
+                                }
+                                $avatar = $result['avatar'];
+                                if ($avatar != null) {
+                                    if (session::get('account_type') == 0) {
+                                        $avatar =  "upload/avatars/" .  session::get('avatar');
+                                    } else {
+                                        $avatar =  session::get('avatar');
+                                    }
+                                } else {
+                                    $avatar =  "upload/default-user-image.jpg";
+                                }
                         ?>
                                 <div class="col-md-12 pt-4">
                                     <div class="row">
                                         <div class="col-12 col-sm-auto mb-2">
                                             <div class="mx-auto" style="width: 140px;">
                                                 <div class="d-flex justify-content-center align-items-center rounded" style="background-color: rgb(233, 236, 239);">
-                                                    <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="upload/avatars/<?php echo $result['avatar']; ?>" /></span>
+                                                    <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="<?php echo $avatar ?>" /></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col d-flex flex-column flex-sm-row justify-content-between mt-2">
                                             <div class="text-center text-sm-left mb-2 mb-sm-0">
                                                 <h5 class="text-nowrap text-primary"><?php echo $result['name']; ?></h5>
-                                                <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $result['email']; ?></p>
-                                                <p class="mb-0"><i class="fa fa-phone" aria-hidden="true"></i> 0<?php echo $phone; ?></p>
+                                                <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $email; ?></p>
+                                                <p class="mb-0"><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $phone; ?></p>
                                                 <label class="pt-1">
                                                     <a href="profile.html" class="btn btn-primary"><i class="fa fa-edit"></i> Chỉnh sửa</a></input>
                                                 </label>
@@ -344,7 +367,7 @@ include 'inc/footer.php';
         user_location = [105.7691644, 10.0353821];
     }
 
-    var phone = <?php echo ($phone == null) ? 0 : 1; ?>
+    var phone = <?php echo ($Phone == null) ? 0 : 1; ?>
 </script>
 <script src="js/map-API.js"></script>
 <!-- <script src="javascript/googleMaps.js"></script> -->

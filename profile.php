@@ -52,6 +52,18 @@ if ($login_check == false) {
       while ($result = $get_customers->fetch_assoc()) {
         $lng = $result['maps_maplng'];
         $lat = $result['maps_maplat'];
+        $name = $result['name'];
+        $email = $result['email'];
+        $avatar = $result['avatar'];
+        if ($avatar != null) {
+          if (session::get('account_type') == 0) {
+            $avatar =  "upload/avatars/" .  session::get('avatar');
+          } else {
+            $avatar =  session::get('avatar');
+          }
+        } else {
+          $avatar =  "upload/default-user-image.jpg";
+        }
     ?>
         <div class="col">
           <div class="row">
@@ -63,19 +75,19 @@ if ($login_check == false) {
                       <div class="col-12 col-sm-auto mb-3 mt-2">
                         <div class="mx-auto" style="width: 140px; height: 140px;">
                           <div class="d-flex justify-content-center align-items-center rounded" style="height: 120px; background-color: rgb(233, 236, 239);">
-                            <span><img id="avatarImage" style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="<?php echo (session::get('account_type') == 0) ?  "upload/avatars/" .  session::get('avatar') : session::get('avatar') ?>" /></span>
+                            <span><img id="avatarImage" style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="<?php echo $avatar; ?>" /></span>
                           </div>
                         </div>
                       </div>
                       <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div class="text-center text-sm-left mb-2 mb-sm-0">
-                          <h5 class="text-nowrap text-primary"><?php echo $result['name']; ?></h5>
-                          <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $result['email']; ?></p>
+                          <h5 class="text-nowrap text-primary"><?php echo ($name == null) ? 'Chưa đặt tên' : $name; ?></h5>
+                          <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo ($email == null) ? 'Chưa có email' : $email; ?></p>
                           <div class="text-muted"><i class="fa fa-credit-card" aria-hidden="true"></i> </i>Số dư: <b style="color: #49bd4e;">330 xu</b></div>
                           <div class="mt-2">
                             <?php if (session::get('account_type') == 0) { ?>
                               <form id="f_avatar" method="POST" enctype="multipart/form-data">
-                                <label class="btn btn-primary"><input type="file" name="avatar"  hidden>
+                                <label class="btn btn-primary"><input type="file" name="avatar" hidden>
                                   <i class="fa fa-fw fa-camera"></i>
                                   <span>Chọn ảnh</span></input>
                                 </label>

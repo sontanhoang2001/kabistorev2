@@ -82,7 +82,7 @@ $fm = new format();
 <!-- customer Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content customerModal">
+		<div class="modal-content colMax">
 			<div class="modal-header">
 				<h5 class="modal-title" id="delModallLabel">Thông tin khách hàng</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
