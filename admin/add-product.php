@@ -11,11 +11,10 @@ $pd = new product();
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Thêm sản phẩm</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables.
-    </p>
+    <p class="mb-4">Một ngày tràng đầy năng lượng, giàu sức khỏe, mua may bán đắt, tiền vô như nước tiền ra như giọt coffee đặc.
 
-    <!-- DataTales Example -->
+
+        <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Bảng thêm thông tin sản phẩm</h6>
@@ -186,6 +185,10 @@ $pd = new product();
     </div>
 </div>
 
+
+<input type="file" id="input_img" name="input_img[]" onchange="fileChange()" accept="image/*" multiple>
+
+
 <?php include 'inc/footer.php'; ?>
 <script src="js/helpers.js"></script>
 <script src="js/product.js"></script>
@@ -203,4 +206,33 @@ $pd = new product();
             window.editor = editor;
             YourEditor = editor;
         })
+
+
+    function fileChange() {
+        // var fileImage = document.getElementById('input_img');
+        var form_data = new FormData();
+
+        // Read selected files
+        var totalfiles = document.getElementById('input_img').files.length;
+
+        for (var index = 0; index < totalfiles; index++) {
+            form_data.append("image", document.getElementById('input_img').files[index]);
+
+            var configImgbb = {
+                "url": "https://api.imgbb.com/1/upload?name=hello1&key=349ac570c10df02ade51500393e25fb1",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form_data
+            };
+
+            $.ajax(configImgbb).done(function(response) {
+                console.log(response);
+                var jx = JSON.parse(response);
+                console.log(jx.data.url);
+            });
+        }
+    }
 </script>
