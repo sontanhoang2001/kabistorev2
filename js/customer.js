@@ -664,71 +664,150 @@ function checkSendMail() {
 
 // Tải ảnh
 function uploadAvatar() {
-    $('input[name="avatar"]').change(function (e) {
-        $('#f_avatar').submit();
-    });
+    // get attr avatar old
+    var avatarImageOld = $("#avatarImage").attr("src");
+    // load effect
+    $("#avatarImage").attr("src", "img/core-img/loadAvatar.gif");
+    var fileImage = document.getElementById('avatar');
 
-    $('#f_avatar').on('submit', function (e) {
-        e.preventDefault();
+    var form_data = new FormData();
+    form_data.append("image", fileImage.files[0]);
 
-        // var formData = new FormData($(this)[0]);
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 
-        // // Check file selected or not
-        // formData.append('avatar', $('input[type=file]')[0].files[0]);
-        // formData.append('avatarold', $('input[type=text]')[0]);
+    var filename = date + '_' + time + fileImage.files[0].name;
 
-        $.ajax({
-            url: "~/../callbackPartial/updateAvatar.php",
-            method: "POST",
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                var res = JSON.parse(data);
-                var Status = res.status;
-                var SrcImage = res.srcImage;
+    $.ajax({
+        url: "https://api.imgbb.com/1/upload?name=" + filename + "&key=349ac570c10df02ade51500393e25fb1",
+        method: "POST",
+        timeout: 0,
+        processData: false,
+        mimeType: "multipart/form-data",
+        contentType: false,
+        data: form_data,
+        success: function (response) {
+            // console.log(response);
+            var jx = JSON.parse(response);
+            // console.log(jx.data.url);
+            var urlAvatarImage = jx.data.url;
+            if (jx.success == true) {
+                $.ajax({
+                    url: "~/../callbackPartial/updateAvatar.php",
+                    method: "POST",
+                    data: {
+                        "urlAvatarImage": urlAvatarImage
+                    },
+                    success: function (data) {
+                        var res = JSON.parse(data);
+                        var Status = res.status;
 
-                switch (Status) {
-                    case 0: {
-                        var message = "Cập nhật ảnh không thành công!";
+                        switch (Status) {
+                            case 0: {
+                                var message = "Cập nhật ảnh không thành công!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+
+                                // restore avatar
+                                $("#avatarImage").attr("src", avatarImageOld);
+                                break;
+                            }
+                            case 1: {
+                                // tạo ảnh xem trước
+                                $("#avatarImage").attr("src", urlAvatarImage);
+
+                                var message = "Cập nhận ảnh thành công!";
+                                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                                toast.change('Ảnh đại diện đã được thay đổi!', 2000);
+                                break;
+                            }
+                        }
+                    }, error: function (data) {
+                        var message = "Lỗi máy chủ!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
-                        break;
-                    }
-                    case 1: {
-                        var avatarImage = "upload/avatars/" + SrcImage;
-                        $("#avatarImage").attr("src", avatarImage);
-                        $("#avatarold").val(SrcImage);
 
-                        var message = "Cập nhận ảnh thành công!";
-                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        toast.change('Ảnh đại diện đã được thay đổi!', 2000);
-                        break;
+                        // restore avatar
+                        $("#avatarImage").attr("src", avatarImageOld);
                     }
-                    case 2: {
-                        var message = "Ảnh lỗi";
-                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                        toast.change('Vui lòng thử lại...', 3500);
-                        break;
-                    }
-                    case 3: {
-                        var message = "Ảnh phải tối thiểu dưới 1MB!";
-                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                        toast.change('Vui lòng thử lại...', 3500);
-                        break;
-                    }
-                }
-            }, error: function (data) {
-                var message = "Lỗi máy chủ!";
+                })
+            } else {
+                var message = "Cập nhật ảnh không thành công!";
                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                 toast.change('Vui lòng thử lại...', 3500);
+
+                // restore avatar
+                $("#avatarImage").attr("src", avatarImageOld);
             }
-        })
+        },
+        error: function () {
+            var message = "Upload ko thành công!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
+
+            // restore avatar
+            $("#avatarImage").attr("src", avatarImageOld);
+        }
     });
 
-
-
 }
+
+
+// var formData = new FormData($(this)[0]);
+
+// // Check file selected or not
+// formData.append('avatar', $('input[type=file]')[0].files[0]);
+// formData.append('avatarold', $('input[type=text]')[0]);
+
+// $.ajax({
+//     url: "~/../callbackPartial/updateAvatar.php",
+//     method: "POST",
+//     data: new FormData(this),
+//     contentType: false,
+//     processData: false,
+//     success: function (data) {
+//         var res = JSON.parse(data);
+//         var Status = res.status;
+//         var SrcImage = res.srcImage;
+
+//         switch (Status) {
+//             case 0: {
+//                 var message = "Cập nhật ảnh không thành công!";
+//                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+//                 toast.change('Vui lòng thử lại...', 3500);
+//                 break;
+//             }
+//             case 1: {
+//                 var avatarImage = "upload/avatars/" + SrcImage;
+//                 $("#avatarImage").attr("src", avatarImage);
+//                 $("#avatarold").val(SrcImage);
+
+//                 var message = "Cập nhận ảnh thành công!";
+//                 let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+//                 toast.change('Ảnh đại diện đã được thay đổi!', 2000);
+//                 break;
+//             }
+//             case 2: {
+//                 var message = "Ảnh lỗi";
+//                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+//                 toast.change('Vui lòng thử lại...', 3500);
+//                 break;
+//             }
+//             case 3: {
+//                 var message = "Ảnh phải tối thiểu dưới 1MB!";
+//                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+//                 toast.change('Vui lòng thử lại...', 3500);
+//                 break;
+//             }
+//         }
+//     }, error: function (data) {
+//         var message = "Lỗi máy chủ!";
+//         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+//         toast.change('Vui lòng thử lại...', 3500);
+//     }
+// })
+
 
 function navProfile() {
     $('#overview').click(function () {

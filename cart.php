@@ -1,6 +1,6 @@
 <?php
 include 'inc/header.php';
-include 'inc/global.php';
+include 'config/global.php';
 
 Session::set('REQUEST_URI', getRequestUrls(0)); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 $login_check = Session::get('customer_login');

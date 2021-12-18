@@ -1,7 +1,7 @@
 <?php
 include 'inc/header.php';
 include 'inc/slider.php';
-include 'inc/global.php';
+include 'config/global.php';
 ?>
 
 <!-- All css index -->

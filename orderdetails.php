@@ -1,6 +1,6 @@
 <?php
 include 'inc/header.php';
-include 'inc/global.php';
+include 'config/global.php';
 
 if (!isset($_GET['page'])) {
 	$page = 1;

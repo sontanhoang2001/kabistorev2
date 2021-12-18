@@ -57,7 +57,7 @@ if ($login_check == false) {
         $avatar = $result['avatar'];
         if ($avatar != null) {
           if (session::get('account_type') == 0) {
-            $avatar =  "upload/avatars/" .  session::get('avatar');
+            $avatar =   session::get('avatar');
           } else {
             $avatar =  session::get('avatar');
           }
@@ -86,16 +86,11 @@ if ($login_check == false) {
                           <div class="text-muted"><i class="fa fa-credit-card" aria-hidden="true"></i> </i>Số dư: <b style="color: #49bd4e;">330 xu</b></div>
                           <div class="mt-2">
                             <?php if (session::get('account_type') == 0) { ?>
-                              <form id="f_avatar" method="POST" enctype="multipart/form-data">
-                                <label class="btn btn-primary"><input type="file" name="avatar" hidden>
-                                  <i class="fa fa-fw fa-camera"></i>
-                                  <span>Chọn ảnh</span></input>
-                                </label>
-                                <input type="text" id="avatarold" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
-                                <?php if (isset($UpdateCustomers)) {
-                                  echo $UpdateCustomers;
-                                } ?>
-                              </form>
+                              <label class="btn btn-primary">
+                                <input type="file" id="avatar" name="avatar" onchange="uploadAvatar()" accept="image/*" multiple hidden>
+                                <i class="fa fa-fw fa-camera"></i>
+                                <span>Chọn ảnh</span></input>
+                              </label>
                             <?php } else { ?>
                               <a href="https://www.facebook.com/me">
                                 <label class="btn btn-primary">
@@ -382,6 +377,5 @@ include 'inc/footer.php';
 <script>
   updateProfile();
   changePassword();
-  uploadAvatar();
   navProfile();
 </script>

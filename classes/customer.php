@@ -500,93 +500,112 @@ class customer
 
 	public function update_avatar($data, $id)
 	{
-		$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
 		$id = $this->fm->validation($id);
 		$id = mysqli_real_escape_string($this->db->link, $id);
+		$urlAvatarImage = mysqli_real_escape_string($this->db->link, $data['urlAvatarImage']);
 
-		$file_name = $_FILES['avatar']['name'];
-		if ($file_name != null) {
-			//dinh dang ten file
-			$div = explode('.', $file_name);
-			$file_ext = strtolower(end($div));
-			$unique_image = substr(md5($id . " " . $file_name), 0, 32) . '.' . $file_ext;
-			//Thư mục bạn sẽ lưu file upload
-			$target_dir    = "~/../../upload/avatars/" . $unique_image;
-			//Vị trí file lưu tạm trong server
-			$target_file   = $target_dir;
-			$update_target_dir = $unique_image;
+		$query = "UPDATE tbl_customer SET avatar='$urlAvatarImage' WHERE id ='$id'";
+		$result = $this->db->insert($query);
 
-			$allowUpload   = true;
-			//Lấy phần mở rộng của file
-			$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-			$maxfilesize   = 1000000; //(bytes) 2100000byte = 1mb
-
-			////Những loại file được phép upload
-			$allowtypes    = array('jpg', 'png', 'jpeg', 'gif', null);
-
-			// if (isset($_POST["save"])) {
-			//Kiểm tra xem có phải là ảnh
-			$check = ($_FILES["avatar"]["tmp_name"]);
-			if ($check != false) {
-				//echo "Đây là file ảnh - " . $check["mime"] . ".";
-				$allowUpload = true;
-			} else {
-				//echo "Không phải file ảnh.";
-				$allowUpload = false;
-			}
-			//}
-
-			// Kiểm tra nếu file đã tồn tại thì không cho phép ghi đè
-			if (file_exists($target_file)) {
-				//echo "File đã tồn tại.";
-				$allowUpload = false;
-			}
-			// // Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
-			if ($_FILES["avatar"]["size"] > $maxfilesize) {
-				// ảnh phải nhỏ hơn 1 MB
-				return  json_encode($result_json[] = ['status' => 3, 'srcImage' => 0]);
-				$allowUpload = false;
-			}
-
-			// Kiểm tra kiểu file
-			if (!in_array($imageFileType, $allowtypes)) {
-				return "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
-				$allowUpload = false;
-			}
-
-			$files = glob("~/../../upload/avatars/$avatarold"); // get all file names
-			foreach ($files as $file) { // iterate files
-
-				if (is_file($file))
-					if ($_FILES["avatar"]["tmp_name"] == null) {
-						break;
-					} else {
-						unlink($file); // delete file
-					}
-			}
-
-			// Check if $uploadOk is set to 0 by an error
-			if ($allowUpload) {
-				move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
-			}
-
-			$query = "UPDATE tbl_customer SET avatar='$update_target_dir' WHERE id ='$id'";
-			$result = $this->db->insert($query);
-
-			if ($result) {
-				Session::set('avatar', $update_target_dir);
-				//Bạn đã cập nhật avatar thành công!
-				return  json_encode($result_json[] = ['status' => 1, 'srcImage' => $update_target_dir]);
-			} else {
-				//Bạn đã cập nhật avatar không thành công!
-				return  json_encode($result_json[] = ['status' => 0, 'srcImage' => 0]);
-			}
+		if ($result) {
+			Session::set('avatar', $urlAvatarImage);
+			//Bạn đã cập nhật avatar thành công!
+			return  json_encode($result_json[] = ['status' => 1]);
 		} else {
-			// Avatar này đang tồn tại
-			return  json_encode($result_json[] = ['status' => 2, 'srcImage' => 0]);
+			//Bạn đã cập nhật avatar không thành công!
+			return  json_encode($result_json[] = ['status' => 0]);
 		}
 	}
 
+
+	// public function update_avatar($data, $id)
+	// {
+	// 	$avatarold = mysqli_real_escape_string($this->db->link, $data['avatarold']);
+	// 	$id = $this->fm->validation($id);
+	// 	$id = mysqli_real_escape_string($this->db->link, $id);
+
+	// 	$file_name = $_FILES['avatar']['name'];
+	// 	if ($file_name != null) {
+	// 		//dinh dang ten file
+	// 		$div = explode('.', $file_name);
+	// 		$file_ext = strtolower(end($div));
+	// 		$unique_image = substr(md5($id . " " . $file_name), 0, 32) . '.' . $file_ext;
+	// 		//Thư mục bạn sẽ lưu file upload
+	// 		$target_dir    = "~/../../upload/avatars/" . $unique_image;
+	// 		//Vị trí file lưu tạm trong server
+	// 		$target_file   = $target_dir;
+	// 		$update_target_dir = $unique_image;
+
+	// 		$allowUpload   = true;
+	// 		//Lấy phần mở rộng của file
+	// 		$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+	// 		$maxfilesize   = 1000000; //(bytes) 2100000byte = 1mb
+
+	// 		////Những loại file được phép upload
+	// 		$allowtypes    = array('jpg', 'png', 'jpeg', 'gif', null);
+
+	// 		// if (isset($_POST["save"])) {
+	// 		//Kiểm tra xem có phải là ảnh
+	// 		$check = ($_FILES["avatar"]["tmp_name"]);
+	// 		if ($check != false) {
+	// 			//echo "Đây là file ảnh - " . $check["mime"] . ".";
+	// 			$allowUpload = true;
+	// 		} else {
+	// 			//echo "Không phải file ảnh.";
+	// 			$allowUpload = false;
+	// 		}
+	// 		//}
+
+	// 		// Kiểm tra nếu file đã tồn tại thì không cho phép ghi đè
+	// 		if (file_exists($target_file)) {
+	// 			//echo "File đã tồn tại.";
+	// 			$allowUpload = false;
+	// 		}
+	// 		// // Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+	// 		if ($_FILES["avatar"]["size"] > $maxfilesize) {
+	// 			// ảnh phải nhỏ hơn 1 MB
+	// 			return  json_encode($result_json[] = ['status' => 3, 'srcImage' => 0]);
+	// 			$allowUpload = false;
+	// 		}
+
+	// 		// Kiểm tra kiểu file
+	// 		if (!in_array($imageFileType, $allowtypes)) {
+	// 			return "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
+	// 			$allowUpload = false;
+	// 		}
+
+	// 		$files = glob("~/../../upload/avatars/$avatarold"); // get all file names
+	// 		foreach ($files as $file) { // iterate files
+
+	// 			if (is_file($file))
+	// 				if ($_FILES["avatar"]["tmp_name"] == null) {
+	// 					break;
+	// 				} else {
+	// 					unlink($file); // delete file
+	// 				}
+	// 		}
+
+	// 		// Check if $uploadOk is set to 0 by an error
+	// 		if ($allowUpload) {
+	// 			move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+	// 		}
+
+	// 		$query = "UPDATE tbl_customer SET avatar='$update_target_dir' WHERE id ='$id'";
+	// 		$result = $this->db->insert($query);
+
+	// 		if ($result) {
+	// 			Session::set('avatar', $update_target_dir);
+	// 			//Bạn đã cập nhật avatar thành công!
+	// 			return  json_encode($result_json[] = ['status' => 1, 'srcImage' => $update_target_dir]);
+	// 		} else {
+	// 			//Bạn đã cập nhật avatar không thành công!
+	// 			return  json_encode($result_json[] = ['status' => 0, 'srcImage' => 0]);
+	// 		}
+	// 	} else {
+	// 		// Avatar này đang tồn tại
+	// 		return  json_encode($result_json[] = ['status' => 2, 'srcImage' => 0]);
+	// 	}
+	// }
 
 	public function update_customers_password($customer_id, $data)
 	{

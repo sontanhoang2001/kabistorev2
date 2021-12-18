@@ -62,7 +62,7 @@ if (!isset($_GET['page'])) {
                     </tfoot> -->
                     <tbody>
                         <?php
-                        $product_num = 50;
+                        $product_num = 20;
                         $list_product = $pd->show_product($page, $product_num);
                         $get_amount_all_show_product = $pd->get_amount_all_show_product();
                         $result = $get_amount_all_show_product->fetch_assoc();
@@ -371,6 +371,9 @@ if (!isset($_GET['page'])) {
 
                             <div class="form-group">
                                 <label for="inputdefault">Hình ảnh</label>
+                                <div class="form-group mt-2">
+                                    <input type="file" id="input_img" name="input_img[]" onchange="uploadProductImg(1)" accept="image/*" multiple>
+                                </div>
                                 <div class="form-group" id="reviewImage">
                                     <img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="../upload/default-product350x350.jpg">
                                 </div>
@@ -470,7 +473,7 @@ if (!isset($_GET['page'])) {
 <script type="text/javascript">
     $(function() {
         window.pagObj = $('#pagination').twbsPagination({
-            totalPages: "<?php echo $product_button ?>",
+            totalPages: <?php echo $product_button ?>,
             visiblePages: 4,
             startPage: <?php echo $page_now ?>,
             onPageClick: function(event, page) {

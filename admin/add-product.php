@@ -131,10 +131,14 @@ $pd = new product();
 
                             <div class="form-group">
                                 <label for="inputdefault">Hình ảnh sản phẩm</label>
+                                <div class="form-group mt-2">
+                                    <input type="file" id="input_img" name="input_img[]" onchange="uploadProductImg(0)" accept="image/*" multiple>
+                                </div>
+
                                 <div class="form-group" id="reviewImage">
                                     <img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="../upload/default-product350x350.jpg">
                                 </div>
-                                <textarea class="form-control" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <textarea class="form-control d-none" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="inputdefault">Mô tả sản phẩm</label>
@@ -186,9 +190,6 @@ $pd = new product();
 </div>
 
 
-<input type="file" id="input_img" name="input_img[]" onchange="fileChange()" accept="image/*" multiple>
-
-
 <?php include 'inc/footer.php'; ?>
 <script src="js/helpers.js"></script>
 <script src="js/product.js"></script>
@@ -206,33 +207,4 @@ $pd = new product();
             window.editor = editor;
             YourEditor = editor;
         })
-
-
-    function fileChange() {
-        // var fileImage = document.getElementById('input_img');
-        var form_data = new FormData();
-
-        // Read selected files
-        var totalfiles = document.getElementById('input_img').files.length;
-
-        for (var index = 0; index < totalfiles; index++) {
-            form_data.append("image", document.getElementById('input_img').files[index]);
-
-            var configImgbb = {
-                "url": "https://api.imgbb.com/1/upload?name=hello1&key=349ac570c10df02ade51500393e25fb1",
-                "method": "POST",
-                "timeout": 0,
-                "processData": false,
-                "mimeType": "multipart/form-data",
-                "contentType": false,
-                "data": form_data
-            };
-
-            $.ajax(configImgbb).done(function(response) {
-                console.log(response);
-                var jx = JSON.parse(response);
-                console.log(jx.data.url);
-            });
-        }
-    }
 </script>

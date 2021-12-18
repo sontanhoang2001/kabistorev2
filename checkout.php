@@ -1,5 +1,5 @@
 <?php
-include 'inc/global.php';
+include 'config/global.php';
 include 'inc/header.php';
 
 $disable_check_out = Session::get('disable_check_out');

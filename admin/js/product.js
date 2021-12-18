@@ -1,3 +1,63 @@
+
+var jsonImageArray;
+
+// upload ảnh lên server
+function uploadProductImg(type) {
+    // var fileImage = document.getElementById('input_img');
+    var form_data = new FormData();
+
+    // Read selected files
+    var totalfiles = document.getElementById('input_img').files.length;
+
+    // Xóa ảnh review
+    $("#reviewImage img").remove();
+    var textImageTemp = "";
+
+    for (var index = 0; index < totalfiles; index++) {
+        form_data.append("image", document.getElementById('input_img').files[index]);
+
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+
+        var filename = date + '_' + time + document.getElementById('input_img').files[index].name;
+
+        $.ajax({
+            url: "https://api.imgbb.com/1/upload?name=" + filename + "&key=349ac570c10df02ade51500393e25fb1",
+            method: "POST",
+            timeout: 0,
+            processData: false,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            data: form_data,
+            success: function (response) {
+                // console.log(response);
+                var jx = JSON.parse(response);
+                // console.log(jx.data.url);
+                // tạo ảnh xem trước
+                $("#reviewImage").append('<img class="lazy mr-2 mt-2" style="width: 100px; height: 100px;" src="' + jx.data.url + '">');
+                // set url
+                // type == 0
+                // type == 1
+                switch (type) {
+                    case 0:
+                        $("#image").append(jx.data.url + ",");
+                        break;
+                    case 1:
+                        textImageTemp = textImageTemp + jx.data.url + ","
+                        $("#image").val(textImageTemp);
+                        break;
+                }
+            },
+            error: function () {
+                var message = "Upload ko thành công!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
+    }
+}
+
 function add_product() {
     // Hiển thị số tiền keyup
     var root_price;
@@ -57,25 +117,41 @@ function add_product() {
     })
 
     // Tạo review Image cho hình ảnh
-    var jsonImageArray;
-    $("#image").blur(function () {
-        $("#reviewImage img").remove();
-        var array = $(this).val().split(",");
-        var imageArrayArg = new Array();
-        $.each(array, function (i) {
-            // tạo ảnh
-            $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
-            var jsonObj = new Object();
-            jsonObj.image = array[i];
-            imageArrayArg.push(jsonObj);
-        });
-        jsonImageArray = JSON.stringify(imageArrayArg);
-        // console.log(imageArrayArg[0]['image']);
-        // console.log(imageArrayArg[1]['image']);
-    });
+    // var jsonImageArray;
+
+    // $("#image").blur(function () {
+    //     $("#reviewImage img").remove();
+    //     var array = $(this).val().split(",");
+    //     var imageArrayArg = new Array();
+    //     $.each(array, function (i) {
+    //         // tạo ảnh xem trước
+    //         $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
+    //         var jsonObj = new Object();
+    //         jsonObj.image = array[i];
+    //         imageArrayArg.push(jsonObj);
+    //     });
+    //     jsonImageArray = JSON.stringify(imageArrayArg);
+    //     // console.log(imageArrayArg[0]['image']);
+    //     // console.log(imageArrayArg[1]['image']);
+    // });
 
     $(document).submit(function (e) {
         e.preventDefault();
+        // Xử lý chuỗi thành mảng json
+        var array = $("#image").val().split(",");
+        var imageArrayArg = new Array();
+        $.each(array, function (i) {
+            var jsonObj = new Object();
+            jsonObj.image = array[i];
+            if (i != array.length - 1) {
+                imageArrayArg.push(jsonObj);
+            }
+        });
+        jsonImageArray = JSON.stringify(imageArrayArg);
+        // console.log(jsonImageArray);
+        // console.log(imageArrayArg[0]['image']);
+        // console.log(imageArrayArg[1]['image']);
+
         var formData = {
             product_code: $("input[name=product_code]").val(),
             productName: $("input[name=productName]").val(),
@@ -326,13 +402,13 @@ function product_list() {
                     const obj_img = JSON.parse(image);
                     var imageTemp = "";
                     $.each(obj_img, function (i) {
-                        // Khởi lại lại ảnh sản phẩm
+                        // Khởi tạo lại lại ảnh sản phẩm
                         $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + obj_img[i]['image'] + '">');
                         // Khởi tạo lại chuỗi json thành text
-                        if (i == obj_img.length - 1) {
-                            imageTemp = imageTemp.concat(obj_img[i]['image']);
-                        } else {
+                        if (i != obj_img.length - 1) {
                             imageTemp = imageTemp.concat(obj_img[i]['image']) + ",";
+                        } else {
+                            imageTemp = imageTemp.concat(obj_img[i]['image']);
                         }
                     });
                     jsonImageArray = imageTemp;
@@ -410,19 +486,19 @@ function product_list() {
 
 
     // Tạo review Image cho hình ảnh
-    $("#image").blur(function () {
-        $("#reviewImage img").remove();
-        var array = $(this).val().split(",");
-        var imageArrayArg = new Array();
-        $.each(array, function (i) {
-            // tạo ảnh
-            $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
-            var jsonObj = new Object();
-            jsonObj.image = array[i];
-            imageArrayArg.push(jsonObj);
-        });
-        jsonImageArray = JSON.stringify(imageArrayArg);
-    })
+    // $("#image").blur(function () {
+    //     $("#reviewImage img").remove();
+    //     var array = $(this).val().split(",");
+    //     var imageArrayArg = new Array();
+    //     $.each(array, function (i) {
+    //         // tạo ảnh
+    //         $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
+    //         var jsonObj = new Object();
+    //         jsonObj.image = array[i];
+    //         imageArrayArg.push(jsonObj);
+    //     });
+    //     jsonImageArray = JSON.stringify(imageArrayArg);
+    // })
 
     // Khi nhấn nút cập nhật
     $("#btnUpdateProduct").click(function () {
@@ -431,15 +507,18 @@ function product_list() {
             brandTxt = $('select[name="brand"] option:selected').text(),
             typeTxt = $('select[name="type"] option:selected').text();
 
-        // Lấy url ảnh chuyển thành mảng json
+        // Xử lý chuỗi thành mảng json
         var array = $("#image").val().split(",");
         var imageArrayArg = new Array();
         $.each(array, function (i) {
             var jsonObj = new Object();
             jsonObj.image = array[i];
-            imageArrayArg.push(jsonObj);
+            if (i != array.length - 1) {
+                imageArrayArg.push(jsonObj);
+            }
         });
         jsonImageArray = JSON.stringify(imageArrayArg);
+        // console.log(jsonImageArray);
 
         var formData = {
             productId: productId,
