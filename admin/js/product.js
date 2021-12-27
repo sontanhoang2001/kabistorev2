@@ -11,8 +11,13 @@ function uploadProductImg(type) {
 
     // Xóa ảnh review
     $("#reviewImage img").remove();
-    var textImageTemp = "";
+    // Tạo hiệu ứng load
+    for(var i = 0; i < totalfiles; i++){
+        $("#reviewImage").append('<img class="lazy mr-2 mt-2" style="width: 100px; height: 100px;" src="../img/core-img/loadAvatar.gif">');
+    }
 
+    var textImageTemp = "";
+    var imgIndex = 0;
     for (var index = 0; index < totalfiles; index++) {
         form_data.append("image", document.getElementById('input_img').files[index]);
 
@@ -35,7 +40,8 @@ function uploadProductImg(type) {
                 var jx = JSON.parse(response);
                 // console.log(jx.data.url);
                 // tạo ảnh xem trước
-                $("#reviewImage").append('<img class="lazy mr-2 mt-2" style="width: 100px; height: 100px;" src="' + jx.data.url + '">');
+                imgIndex = imgIndex + 1;
+                $("#reviewImage img").eq(imgIndex - 1).attr("src", jx.data.url)
                 // set url
                 // type == 0
                 // type == 1

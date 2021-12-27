@@ -1,5 +1,5 @@
 <?php
-include '~/../../inc/global.php';
+include '~/../../config/global.php';
 include '../lib/session.php';
 Session::checkSession();
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
