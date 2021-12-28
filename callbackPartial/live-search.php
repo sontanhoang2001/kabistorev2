@@ -3,7 +3,7 @@ if (isset($_POST['searchText'])) {
     include_once '../helpers/format.php';
     include_once '../helpers/helpers.php';
     include_once "../classes/product.php";
-    include '../inc/global.php';
+    include '../config/global.php';
 
     $product = new product();
     $fm = new Format();

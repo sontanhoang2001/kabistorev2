@@ -48,7 +48,7 @@ if ($login_check == false) {
 	}
 </style>
 
-<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
+<h1 class="projTitle">MUA SẮM THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 <div class="wrap cf">
 	<div class="heading cf" style="border-bottom: none">
 		<h1>Theo dõi đơn hàng</h1>

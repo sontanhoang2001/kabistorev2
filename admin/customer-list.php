@@ -20,7 +20,6 @@ $fm = new format();
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">Quản lý khách hàng</h1>
 	<p class="mb-4">Một ngày tràng đầy năng lượng, giàu sức khỏe, mua may bán đắt, tiền vô như nước tiền ra như giọt coffee đặc.
-		<br><a href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm khách hàng</a>.
 	</p>
 
 	<!-- DataTales Example -->
@@ -36,7 +35,7 @@ $fm = new format();
 						<tr>
 							<th>No.</th>
 							<th>UserName/ Tên khách hàng</th>
-							<th>Gia nhập</th>
+							<th>Ngày gia nhập</th>
 							<!-- <th>Địa chỉ</th> -->
 						</tr>
 					</thead>
@@ -102,6 +101,9 @@ $fm = new format();
 					<li class="nav-item">
 						<a class="nav-link" id="btnOrderHistory" data-toggle="pill" href="#orderHistory">Lịch sử mua hàng</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="btnOrderHistory" data-toggle="pill" href="#deleteAccount">Xóa tài khoản</a>
+					</li>
 				</ul>
 
 				<!-- Tab panes -->
@@ -138,7 +140,7 @@ $fm = new format();
 
 										<div class="mt-4"> <span class="d-block head font-weight-bold"><i class="fa fa-phone-square" aria-hidden="true"></i> Số điện thoại</span> <span class="bottom" id="cusPhone">718 (702)-9876</span> </div>
 										<div class="mt-4"> <span class="d-block head font-weight-bold"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email</span> <span class="bottom" id="cusEmail">j.smith@gmail.com</span> </div>
-										<div class="mt-4"> <span class="d-block head font-weight-bold"><i class="fa fa-sign-in" aria-hidden="true"></i> Gia nhập</span> <span class="bottom" id="cusDate_Joined">j.smith@gmail.com</span> </div>
+										<div class="mt-4"> <span class="d-block head font-weight-bold"><i class="fa fa-sign-in" aria-hidden="true"></i> Ngày gia nhập</span> <span class="bottom" id="cusDate_Joined">j.smith@gmail.com</span> </div>
 									</div>
 								</div>
 							</div>
@@ -205,6 +207,18 @@ $fm = new format();
 								</div>
 							</div>
 
+						</div>
+					</div>
+					<div class="tab-pane container fade" id="deleteAccount">
+						<div class="card p-2 text-center mt-4">
+							<div class="row">
+								<div class="py-3 m-5">
+									<div class="form-group">
+										<div class="text-danger mb-2"> Khi chọn xóa tài khoản, tất cả các dữ liệu lịch sử mua hàng sẽ bị xóa vĩnh viễn.</div>
+										<button type="button" id="delAccount" class="btn btn-danger">Xóa tài khoản</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

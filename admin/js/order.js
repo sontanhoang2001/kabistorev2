@@ -262,10 +262,19 @@ function order() {
     })
 
 
+    // kiểm tra row index hện tai
+    var tr_index;
+    var table = $('#dataTable').DataTable();
+    $('#dataTable tbody').on('click', 'tr', function () {
+        tr_index = table.row(this).index();
+    });
+
+
     var addressid, cusMaps_maplat, cusMaps_maplng, customerId;
     // Load customer info
     $(".btn[data-target='#customerModal']").click(function (event) {
         event.preventDefault();
+
         // resset tab về tab đầu tiền
         $("#btnViewInfo").click();
         addressid = $(this).attr("data-addressid");
@@ -274,6 +283,7 @@ function order() {
             type: "POST",
             url: "~/../callbackPartial/customer.php",
             data: {
+                case: 0,
                 customerId: customerId
             },
             success: function (data) {
@@ -298,14 +308,14 @@ function order() {
                         break;
                     }
                     case 1: {
-                        
+
                         var lng = cusMaps_maplng, lat = cusMaps_maplat;
                         // lấy tên vị trí bản đồ
                         getGeocodingInfo(lng, lat);
                         $("#googlemapAddressSave").attr("href", "https://maps.google.com/?q=" + lat + "," + lng);
 
                         if (avatar != null) {
-                            $("#cusAvatar").attr("src", "../upload/avatars/" + avatar);
+                            $("#cusAvatar").attr("src", avatar);
                         } else if (username.length > 14) {
                             $("#cusAvatar").attr("src", "https://graph.facebook.com/" + username + "/picture?type=normal");
                         } else {
@@ -313,7 +323,11 @@ function order() {
                         }
                         $("#cusName").text(name);
                         $("#cusUserName").text(username);
-                        $("#cusDate_of_birth").text(date_of_birth);
+                        if (date_of_birth == null) {
+                            $("#cusDate_of_birth").text("Không rõ");
+                        } else {
+                            $("#cusDate_of_birth").text(date_of_birth);
+                        }
                         $("#cusGender").text(gender);
                         if (gender == 0) {
                             $("#cusGender").text("nam");
@@ -324,9 +338,61 @@ function order() {
                             $("#cusGender").text("khác");
 
                         }
-                        $("#cusPhone").text("0" + phone);
-                        $("#cusEmail").text(email);
+                        if (phone == null) {
+                            $("#cusPhone").text("Không rõ");
+                        } else {
+                            $("#cusPhone").text("0" + phone);
+                        }
+                        if (email == null) {
+                            $("#cusEmail").text("Không rõ");
+                        } else {
+                            $("#cusEmail").text(email);
+                        }
                         $("#cusDate_Joined").text(date_Joined);
+                        break;
+                    }
+                    default: {
+                        var message = "Lỗi máy chủ!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                    }
+                }
+            }, error: function (data) {
+                var message = "Lỗi máy chủ!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng thử lại...', 3500);
+            }
+        });
+    });
+
+    // Delete customer
+    $("#delAccount").click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "~/../callbackPartial/customer.php",
+            data: {
+                case: 1,
+                customerId: customerId
+            },
+            success: function (data) {
+                var res = JSON.parse(data),
+                    Status = res.status;
+
+                switch (Status) {
+                    case 0: {
+                        var message = "Xóa tài khoản khách hàng không thành công!";
+                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                        toast.change('Vui lòng thử lại...', 3500);
+                        break;
+                    }
+                    case 1: {
+                        $("#customerModal .close").click()
+                        var message = "Đã xóa tài khoản thành công!";
+                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                        toast.change('Đã Lưu và thay đổi...', 3000);
+                        // xóa row table
+                        $(".gradeX ").eq(tr_index).remove();
                         break;
                     }
                     default: {

@@ -209,7 +209,7 @@ include 'config/global.php';
                                 <div class="row">
                                     <div class="col-12 mt-2">
                                         <p style="color: green;">Mã giảm giá: <span class="promoCode" id="promocode-<?php echo $promotion_index ?>"><?php echo $result['promotionsCode'] ?></span></p>
-                                        <button type="button" class="btn pull-right" onclick="copyToClipboard('#promocode-<?php echo $promotion_index ?>')" style="box-shadow: none !important">sao chép</button>
+                                        <button type="button" class="btn pull-right" onclick="copyToClipboardPromotionCode('#promocode-<?php echo $promotion_index ?>')" style="box-shadow: none !important">sao chép</button>
                                     </div>
                                 </div>
                             </div>
@@ -317,148 +317,7 @@ include 'config/global.php';
             <div class="py-5 text-center"><a href="san-pham-f3p1t0smem.html" class="btn btn-dark px-5 py-3 text-uppercase">Xem thêm</a></div>
         </div>
 
-        <!-- Load Facebook SDK for JavaScript -->
-        <div id="fb-root"></div>
-        <script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
 
-        <div class="px-lg-5">
-            <div class="container">
-                <h2 class="pt-4"><i class="fa fa-question-circle" aria-hidden="true"></i> Hướng dẫn mua hàng</h2>
-                <p>Video hướng dẫn cách bước đặt hàng tại Kabistore vô cùng đơn giản.</p>
-
-                <div class="row mt-5">
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                        <!--Modal: Name-->
-                        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-
-                                <!--Content-->
-                                <div class="modal-content">
-
-                                    <!--Body-->
-                                    <div class="modal-body mb-0 p-0">
-
-                                        <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                                            <iframe class="embed-responsive-item" src="<?php echo $video1 ?>" allowfullscreen></iframe>
-                                        </div>
-
-                                    </div>
-
-                                    <!--Footer-->
-                                    <div class="modal-footer justify-content-center">
-                                        <span class="mr-4">Xem nhiều hơn</span>
-                                        <a href="https://www.facebook.com/ilovekabistore" target="_blank" class="btn-floating btn-sm btn-fb"><i class="fa fa-facebook-f"></i></a>
-                                        <!--Twitter-->
-                                        <a type="button" class="btn-floating btn-sm btn-tw"><i class="fa fa-twitter"></i></a>
-                                        <!--Google +-->
-                                        <a type="button" class="btn-floating btn-sm btn-gplus"><i class="fa fa-google-plus-g"></i></a>
-                                        <!--Linkedin-->
-                                        <a type="button" class="btn-floating btn-sm btn-ins"><i class="fa fa-linkedin-in"></i></a>
-                                        <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Đóng</button>
-                                    </div>
-
-                                </div>
-                                <!--/.Content-->
-
-                            </div>
-                        </div>
-                        <!--Modal: Name-->
-
-                        <a><img class="img-fluid z-depth-1 lazy" data-src="<?php echo $thumbnailVideo1 ?>" alt="video" data-toggle="modal" data-target="#modal1"></a>
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-
-                        <!--Modal: Name-->
-                        <div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-
-                                <!--Content-->
-                                <div class="modal-content">
-
-                                    <!--Body-->
-                                    <div class="modal-body mb-0 p-0">
-
-                                        <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                                            <iframe class="embed-responsive-item" src="<?php echo $video2 ?>" allowfullscreen></iframe>
-                                        </div>
-
-                                    </div>
-
-                                    <!--Footer-->
-                                    <div class="modal-footer justify-content-center">
-                                        <span class="mr-4">Xem nhiều hơn</span>
-                                        <a href="https://www.facebook.com/ilovekabistore" target="_blank" class="btn-floating btn-sm btn-fb"><i class="fa fa-facebook-f"></i></a>
-                                        <!--Twitter-->
-                                        <a type="button" class="btn-floating btn-sm btn-tw"><i class="fa fa-twitter"></i></a>
-                                        <!--Google +-->
-                                        <a type="button" class="btn-floating btn-sm btn-gplus"><i class="fa fa-google-plus-g"></i></a>
-                                        <!--Linkedin-->
-                                        <a type="button" class="btn-floating btn-sm btn-ins"><i class="fa fa-linkedin-in"></i></a>
-                                        <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Đóng</button>
-                                    </div>
-
-                                </div>
-                                <!--/.Content-->
-
-                            </div>
-                        </div>
-                        <!--Modal: Name-->
-
-                        <a><img class="img-fluid z-depth-1 lazy" data-src="<?php echo $thumbnailVideo2 ?>" alt="video" data-toggle="modal" data-target="#modal6"></a>
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-
-                        <!--Modal: Name-->
-                        <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-
-                                <!--Content-->
-                                <div class="modal-content">
-
-                                    <!--Body-->
-                                    <div class="modal-body mb-0 p-0">
-                                        <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                                            <iframe class="embed-responsive-item" src="<?php echo $video3 ?>" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!--Footer-->
-                                    <div class="modal-footer justify-content-center">
-                                        <span class="mr-4">Xem nhiều hơn</span>
-                                        <a href="https://www.facebook.com/ilovekabistore" target="_blank" class="btn-floating btn-sm btn-fb"><i class="fa fa-facebook-f"></i></a>
-                                        <!--Twitter-->
-                                        <a type="button" class="btn-floating btn-sm btn-tw"><i class="fa fa-twitter"></i></a>
-                                        <!--Google +-->
-                                        <a type="button" class="btn-floating btn-sm btn-gplus"><i class="fa fa-google-plus-g"></i></a>
-                                        <!--Linkedin-->
-                                        <a type="button" class="btn-floating btn-sm btn-ins"><i class="fa fa-linkedin-in"></i></a>
-                                        <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Đóng</button>
-                                    </div>
-
-                                </div>
-                                <!--/.Content-->
-
-                            </div>
-                        </div>
-                        <!--Modal: Name-->
-
-                        <a><img class="img-fluid z-depth-1 lazy" data-src="<?php echo $thumbnailVideo3 ?>" alt="video" data-toggle="modal" data-target="#modal4"></a>
-
-                    </div>
-                    <!-- Grid column -->
-                </div>
-            </div>
-        </div>
     </div>
 
     <!--Main layout-->
@@ -540,4 +399,3 @@ include 'config/global.php';
 <script>
     scrollingForIndex();
 </script>
-<script src="js/videoHelp.js"></script>

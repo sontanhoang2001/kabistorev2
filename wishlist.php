@@ -19,7 +19,7 @@ if ($login_check == false) {
 <link rel="stylesheet" href="css/pagination.css">
 
 <div class="wrap cf">
-	<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
+	<h1 class="projTitle">MUA SẮM THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 	<div class="heading cf">
 		<h1>Yêu Thích</h1>
 		<div class="pull-right">

@@ -330,6 +330,19 @@ class customer
 		return $show_AllCustomersAdmin;
 	}
 
+	public function delete_customer($customerId)
+	{
+		$customer_id = mysqli_real_escape_string($this->db->link, $customerId);
+		$query = "DELETE FROM tbl_customer WHERE id='$customer_id' ";
+		$result = $this->db->delete($query);
+		if ($result) {
+			return json_encode($result_json[] = ['status' => 1]);
+		} else {
+			return json_encode($result_json[] = ['status' => 0]);
+		}
+		return $result;
+	}
+
 	// public function update_customers($data, $id)
 	// {
 	// 	$fullName = mysqli_real_escape_string($this->db->link, $data['fullName']);

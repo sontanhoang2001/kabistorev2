@@ -52,11 +52,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 }
                                 $avatar = $result['avatar'];
                                 if ($avatar != null) {
-                                    if (session::get('account_type') == 0) {
-                                        $avatar =  "upload/avatars/" .  session::get('avatar');
-                                    } else {
-                                        $avatar =  session::get('avatar');
-                                    }
+                                    $avatar =  session::get('avatar');
                                 } else {
                                     $avatar =  "upload/default-user-image.jpg";
                                 }

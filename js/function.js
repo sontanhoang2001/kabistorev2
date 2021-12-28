@@ -1,5 +1,5 @@
-//copyToClipboard
-function copyToClipboard(element) {
+//copyToClipboard promotion code
+function copyToClipboardPromotionCode(element) {
     var $temp = $("<input>");
     $("body").append($temp);
     $temp.val($(element).text()).select();

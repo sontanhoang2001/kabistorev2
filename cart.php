@@ -22,7 +22,7 @@ $discount = session::set('discountMoney', 0);
 <link rel="stylesheet" href="css/scroll-box.css">
 
 <div class="wrap cf">
-	<h1 class="projTitle">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
+	<h1 class="projTitle">MUA SẮM THỎA THÍCH<span>-cùng</span> Kabi Store</h1>
 	<div class="heading cf">
 		<h1>Giỏ Hàng</h1>
 		<div class="pull-right">
@@ -153,7 +153,7 @@ $discount = session::set('discountMoney', 0);
 						</div>
 					</div>
 				</form>
-				<p class="font-italic mb-4">Lưu ý: Shop sẽ check vị trí của Khách hàng để giảm phí giao hàng xuống mức thấp nhất có thể và gửi hóa đơn cho bạn trước khi giao hàng.</p>
+				<!-- <p class="font-italic mb-4">Lưu ý: Shop sẽ check vị trí của Khách hàng để giảm phí giao hàng xuống mức thấp nhất có thể và gửi hóa đơn cho bạn trước khi giao hàng.</p> -->
 			</div>
 
 			<div class="col-lg-6">
