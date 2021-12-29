@@ -7,16 +7,16 @@
 // const loader = document.querySelector(".loader-wrapper")
 // loader.className += "hidden";
 
-$('#goChatFacebook').click(function (event) {
+$('#goChatFacebook').click(function(event) {
     location.href = "contact.html";
 });
 
-$('#goBack').click(function (event) {
+$('#goBack').click(function(event) {
     history.back(1);
 });
 
 
-(function ($) {
+(function($) {
     'use strict';
 
     var $window = $(window);
@@ -73,15 +73,15 @@ $('#goBack').click(function (event) {
     var cartOverlayOn = "cart-bg-overlay-on";
     var cartOn = "cart-on";
 
-    cartbtn1.on('click', function () {
+    cartbtn1.on('click', function() {
         cartOverlay.toggleClass(cartOverlayOn);
         cartWrapper.toggleClass(cartOn);
     });
-    cartOverlay.on('click', function () {
+    cartOverlay.on('click', function() {
         $(this).removeClass(cartOverlayOn);
         cartWrapper.removeClass(cartOn);
     });
-    cartbtn2.on('click', function () {
+    cartbtn2.on('click', function() {
         cartOverlay.removeClass(cartOverlayOn);
         cartWrapper.removeClass(cartOn);
     });
@@ -97,12 +97,12 @@ $('#goBack').click(function (event) {
         }
     }
 
-    window.addEventListener("load", function () {
+    window.addEventListener("load", function() {
         addScrollUp();
     })
 
     // :: Sticky Active Code
-    $window.on('scroll', function () {
+    $window.on('scroll', function() {
         if ($window.scrollTop() > 0) {
             $('.header_area').addClass('sticky');
         } else {
@@ -173,7 +173,7 @@ $('#goBack').click(function (event) {
     }
 
     // :: PreventDefault a Click
-    $("a[href='#']").on('click', function ($) {
+    $("a[href='#']").on('click', function($) {
         $.preventDefault();
     });
 

@@ -50,7 +50,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 } else {
                                     $phone = "Chưa nhập số điện thoại";
                                 }
-                                $avatar = $result['avatar'];
                                 if ($avatar != null) {
                                     $avatar =  session::get('avatar');
                                 } else {

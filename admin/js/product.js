@@ -1,4 +1,3 @@
-
 var jsonImageArray;
 
 // upload ảnh lên server
@@ -12,7 +11,7 @@ function uploadProductImg(type) {
     // Xóa ảnh review
     $("#reviewImage img").remove();
     // Tạo hiệu ứng load
-    for(var i = 0; i < totalfiles; i++){
+    for (var i = 0; i < totalfiles; i++) {
         $("#reviewImage").append('<img class="lazy mr-2 mt-2" style="width: 100px; height: 100px;" src="../img/core-img/loadAvatar.gif">');
     }
 
@@ -35,16 +34,16 @@ function uploadProductImg(type) {
             mimeType: "multipart/form-data",
             contentType: false,
             data: form_data,
-            success: function (response) {
+            success: function(response) {
                 // console.log(response);
                 var jx = JSON.parse(response);
                 // console.log(jx.data.url);
                 // tạo ảnh xem trước
                 imgIndex = imgIndex + 1;
                 $("#reviewImage img").eq(imgIndex - 1).attr("src", jx.data.url)
-                // set url
-                // type == 0
-                // type == 1
+                    // set url
+                    // type == 0
+                    // type == 1
                 switch (type) {
                     case 0:
                         $("#image").append(jx.data.url + ",");
@@ -55,7 +54,7 @@ function uploadProductImg(type) {
                         break;
                 }
             },
-            error: function () {
+            error: function() {
                 var message = "Upload ko thành công!";
                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                 toast.change('Vui lòng thử lại...', 3500);
@@ -67,7 +66,7 @@ function uploadProductImg(type) {
 function add_product() {
     // Hiển thị số tiền keyup
     var root_price;
-    $("input[name=root_price]").keyup(function () {
+    $("input[name=root_price]").keyup(function() {
         root_price = $(this).val();
         if (root_price.length == 0) {
             $('#root_priceText').text(currency_vn(0));
@@ -76,7 +75,7 @@ function add_product() {
             $('#root_priceText').text(currency_vn(root_price));
         }
     })
-    $("input[name=old_price]").keyup(function () {
+    $("input[name=old_price]").keyup(function() {
         if ($(this).val().length == 0) {
             $('#old_priceText').text(currency_vn(0));
         } else {
@@ -84,7 +83,7 @@ function add_product() {
             $('#old_priceText').text(currency_vn(old_price));
         }
     })
-    $("input[name=price]").keyup(function () {
+    $("input[name=price]").keyup(function() {
         if ($(this).val().length == 0) {
             $('#priceText').text(currency_vn(0));
         } else {
@@ -93,7 +92,7 @@ function add_product() {
         }
     })
 
-    $("input[name=priceShipping]").keyup(function () {
+    $("input[name=priceShipping]").keyup(function() {
         if ($(this).val().length == 0) {
             $('#priceShippingText').text(currency_vn(0));
         } else {
@@ -104,7 +103,7 @@ function add_product() {
 
     // Tính tiền lãi khi nhập giá bán
     var interestRate;
-    $("input[name=price]").keyup(function () {
+    $("input[name=price]").keyup(function() {
         var root_price = $("input[name=root_price]").val();
         var price = $(this).val();
         var priceShipping = $("input[name=priceShipping]").val();
@@ -116,37 +115,35 @@ function add_product() {
     })
 
 
-    $("input[name=priceShipping]").keyup(function () {
+    $("input[name=priceShipping]").keyup(function() {
         var priceShipping = $("input[name=priceShipping]").val();
         var totalPrice = Number(interestRate) + Number(priceShipping);
         $("input[name=totalPrice]").val(currency_vn(totalPrice));
     })
 
     // Tạo review Image cho hình ảnh
-    // var jsonImageArray;
+    $("#image").blur(function() {
+        $("#reviewImage img").remove();
+        var array = $(this).val().split(",");
+        var imageArrayArg = new Array();
+        $.each(array, function(i) {
+            // tạo ảnh xem trước
+            $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
+            var jsonObj = new Object();
+            jsonObj.image = array[i];
+            imageArrayArg.push(jsonObj);
+        });
+        jsonImageArray = JSON.stringify(imageArrayArg);
+        // console.log(imageArrayArg[0]['image']);
+        // console.log(imageArrayArg[1]['image']);
+    });
 
-    // $("#image").blur(function () {
-    //     $("#reviewImage img").remove();
-    //     var array = $(this).val().split(",");
-    //     var imageArrayArg = new Array();
-    //     $.each(array, function (i) {
-    //         // tạo ảnh xem trước
-    //         $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
-    //         var jsonObj = new Object();
-    //         jsonObj.image = array[i];
-    //         imageArrayArg.push(jsonObj);
-    //     });
-    //     jsonImageArray = JSON.stringify(imageArrayArg);
-    //     // console.log(imageArrayArg[0]['image']);
-    //     // console.log(imageArrayArg[1]['image']);
-    // });
-
-    $(document).submit(function (e) {
+    $(document).submit(function(e) {
         e.preventDefault();
         // Xử lý chuỗi thành mảng json
         var array = $("#image").val().split(",");
         var imageArrayArg = new Array();
-        $.each(array, function (i) {
+        $.each(array, function(i) {
             var jsonObj = new Object();
             jsonObj.image = array[i];
             if (i != array.length - 1) {
@@ -178,8 +175,7 @@ function add_product() {
             var message = "Bạn chưa chọn loại sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
-        }
-        else if (formData.brand == 0) {
+        } else if (formData.brand == 0) {
             var message = "Bạn chưa chọn thương hiệu!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
@@ -187,8 +183,7 @@ function add_product() {
             var message = "Bạn chưa chọn Trạng thái & Xếp hạng!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
-        }
-        else if (formData.size == "null") {
+        } else if (formData.size == "null") {
             var message = "Bạn chưa chọn size!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
@@ -200,42 +195,48 @@ function add_product() {
                     case: 2,
                     formData: formData
                 },
-                success: function (data) {
+                success: function(data) {
                     var res = JSON.parse(data),
                         Status = res.status;
 
                     switch (Status) {
-                        case 0: {
-                            var message = "Các trường không được bỏ trống!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
-                        case 1: {
-                            var message = "Thêm sản phẩm thành công!";
-                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                            toast.change('Đã đưa vào danh sách...', 3500);
-                            break;
-                        }
-                        case 2: {
-                            var message = "Thêm sản phẩm thất bại!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
-                        case 3: {
-                            var message = "Mã sản phẩm đã tồn tại!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
-                        default: {
-                            var message = "Lỗi máy chủ!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                        }
+                        case 0:
+                            {
+                                var message = "Các trường không được bỏ trống!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                        case 1:
+                            {
+                                var message = "Thêm sản phẩm thành công!";
+                                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                                toast.change('Đã đưa vào danh sách...', 3500);
+                                break;
+                            }
+                        case 2:
+                            {
+                                var message = "Thêm sản phẩm thất bại!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                        case 3:
+                            {
+                                var message = "Mã sản phẩm đã tồn tại!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                        default:
+                            {
+                                var message = "Lỗi máy chủ!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                            }
                     }
-                }, error: function (data) {
+                },
+                error: function(data) {
                     var message = "Lỗi máy chủ!";
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                     toast.change('Vui lòng thử lại...', 3500);
@@ -253,7 +254,7 @@ function product_list() {
     // });
 
     var table = $('#dataTable').DataTable();
-    $('#dataTable tbody').on('click', 'tr', function () {
+    $('#dataTable tbody').on('click', 'tr', function() {
         tr_index = table.row(this).index();
         rowData = table.row(this).data();
     });
@@ -261,7 +262,7 @@ function product_list() {
 
     var rowImportQtyModal, productid, product_remain;
     //mở modal thêm số lượng sản phẩm
-    $('.btn[data-target="#importQtyModal"]').click(function (e) {
+    $('.btn[data-target="#importQtyModal"]').click(function(e) {
         e.preventDefault();
         // Lấy vị trí hiện tại của importQtyModal
         rowImportQtyModal = $(this);
@@ -273,14 +274,14 @@ function product_list() {
 
         // lấy dữ liệu row vị trí hiện tại
 
-        var columnValues = $(this).parent().siblings().map(function () {
+        var columnValues = $(this).parent().siblings().map(function() {
             return $(this).text();
         }).get();
         $('input[name=productNameImportModal]').val(columnValues[3]);
     })
 
     // khi nhấn nút nhập số lượng
-    $("#btnImportQty").click(function () {
+    $("#btnImportQty").click(function() {
         var product_more_quantity = $("input[name=product_more_quantity]").val();
         var formData = {
             productid: productid,
@@ -295,39 +296,44 @@ function product_list() {
                 case: 3,
                 formData: formData
             },
-            success: function (data) {
+            success: function(data) {
                 var Status = JSON.parse(data).status;
                 switch (Status) {
-                    case 0: {
-                        var message = "Các trường không được bỏ trống!";
-                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                        toast.change('Vui lòng thử lại...', 3500);
-                        break;
-                    }
-                    case 1: {
-                        var message = "Nhập thêm hàng thành công!";
-                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        toast.change('Đã cập nhật dữ liệu...', 3500);
-                        $("#importQtyModal .close").click()
+                    case 0:
+                        {
+                            var message = "Các trường không được bỏ trống!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                            break;
+                        }
+                    case 1:
+                        {
+                            var message = "Nhập thêm hàng thành công!";
+                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                            toast.change('Đã cập nhật dữ liệu...', 3500);
+                            $("#importQtyModal .close").click()
 
-                        var totalQty = Number(formData.product_remain) + Number(product_more_quantity);
-                        $(rowImportQtyModal).empty();
-                        $(rowImportQtyModal).append('<a href="#" class="btn" data-productid="' + formData.productid + '" data-qty="<?php echo $productQuantity ?>" data-toggle="modal" data-target="#importQtyModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> ' + totalQty + '</a>');
-                        break;
-                    }
-                    case 2: {
-                        var message = "Nhập thêm hàng thất bại!";
-                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                        toast.change('Vui lòng thử lại...', 3500);
-                        break;
-                    }
-                    default: {
-                        var message = "Lỗi máy chủ!";
-                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                        toast.change('Vui lòng thử lại...', 3500);
-                    }
+                            var totalQty = Number(formData.product_remain) + Number(product_more_quantity);
+                            $(rowImportQtyModal).empty();
+                            $(rowImportQtyModal).append('<a href="#" class="btn" data-productid="' + formData.productid + '" data-qty="<?php echo $productQuantity ?>" data-toggle="modal" data-target="#importQtyModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> ' + totalQty + '</a>');
+                            break;
+                        }
+                    case 2:
+                        {
+                            var message = "Nhập thêm hàng thất bại!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                            break;
+                        }
+                    default:
+                        {
+                            var message = "Lỗi máy chủ!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                        }
                 }
-            }, error: function (data) {
+            },
+            error: function(data) {
                 var message = "Lỗi máy chủ!";
                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                 toast.change('Vui lòng thử lại...', 3500);
@@ -336,7 +342,7 @@ function product_list() {
     });
 
 
-    $('#importQtyModal').on('hide.bs.modal', function () {
+    $('#importQtyModal').on('hide.bs.modal', function() {
         $("input[name=product_remainModal]").val("");
         $("input[name=product_more_quantity]").val("");
     })
@@ -355,7 +361,7 @@ function product_list() {
         type;
 
     // Khi nhấn vào edit
-    $('.btn[data-target="#editModal"]').click(function (e) {
+    $('.btn[data-target="#editModal"]').click(function(e) {
         e.preventDefault();
         productId = $(this).attr("data-productid");
 
@@ -367,7 +373,7 @@ function product_list() {
                 case: 4,
                 productId: productId
             },
-            success: function (data) {
+            success: function(data) {
                 var res = JSON.parse(data),
                     Status = res.status;
                 if (Status != 0) {
@@ -407,15 +413,12 @@ function product_list() {
                     // lấy img từ input
                     const obj_img = JSON.parse(image);
                     var imageTemp = "";
-                    $.each(obj_img, function (i) {
+                    $.each(obj_img, function(i) {
                         // Khởi tạo lại lại ảnh sản phẩm
                         $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + obj_img[i]['image'] + '">');
                         // Khởi tạo lại chuỗi json thành text
-                        if (i != obj_img.length - 1) {
-                            imageTemp = imageTemp.concat(obj_img[i]['image']) + ",";
-                        } else {
-                            imageTemp = imageTemp.concat(obj_img[i]['image']);
-                        }
+                        imageTemp = imageTemp.concat(obj_img[i]['image']) + ",";
+
                     });
                     jsonImageArray = imageTemp;
                     $("#image").val(imageTemp);
@@ -424,7 +427,8 @@ function product_list() {
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                     toast.change('Vui lòng thử lại...', 3500);
                 }
-            }, error: function (data) {
+            },
+            error: function(data) {
                 var message = "Lỗi máy chủ!";
                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                 toast.change('Vui lòng thử lại...', 3500);
@@ -434,7 +438,7 @@ function product_list() {
 
     // Hiển thị số tiền keyup
     var root_price;
-    $("input[name=root_price]").keyup(function () {
+    $("input[name=root_price]").keyup(function() {
         root_price = $(this).val();
         if (root_price.length == 0) {
             $('#root_priceText').text(currency_vn(0));
@@ -443,7 +447,7 @@ function product_list() {
             $('#root_priceText').text(currency_vn(root_price));
         }
     })
-    $("input[name=old_price]").keyup(function () {
+    $("input[name=old_price]").keyup(function() {
         if ($(this).val().length == 0) {
             $('#old_priceText').text(currency_vn(0));
         } else {
@@ -451,7 +455,7 @@ function product_list() {
             $('#old_priceText').text(currency_vn(old_price));
         }
     })
-    $("input[name=price]").keyup(function () {
+    $("input[name=price]").keyup(function() {
         if ($(this).val().length == 0) {
             $('#priceText').text(currency_vn(0));
         } else {
@@ -460,7 +464,7 @@ function product_list() {
         }
     })
 
-    $("input[name=priceShipping]").keyup(function () {
+    $("input[name=priceShipping]").keyup(function() {
         if ($(this).val().length == 0) {
             $('#priceShippingText').text(currency_vn(0));
         } else {
@@ -469,9 +473,21 @@ function product_list() {
         }
     })
 
+    // Tính tiền lãi khi nhập giá gốc
+    $("input[name=root_price]").keyup(function() {
+        var root_price = $(this).val();
+        var price = $("input[name=price]").val();
+        var priceShipping = $("input[name=priceShipping]").val();
+        interestRate = price - root_price;
+        var totalPrice = Number(interestRate) + Number(priceShipping);
+
+        $("input[name=interestRate]").val(currency_vn(interestRate));
+        $("input[name=totalPrice]").val(currency_vn(totalPrice));
+    })
+
     // Tính tiền lãi khi nhập giá bán
     var interestRate;
-    $("input[name=price]").keyup(function () {
+    $("input[name=price]").keyup(function() {
         var root_price = $("input[name=root_price]").val();
         var price = $(this).val();
         var priceShipping = $("input[name=priceShipping]").val();
@@ -483,31 +499,31 @@ function product_list() {
     })
 
 
-    $("input[name=priceShipping]").keyup(function () {
-        var priceShipping = $("input[name=priceShipping]").val();
-        var totalPrice = Number(interestRate) + Number(priceShipping);
-        $("input[name=totalPrice]").val(currency_vn(totalPrice));
-    })
-    // Hiển thị số tiền keyup
+    $("input[name=priceShipping]").keyup(function() {
+            var priceShipping = $("input[name=priceShipping]").val();
+            var totalPrice = Number(interestRate) + Number(priceShipping);
+            $("input[name=totalPrice]").val(currency_vn(totalPrice));
+        })
+        // Hiển thị số tiền keyup
 
 
     // Tạo review Image cho hình ảnh
-    // $("#image").blur(function () {
-    //     $("#reviewImage img").remove();
-    //     var array = $(this).val().split(",");
-    //     var imageArrayArg = new Array();
-    //     $.each(array, function (i) {
-    //         // tạo ảnh
-    //         $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
-    //         var jsonObj = new Object();
-    //         jsonObj.image = array[i];
-    //         imageArrayArg.push(jsonObj);
-    //     });
-    //     jsonImageArray = JSON.stringify(imageArrayArg);
-    // })
+    $("#image").blur(function() {
+        $("#reviewImage img").remove();
+        var array = $(this).val().split(",");
+        var imageArrayArg = new Array();
+        $.each(array, function(i) {
+            // tạo ảnh
+            $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
+            var jsonObj = new Object();
+            jsonObj.image = array[i];
+            imageArrayArg.push(jsonObj);
+        });
+        jsonImageArray = JSON.stringify(imageArrayArg);
+    })
 
     // Khi nhấn nút cập nhật
-    $("#btnUpdateProduct").click(function () {
+    $("#btnUpdateProduct").click(function() {
         // Lấy thông tin sản phẩm
         var categoryTxt = $('select[name="category"] option:selected').text(),
             brandTxt = $('select[name="brand"] option:selected').text(),
@@ -516,7 +532,7 @@ function product_list() {
         // Xử lý chuỗi thành mảng json
         var array = $("#image").val().split(",");
         var imageArrayArg = new Array();
-        $.each(array, function (i) {
+        $.each(array, function(i) {
             var jsonObj = new Object();
             jsonObj.image = array[i];
             if (i != array.length - 1) {
@@ -546,8 +562,7 @@ function product_list() {
             var message = "Bạn chưa chọn loại sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
-        }
-        else if (formData.brand == 0) {
+        } else if (formData.brand == 0) {
             var message = "Bạn chưa chọn thương hiệu!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
@@ -555,8 +570,7 @@ function product_list() {
             var message = "Bạn chưa chọn Trạng thái & Xếp hạng!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
-        }
-        else if (formData.size == "null") {
+        } else if (formData.size == "null") {
             var message = "Bạn chưa chọn size!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
@@ -568,48 +582,52 @@ function product_list() {
                     case: 5,
                     formData: formData
                 },
-                success: function (data) {
+                success: function(data) {
                     var res = JSON.parse(data),
                         Status = res.status;
                     switch (Status) {
-                        case 0: {
-                            var message = "Các trường không được bỏ trống!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
-                        case 1: {
-                            var message = "Cập nhật sản phẩm thành công!";
-                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                            toast.change('Đã Lưu và thay đổi...', 3500);
-                            $("#editModal .close").click()
-
-
-                            // cập nhật dữ liệu vào bảng
-                            $('tbody tr td').eq((tr_index * 11) + tr_index + 1).empty().append(formData.product_code);
-
-                            try {
-                                // lấy img từ input
-                                const obj_img = JSON.parse(formData.image);
-                                $('tbody tr td').eq((tr_index * 11) + tr_index + 2).find("a").empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
-                            } catch (error) {
-
+                        case 0:
+                            {
+                                var message = "Các trường không được bỏ trống!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
                             }
-                            $('tbody tr td').eq((tr_index * 11) + tr_index + 3).empty().append(formData.productName);
-                            $('tbody tr td').eq((tr_index * 11) + tr_index + 7).empty().append(currency_vn(formData.price));
-                            $('tbody tr td').eq((tr_index * 11) + tr_index + 8).empty().append(categoryTxt);
-                            $('tbody tr td').eq((tr_index * 11) + tr_index + 9).empty().append(brandTxt);
-                            $('tbody tr td').eq((tr_index * 11) + tr_index + 10).empty().append(typeTxt);
-                            break;
-                        }
-                        case 2: {
-                            var message = "Cập nhật sản phẩm thất bại!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
+                        case 1:
+                            {
+                                var message = "Cập nhật sản phẩm thành công!";
+                                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                                toast.change('Đã Lưu và thay đổi...', 3500);
+                                $("#editModal .close").click()
+
+
+                                // cập nhật dữ liệu vào bảng
+                                $('tbody tr td').eq((tr_index * 11) + tr_index + 1).empty().append(formData.product_code);
+
+                                try {
+                                    // lấy img từ input
+                                    const obj_img = JSON.parse(formData.image);
+                                    $('tbody tr td').eq((tr_index * 11) + tr_index + 2).find("a").empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
+                                } catch (error) {
+
+                                }
+                                $('tbody tr td').eq((tr_index * 11) + tr_index + 3).empty().append(formData.productName);
+                                $('tbody tr td').eq((tr_index * 11) + tr_index + 7).empty().append(currency_vn(formData.price));
+                                $('tbody tr td').eq((tr_index * 11) + tr_index + 8).empty().append(categoryTxt);
+                                $('tbody tr td').eq((tr_index * 11) + tr_index + 9).empty().append(brandTxt);
+                                $('tbody tr td').eq((tr_index * 11) + tr_index + 10).empty().append(typeTxt);
+                                break;
+                            }
+                        case 2:
+                            {
+                                var message = "Cập nhật sản phẩm thất bại!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
                     }
-                }, error: function (data) {
+                },
+                error: function(data) {
                     var message = "Lỗi máy chủ!";
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                     toast.change('Vui lòng thử lại...', 3500);
@@ -619,7 +637,7 @@ function product_list() {
     })
 
     // productModal edit bị ẩn
-    $('#editModal').on('hide.bs.modal', function () {
+    $('#editModal').on('hide.bs.modal', function() {
         $("input[name=product_code]").val("");
         $("input[name=productName]").val("");
         $('#category option[value=" ' + category + ' "]').removeAttr('selected');
@@ -640,19 +658,19 @@ function product_list() {
     })
 
     // Khi mở delModal
-    $('.btn[data-target="#delModal"]').click(function (e) {
+    $('.btn[data-target="#delModal"]').click(function(e) {
         e.preventDefault();
         productId = $(this).attr("data-productid");
 
         // lấy dữ liệu row vị trí hiện tại
-        var columnValues = $(this).parent().siblings().map(function () {
+        var columnValues = $(this).parent().siblings().map(function() {
             return $(this).text();
         }).get();
         $('#productNameDelModel').text("Bạn có thật sự muốn xóa ' " + columnValues[3] + " ' ?");
     })
 
     // Khi nhấn nút btnDelProduct
-    $('#btnDelProduct').click(function () {
+    $('#btnDelProduct').click(function() {
         $.ajax({
             type: "POST",
             url: "~/../callbackPartial/product.php",
@@ -660,27 +678,30 @@ function product_list() {
                 case: 6,
                 productId: productId
             },
-            success: function (data) {
+            success: function(data) {
                 var res = JSON.parse(data),
                     Status = res.status;
                 switch (Status) {
-                    case 0: {
-                        var message = "Sản phẩm này không thể xóa!";
-                        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                        toast.change('Vui lòng thử lại...', 3500);
-                        break;
-                    }
-                    case 1: {
-                        $('#delModal .close').click();
-                        var message = "Xóa sản phẩm thành công!";
-                        let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        toast.change('Đã Lưu và thay đổi...', 3500);
-                        $("#editModal .close").click()
-                        $('tbody tr').eq(tr_index).css("background-color", "hotpink").fadeOut(1000);
-                        break;
-                    }
+                    case 0:
+                        {
+                            var message = "Sản phẩm này không thể xóa!";
+                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            toast.change('Vui lòng thử lại...', 3500);
+                            break;
+                        }
+                    case 1:
+                        {
+                            $('#delModal .close').click();
+                            var message = "Xóa sản phẩm thành công!";
+                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                            toast.change('Đã Lưu và thay đổi...', 3500);
+                            $("#editModal .close").click()
+                            $('tbody tr').eq(tr_index).css("background-color", "hotpink").fadeOut(1000);
+                            break;
+                        }
                 }
-            }, error: function (data) {
+            },
+            error: function(data) {
                 var message = "Lỗi máy chủ!";
                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                 toast.change('Vui lòng thử lại...', 3500);

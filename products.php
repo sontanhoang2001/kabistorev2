@@ -58,7 +58,7 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="page-title text-center">
-                    <h2 class="projTitle" style="border-bottom: none !important; font-size: 25px">MUA SẮN THỎA THÍCH<span>-cùng</span> Kabi Store</h2>
+                    <h2 class="projTitle" style="border-bottom: none !important; font-size: 25px">MUA SẮM THỎA THÍCH<span>-cùng</span> Kabi Store</h2>
                 </div>
             </div>
         </div>

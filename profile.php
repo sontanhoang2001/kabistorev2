@@ -54,17 +54,12 @@ if ($login_check == false) {
         $lat = $result['maps_maplat'];
         $name = $result['name'];
         $email = $result['email'];
-        $avatar = $result['avatar'];
         if ($avatar != null) {
-          if (session::get('account_type') == 0) {
-            $avatar =   session::get('avatar');
-          } else {
-            $avatar =  session::get('avatar');
-          }
+          $avatar = session::get('avatar');
         } else {
           $avatar =  "upload/default-user-image.jpg";
         }
-    ?>
+        ?>
         <div class="col">
           <div class="row">
             <div class="col mb-3 col-responsive">
@@ -92,10 +87,10 @@ if ($login_check == false) {
                                 <span>Chọn ảnh</span></input>
                               </label>
                             <?php } else { ?>
-                              <a href="https://www.facebook.com/me">
+                              <a href="https://www.facebook.com/me" target="blank" title="Đăng nhập bằng Facebook sẽ không thể đổi avatar trực tiếp">
                                 <label class="btn btn-primary">
                                   <i class="fa fa-fw fa-camera"></i>
-                                  <span>Cập nhật</span></input>
+                                  <span>Facebook</span></input>
                                 </label>
                               </a>
                             <?php }  ?>

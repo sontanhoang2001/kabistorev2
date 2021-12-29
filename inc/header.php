@@ -128,11 +128,7 @@ include_once "inc/checkManager.php";
                                 <?php
                                 $avatar = session::get('avatar');
                                 if ($avatar != null) {
-                                    if (session::get('account_type') == 0) {
-                                        $avatar =  session::get('avatar');
-                                    } else {
-                                        $avatar =  session::get('avatar');
-                                    }
+                                    $avatar =  session::get('avatar');
                                 } else {
                                     $avatar =  "upload/default-user-image.jpg";
                                 }
