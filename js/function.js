@@ -3,8 +3,10 @@ function copyToClipboardPromotionCode(element) {
     var $temp = $("<input>");
     $("body").append($temp);
     $temp.val($(element).text()).select();
-    document.execCommand("copy");
+    navigator.clipboard.writeText($(element).text());
     $temp.remove();
+
+
     var message = "Đã sao chép mã giảm giá '" + $temp.val() + "'";
     let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
     toast.change('Hãy dán mã khi thanh toán!', 2000);
@@ -39,7 +41,7 @@ function currency_vn(money) {
 function scrollingForIndex() {
     // Add smooth scrolling to all links
     if ($(window).width() > 960) {
-        $("a").on('click', function (event) {
+        $("a").on('click', function(event) {
 
             // Make sure this.hash has a value before overriding default behavior
             if (this.hash !== "") {
@@ -53,7 +55,7 @@ function scrollingForIndex() {
                 // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
                 $('html, body').animate({
                     scrollTop: $(hash).offset().top - 180
-                }, 1000, function () {
+                }, 1000, function() {
 
                     // Add hash (#) to URL when done scrolling (default click behavior)
                     window.location.hash = hash;
@@ -61,7 +63,7 @@ function scrollingForIndex() {
             } // End if
         });
     }
-    $("a #coupon").on('click', function (event) {
+    $("a #coupon").on('click', function(event) {
         // Make sure this.hash has a value before overriding default behavior
         if (this.hash !== "") {
             // Prevent default anchor click behavior
@@ -74,7 +76,7 @@ function scrollingForIndex() {
             // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
             $('html, body').animate({
                 scrollTop: $(hash).offset().top - 180
-            }, 1000, function () {
+            }, 1000, function() {
 
                 // Add hash (#) to URL when done scrolling (default click behavior)
                 window.location.hash = hash;
@@ -86,7 +88,7 @@ function scrollingForIndex() {
 
 function scrolling() {
     // Add smooth scrolling to all links
-    $("a").on('click', function (event) {
+    $("a").on('click', function(event) {
         // Make sure this.hash has a value before overriding default behavior
         if (this.hash !== "") {
             // Prevent default anchor click behavior
@@ -99,7 +101,7 @@ function scrolling() {
             // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
             $('html, body').animate({
                 scrollTop: $(hash).offset().top - 180
-            }, 1000, function () {
+            }, 1000, function() {
 
                 // Add hash (#) to URL when done scrolling (default click behavior)
                 window.location.hash = hash;

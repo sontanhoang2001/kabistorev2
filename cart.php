@@ -193,7 +193,7 @@ $discount = session::set('discountMoney', 0);
  			<div class="container">
 				<div class="row">
 					<div class="col-12">
-						<p>Giỏ của bạn đang trống! Hãy nhấn vào nút giỏ hàng <i class="fa fa-cart-plus" aria-hidden="true"></i> để đưa sản phẩm vào thanh toán. Hãy mua sắm ngay bây giờ.</p>
+						<p class="mb-5">Giỏ của bạn đang trống! Hãy nhấn vào nút giỏ hàng <i class="fa fa-cart-plus" aria-hidden="true"></i> để đưa sản phẩm vào thanh toán. Hãy mua sắm ngay bây giờ.</p>
 					</div>
 				</div>
 	 		</div>';
