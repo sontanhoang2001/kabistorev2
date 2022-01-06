@@ -3,7 +3,7 @@
 // begin init category
 if (!isset($_SESSION['menuCategoryStatus'])) {
     $show_category_img = $cat->show_category_img();
-    
+
     if ($show_category_img) {
         // Trạng thái đã có sesstion menuCategory
         session::set("menuCategoryStatus", true);
@@ -58,5 +58,11 @@ if (isset($_GET['customer_id'])) {
 
 // header("Cache-Control: no-cache, must-revalidate");
 // header("Pragma: no-cache");
-header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-header("Cache-Control: max-age=2592000");
+// header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+// header("Cache-Control: max-age=2592000");
+
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");

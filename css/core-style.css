@@ -3246,6 +3246,15 @@ div#wrapper_product {
 }
 
 @media screen and (max-width:990px) {
+    .single-product-wrapper .product-img {
+        height: 280px;
+    }
+    .owl-carousel .owl-item img {
+        height: 280px;
+    }
+    .owl-carousel .owl-item img#img-category {
+        height: 182px;
+    }
     .product-img {
         margin-bottom: 30px
     }

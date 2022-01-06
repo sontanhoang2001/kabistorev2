@@ -60,7 +60,7 @@ include 'inc/facebookPlugin.php';
 			<div class="single_product_thumb">
 				<div class="product_thumbnail_slides owl-carousel">
 					<?php foreach ($product_imgJson as $product_img) { ?>
-						<img src="<?php echo $product_img->image ?>">
+						<img id="img-detaild" src="<?php echo $product_img->image ?>">
 					<?php
 					}  ?>
 				</div>

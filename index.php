@@ -143,7 +143,7 @@ include 'config/global.php';
                                 <!-- Product Image -->
                                 <div class="product-img relatedProducts bg-white rounded shadow-sm">
                                     <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html">
-                                        <img src="<?php echo $product_img ?>" loading="lazy">
+                                        <img id="img-category" src="<?php echo $product_img ?>" loading="lazy">
                                         <h5 class="categories_name" id="categoryNameWrapper"><?php echo $catName; ?></h5>
                                     </a>
                                     <!-- Product Badge -->
