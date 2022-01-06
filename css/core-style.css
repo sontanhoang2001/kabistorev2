@@ -433,7 +433,7 @@ img {
     bottom: 110px;
     cursor: pointer;
     position: fixed;
-    z-index: 100;
+    z-index: 999;
 }
 
 .goChatFacebook {
@@ -448,7 +448,7 @@ img {
     bottom: 110px;
     cursor: pointer;
     position: fixed;
-    z-index: 100;
+    z-index: 999;
 }
 
 #goBack {
@@ -465,7 +465,7 @@ img {
     bottom: 110px;
     cursor: pointer;
     position: fixed;
-    z-index: 100;
+    z-index: 999;
 }
 
 #scrollUp {
@@ -480,7 +480,7 @@ img {
     right: 60px;
     text-align: center;
     width: 40px;
-    z-index: 100 !important;
+    z-index: 999 !important;
 }
 
 @media only screen and (max-width: 767px) {
@@ -514,6 +514,36 @@ img {
 
 
 /* d0021b */
+
+
+/* Start effect Tet */
+
+.banner_tet {
+    animation-name: tet_effect;
+    animation-duration: 10s;
+    animation-delay: -2s;
+}
+
+@keyframes tet_effect {
+    0% {
+        top: -360px;
+    }
+    25% {
+        top: -260px;
+    }
+    50% {
+        top: -160px;
+    }
+    75% {
+        top: 0px;
+    }
+    100% {
+        top: 85px;
+    }
+}
+
+
+/* End effect Tet */
 
 
 /* Essence Button */
@@ -3246,10 +3276,6 @@ div#wrapper_product {
 }
 
 @media screen and (max-width:990px) {
-    /* banner tet */
-    .banner_tet {
-        display: none;
-    }
     .single-product-wrapper .product-img {
         height: 280px;
     }

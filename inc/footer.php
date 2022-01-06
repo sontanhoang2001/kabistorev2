@@ -161,3 +161,5 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
         }
     });
 </script>
+
+<script src="js/tet.js"></script>

@@ -1,13 +1,14 @@
 var messageIndex = 0;
+
 function login() {
-    $(".icon-google").click(function (e) {
+    $(".icon-google").click(function(e) {
         $("#error-google").show().delay(3000).fadeOut(1000);
     });
-    $(".icon-zalo").click(function (e) {
+    $(".icon-zalo").click(function(e) {
         $("#error-zalo").show().delay(3000).fadeOut(1000);
     });
 
-    $("#username").keyup(function () {
+    $("#username").keyup(function() {
         if ($(this).val() == "") {
             data_right = false;
             // username không được bỏ trống
@@ -19,7 +20,7 @@ function login() {
         }
     });
 
-    $("#password").keyup(function () {
+    $("#password").keyup(function() {
         if ($(this).val() == "") {
             data_right = false;
             // password không được bỏ trống
@@ -35,7 +36,7 @@ function login() {
 
 
 
-    $("#f_login").submit(function (e) {
+    $("#f_login").submit(function(e) {
         e.preventDefault();
         var data_right = true;
         if (this.username.value == "") {
@@ -67,34 +68,37 @@ function login() {
                 data: {
                     "formData": formData
                 },
-                success: function (data) {
+                success: function(data) {
                     var res = JSON.parse(JSON.stringify(data))
                     var Status = res.status,
                         Url = res.url;
                     switch (Status) {
-                        case 0: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập hoặc mật khẩu Không được bỏ trống!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 1: {
-                            location.href = Url;
-                            break;
-                        }
-                        case 2: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập hoặc mật khẩu chưa đúng!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
+                        case 0:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập hoặc mật khẩu Không được bỏ trống!!!</div>');
+                                $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function() {
+                                    $(this).remove();
+                                });
+                                break;
+                            }
+                        case 1:
+                            {
+                                location.href = Url;
+                                break;
+                            }
+                        case 2:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập hoặc mật khẩu chưa đúng!!!</div>');
+                                $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function() {
+                                    $(this).remove();
+                                });
+                                break;
+                            }
                     }
                 },
-                error: function () {
+                error: function() {
                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
-                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
+                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function() {
                         $(this).remove();
                     });
                 }
@@ -107,7 +111,7 @@ function login() {
 function register() {
     var data_right = false;
 
-    $("#username").keyup(function () {
+    $("#username").keyup(function() {
         if ($('#username').val() == "") {
             data_right = false;
             // username không được bỏ trống
@@ -130,7 +134,7 @@ function register() {
         }
     });
 
-    $("#password1").keyup(function () {
+    $("#password1").keyup(function() {
         if ($('#password1').val() == "") {
             data_right = false;
             // password không được bỏ trống
@@ -165,7 +169,7 @@ function register() {
         }
     });
 
-    $("#password2").keyup(function () {
+    $("#password2").keyup(function() {
         if ($('#password2').val() != $('#password1').val()) {
             data_right = false;
             // xác nhận password không trùng khớp
@@ -179,14 +183,14 @@ function register() {
     });
 
 
-    $(".icon-google").click(function (e) {
+    $(".icon-google").click(function(e) {
         $("#error-google").show().delay(5000).fadeOut(1000);
     });
-    $(".icon-zalo").click(function (e) {
+    $(".icon-zalo").click(function(e) {
         $("#error-zalo").show().delay(5000).fadeOut(1000);
     });
 
-    $("#f_register").submit(function (e) {
+    $("#f_register").submit(function(e) {
         e.preventDefault();
 
         var formData = {
@@ -203,62 +207,69 @@ function register() {
                 data: {
                     "formData": formData
                 },
-                success: function (data) {
+                success: function(data) {
                     var res = JSON.parse(JSON.stringify(data))
                     var Status = res.status;
                     switch (Status) {
-                        case 0: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập hoặc mật khẩu Không được bỏ trống!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 1: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Bạn đã đăng ký tài khoản thành công! <a href="login.html">Đăng nhập ngay</a></div>');
-                            $("#error-submit" + messageIndex).show();
-                            break;
-                        }
-                        case 2: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Đăng ký tài khoản không thành công!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 3: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tài khoản này đã tồn tại!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 4: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu nhập lại không chính xác!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 5: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập sai cú pháp!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
-                        case 6: {
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu sai cú pháp!!!</div>');
-                            $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function () {
-                                $(this).remove();
-                            });
-                            break;
-                        }
+                        case 0:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập hoặc mật khẩu Không được bỏ trống!!!</div>');
+                                $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function() {
+                                    $(this).remove();
+                                });
+                                break;
+                            }
+                        case 1:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-success alert-dismissible fade show mb-1" role="alert">Bạn đã đăng ký tài khoản thành công! <a href="login.html">Đăng nhập ngay</a></div>');
+                                $("#error-submit" + messageIndex).show();
+                                break;
+                            }
+                        case 2:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Đăng ký tài khoản không thành công!!!</div>');
+                                $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function() {
+                                    $(this).remove();
+                                });
+                                break;
+                            }
+                        case 3:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tài khoản này đã tồn tại!!!</div>');
+                                $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function() {
+                                    $(this).remove();
+                                });
+                                break;
+                            }
+                        case 4:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu nhập lại không chính xác!!!</div>');
+                                $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function() {
+                                    $(this).remove();
+                                });
+                                break;
+                            }
+                        case 5:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Tên đăng nhập sai cú pháp!!!</div>');
+                                $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function() {
+                                    $(this).remove();
+                                });
+                                break;
+                            }
+                        case 6:
+                            {
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Mật khẩu sai cú pháp!!!</div>');
+                                $("#error-submit" + messageIndex).show().delay(5000).fadeOut(1000).queue(function() {
+                                    $(this).remove();
+                                });
+                                break;
+                            }
                     }
                 },
-                error: function (data) {
+                error: function(data) {
                     $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-danger alert-dismissible fade show mb-1" role="alert">Lỗi kết nối!!!</div>');
-                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function () {
+                    $("#error-submit" + messageIndex).show().delay(3000).fadeOut(1000).queue(function() {
                         $(this).remove();
                     });
                 }
@@ -271,8 +282,9 @@ function register() {
 
 function updateProfile() {
     var data_right = true;
+    var gender = $('input:radio[name="gender"]:checked').val();
 
-    $('input[name="fullName"]').keyup(function () {
+    $('input[name="fullName"]').keyup(function() {
         if ($(this).val() == "") {
             $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
@@ -285,7 +297,28 @@ function updateProfile() {
         }
     });
 
-    $('input[name="phone"]').keyup(function () {
+
+    $('input[name="gender"]').click(function() {
+        if ($(this).val() == gender) {
+            $("#btnUpdateInfo").attr("disabled", "disabled");
+            data_right = false;
+        } else {
+            $("#btnUpdateInfo").removeAttr("disabled");
+            data_right = true;
+        }
+    });
+
+    $('input[name="date_of_birth"]').change(function() {
+        if ($(this).val() == "") {
+            $("#btnUpdateInfo").attr("disabled", "disabled");
+            data_right = false;
+        } else {
+            $("#btnUpdateInfo").removeAttr("disabled");
+            data_right = true;
+        }
+    });
+
+    $('input[name="phone"]').keyup(function() {
         if ($(this).val() == "" || $(this).val() == 0) {
             $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
@@ -309,7 +342,7 @@ function updateProfile() {
         }
     });
 
-    $('input[name="email"]').keyup(function () {
+    $('input[name="email"]').keyup(function() {
         if ($(this).val() == "") {
             $("#btnUpdateInfo").removeAttr("disabled");
             data_right = false;
@@ -333,12 +366,12 @@ function updateProfile() {
         }
     });
 
-    $("#saveLocaltion").click(function () {
+    $("#saveLocaltion").click(function() {
         $("#btnUpdateInfo").removeAttr("disabled");
     })
 
 
-    $('#f_profile').submit(function (e) {
+    $('#f_profile').submit(function(e) {
         e.preventDefault();
         var formData = {
             fullName: $('input[name="fullName"]').val(),
@@ -359,43 +392,48 @@ function updateProfile() {
                     data: {
                         "formData": formData
                     },
-                    success: function (data) {
+                    success: function(data) {
                         var res = JSON.parse(JSON.stringify(data))
                         var Status = res.status;
                         switch (Status) {
-                            case 0: {
-                                var message = "Cập nhật thông tin thất bại!";
-                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                                toast.change('Vui lòng thử lại...', 3500);
-                                break;
-                            }
-                            case 1: {
-                                var message = "Bạn đã cập nhật thông tin thành công!";
-                                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                                toast.change('Đã lưu và thay đổi...', 3500);
-                                break;
-                            }
-                            case 2: {
-                                var message = "Các trường không được bỏ trống!";
-                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                                toast.change('Vui lòng thử lại...', 3500);
-                                break;
-                            }
-                            case 3: {
-                                var message = "Số điện thoại sai cú pháp!";
-                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                                toast.change('Vui lòng thử lại...', 3500);
-                                break;
-                            }
-                            case 4: {
-                                var message = "Email sai cú pháp!!";
-                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                                toast.change('Vui lòng thử lại...', 3500);
-                                break;
-                            }
+                            case 0:
+                                {
+                                    var message = "Cập nhật thông tin thất bại!";
+                                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                    toast.change('Vui lòng thử lại...', 3500);
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    var message = "Bạn đã cập nhật thông tin thành công!";
+                                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                                    toast.change('Đã lưu và thay đổi...', 3500);
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    var message = "Các trường không được bỏ trống!";
+                                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                    toast.change('Vui lòng thử lại...', 3500);
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    var message = "Số điện thoại sai cú pháp!";
+                                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                    toast.change('Vui lòng thử lại...', 3500);
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    var message = "Email sai cú pháp!!";
+                                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                    toast.change('Vui lòng thử lại...', 3500);
+                                    break;
+                                }
                         }
                     },
-                    error: function (data) {
+                    error: function(data) {
                         var message = "Lỗi máy chủ!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
@@ -414,7 +452,7 @@ function updateProfile() {
 function changePassword() {
     var data_right = false;
 
-    $('input[name="passwordold"]').keyup(function () {
+    $('input[name="passwordold"]').keyup(function() {
         if ($(this).val() == "") {
             data_right = false;
             $("#error-passwordold").show();
@@ -424,7 +462,7 @@ function changePassword() {
         }
     });
 
-    $('input[name="passwordnew1"]').keyup(function () {
+    $('input[name="passwordnew1"]').keyup(function() {
         if ($(this).val() == "") {
             data_right = false;
             $("#error-passwordnew1-1").show();
@@ -444,7 +482,7 @@ function changePassword() {
         }
     });
 
-    $('input[name="passwordnew2"]').keyup(function () {
+    $('input[name="passwordnew2"]').keyup(function() {
         if ($(this).val() == "") {
             data_right = false;
             $("#error-passwordnew2-1").show();
@@ -464,7 +502,7 @@ function changePassword() {
         }
     });
 
-    $('#f_changePassword').submit(function (e) {
+    $('#f_changePassword').submit(function(e) {
         e.preventDefault();
         var formData = {
             passwordold: $('input[name="passwordold"]').val(),
@@ -505,43 +543,48 @@ function changePassword() {
                 data: {
                     "formData": formData
                 },
-                success: function (data) {
+                success: function(data) {
                     var res = JSON.parse(JSON.stringify(data))
                     var Status = res.status;
                     switch (Status) {
-                        case 0: {
-                            var message = "Các trường không được bỏ trống!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
-                        case 1: {
-                            var message = "Đổi mật khẩu thành công!";
-                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                            toast.change('Đã lưu và thay đổi...', 3500);
-                            break;
-                        }
-                        case 2: {
-                            var message = "Mật khẩu không đúng định dạng!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
-                        case 3: {
-                            var message = "Mật khẩu cũ vừa nhập không đúng!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
-                        case 4: {
-                            var message = "Nhập lại mật khẩu ko chính xác!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
+                        case 0:
+                            {
+                                var message = "Các trường không được bỏ trống!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                        case 1:
+                            {
+                                var message = "Đổi mật khẩu thành công!";
+                                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                                toast.change('Đã lưu và thay đổi...', 3500);
+                                break;
+                            }
+                        case 2:
+                            {
+                                var message = "Mật khẩu không đúng định dạng!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                        case 3:
+                            {
+                                var message = "Mật khẩu cũ vừa nhập không đúng!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                        case 4:
+                            {
+                                var message = "Nhập lại mật khẩu ko chính xác!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
                     }
                 },
-                error: function (data) {
+                error: function(data) {
                     var message = "Lỗi máy chủ!";
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                     toast.change('Vui lòng thử lại...', 3500);
@@ -555,7 +598,7 @@ function changePassword() {
 function checkSendMail() {
     var data_right = false;
 
-    $('input[name="email"]').keyup(function () {
+    $('input[name="email"]').keyup(function() {
         if ($(this).val() == "") {
             data_right = false;
             $("button[name=sendEmail]").attr("disabled", "disabled");
@@ -571,15 +614,14 @@ function checkSendMail() {
             data_right = false;
             $("#error-email2").show();
             $("button[name=sendEmail]").attr("disabled", "disabled");
-        }
-        else {
+        } else {
             data_right = true;
             $("button[name=sendEmail]").removeAttr('disabled');
             $("#error-email2").fadeOut();
         }
     });
 
-    $('#f_sendMail').submit(function (e) {
+    $('#f_sendMail').submit(function(e) {
         e.preventDefault();
 
         var email = $('input[name="email"]').val();
@@ -604,51 +646,55 @@ function checkSendMail() {
                 data: {
                     "email": email
                 },
-                success: function (data) {
+                success: function(data) {
                     $("button[name=sendEmail]").removeAttr('disabled');
 
                     var res = JSON.parse(JSON.stringify(data))
                     var Status = res.status;
                     switch (Status) {
-                        case 0: {
-                            $(sendEmail).text("Gửi xác nhận");
-                            $(sendEmail).removeAttr('disabled');
+                        case 0:
+                            {
+                                $(sendEmail).text("Gửi xác nhận");
+                                $(sendEmail).removeAttr('disabled');
 
-                            var message = "Hệ thống lỗi!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng thử lại...', 3500);
-                            break;
-                        }
-                        case 1: {
-                            $('#f_sendMail').css("display", "none");
-                            $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-success fade show mb-1" role="alert">Bạn đã xác nhận thành công! Vui lòng kiểm tra hộp thư của bạn.</div>');
-                            $("#error-submit" + messageIndex).show();
-                            var message = "Bạn đã xác nhận thành công!";
-                            let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                            toast.change('Vui lòng kiểm tra hộp thư của bạn!', 2000);
-                            break;
-                        }
-                        case 2: {
-                            $(sendEmail).text("Gửi xác nhận");
-                            $(sendEmail).removeAttr('disabled');
+                                var message = "Hệ thống lỗi!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng thử lại...', 3500);
+                                break;
+                            }
+                        case 1:
+                            {
+                                $('#f_sendMail').css("display", "none");
+                                $("#error-submit").append('<div id="error-submit' + messageIndex + '" class="alert alert-success fade show mb-1" role="alert">Bạn đã xác nhận thành công! Vui lòng kiểm tra hộp thư của bạn.</div>');
+                                $("#error-submit" + messageIndex).show();
+                                var message = "Bạn đã xác nhận thành công!";
+                                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                                toast.change('Vui lòng kiểm tra hộp thư của bạn!', 2000);
+                                break;
+                            }
+                        case 2:
+                            {
+                                $(sendEmail).text("Gửi xác nhận");
+                                $(sendEmail).removeAttr('disabled');
 
-                            var message = "Email không tồn tại trong hệ thống!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng kiểm tra lại...', 3500);
-                            break;
-                        }
-                        case 3: {
-                            $(sendEmail).text("Gửi xác nhận");
-                            $(sendEmail).removeAttr('disabled');
+                                var message = "Email không tồn tại trong hệ thống!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng kiểm tra lại...', 3500);
+                                break;
+                            }
+                        case 3:
+                            {
+                                $(sendEmail).text("Gửi xác nhận");
+                                $(sendEmail).removeAttr('disabled');
 
-                            var message = "Email không được bỏ trống!";
-                            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                            toast.change('Vui lòng kiểm nhập lại...', 3500);
-                            break;
-                        }
+                                var message = "Email không được bỏ trống!";
+                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                toast.change('Vui lòng kiểm nhập lại...', 3500);
+                                break;
+                            }
                     }
                 },
-                error: function (data) {
+                error: function(data) {
                     $(sendEmail).text("Gửi xác nhận");
                     $(sendEmail).removeAttr('disabled');
 
@@ -687,7 +733,7 @@ function uploadAvatar() {
         mimeType: "multipart/form-data",
         contentType: false,
         data: form_data,
-        success: function (response) {
+        success: function(response) {
             // console.log(response);
             var jx = JSON.parse(response);
             // console.log(jx.data.url);
@@ -699,31 +745,34 @@ function uploadAvatar() {
                     data: {
                         "urlAvatarImage": urlAvatarImage
                     },
-                    success: function (data) {
+                    success: function(data) {
                         var res = JSON.parse(data);
                         var Status = res.status;
 
                         switch (Status) {
-                            case 0: {
-                                var message = "Cập nhật ảnh không thành công!";
-                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                                toast.change('Vui lòng thử lại...', 3500);
+                            case 0:
+                                {
+                                    var message = "Cập nhật ảnh không thành công!";
+                                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                                    toast.change('Vui lòng thử lại...', 3500);
 
-                                // restore avatar
-                                $("#avatarImage").attr("src", avatarImageOld);
-                                break;
-                            }
-                            case 1: {
-                                // tạo ảnh xem trước
-                                $("#avatarImage").attr("src", urlAvatarImage);
+                                    // restore avatar
+                                    $("#avatarImage").attr("src", avatarImageOld);
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    // tạo ảnh xem trước
+                                    $("#avatarImage").attr("src", urlAvatarImage);
 
-                                var message = "Cập nhận ảnh thành công!";
-                                let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                                toast.change('Ảnh đại diện đã được thay đổi!', 2000);
-                                break;
-                            }
+                                    var message = "Cập nhận ảnh thành công!";
+                                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+                                    toast.change('Ảnh đại diện đã được thay đổi!', 2000);
+                                    break;
+                                }
                         }
-                    }, error: function (data) {
+                    },
+                    error: function(data) {
                         var message = "Lỗi máy chủ!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
@@ -741,7 +790,7 @@ function uploadAvatar() {
                 $("#avatarImage").attr("src", avatarImageOld);
             }
         },
-        error: function () {
+        error: function() {
             var message = "Upload ko thành công!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng thử lại...', 3500);
@@ -810,18 +859,18 @@ function uploadAvatar() {
 
 
 function navProfile() {
-    $('#overview').click(function () {
+    $('#overview').click(function() {
         var message = "Chức năng này đang được nâng cấp!";
         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
         toast.change('Vui lòng quay lại sau...', 3500);
     })
-    $('#plus').click(function () {
+    $('#plus').click(function() {
         var message = "Chức năng này đang được nâng cấp!";
         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
         toast.change('Vui lòng quay lại sau...', 3500);
     })
 
-    $('#setting').click(function () {
+    $('#setting').click(function() {
         var message = "Chức năng này đang được nâng cấp!";
         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
         toast.change('Vui lòng quay lại sau...', 3500);

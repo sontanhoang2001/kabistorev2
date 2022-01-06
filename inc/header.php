@@ -77,7 +77,6 @@ include_once "inc/checkManager.php";
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link href="css/nice-toast/nice-toast-js.min.css" rel="stylesheet" type="text/css" />
-    <script src="js/tet.js"></script>
 
     <!-- Latest compiled and minified CSS & JS -->
 
