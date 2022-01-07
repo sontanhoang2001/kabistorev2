@@ -147,6 +147,7 @@ class Format
       }
       $str = str_replace('(', '', $str);
       $str = str_replace(')', '', $str);
+      $str = str_replace('.', '_', $str);
       $str = preg_replace("/&amp;/", "va",  $str);
       $str = str_replace(' ', '-', strtolower($str));
 

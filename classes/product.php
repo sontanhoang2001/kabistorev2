@@ -636,6 +636,7 @@ class product
 						FROM tbl_product
 						inner join tbl_category on tbl_product.catId = tbl_category.catId
 						where tbl_category.catId = '$catId' AND `type` != 9 AND tbl_product.price BETWEEN $priceStart AND $priceEnd
+						order by tbl_product.productId desc
 						LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
@@ -646,6 +647,7 @@ class product
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
 						where tbl_brand.brandId = '$brandId' AND `type` != 9 AND tbl_product.price BETWEEN $priceStart AND $priceEnd
+						order by tbl_product.productId desc
 						LIMIT $index_page, $product_num";
 						$result = $this->db->select($query);
 						return $result;
