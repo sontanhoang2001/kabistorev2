@@ -38,16 +38,11 @@ $discount = session::set('discountMoney', 0);
 			</ul>-->
 
 		<?php
-		$get_price_ship = $ct->get_price_ship();
-		while ($result_price = $get_price_ship->fetch_assoc()) {
-			$price_ship = $result_price['price'];
-		}
 		$i = 0;
 		$quantityTotal = 0;
 		// tiền ship tối đa
-		$maxShip = 38499;
 		// Cộng thêm mỗi đơn hàng
-		$shipAdd = 2500;
+		$shipAdd = 3500;
 		$subtotal = 0;
 		$ship = 0;
 		// Khởi tạo session cho mỗi lần truy cập
@@ -126,7 +121,7 @@ $discount = session::set('discountMoney', 0);
 			Session::set('disable_check_out', 0);
 		}
 		Session::set('quantityTotal', $quantityTotal);
-		$ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
+		// $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
 
 		?>
 	</div>
@@ -166,8 +161,6 @@ $discount = session::set('discountMoney', 0);
 									Session::set('sum', $subtotal);
 									Session::set('ship', $ship);
 									?></strong></li>
-							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí giao hàng ước tính</strong><strong id="ship">
-									<?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></strong></li>
 
 							<li class="d-flex justify-content-between py-3 border-bottom none"><strong class="text-muted">Giảm giá</strong><strong id="discountPrice">Chưa nhập mã</strong></li>
 							<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tổng cộng</strong>

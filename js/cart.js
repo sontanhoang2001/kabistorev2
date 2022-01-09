@@ -208,7 +208,6 @@ $('.input-quantitys').each(function(index, val) {
 
                         var res = JSON.parse(data);
                         $('#subtotal').text(currency_vn(res.subtotal));
-                        $('#ship').text("+ " + currency_vn(res.ship));
                         $('#discountPrice').text("Chưa nhập mã");
                         $('#total').text(currency_vn(res.total));
 
@@ -298,7 +297,6 @@ function CheckPostPromotion(status, type, data) {
                 success: function(data) {
                     var res = JSON.parse(data);
                     $('#subtotal').text(currency_vn(res.subtotal));
-                    $('#ship').text("+ " + currency_vn(res.ship));
                     $('#discountPrice').text("- " + currency_vn(res.discount));
                     $('#total').text(currency_vn(res.total));
                 }
@@ -344,7 +342,6 @@ function resetDiscount() {
         success: function(data) {
             var res = JSON.parse(data);
             $('#subtotal').text(currency_vn(res.subtotal));
-            $('#ship').text("+ " + currency_vn(res.ship));
             $('#discountPrice').text("Chưa nhập mã");
             $('#total').text(currency_vn(res.total));
         }

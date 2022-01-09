@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    include '../inc/global.php';
+    include '../config/global.php';
     include '../lib/session.php';
     include '../helpers/format.php';
     include_once "../classes/cart.php";
@@ -20,31 +20,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $ct = new cart();
             $del_product_cart = $ct->del_product_cart($cart_Id, $customer_id);
             if ($del_product_cart) {
-                $get_price_ship = $ct->get_price_ship();
-                while ($result_price = $get_price_ship->fetch_assoc()) {
-                    $price_ship = $result_price['price'];
-                }
 
                 // $price_ship = 5000;
                 $subtotal = Session::get('sum');
-                $ship = Session::get('ship');
+                // $ship = Session::get('ship');
                 // lấy tổng số lượng
                 $quantityTotal = Session::get('quantityTotal');
 
                 //$ship = $ship - $quantity * $price_ship;
-                $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - (int)$quantity - 1);
+                // $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - (int)$quantity - 1);
                 // } else {
                 //     $ship =  $price_ship;
                 // }
                 //Lưu giá trị khi ở trong ajax
                 Session::set('quantityTotal', $quantityTotal - $quantity);
 
-                Session::set('ship', $ship);
+                // Session::set('ship', $ship);
 
                 $subtotal = $subtotal - ($price * $quantity);
                 Session::set('sum', $subtotal);
 
-                $grandTotal = $subtotal + $ship;
+                $grandTotal = $subtotal;
                 Session::set('grandTotal', $grandTotal);
 
                 // Trừ số đếm trên giỏ hàng

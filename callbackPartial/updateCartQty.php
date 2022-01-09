@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    include '../inc/global.php';
+    include '../config/global.php';
     include '../lib/session.php';
     include_once "../classes/cart.php";
 
@@ -24,40 +24,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $price = $cartSess['price'];
                 $quantityNew = $quantity - $quantityBefore;
 
-                $get_price_ship = $ct->get_price_ship();
-                while ($result_price = $get_price_ship->fetch_assoc()) {
-                    $price_ship = $result_price['price'];
-                }
-
                 // lấy tổng số lượng
                 $quantityTotal = Session::get('quantityTotal');
 
                 // $price_ship = 5000;
                 $subtotal = Session::get('sum');
                 // lấy ship cũ
-                $ship = Session::get('ship');
-                $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal + (int)$quantityNew - 1);
+                // $ship = Session::get('ship');
+                // $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal + (int)$quantityNew - 1);
 
                 //Lưu giá trị khi ở trong ajax
                 Session::set('quantityTotal', $quantityTotal + $quantityNew);
 
-                Session::set('ship', $ship);
+                // Session::set('ship', $ship);
 
                 $subtotal = $subtotal + ($price * $quantityNew);
                 Session::set('sum', $subtotal);
 
-                $grandTotal = $subtotal + $ship;
+                $grandTotal = $subtotal;
                 Session::set('grandTotal', $grandTotal);
-                echo json_encode($result_json[] = ['subtotal' => $subtotal, 'ship' => $ship, 'total' => $grandTotal]);
+                echo json_encode($result_json[] = ['subtotal' => $subtotal, 'total' => $grandTotal]);
             } else {
                 $cartSess = $_SESSION['cart'][$cart_Id];
                 $price = $cartSess['price'];
                 $quantityNew = $quantityBefore - $quantity;
-
-                $get_price_ship = $ct->get_price_ship();
-                while ($result_price = $get_price_ship->fetch_assoc()) {
-                    $price_ship = $result_price['price'];
-                }
 
 
                 // lấy tổng số lượng
@@ -65,20 +55,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // $price_ship = 5000;
                 $subtotal = Session::get('sum');
-                $ship = Session::get('ship');
-                $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - (int)$quantityNew - 1);
+                // $ship = Session::get('ship');
+                // $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - (int)$quantityNew - 1);
 
                 //Lưu giá trị khi ở trong ajax
                 Session::set('quantityTotal', $quantityTotal - $quantityNew);
 
-                Session::set('ship', $ship);
+                // Session::set('ship', $ship);
 
                 $subtotal = $subtotal - ($price * $quantityNew);
                 Session::set('sum', $subtotal);
 
-                $grandTotal = $subtotal + $ship;
+                $grandTotal = $subtotal;
                 Session::set('grandTotal', $grandTotal);
-                echo json_encode($result_json[] = ['subtotal' => $subtotal, 'ship' => $ship, 'total' => $grandTotal]);
+                echo json_encode($result_json[] = ['subtotal' => $subtotal, 'total' => $grandTotal]);
             }
             break;
         default:

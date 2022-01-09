@@ -60,13 +60,13 @@ var marker;
 
 // After the map style has loaded on the page, add a source layer and default
 // styling for a single point.
-map.on('load', function () {
+map.on('load', function() {
     addMarker(user_location, 'load');
     // add_markers(saved_markers);
 
     // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
     // makes a selection and add a symbol that matches the result.
-    geocoder.on('result', function (ev) {
+    geocoder.on('result', function(ev) {
         // alert("aaaaa");
         // console.log(ev.result.center);
 
@@ -75,6 +75,31 @@ map.on('load', function () {
 
 // Get the geocoder results container.
 // var results = document.getElementById('result');
+
+function setPriceShip(locationCode) {
+    $.ajax({
+        type: "POST",
+        url: "~/../callbackPartial/priceShip.php",
+        data: {
+            'locationCode': locationCode,
+            'quantityTotal': quantityTotal
+        },
+        success: function(data) {
+            var res = JSON.parse(data);
+            var priceShip = res.priceShip,
+                grandTotal = res.grandTotal;
+            $("#price-ship").text("+ " + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceShip));
+            $("#grandTotal").text(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(grandTotal));
+
+        },
+        error: function(data) {
+            console.log(data);
+            var message = "Lỗi máy chủ!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng thử lại...', 3500);
+        }
+    });
+}
 
 // async getGeocoding
 async function getGeocoding(lng, lat) {
@@ -88,6 +113,30 @@ async function getGeocoding(lng, lat) {
     // console.log(api_url);
 
     // results.textContent = features;
+
+
+    try {
+        var position = features[0].place_name.search("Can Tho");
+        // find Can Tho
+        if (position == -1) {
+            position = features[0].place_name.search("Vĩnh Long");
+            //find Vĩnh Long
+            if (position == -1) {
+                setPriceShip("ngoaivung");
+            } else {
+                // find vũng liêm
+                position = features[0].place_name.search("Vũng Liêm");
+                if (position == -1) {
+                    setPriceShip("vinhlong");
+                } else {
+                    setPriceShip("vungliem");
+                }
+            }
+        } else {
+            setPriceShip("cantho");
+        }
+    } catch (error) {}
+
     var text_geocoder = document.getElementById("geo-text");
     var btn_lock = document.getElementById("saveLocaltion");
     text_geocoder.classList.remove("text-danger");
@@ -101,17 +150,16 @@ async function getGeocoding(lng, lat) {
     btn_lock.classList.add("btn-success");
     try {
         document.getElementById("orders").removeAttribute("disabled");
-    } catch (error) {
-    }
+        document.getElementById("alert-selectLocaltion").remove();
+    } catch (error) {}
 
     try {
         document.getElementById("btnUpdateInfo").removeAttribute("disabled");
-    } catch (error) {
-    }
+    } catch (error) {}
 
 }
 
-map.on('click', function (e) {
+map.on('click', function(e) {
     marker.remove();
     addMarker(e.lngLat, 'click');
     //console.log(e.lngLat.lat);
@@ -133,9 +181,9 @@ function addMarker(ltlng, event) {
     }
 
     marker = new mapboxgl.Marker({
-        draggable: true,
-        color: "#d02922"
-    })
+            draggable: true,
+            color: "#d02922"
+        })
         .setLngLat(user_location)
         .addTo(map)
         .on('dragend', onDragEnd);
@@ -148,7 +196,7 @@ function add_markers(coordinates) {
     //console.log(geojson);
 
     // add markers to map
-    geojson.forEach(function (marker) {
+    geojson.forEach(function(marker) {
         //console.log(marker);
         // make a marker for each feature and add to the map
         new mapboxgl.Marker()
@@ -210,4 +258,4 @@ function add_markers_to_geolocate_control(position) {
     getGeocoding(lat, lng);
 }
 
-    // document.getElementById('geo-text').appendChild(geocoder.onAdd(map));
+// document.getElementById('geo-text').appendChild(geocoder.onAdd(map));

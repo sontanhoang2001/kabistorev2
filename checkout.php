@@ -141,10 +141,11 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 $ship = 0;
                 $quantityTotal = 0;
 
-                $get_price_ship = $ct->get_price_ship();
-                while ($result_price = $get_price_ship->fetch_assoc()) {
-                    $price_ship = $result_price['price'];
-                }
+                // $get_price_ship = $ct->get_price_ship();
+                // while ($result_price = $get_price_ship->fetch_assoc()) {
+                //     $price_ship = $result_price['price'];
+                // }
+                $price_ship = 0;
                 $customer_id = Session::get('customer_id');
                 $get_product_cart = $ct->get_product_cart($customer_id);
                 $num_rows = mysqli_num_rows($get_product_cart);
@@ -153,6 +154,9 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 <div class="col-md-5 col-responsive">
                     <div class="right-panel border bg-light shadow">
                         <div class="header">Thông tin đơn hàng</div>
+                        <div class="row lower pull-right">
+                            <div class="col text-left"><a href="cart.html"><u><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa sản phẩm</u></a></div>
+                        </div>
                         <p><?php echo $num_rows ?> sản phẩm</p>
                         <?php
                         if ($get_product_cart) {
@@ -219,14 +223,12 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 $cart = array();
                                 $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity, 'productSize' => $productSize];
                                 $_SESSION['cart_payment'][] = $cart;
-                                $ship = $ship + $quantity * $price_ship;
+                                // $ship = $ship + $quantity * $price_ship;
                                 $subtotal += $total;
                             }
                         }
-                        ?>
-                        <?php
                         Session::set('quantityTotal', $quantityTotal);
-                        $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        // $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
                         $discount = 0;
                         ?>
                         <hr>
@@ -265,13 +267,13 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 <div class="col text-right">
                                     <?php echo $fm->format_currency($subtotal) . " ₫";
                                     Session::set('sum', $subtotal);
-                                    Session::set('ship', $ship);
+                                    // Session::set('ship', $ship);
                                     ?>
                                 </div>
                             </div>
                             <div class="row lower">
                                 <strong class="col text-muted text-left">Phí giao hàng</strong>
-                                <div class="col text-right"><?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></div>
+                                <div id="price-ship" class="col text-right"><?php echo "+ " . $fm->format_currency($ship) . " ₫"; ?></div>
                             </div>
                             <?php if ($discount != 0) {
                             ?>
@@ -283,17 +285,22 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                             } ?>
                             <div class="row lower">
                                 <strong class="col text-left" style="font-size: 18px;">Tổng cộng</strong>
-                                <div class="col text-right"><b>
+                                <div id="grandTotal" class="col text-right"><b>
                                         <?php
-                                        $grandTotal = $subtotal + $ship;
+                                        $grandTotal = $subtotal;
                                         echo $fm->format_currency($grandTotal - $discount) . " ₫";
                                         Session::set('grandTotal', $grandTotal - $discount);
                                         ?></b>
                                 </div>
                             </div>
                             <div class="row lower">
-                                <div class="col text-left"><a href="cart.html"><u>Sửa mã giảm giá</u></a></div>
+                                <div class="col text-left"><a href="cart.html"><u><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa mã giảm giá</u></a></div>
                             </div>
+
+                            <div id="alert-selectLocaltion" class="mt-3 text-danger">
+                                Hãy chọn vị trí giao hàng để mở khóa nút đặt hàng
+                            </div>
+
                             <div class="row mt-4 mb-2">
                                 <button id="orders" class="btn btn-success rounded-pill py-2 btn-block" type="submit" name="orders" disabled><i id="ordersIcon" class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng</button>
                                 <div class="from-group error-group mt-4">
@@ -363,7 +370,11 @@ include 'inc/footer.php';
     }
 
     var phone = <?php echo ($Phone == null) ? 0 : 1; ?>
+
+    //quantityTotal
+    var quantityTotal = <?php echo $quantityTotal ?>
 </script>
+
 <script src="js/map-API.js"></script>
 <!-- <script src="javascript/googleMaps.js"></script> -->
 <!-- <script src="js/allow_location.js"></script> -->

@@ -19,26 +19,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // unset($_SESSION['discountMoney']);
 
             $subtotal = Session::get('sum');
-            $ship = Session::get('ship');
+            // $ship = Session::get('ship');
 
             // $subtotal = $subtotal + ($price * $quantityNew);
             Session::set('sum', $subtotal);
 
-            $grandTotal = $subtotal + $ship - $discount;
+            $grandTotal = $subtotal - $discount;
 
             Session::set('grandTotal', $grandTotal);
-            echo json_encode($result_json[] = ['subtotal' => $subtotal, 'ship' => $ship, 'total' => $grandTotal, 'discount' => $discount]);
+            echo json_encode($result_json[] = ['subtotal' => $subtotal, 'total' => $grandTotal, 'discount' => $discount]);
             break;
         case 2:
             $subtotal = Session::get('sum');
-            $ship = Session::get('ship');
+            // $ship = Session::get('ship');
 
             // $subtotal = $subtotal + ($price * $quantityNew);
             Session::set('sum', $subtotal);
 
-            $grandTotal = $subtotal + $ship;
+            $grandTotal = $subtotal;
             Session::set('grandTotal', $grandTotal);
-            echo json_encode($result_json[] = ['subtotal' => $subtotal, 'ship' => $ship, 'total' => $grandTotal]);
+            echo json_encode($result_json[] = ['subtotal' => $subtotal, 'total' => $grandTotal]);
             break;
         default:
     }

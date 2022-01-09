@@ -204,17 +204,6 @@ class cart
 	// 	header('Location:cart.php');
 	// }
 
-	public function get_price_ship()
-	{
-		$query = "SELECT price FROM tbl_priceshipping";
-		$price_ship = $this->db->select($query);
-		if ($price_ship) {
-			return $price_ship;
-		} else {
-			return 10000;
-		}
-	}
-
 	public function discount($promo_code)
 	{
 		$promo_code = $this->fm->validation($promo_code);
