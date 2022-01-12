@@ -21,7 +21,7 @@ if ($login_check == false) {
     <div class="row h-100 align-items-center">
       <div class="col-12">
         <div class="page-title text-center">
-          <h2>Thông tin giao hàng</h2>
+          <h2>Thông tin cá nhân</h2>
         </div>
       </div>
     </div>
@@ -54,12 +54,7 @@ if ($login_check == false) {
         $lat = $result['maps_maplat'];
         $name = $result['name'];
         $email = $result['email'];
-        if ($avatar != null) {
-          $avatar = session::get('avatar');
-        } else {
-          $avatar =  "upload/default-user-image.jpg";
-        }
-        ?>
+    ?>
         <div class="col">
           <div class="row">
             <div class="col mb-3 col-responsive">
@@ -76,8 +71,9 @@ if ($login_check == false) {
                       </div>
                       <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div class="text-center text-sm-left mb-2 mb-sm-0">
-                          <h5 class="text-nowrap text-primary"><?php echo ($name == null) ? 'Chưa đặt tên' : $name; ?></h5>
-                          <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo ($email == null) ? 'Chưa có email' : $email; ?></p>
+                          <h5 id="labelFullName" class="text-nowrap text-primary"><?php echo ($name == null) ? 'Chưa đặt tên' : $name; ?></h5>
+                          <!-- <span class="badge badge-secondary">Khách hàng thông minh</span> -->
+                          <div class="text-muted"><small>Gia nhập <?php echo $fm->formatDateVN($result['date_Joined']) ?></small></div>
                           <div class="text-muted"><i class="fa fa-credit-card" aria-hidden="true"></i> </i>Số dư: <b style="color: #49bd4e;">330 xu</b></div>
                           <div class="mt-2">
                             <?php if (session::get('account_type') == 0) { ?>
@@ -95,11 +91,6 @@ if ($login_check == false) {
                               </a>
                             <?php }  ?>
                           </div>
-
-                        </div>
-                        <div class="text-center text-sm-right">
-                          <span class="badge badge-secondary">Khách hàng thông minh</span>
-                          <div class="text-muted"><small>Gia nhập <?php echo $fm->formatDateVN($result['date_Joined']) ?></small></div>
                         </div>
                       </div>
                     </div>
@@ -117,26 +108,26 @@ if ($login_check == false) {
                     </ul>
                     <div class="tab-content">
                       <div id="profile" class="container tab-pane active">
-                        <form id="f_profile" class="profile-validation" novalidate method="POST" enctype="multipart/form-data">
+                        <form id="f_profile" class="profile-validation" novalidate>
                           <!-- Form Name -->
                           <div class="row mt-4">
                             <div class="col-md-6 col-sm-12">
-                              <label for="fullName">Họ và tên</label>
+                              <label for="fullName">(*) Họ và tên</label>
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" name="fullName" id="fullName" class="form-control" aria-label="fullname" aria-describedby="basic-addon1" value="<?php echo $result['name']; ?>" required placeholder="Vd: Nguyễn Thị  A...">
+                                <input type="text" name="fullName" id="fullName" class="form-control" value="<?php echo $result['name']; ?>" required placeholder="Vd: Nguyễn Thị  A...">
                               </div>
                               <div class="error mb-2" id="error-fullname">Họ và tên không được bỏ trống! hãy ghi tên để chúng tôi dễ xưng hô với bạn.</div>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                              <label>Ngày sinh</label>
+                              <label>(*) Ngày sinh</label>
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-birthday-cake"></i></span>
                                 </div>
-                                <input type="date" name="date_of_birth" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $result['date_of_birth']; ?>">
+                                <input type="date" name="date_of_birth" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $result['date_of_birth']; ?>" required>
                               </div>
                             </div>
                           </div>
@@ -161,18 +152,16 @@ if ($login_check == false) {
                                 </div>
                               </div>
                             </div>
-
                             <div class="col-md-6 col-sm-12">
-                              <label>Điện thoại +(84)</label>
+                              <label>(*) Điện thoại +(84)</label>
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-phone"></i></span>
                                 </div>
-                                <input type="number" name="phone" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="0<?php echo $result['phone']; ?>" require placeholder="Vd: 0976943...">
+                                <input type="number" name="phone" class="form-control" id="phone" value="<?php echo ($result['phone'] != null) ? "0" . $result['phone'] : ""; ?>" placeholder="Vd: 0976943..." required />
                               </div>
-                              <div class="error mb-2" id="error-phone1">Số điện thoại không được bỏ trống!!!</div>
-                              <div class="error mb-2" id="error-phone2">Số điện thoại sai cú pháp!!!</div>
-
+                              <div class="error mb-2" id="error-phone1">Số điện thoại không được bỏ trống!</div>
+                              <div class="error mb-2" id="error-phone2">Số điện thoại sai cú pháp!</div>
                             </div>
                           </div>
                           <div class="row">
@@ -182,12 +171,12 @@ if ($login_check == false) {
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1"> <i class="fa fa-envelope-o"></i></span>
                                 </div>
-                                <input type="email" name="email" class="form-control" aria-label="email" aria-describedby="basic-addon1" value="<?php echo $result['email']; ?>" require placeholder="Vd: kabistore@gmail.com">
+                                <input type="email" name="email" class="form-control" value="<?php echo $result['email']; ?>" placeholder="vd: kabistore@gmail.com">
                               </div>
-                              <div class="error mb-2" id="error-email1">Email không được bỏ trống!!!</div>
-                              <div class="error mb-2" id="error-email2">Email bạn vừa nhập sai cú pháp!!!<br>
+                              <div class="error mb-2" id="error-email1">Email bạn vừa nhập sai cú pháp!<br>
                                 VD: kabistore@mail.com</div>
                             </div>
+
                           </div>
 
                           <div class="row">
@@ -223,7 +212,7 @@ if ($login_check == false) {
                           <div class="row">
                             <div class="col-md-12 mt-2">
                               <label for="geocoder" class="lGeocoder"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại của bạn:</label>
-                              <div id="geo-text" class="text-danger">Đang tìm vị trí...</div>
+                              <div id="geo-text" class="text-danger">Hãy nhấn chọn vị trí trên bản đồ nơi mà bạn muốn giao hàng. Vị trí sẽ được lưu lại cho mỗi lần đặt hàng.</div>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 mt-3 mb-4">
                               <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
@@ -234,6 +223,9 @@ if ($login_check == false) {
                               <button class="btn btn-primary btn-block" type="submit" id="btnUpdateInfo" name="save" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
                             </div>
                           </div>
+                            <div class="col-md-12 mt-3 text-center">
+                              <p class="mb-0 text-muted">Nút cập nhật sẽ mở khóa khi bạn thay đổi thông tin</p>
+                            </div>
                           <div id="error-submit-1" class="mt-50"></div>
                         </form>
                       </div>
@@ -324,25 +316,6 @@ if ($login_check == false) {
 </div>
 
 
-<script>
-  (function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('profile-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
-</script>
 <?php
 include 'inc/footer.php';
 ?>
@@ -355,7 +328,6 @@ include 'inc/footer.php';
 <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 <script>
-  var allow_order = false;
   var user_location,
     lat = <?php echo ($lat == null) ? 0 : $lat ?>,
     lng = <?php echo ($lng == null) ? 0 : $lng ?>;
@@ -366,6 +338,28 @@ include 'inc/footer.php';
   } else {
     user_location = [105.7691644, 10.0353821];
   }
+
+  var check_validation = false;
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('profile-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            check_validation = false;
+            event.preventDefault();
+            event.stopPropagation();
+          } else {
+            check_validation = true;
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
 </script>
 <script src="js/map-API.js"></script>
 <script src="js/customer.js"></script>

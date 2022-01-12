@@ -43,7 +43,7 @@ $('a#remove-cart').each(function(index, val) {
                                 checkPromotionCode(promoCode, 1);
                             }
 
-                            var message = "Xóa sản phẩm khỏi giỏ hàng thành công!";
+                            var message = "Đã xóa sản phẩm khỏi giỏ hàng!";
                             let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                             toast.change('Đã lưu và thay đổi...', 2000);
                             break;
@@ -218,7 +218,7 @@ $('.input-quantitys').each(function(index, val) {
                         if (disable_check_out == 1) {
                             location.reload();
                         }
-                        var message = "Cập nhật số lượng thành công!";
+                        var message = "Đã cập nhật số lượng sản phẩm!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                         toast.change('Đã lưu và thay đổi...', 2000);
                     }

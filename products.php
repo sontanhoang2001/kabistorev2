@@ -322,7 +322,7 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                                 }
                                                 ?>
                                                 <?php echo $fm->format_currency($result['price']) . " ₫" ?>
-                                            <div class="sell-out page-product">Đã bán <?php echo $result['product_soldout'] ?></div>
+                                            <div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
                                             </p>
                                         </div>
                                     </div>
@@ -397,7 +397,7 @@ include 'inc/footer.php';
             range: true,
             orientation: "horizontal",
             min: 0,
-            max: 200000,
+            max: 500000,
             values: [<?php echo $priceStart ?>, <?php echo $priceEnd ?>],
             step: 100,
 

@@ -26,7 +26,7 @@ $discount = session::set('discountMoney', 0);
 	<div class="heading cf">
 		<h1>Giỏ Hàng</h1>
 		<div class="pull-right">
-			<a href="san-pham-f0p1t0smem.html" class="btn btn-info text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+			<a href="san-pham-f0p1t0smem.html" class="btn btn-primary text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 		</div>
 	</div>
 	<div class="cart">

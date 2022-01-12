@@ -281,7 +281,7 @@ function register() {
 
 
 function updateProfile() {
-    var data_right = true;
+    var data_right = false;
     var gender = $('input:radio[name="gender"]:checked').val();
 
     $('input[name="fullName"]').keyup(function() {
@@ -343,26 +343,16 @@ function updateProfile() {
     });
 
     $('input[name="email"]').keyup(function() {
-        if ($(this).val() == "") {
-            $("#btnUpdateInfo").removeAttr("disabled");
-            data_right = false;
-            $("#error-email1").show();
-        } else {
-            $("#btnUpdateInfo").attr("disabled", "disabled");
-            data_right = true;
-            $("#error-email1").fadeOut();
-        }
-
         const regexPhoneNumber = /^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/;
         if ($(this).val().match(regexPhoneNumber)) {
             $("#btnUpdateInfo").removeAttr("disabled");
             data_right = true;
-            $("#error-email2").fadeOut();
+            $("#error-email1").fadeOut();
         } else {
             $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
             // phone sai cú pháp
-            $("#error-email2").show();
+            $("#error-email1").show();
         }
     });
 
@@ -371,7 +361,7 @@ function updateProfile() {
     })
 
 
-    $('#f_profile').submit(function(e) {
+    $("#f_profile").submit(function(e) {
         e.preventDefault();
         var formData = {
             fullName: $('input[name="fullName"]').val(),
@@ -384,7 +374,7 @@ function updateProfile() {
         }
 
         if (formData.maps_maplat != "" && formData.maps_maplng != "") {
-            if (data_right == true) {
+            if (data_right == true || check_validation == true) {
                 $.ajax({
                     type: "POST",
                     url: "~/../callbackPartial/updateProfile.php",
@@ -405,6 +395,7 @@ function updateProfile() {
                                 }
                             case 1:
                                 {
+                                    $("#labelFullName").text(formData.fullName);
                                     var message = "Bạn đã cập nhật thông tin thành công!";
                                     let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                                     toast.change('Đã lưu và thay đổi...', 3500);
@@ -439,6 +430,10 @@ function updateProfile() {
                         toast.change('Vui lòng thử lại...', 3500);
                     }
                 });
+            } else {
+                var message = "Thông tin vừa nhập chưa hoàn tất!";
+                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                toast.change('Vui lòng chỉnh sửa lại...', 2500);
             }
         } else {
             var message = "Bạn chưa chon vị trí giao hàng!";

@@ -311,6 +311,91 @@ img {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
+
+/* custom bs */
+
+:root {
+    --main-color: #f35836;
+    --main-color-hover: #d85234;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--main-color-hover);
+    border-color: var(--main-color-hover);
+}
+
+.btn-primary.focus,
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgb(255 106 0 / 50%);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+    background-color: #f35936cb;
+    border-color: #f35936cb;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+    background-color: #f35936cb;
+    border-color: #f35936cb;
+}
+
+.text-primary {
+    color: #f35836 !important;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #f35936cb !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.25);
+}
+
+
+/* input[type="radio"]:checked {
+    background-color: #f35936cb !important;
+} */
+
+input[type='radio']:hover {
+    cursor: pointer;
+}
+
+input[type='radio']:after {
+    width: 13px;
+    height: 13px;
+    border-radius: 15px;
+    top: 0px;
+    left: 0px;
+    position: relative;
+    background-color: #ffffff;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 1px solid rgba(0, 0, 0, 0.37);
+}
+
+input[type='radio']:checked:after {
+    content: '';
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px rgb(221, 105, 10);
+    appearance: none;
+    border-radius: 50%;
+    background-color: #f35836;
+    transition: all ease-in 0.2s;
+}
+
+
+/* custom bs */
+
 .link-product-result {
     width: 340px;
     height: 85%;
@@ -382,42 +467,49 @@ img {
     border-radius: 0;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
     font-size: 18px;
-    height: 40px;
     line-height: 40px;
     text-align: center;
+    height: 40px;
     width: 40px;
     right: 60px;
     bottom: 160px;
     cursor: pointer;
-    animation-name: openHelp;
-    animation-direction: 4s;
+    animation: openHelp1 3s 0s linear infinite;
 }
 
-@keyframes openHelp {
+@keyframes openHelp1 {
     0% {
-        background-color: red;
-        left: 0px;
-        top: 0px;
+        top: 700px;
     }
     25% {
-        background-color: yellow;
-        left: 200px;
-        top: 0px;
+        top: 650px;
     }
     50% {
-        background-color: blue;
-        left: 200px;
-        top: 200px;
+        top: 660px;
     }
     75% {
-        background-color: green;
-        left: 0px;
-        top: 200px;
+        top: 670px;
     }
     100% {
-        background-color: red;
-        left: 0px;
-        top: 0px;
+        top: 700px;
+    }
+}
+
+@keyframes openHelp2 {
+    0% {
+        bottom: 128px;
+    }
+    25% {
+        bottom: 135px;
+    }
+    50% {
+        bottom: 155px;
+    }
+    75% {
+        bottom: 145px;
+    }
+    100% {
+        bottom: 128px;
     }
 }
 
@@ -438,7 +530,7 @@ img {
 
 .goChatFacebook {
     border-radius: 0;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
     font-size: 18px;
     height: 40px;
     line-height: 40px;
@@ -452,9 +544,9 @@ img {
 }
 
 #goBack {
-    background-color: #f35836;
+    background-color: var(--main-color);
     border-radius: 0;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
     color: #ffffff;
     font-size: 18px;
     height: 40px;
@@ -469,10 +561,10 @@ img {
 }
 
 #scrollUp {
-    background-color: #f35836;
+    background-color: var(--main-color);
     border-radius: 0;
     bottom: 60px;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
     color: #ffffff;
     font-size: 24px;
     height: 40px;
@@ -491,6 +583,7 @@ img {
     #openHelp {
         bottom: 130px;
         right: -6px;
+        animation: openHelp2 2s 0s linear infinite;
     }
     .goChatFacebookIndex {
         bottom: 80px;
@@ -548,11 +641,12 @@ img {
 
 /* Essence Button */
 
-.essence-btn:hover,
+
+/* .essence-btn:hover,
 .essence-btn:focus {
     color: #ffffff;
     background-color: #ff008b
-}
+} */
 
 .essence-btn {
     display: inline-block;
@@ -565,10 +659,13 @@ img {
     text-transform: uppercase;
     font-size: 12px;
     line-height: 50px;
-    background-color: #03a9f4;
     letter-spacing: 1.5px;
     font-weight: 600;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .wishlist-btn {
@@ -716,7 +813,7 @@ img {
 .header_area .search-area form input {
     border: none;
     background-color: #ffffff;
-    width: 200px;
+    width: 215px;
     height: 85px;
     padding: 0 15px 0 60px;
     color: #787878;
@@ -2738,7 +2835,7 @@ span.current {
 
 .owl-dot.active,
 .owl-dot:hover {
-    background: #a2caed !important;
+    background: #f3583699 !important;
 }
 
 
@@ -2751,7 +2848,7 @@ span.current {
     padding-top: 17px;
 } */
 
-.a:hover {
+a:hover {
     color: #f35836;
     text-decoration: none;
 }
@@ -3279,8 +3376,8 @@ div#wrapper_product {
     .single-product-wrapper .product-img {
         height: 280px;
     }
-    .owl-carousel .owl-item img {
-        height: 280px;
+    .owl-carousel .owl-item img#imgProductHot.lazy {
+        height: 280px !important;
     }
     .owl-carousel .owl-item img#img-category {
         height: 182px;
@@ -4075,7 +4172,7 @@ span.qty {
 }
 
 .card-input-element:checked+.card-input {
-    box-shadow: 0 0 1px 1px #2ecc71;
+    box-shadow: 0 0 1px 1px var(--main-color);
 }
 
 .card-input img {

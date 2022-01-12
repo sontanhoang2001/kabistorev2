@@ -53,7 +53,7 @@ if ($login_check == false) {
 	<div class="heading cf" style="border-bottom: none">
 		<h1>Theo dõi đơn hàng</h1>
 		<div class="pull-right">
-			<a href="san-pham-f0p1t0smem.html" class="btn btn-info text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+			<a href="san-pham-f0p1t0smem.html" class="btn btn-primary text"><small>Tiếp Tục Mua Sắm </small> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 		</div>
 	</div>
 	<div class="cart">
@@ -185,10 +185,19 @@ if ($login_check == false) {
 				</ul>
 		<?php
 			}
+		} else {
+			echo '
+ 			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<p>Bạn chưa từng mua sản phẩm nào! Hãy quay lại trang này khi bạn đã đặt hàng thành công.</p>
+					</div>
+				</div>
+	 		</div>';
 		}
 		?>
 	</div>
-	
+
 	<!-- Pagination -->
 	<?php
 	if ($product_count >= $product_num) {
@@ -285,7 +294,7 @@ include 'inc/footer.php';
 <script type="text/javascript">
 	$(function() {
 		window.pagObj = $('#pagination').twbsPagination({
-            totalPages: "<?php echo $product_button ?>",
+			totalPages: "<?php echo $product_button ?>",
 			visiblePages: 4,
 			startPage: <?php echo $page_now ?>,
 			onPageClick: function(event, page) {

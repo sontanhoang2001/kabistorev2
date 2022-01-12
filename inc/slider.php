@@ -1,6 +1,6 @@
 <!-- Link Swiper's CSS -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-<link rel="stylesheet" href="../css/swiper.css">
+<link rel="stylesheet" href="../css/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="../css/swiper/swiper.css">
 
 <!-- Demo styles -->
 
@@ -17,7 +17,7 @@
         $sliderLink = $result['sliderLink'];
     ?>
         <div class="swiper-slide">
-          <img class="img-fluid" src="upload/slider/<?php echo $slider_image ?>" width="1366" height="768" alt="Second slide">
+          <img class="img-fluid" src="upload/slider/<?php echo $slider_image ?>" width="1366" height="768" alt="Second slide" loading="lazy">
           <div class="carousel-caption text-left">
             <h2 class="display-4 sm-display-4 font-weight-bold"><?php echo $sliderTitle ?></h2>
             <p class="lead font-weight-bold"><?php echo $sliderContent ?></p>
@@ -44,7 +44,7 @@
 </div>
 
 <!-- Swiper JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="../js/swiper/swiper-bundle.min.js"></script>
 
 <!-- Initialize Swiper -->
 <script>

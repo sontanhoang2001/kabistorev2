@@ -109,7 +109,7 @@ class cart
 	{
 		$customerId = $this->fm->validation($customerId);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customerId);
-		$query = "SELECT tbl_product.productName, tbl_product.product_code, tbl_product.product_remain, tbl_product.image, tbl_product.price, tbl_cart.cartId, tbl_cart.customerId, tbl_cart.productId, tbl_cart.productSize, tbl_cart.quantity
+		$query = "SELECT tbl_product.productName, tbl_product.product_code, tbl_product.product_remain, tbl_product.brandId ,tbl_product.image, tbl_product.price, tbl_cart.cartId, tbl_cart.customerId, tbl_cart.productId, tbl_cart.productSize, tbl_cart.quantity
 		FROM tbl_cart
 		inner join tbl_product on tbl_cart.productId = tbl_product.productId
 		WHERE tbl_cart.customerId = '$customer_id'

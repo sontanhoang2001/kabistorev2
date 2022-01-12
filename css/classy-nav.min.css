@@ -1,8 +1,11 @@
-*, ol, ul {
+*,
+ol,
+ul {
     margin: 0
 }
 
-.classynav ul li.megamenu-item>a:after, .icon-down-arrow:before {
+.classynav ul li.megamenu-item>a:after,
+.icon-down-arrow:before {
     content: "\e900"
 }
 
@@ -15,7 +18,8 @@ body {
     overflow-x: hidden
 }
 
-ol li, ul li {
+ol li,
+ul li {
     list-style: none
 }
 
@@ -59,17 +63,20 @@ img {
     display: inline-block
 }
 
-.classy-nav-container a:focus, .classy-nav-container a:hover {
+.classy-nav-container a:focus,
+.classy-nav-container a:hover {
     -webkit-transition-duration: .5s;
     transition-duration: .5s;
     text-decoration: none;
     outline: 0;
     font-size: 14px;
     font-weight: 400;
-    color: #1abc9c
+    color: #f35836
 }
 
-.classy-navbar .nav-brand, .classy-navbar .nav-brand:focus, .classy-navbar .nav-brand:hover {
+.classy-navbar .nav-brand,
+.classy-navbar .nav-brand:focus,
+.classy-navbar .nav-brand:hover {
     font-size: 26px;
     font-weight: 500
 }
@@ -122,7 +129,9 @@ img {
     margin-right: -100px
 }
 
+
 /* =============Begin Logo==nav-brand-image1================ */
+
 
 /* Extra small devices (phones, 600px and down) */
 
@@ -133,6 +142,7 @@ img {
     }
 }
 
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 
 @media only screen and (min-width: 600px) {
@@ -141,6 +151,7 @@ img {
         max-width: 32%;
     }
 }
+
 
 /* Medium devices (landscape tablets, 768px and up) */
 
@@ -151,6 +162,7 @@ img {
     }
 }
 
+
 /* Large devices (laptops/desktops, 992px and up) */
 
 @media only screen and (min-width: 992px) {
@@ -160,6 +172,7 @@ img {
     }
 }
 
+
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 
 @media only screen and (min-width: 1200px) {
@@ -168,6 +181,7 @@ img {
         max-width: 50%;
     }
 }
+
 
 /* =============End Logo==nav-brand-image1================ */
 
@@ -183,7 +197,8 @@ img {
     z-index: 10
 }
 
-.classynav ul li.cn-dropdown-item, .classynav ul li.cn-dropdown-item ul li {
+.classynav ul li.cn-dropdown-item,
+.classynav ul li.cn-dropdown-item ul li {
     position: relative;
     z-index: 10
 }
@@ -216,7 +231,8 @@ img {
     font-style: normal
 }
 
-[class*=" icon-"], [class^=icon-] {
+[class*=" icon-"],
+[class^=icon-] {
     font-family: icomoon!important;
     speak: none;
     font-style: normal;
@@ -433,7 +449,8 @@ img {
     border-bottom: none
 }
 
-.classynav>ul>li.cn-dropdown-item.has-down>.dd-arrow, .classynav>ul>li.megamenu-item>.dd-arrow {
+.classynav>ul>li.cn-dropdown-item.has-down>.dd-arrow,
+.classynav>ul>li.megamenu-item>.dd-arrow {
     top: 17px;
     -webkit-transform: rotate(0);
     transform: rotate(0);
@@ -441,7 +458,8 @@ img {
     right: 15px
 }
 
-.has-down .dd-arrow, .megamenu-item .dd-arrow {
+.has-down .dd-arrow,
+.megamenu-item .dd-arrow {
     top: 17px;
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
@@ -449,7 +467,11 @@ img {
     right: 20px
 }
 
-.classynav>ul>li.has-down.active>.dd-arrow::after, .has-down .dd-arrow::after, .has-down.active>.dd-arrow::after, .megamenu-item .dd-arrow::after, .megamenu-item.active>.dd-arrow::after {
+.classynav>ul>li.has-down.active>.dd-arrow::after,
+.has-down .dd-arrow::after,
+.has-down.active>.dd-arrow::after,
+.megamenu-item .dd-arrow::after,
+.megamenu-item.active>.dd-arrow::after {
     width: 8px;
     height: 1px;
     background-color: #000;
@@ -460,7 +482,8 @@ img {
     top: 0
 }
 
-.has-down .dd-arrow::before, .megamenu-item .dd-arrow::before {
+.has-down .dd-arrow::before,
+.megamenu-item .dd-arrow::before {
     width: 8px;
     height: 1px;
     background-color: #000;
@@ -473,7 +496,8 @@ img {
     border-radius: 1px
 }
 
-.has-down .dd-arrow::after, .megamenu-item .dd-arrow::after {
+.has-down .dd-arrow::after,
+.megamenu-item .dd-arrow::after {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg)
 }
@@ -496,7 +520,8 @@ img {
     transform: rotate(-45deg)
 }
 
-.has-down.active>.dd-arrow::before, .megamenu-item.active>.dd-arrow::before {
+.has-down.active>.dd-arrow::before,
+.megamenu-item.active>.dd-arrow::before {
     width: 8px;
     height: 1px;
     background-color: #000;
@@ -509,7 +534,8 @@ img {
     border-radius: 1px
 }
 
-.has-down.active>.dd-arrow::after, .megamenu-item.active>.dd-arrow::after {
+.has-down.active>.dd-arrow::after,
+.megamenu-item.active>.dd-arrow::after {
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg)
 }
@@ -528,7 +554,8 @@ img {
     text-align: center
 }
 
-.classy-btn:focus, .classy-btn:hover {
+.classy-btn:focus,
+.classy-btn:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, .2)
 }
 
@@ -580,7 +607,14 @@ img {
     visibility: hidden
 }
 
-.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown {
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown {
     opacity: 0;
     visibility: hidden;
     top: 120%
@@ -592,7 +626,15 @@ img {
     top: 100%
 }
 
-.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li:hover .dropdown, .breakpoint-off .classynav ul li .dropdown li .dropdown li:hover .dropdown, .breakpoint-off .classynav ul li .dropdown li:hover .dropdown {
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li:hover .dropdown,
+.breakpoint-off .classynav ul li .dropdown li:hover .dropdown {
     opacity: 1;
     visibility: visible;
     top: -10px
@@ -612,7 +654,8 @@ img {
     transition-duration: .3s
 }
 
-.breakpoint-off .classynav ul li.megamenu-item:focus .megamenu, .breakpoint-off .classynav ul li.megamenu-item:hover .megamenu {
+.breakpoint-off .classynav ul li.megamenu-item:focus .megamenu,
+.breakpoint-off .classynav ul li.megamenu-item:hover .megamenu {
     top: 100%;
     visibility: visible;
     opacity: 1
@@ -623,7 +666,8 @@ img {
 }
 
 @media only screen and (max-width:991px) {
-    .classy-navbar-toggler, .classycloseIcon {
+    .classy-navbar-toggler,
+    .classycloseIcon {
         display: block
     }
     .classy-navbar .classy-menu {
@@ -642,7 +686,8 @@ img {
         overflow-x: hidden;
         overflow-y: scroll
     }
-    .classynav ul li, .classynav ul li.megamenu-item {
+    .classynav ul li,
+    .classynav ul li.megamenu-item {
         position: relative;
         z-index: 10
     }
@@ -684,7 +729,9 @@ img {
         z-index: 500;
         display: block
     }
-    .classynav ul li .dropdown, .classynav ul li .megamenu, .classynav ul li.megamenu-item>a:after {
+    .classynav ul li .dropdown,
+    .classynav ul li .megamenu,
+    .classynav ul li.megamenu-item>a:after {
         display: none
     }
     .classynav {
@@ -698,19 +745,23 @@ img {
         z-index: 200;
         box-shadow: none
     }
-    .classynav ul li .megamenu .single-mega.cn-col-3, .classynav ul li .megamenu .single-mega.cn-col-4, .classynav ul li .megamenu .single-mega.cn-col-5 {
+    .classynav ul li .megamenu .single-mega.cn-col-3,
+    .classynav ul li .megamenu .single-mega.cn-col-4,
+    .classynav ul li .megamenu .single-mega.cn-col-5 {
         width: 100%;
         border-right: none;
         border-bottom: 1px solid #f2f4f8
     }
-    .cn-dropdown-item.has-down.pr12, .megamenu-item.pr12 {
+    .cn-dropdown-item.has-down.pr12,
+    .megamenu-item.pr12 {
         padding-right: 0!important
     }
     .classynav>ul>li>a {
         background-color: #f2f4f8;
         border-bottom: 1px solid rgba(255, 255, 255, .5)
     }
-    .classynav>ul>li.cn-dropdown-item.has-down>.dd-arrow, .classynav>ul>li.megamenu-item>.dd-arrow {
+    .classynav>ul>li.cn-dropdown-item.has-down>.dd-arrow,
+    .classynav>ul>li.megamenu-item>.dd-arrow {
         right: 20px
     }
     .classynav ul li ul.dropdown li ul li {
@@ -722,7 +773,8 @@ img {
     }
 }
 
-.breakpoint-on .classy-navbar-toggler, .breakpoint-on .classycloseIcon {
+.breakpoint-on .classy-navbar-toggler,
+.breakpoint-on .classycloseIcon {
     display: block
 }
 
@@ -807,7 +859,9 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     display: block
 }
 
-.breakpoint-on .classynav ul li .dropdown, .breakpoint-on .classynav ul li .megamenu, .breakpoint-on .classynav ul li.megamenu-item>a:after {
+.breakpoint-on .classynav ul li .dropdown,
+.breakpoint-on .classynav ul li .megamenu,
+.breakpoint-on .classynav ul li.megamenu-item>a:after {
     display: none
 }
 
@@ -824,13 +878,16 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     box-shadow: none
 }
 
-.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-3, .breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-4, .breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-5 {
+.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-3,
+.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-4,
+.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-5 {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid #f2f4f8
 }
 
-.breakpoint-on .cn-dropdown-item.has-down.pr12, .breakpoint-on .megamenu-item.pr12 {
+.breakpoint-on .cn-dropdown-item.has-down.pr12,
+.breakpoint-on .megamenu-item.pr12 {
     padding-right: 0!important
 }
 
@@ -839,11 +896,13 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     border-bottom: 1px solid rgba(255, 255, 255, .5)
 }
 
-.dark .classynav ul li .dropdown, .dark.classy-nav-container {
+.dark .classynav ul li .dropdown,
+.dark.classy-nav-container {
     background-color: #192a56
 }
 
-.breakpoint-on .classynav>ul>li.cn-dropdown-item.has-down>.dd-arrow, .breakpoint-on .classynav>ul>li.megamenu-item>.dd-arrow {
+.breakpoint-on .classynav>ul>li.cn-dropdown-item.has-down>.dd-arrow,
+.breakpoint-on .classynav>ul>li.megamenu-item>.dd-arrow {
     right: 20px
 }
 
@@ -860,11 +919,22 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     color: rgba(255, 255, 255, .7)
 }
 
-.dark .classynav ul li.megamenu-item>a:after, .dark.classy-nav-container a:focus, .dark.classy-nav-container a:hover {
+.dark .classynav ul li.megamenu-item>a:after,
+.dark.classy-nav-container a:focus,
+.dark.classy-nav-container a:hover {
     color: #fff
 }
 
-.dark .classynav>ul>li.has-down.active>.dd-arrow::after, .dark .classynav>ul>li.has-down.active>.dd-arrow::before, .dark .has-down .dd-arrow::after, .dark .has-down .dd-arrow::before, .dark .has-down.active>.dd-arrow::after, .dark .has-down.active>.dd-arrow::before, .dark .megamenu-item .dd-arrow::after, .dark .megamenu-item .dd-arrow::before, .dark .megamenu-item.active>.dd-arrow::after, .dark .megamenu-item.active>.dd-arrow::before {
+.dark .classynav>ul>li.has-down.active>.dd-arrow::after,
+.dark .classynav>ul>li.has-down.active>.dd-arrow::before,
+.dark .has-down .dd-arrow::after,
+.dark .has-down .dd-arrow::before,
+.dark .has-down.active>.dd-arrow::after,
+.dark .has-down.active>.dd-arrow::before,
+.dark .megamenu-item .dd-arrow::after,
+.dark .megamenu-item .dd-arrow::before,
+.dark .megamenu-item.active>.dd-arrow::after,
+.dark .megamenu-item.active>.dd-arrow::before {
     background-color: #fff
 }
 
@@ -872,7 +942,9 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     background-color: #192a56
 }
 
-.dark .classynav ul li .megamenu .single-mega.cn-col-3, .dark .classynav ul li .megamenu .single-mega.cn-col-4, .dark .classynav ul li .megamenu .single-mega.cn-col-5 {
+.dark .classynav ul li .megamenu .single-mega.cn-col-3,
+.dark .classynav ul li .megamenu .single-mega.cn-col-4,
+.dark .classynav ul li .megamenu .single-mega.cn-col-5 {
     border-right: 1px solid rgba(255, 255, 255, .05)
 }
 
@@ -902,7 +974,9 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     border-bottom: 1px solid rgba(255, 255, 255, .05)
 }
 
-.dark.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-3, .dark.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-4, .dark.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-5 {
+.dark.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-3,
+.dark.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-4,
+.dark.breakpoint-on .classynav ul li .megamenu .single-mega.cn-col-5 {
     border-bottom: 1px solid rgba(255, 255, 255, .05);
     border-right: none
 }
@@ -976,12 +1050,14 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     right: -310px
 }
 
-.dropdown-rtl.breakpoint-off .classynav ul li .dropdown, .right.breakpoint-on .classy-navbar .classy-menu.menu-on {
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown,
+.right.breakpoint-on .classy-navbar .classy-menu.menu-on {
     left: auto;
     right: 0
 }
 
-.dropdown-rtl .classynav ul li .megamenu .single-mega .title, .dropdown-rtl .classynav ul li a {
+.dropdown-rtl .classynav ul li .megamenu .single-mega .title,
+.dropdown-rtl .classynav ul li a {
     text-align: right
 }
 
@@ -997,7 +1073,15 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     transform: rotate(90deg)
 }
 
-.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown {
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown {
     right: 180px;
     left: auto;
     opacity: 0;
@@ -1011,7 +1095,15 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     top: 90%
 }
 
-.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li:hover .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li:hover .dropdown, .dropdown-rtl.breakpoint-off .classynav ul li .dropdown li:hover .dropdown {
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li:hover .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li .dropdown li:hover .dropdown,
+.dropdown-rtl.breakpoint-off .classynav ul li .dropdown li:hover .dropdown {
     opacity: 1;
     visibility: visible;
     top: 0
@@ -1033,6 +1125,7 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
     margin-left: 0;
     margin-right: 15px
 }
+
 
 /* filter-pannel */
 
@@ -1097,5 +1190,6 @@ img.avatar.img-thumbnail.border-1.avatar-nav {
         padding: 6px;
     }
 }
+
 
 /* filter-pannel */

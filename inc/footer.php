@@ -96,7 +96,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
                 <p>
                     Bản quyền &copy;<script>
                         document.write(new Date().getFullYear());
-                    </script> Tất cả các quyền | sở hữu thuộc về <a style="color: #007bff;" href="#" target="_blank">Kabi Store</a>
+                    </script> Tất cả các quyền | sở hữu thuộc về <a style="color: #f35836;" href="#" target="_blank">Kabi Store</a>
                 </p>
             </div>
         </div>

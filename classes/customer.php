@@ -488,23 +488,39 @@ class customer
 		$maps_maplat = mysqli_real_escape_string($this->db->link, $data['maps_maplat']);
 		$maps_maplng = mysqli_real_escape_string($this->db->link, $data['maps_maplng']);
 
-		if ($fullName == "" || $gender == "" || $date_of_birth == "" || $phone == "" || $email == "" || $maps_maplat == "" || $maps_maplng == "") {
+		if ($fullName == "" || $gender == "" || $date_of_birth == "" || $phone == "" || $maps_maplat == "" || $maps_maplng == "") {
 			return  json_encode($result_json[] = ['status' => 2]);
 		} else {
-			$patternPhone = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
-			$parttenEmail = "/^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
-			if (!preg_match($patternPhone, $phone)) {
-				return  json_encode($result_json[] = ['status' => 3]);
-			} elseif (!preg_match($parttenEmail, $email)) {
-				return  json_encode($result_json[] = ['status' => 4]);
-			} else {
-				$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
-				$result = $this->db->insert($query);
-
-				if ($result) {
-					return  json_encode($result_json[] = ['status' => 1]);
+			if ($email != "") {
+				$patternPhone = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
+				$parttenEmail = "/^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
+				if (!preg_match($patternPhone, $phone)) {
+					return  json_encode($result_json[] = ['status' => 3]);
+				} elseif (!preg_match($parttenEmail, $email)) {
+					return  json_encode($result_json[] = ['status' => 4]);
 				} else {
-					return  json_encode($result_json[] = ['status' => 0]);
+					$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
+					$result = $this->db->insert($query);
+
+					if ($result) {
+						return  json_encode($result_json[] = ['status' => 1]);
+					} else {
+						return  json_encode($result_json[] = ['status' => 0]);
+					}
+				}
+			} else {
+				$patternPhone = '/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/';
+				if (!preg_match($patternPhone, $phone)) {
+					return  json_encode($result_json[] = ['status' => 3]);
+				} else {
+					$query = "UPDATE tbl_customer SET name='$fullName',gender='$gender',date_of_birth= '$date_of_birth',phone='$phone',email='$email',maps_maplat='$maps_maplat', maps_maplng='$maps_maplng' WHERE id ='$id'";
+					$result = $this->db->insert($query);
+
+					if ($result) {
+						return  json_encode($result_json[] = ['status' => 1]);
+					} else {
+						return  json_encode($result_json[] = ['status' => 0]);
+					}
 				}
 			}
 		}

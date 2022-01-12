@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												<?php
 												}
 												?>
-                                                <li><a data-tip="Chi tiết" class="add-btn-product" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+												<li><a data-tip="Chi tiết" class="add-btn-product" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
 											</ul>
 											<!-- Product Badge -->
 
@@ -257,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												}
 												?>
 												<?php echo $fm->format_currency($result['price']) . " ₫" ?>
-											<div class="sell-out page-product">Đã bán <?php echo $result['product_soldout'] ?></div>
+											<div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
 											</p>
 										</div>
 									</div>

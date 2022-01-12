@@ -22,9 +22,9 @@ $(".add_to_wishlist").click(function(event) {
                 case 1:
                     {
                         $(class_localtion).toggleClass("fa-heart fa-heart-o");
-                        var message = "Thêm yêu thích thành công!";
+                        var message = "Thêm vào yêu thích!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        toast.change('Đã thêm lưu vào yêu thích!', 2000);
+                        toast.change('Đã lưu vào yêu thích.', 2000);
                         break;
                     }
                 case 2:
@@ -37,9 +37,9 @@ $(".add_to_wishlist").click(function(event) {
                 case 3:
                     {
                         $(class_localtion).toggleClass("fa-heart fa-heart-o");
-                        var message = "Xóa yêu thích thành công!";
+                        var message = "Đã xóa khỏi yêu thích!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        toast.change('Đã xóa khỏi yêu thích...', 3500);
+                        toast.change('Đã xóa sản phẩm khỏi yêu thích...', 3500);
                         break;
                     }
                 case 4:
@@ -189,9 +189,9 @@ $(".add_to_cart").click(function(event) {
                 case 1:
                     {
                         $(".number_cart").html(Value);
-                        var message = "Thêm vào giỏ hàng thành công!";
+                        var message = "Đã thêm vào giỏ hàng!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                        toast.change('Đã lưu vào giỏ hàng!', 2000);
+                        toast.change('Đã lưu vào giỏ hàng của bạn', 2000);
                         break;
                     }
                 case 2:
@@ -300,11 +300,11 @@ $("#cartSubmit").submit(function(e) {
 
 // input qty details
 $('.input-quantity').focus(function() {
-    $('.essence-btn').css("background-color", "#9e9e9e");
+    $('button#add-to-cart').attr("disabled", "disabled");
 });
 
 $('.input-quantity').blur(function() {
-    $('.essence-btn').css("background-color", "#03a9f4");
+    $('button#add-to-cart').removeAttr("disabled");
 });
 
 // validate quantity product details

@@ -76,13 +76,17 @@ map.on('load', function() {
 // Get the geocoder results container.
 // var results = document.getElementById('result');
 
+// vị trí đơn hàng đã đặt
+brandLocaltion = JSON.parse(JSON.stringify(brandLocaltion));
+
 function setPriceShip(locationCode) {
     $.ajax({
         type: "POST",
         url: "~/../callbackPartial/priceShip.php",
         data: {
             'locationCode': locationCode,
-            'quantityTotal': quantityTotal
+            'quantityTotal': quantityTotal,
+            'brandLocaltion': brandLocaltion
         },
         success: function(data) {
             var res = JSON.parse(data);
@@ -90,7 +94,6 @@ function setPriceShip(locationCode) {
                 grandTotal = res.grandTotal;
             $("#price-ship").text("+ " + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceShip));
             $("#grandTotal").text(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(grandTotal));
-
         },
         error: function(data) {
             console.log(data);

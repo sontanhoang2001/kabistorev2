@@ -6,9 +6,9 @@ include 'config/global.php';
 
 <!-- All css index -->
 <!-- <link rel="stylesheet" href="css/index.css"> -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<script src="js/jquery/jquery-3.5.1.js"></script>
+<script src="js/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<link rel="stylesheet" href="css/owl.carousel.min.css">
 
 <!-- <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false"> -->
 
@@ -42,7 +42,7 @@ include 'config/global.php';
                                 <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img src="<?php echo $product_img ?>" loading="lazy">
+                                        <img id="imgProductHot" src="<?php echo $product_img ?>" class="lazy">
                                         <ul class="card-button-shop">
                                             <li>
                                                 <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
@@ -113,7 +113,7 @@ include 'config/global.php';
                                             }
                                             ?>
                                             <?php echo $fm->format_currency($result['price']) . " ₫" ?>
-                                        <div class="sell-out">Đã bán <?php echo $result['product_soldout'] ?></div>
+                                        <div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
                                         </p>
                                     </div>
                                 </div>
@@ -143,7 +143,7 @@ include 'config/global.php';
                                 <!-- Product Image -->
                                 <div class="product-img relatedProducts bg-white rounded shadow-sm">
                                     <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html">
-                                        <img id="img-category" src="<?php echo $product_img ?>" loading="lazy">
+                                        <img id="img-category" src="<?php echo $product_img ?>" class="lazy">
                                         <h5 class="categories_name" id="categoryNameWrapper"><?php echo $catName; ?></h5>
                                     </a>
                                     <!-- Product Badge -->
@@ -300,7 +300,7 @@ include 'config/global.php';
                                                 }
                                                 ?>
                                                 <?php echo $fm->format_currency($result['price']) . " " . "₫" ?>
-                                            <div class="sell-out">Đã bán <?php echo $result['product_soldout'] ?></div>
+                                            <div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
                                             </p>
                                         </div>
                                     </div>
@@ -375,7 +375,7 @@ include 'config/global.php';
 <!-- js -->
 <script src="js/carousel.js"></script>
 <?php include 'inc/footer.php' ?>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="js/jquery/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="js/flyto.js"></script>
 <script>
     // var productId;

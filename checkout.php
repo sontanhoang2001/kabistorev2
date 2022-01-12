@@ -50,11 +50,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 } else {
                                     $phone = "Chưa nhập số điện thoại";
                                 }
-                                if ($avatar != null) {
-                                    $avatar =  session::get('avatar');
-                                } else {
-                                    $avatar =  "upload/default-user-image.jpg";
-                                }
                         ?>
                                 <div class="col-md-12 pt-4">
                                     <div class="row">
@@ -130,7 +125,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                             <div class="row">
                                 <div class="col-md-12 mt-3">
                                     <button type="button" name="localtion" id="saveLocaltion" onclick="getLocation();" class="btn btn-danger btn-lock"><i class="fa fa-map-marker" aria-hidden="true"></i> Vị trí hiện tại</button>
-                                    <button type="button" onclick="add_markers_to_geolocate_save_control(<?php echo $lng ?>, <?php echo $lat ?>);" class="btn btn-info btn-lock"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Vị trí đã lưu</button>
+                                    <button type="button" onclick="add_markers_to_geolocate_save_control(<?php echo $lng ?>, <?php echo $lat ?>);" class="btn btn-dark btn-lock"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Vị trí đã lưu</button>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +144,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 $customer_id = Session::get('customer_id');
                 $get_product_cart = $ct->get_product_cart($customer_id);
                 $num_rows = mysqli_num_rows($get_product_cart);
-                session::set("numberOfOrders", $num_rows);
+                // session::set("numberOfOrders", $num_rows);
                 ?>
                 <div class="col-md-5 col-responsive">
                     <div class="right-panel border bg-light shadow">
@@ -162,13 +157,13 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         if ($get_product_cart) {
                             while ($result = $get_product_cart->fetch_assoc()) {
                                 $cartId = $result['cartId'];
+                                $brandId = $result['brandId'];
                                 $productName = $result['productName'];
                                 $price = $result['price'];
                                 $quantity = $result['quantity'];
                                 $productSize = $result['productSize'];
                                 $product_img =  json_decode($result['image']);
                                 $product_img = $product_img[0]->image;
-
                         ?>
                                 <div class="row item mb-3" id="<?php echo "c" . $cartId ?>">
                                     <div class="col-4 align-self-center0">
@@ -225,8 +220,11 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 $_SESSION['cart_payment'][] = $cart;
                                 // $ship = $ship + $quantity * $price_ship;
                                 $subtotal += $total;
+                                $brandLocaltion[] = $brandId;
                             }
                         }
+                        $brandLocaltion = array_unique($brandLocaltion);
+                        $brandLocaltion_array = array();
                         Session::set('quantityTotal', $quantityTotal);
                         // $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
                         $discount = 0;
@@ -255,7 +253,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 </label>
                             </div>
                             <div class="clearfix"></div>
-                            <p class="text-payment-methods"> Phương thức thanh toán bằng tiền mặt</p>
+                            <p class="text-payment-methods">Thanh toán khi nhận hàng</p>
                         </div>
                         <hr>
                         <div class="form-group">
@@ -346,6 +344,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
 <a id="openHelp" data-toggle="modal" data-target="#gpsModal"><i class="fa fa-question-circle" aria-hidden="true" style="margin-top: 10px;"></i></a>
 
 <script src="js/audio-message.js"></script>
+
 <?php
 include 'inc/footer.php';
 ?>
@@ -369,10 +368,11 @@ include 'inc/footer.php';
         user_location = [105.7691644, 10.0353821];
     }
 
-    var phone = <?php echo ($Phone == null) ? 0 : 1; ?>
+    var phone = <?php echo ($Phone == null) ? 0 : 1; ?>;
 
     //quantityTotal
-    var quantityTotal = <?php echo $quantityTotal ?>
+    var quantityTotal = <?php echo $quantityTotal ?>;
+    var brandLocaltion = <?php echo json_encode($brandLocaltion) ?>;
 </script>
 
 <script src="js/map-API.js"></script>

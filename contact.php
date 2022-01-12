@@ -30,31 +30,35 @@ Session::set('REQUEST_URI', getRequestUrls()); // lưu vị trí đường dẫn
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="label" for="name">Họ và tên</label>
-												<input type="text" class="form-control" name="name" placeholder="Nhập tên..." require>
+												<input type="text" class="form-control" name="name" placeholder="Nguyen Van A" require>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="label" for="email">Số điện thoại</label>
-												<input type="number" class="form-control" name="phone" placeholder="Nhấp số đt...">
+												<input type="number" class="form-control" name="phone" placeholder="0932854821">
+												<div class="error mb-2" id="error-phone1">Bạn chưa nhập số điện thoại!</div>
+												<div class="error mb-2" id="error-phone2">Số điện thoại nhập chưa đúng!</div>
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
-												<label class="label" for="email">Đại chỉ Email</label>
-												<input type="email" class="form-control" name="email" placeholder="...@gmail.com" require>
+												<label class="label" for="email">Địa chỉ Email</label>
+												<input type="email" class="form-control" name="email" placeholder="kabistore@gmail.com" require>
+												<div class="error mb-2" id="error-email1">Bạn chưa nhập email!</div>
+												<div class="error mb-2" id="error-email2">Email bạn vừa nhập sai cú pháp!</div>
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
 												<label class="label" for="subject">Tên yêu cầu</label>
-												<input type="text" class="form-control" name="title" placeholder="Chủ đề..." require>
+												<input type="text" class="form-control" name="title" placeholder="Cần nhập sỉ" require>
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
 												<label class="label" for="#">Nội dung yêu cầu</label>
-												<textarea class="form-control" id="message" name="message" cols="30" rows="4" placeholder="Nội dung..."></textarea>
+												<textarea class="form-control" id="message" name="message" cols="30" rows="4" placeholder="Tôi muốn sỉ số lượng lớn..."></textarea>
 											</div>
 										</div>
 										<input type="hidden" class="form-control" name="timestamp" require value="=now()">

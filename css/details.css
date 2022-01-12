@@ -1,7 +1,8 @@
-button#buttonIncrement, button#buttonDecrement {
+button#buttonIncrement,
+button#buttonDecrement {
     color: #fff;
     border-color: transparent;
-    background-color: #0398ff;
+    background-color: #ff6847;
     border: none;
     outline: none;
     padding: 0 10px;
@@ -21,31 +22,14 @@ button#buttonIncrement, button#buttonDecrement {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.input-quantity:hover, .input-quantity:focus {
-    background: #ff008b;
-    color: #fff;
-}
-
 button#buttonIncrement:hover {
-    background: #ff008b;
+    background: #f35836;
     color: #fff;
 }
 
 button#buttonDecrement:hover {
-    background: #ff008b;
+    background: #f35836;
     color: #fff;
-}
-
-.essence-btn:hover, .essence-btn:focus {
-    color: #ffffff;
-    background-color: #ff008b;
-}
-
-.btn-add {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 
 .single_product_details_area .single_product_desc .cart-fav-box .favme {
@@ -54,9 +38,11 @@ button#buttonDecrement:hover {
     font-size: 24px;
 }
 
-.fa-cart-plus:before {
+
+/* .fa-cart-plus:before {
     font-size: 25px;
-}
+} */
+
 
 /* Sroll bar */
 
@@ -66,6 +52,7 @@ button#buttonDecrement:hover {
     width: 100%;
     overflow: scroll;
 }
+
 
 /* Scrollbar styles */
 
@@ -86,6 +73,7 @@ button#buttonDecrement:hover {
     background-color: none;
 }
 
+
 /* START HEART EFFECT */
 
 .heart {
@@ -100,7 +88,8 @@ button#buttonDecrement:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
 }
 
-.heart:hover, .heart.is-active:hover {
+.heart:hover,
+.heart.is-active:hover {
     box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
 }
 
@@ -122,5 +111,6 @@ button#buttonDecrement:hover {
 .nice-number button {
     display: block !important;
 }
+
 
 /* END HEART EFFECT */

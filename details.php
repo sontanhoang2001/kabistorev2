@@ -108,7 +108,7 @@ include 'inc/facebookPlugin.php';
 						<!-- Cart & Favourite Box -->
 						<div class="cart-fav-box d-flex align-items-center mb-2">
 							<!-- Cart -->
-							<button type="submit" class="fa fa-cart-plus essence-btn btn-add mr-2" id="add-to-cart" value="<?php echo $productid ?>"> Thêm vỏ giỏ</button>
+							<button type="submit" class="essence-btn btn-add btn btn-primary mr-2" id="add-to-cart" value="<?php echo $productid ?>"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i> Mua ngay</button>
 
 							<!-- Favourite -->
 							<?php
