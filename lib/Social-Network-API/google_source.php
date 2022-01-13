@@ -1,13 +1,13 @@
 <?php
 
 //Google Code
-require_once ('google/libraries/Google/autoload.php');
+require_once('google/libraries/Google/autoload.php');
 
 //Insert your cient ID and secret 
 //You can get it from : https://console.developers.google.com/
-$client_id = '1043004664540-7h4reblt7c9ohrt2rha0kugsie65kcn6.apps.googleusercontent.com';
-$client_secret = 'fJlNbHlpvjLLY0PdvK-2FBjz';
-$redirect_uri = 'https://webcuatoi.vn/login.php';
+$client_id = '1043004664540-kud3bhhllc5v4dhfa0giufi8qt91932u.apps.googleusercontent.com';
+$client_secret = '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';
+$redirect_uri = 'https://kabistore.com.vn/login.php';
 
 //incase of logout request, just unset the session var
 //if (isset($_GET['logout'])) {
@@ -60,21 +60,18 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 }
 if ($client->isAccessTokenExpired()) {
     $authUrl = $client->createAuthUrl();
-//            header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
+    // header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
 }
+
+
 
 if (!isset($authUrl)) {
     $googleUser = $service->userinfo->get(); //get user info 
-    if(!empty($googleUser)){
-        include 'function.php';
-        loginFromSocialCallBack($googleUser);
 
-        // include 'lib/session.php';
-        // Session::init();
-        // include_once "/classes/customer.php";
-        // $cs = new customer();
-        // $customer = $cs->loginFromSocialCallBack($googleUser);
+    if (!empty($googleUser)) {
+        include_once "../../classes/customer.php";
+        $cs = new customer();
+        $customer = $cs->loginFromSocialCallBack($googleUser, $client->getAccessToken(), 2); // 2 is login google
     }
 }
 //End Google Code
-?>

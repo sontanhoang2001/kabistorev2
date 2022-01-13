@@ -76,25 +76,46 @@ if ($login_check == false) {
                           <div class="text-muted"><small>Gia nhập <?php echo $fm->formatDateVN($result['date_Joined']) ?></small></div>
                           <div class="text-muted"><i class="fa fa-credit-card" aria-hidden="true"></i> </i>Số dư: <b style="color: #49bd4e;">330 xu</b></div>
                           <div class="mt-2">
-                            <?php if (session::get('account_type') == 0) { ?>
-                              <label class="btn btn-primary">
-                                <input type="file" id="avatar" name="avatar" onchange="uploadAvatar()" accept="image/*" multiple hidden>
-                                <i class="fa fa-fw fa-camera"></i>
-                                <span>Chọn ảnh</span></input>
-                              </label>
-                            <?php } else { ?>
-                              <a href="https://www.facebook.com/me" target="blank" title="Đăng nhập bằng Facebook sẽ không thể đổi avatar trực tiếp">
-                                <label class="btn btn-primary">
-                                  <i class="fa fa-fw fa-camera"></i>
-                                  <span>Facebook</span></input>
-                                </label>
-                              </a>
-                            <?php }  ?>
+                            <?php switch (session::get('account_type')) {
+                              case 0: { ?>
+                                  <label class="btn btn-primary">
+                                    <input type="file" id="avatar" name="avatar" onchange="uploadAvatar()" accept="image/*" multiple hidden>
+                                    <i class="fa fa-fw fa-camera"></i>
+                                    <span>Chọn ảnh</span></input>
+                                  </label>
+                                <?php break;
+                                }
+                              case 1: { ?>
+                                  <a href="https://www.facebook.com/me" target="blank" title="Đăng nhập bằng Facebook sẽ không thể đổi avatar trực tiếp">
+                                    <label class="btn btn-primary">
+                                      <i class="fa fa-fw fa-camera"></i>
+                                      <span>Facebook</span></input>
+                                    </label>
+                                  </a>
+                                <?php break;
+                                }
+                              case 2: { ?>
+                                  <a href="https://myaccount.google.com/" target="blank" title="Đăng nhập bằng Google sẽ không thể đổi avatar trực tiếp">
+                                    <label class="btn btn-primary">
+                                      <i class="fa fa-fw fa-camera"></i>
+                                      <span>Google</span></input>
+                                    </label>
+                                  </a>
+                                <?php break;
+                                } ?>
+                            <?php
+                            } ?>
                           </div>
                         </div>
                       </div>
                     </div>
-
+                    <!-- 
+                    <a href="https://www.facebook.com/me" target="blank" title="Đăng nhập bằng Facebook sẽ không thể đổi avatar trực tiếp">
+                                <label class="btn btn-primary">
+                                  <i class="fa fa-fw fa-camera"></i>
+                                  <span>Facebook</span></input>
+                                </label>
+                              </a> -->
                     <!-- Nav tabs -->
 
 
@@ -223,9 +244,9 @@ if ($login_check == false) {
                               <button class="btn btn-primary btn-block" type="submit" id="btnUpdateInfo" name="save" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Cập nhật</button>
                             </div>
                           </div>
-                            <div class="col-md-12 mt-3 text-center">
-                              <p class="mb-0 text-muted">Nút cập nhật sẽ mở khóa khi bạn thay đổi thông tin</p>
-                            </div>
+                          <div class="col-md-12 mt-3 text-center">
+                            <p class="mb-0 text-muted">Nút cập nhật sẽ mở khóa khi bạn thay đổi thông tin</p>
+                          </div>
                           <div id="error-submit-1" class="mt-50"></div>
                         </form>
                       </div>
@@ -320,13 +341,13 @@ if ($login_check == false) {
 include 'inc/footer.php';
 ?>
 
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js"></script>
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+<link href="js/api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css" rel="stylesheet">
+<script src="js/api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js"></script>
+<script src="js/api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="js/api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
 <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<script src="js/cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="js/cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 <script>
   var user_location,
     lat = <?php echo ($lat == null) ? 0 : $lat ?>,

@@ -15,110 +15,117 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Localtion = (int)$Localtion + (int)$localtion;
     }
 
-    // nếu đặt hàng ở CT, VL thì cộng 2 giá ship lại
-    if ($Localtion == 37) {
-        if ($locationCode == "ngoaivung") {
-            $priceShipMain =  $objPriceShip[0]->ngoaivung;
-            $priceShip = $priceShipMain;
 
-            if ($quantityTotal > 3) {
-                $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
-            } else {
-                $shipAdd = 3500;
-                $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1) * 2;
-            }
-        } else {
-            $priceShip =  $objPriceShip[0]->main_ship;
+    if ($locationCode != "international") {
+        // nếu đặt hàng ở CT, VL thì cộng 2 giá ship lại
+        if ($Localtion == 37) {
+            if ($locationCode == "ngoaivung") {
+                $priceShipMain =  $objPriceShip[0]->ngoaivung;
+                $priceShip = $priceShipMain;
 
-            if ($quantityTotal > 3) {
-                $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
+                if ($quantityTotal > 3) {
+                    $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
+                } else {
+                    $shipAdd = 3500;
+                    $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1) * 2;
+                }
             } else {
-                $shipAdd = 3500;
-                $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1) * 2;
+                $priceShip =  $objPriceShip[0]->main_ship;
+
+                if ($quantityTotal > 3) {
+                    $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
+                } else {
+                    $shipAdd = 3500;
+                    $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1) * 2;
+                }
+            }
+        } elseif ($Localtion == 18) {
+            // Ưu tiên VLiem
+            switch ($locationCode) {
+                case "cantho": {
+                        $priceShip =  $objPriceShip[0]->main_ship;
+                        if ($quantityTotal > 3) {
+                            $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
+                        } else {
+                            $shipAdd = 3500;
+                            $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        }
+                        break;
+                    }
+                case "vinhlong": {
+                        $priceShip =  $objPriceShip[0]->main_ship;
+                        if ($quantityTotal > 3) {
+                            $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
+                        } else {
+                            $shipAdd = 3500;
+                            $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        }
+                        break;
+                    }
+                case "vungliem": {
+                        $priceShip =  $objPriceShip[0]->vungliem;
+                        if ($quantityTotal > 3) {
+                            $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 3000);
+                        } else {
+                            $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        }
+                        break;
+                    }
+                default: {
+                        $priceShip =  $objPriceShip[0]->ngoaivung;
+                        if ($quantityTotal > 3) {
+                            $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 3000);
+                        } else {
+                            $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        }
+                    }
+            }
+        } elseif ($Localtion == 19) {
+            // ưu tiên CT
+            switch ($locationCode) {
+                case "cantho": {
+                        $priceShip =  $objPriceShip[0]->cantho;
+                        if ($quantityTotal > 3) {
+                            $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 3000);
+                        } else {
+                            $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        }
+                        break;
+                    }
+                case "vinhlong": {
+                        $priceShip =  $objPriceShip[0]->main_ship;
+                        if ($quantityTotal > 3) {
+                            $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
+                        } else {
+                            $shipAdd = 3500;
+                            $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        }
+                        break;
+                    }
+                case "vungliem": {
+                        $priceShip =  $objPriceShip[0]->main_ship;
+                        if ($quantityTotal > 3) {
+                            $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
+                        } else {
+                            $shipAdd = 3500;
+                            $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        }
+                        break;
+                    }
+                default: {
+                        $priceShip =  $objPriceShip[0]->ngoaivung;
+                        if ($quantityTotal > 3) {
+                            $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 3000);
+                        } else {
+                            $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
+                        }
+                    }
             }
         }
-    } elseif ($Localtion == 18) {
-        // Ưu tiên VLiem
-        switch ($locationCode) {
-            case "cantho": {
-                    $priceShip =  $objPriceShip[0]->main_ship;
-                    if ($quantityTotal > 3) {
-                        $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
-                    } else {
-                        $shipAdd = 3500;
-                        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
-                    }
-                    break;
-                }
-            case "vinhlong": {
-                    $priceShip =  $objPriceShip[0]->main_ship;
-                    if ($quantityTotal > 3) {
-                        $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
-                    } else {
-                        $shipAdd = 3500;
-                        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
-                    }
-                    break;
-                }
-            case "vungliem": {
-                    $priceShip =  $objPriceShip[0]->vungliem;
-                    if ($quantityTotal > 3) {
-                        $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 3000);
-                    } else {
-                        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
-                    }
-                    break;
-                }
-            default: {
-                    $priceShip =  $objPriceShip[0]->ngoaivung;
-                    if ($quantityTotal > 3) {
-                        $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 3000);
-                    } else {
-                        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
-                    }
-                }
-        }
-    } elseif ($Localtion == 19) {
-        // ưu tiên CT
-        switch ($locationCode) {
-            case "cantho": {
-                    $priceShip =  $objPriceShip[0]->cantho;
-                    if ($quantityTotal > 3) {
-                        $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 3000);
-                    } else {
-                        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
-                    }
-                    break;
-                }
-            case "vinhlong": {
-                    $priceShip =  $objPriceShip[0]->main_ship;
-                    if ($quantityTotal > 3) {
-                        $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
-                    } else {
-                        $shipAdd = 3500;
-                        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
-                    }
-                    break;
-                }
-            case "vungliem": {
-                    $priceShip =  $objPriceShip[0]->main_ship;
-                    if ($quantityTotal > 3) {
-                        $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 15000);
-                    } else {
-                        $shipAdd = 3500;
-                        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
-                    }
-                    break;
-                }
-            default: {
-                    $priceShip =  $objPriceShip[0]->ngoaivung;
-                    if ($quantityTotal > 3) {
-                        $priceShip = (int)$priceShip * (int)$quantityTotal - ((int) $quantityTotal * 3000);
-                    } else {
-                        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
-                    }
-                }
-        }
+    } else {
+        $priceShip =  $objPriceShip[0]->international;
+        $shipAdd = 30000;
+        $priceShip =  (int)$priceShip + (int)$shipAdd * ((int)$quantityTotal - 1);
     }
 
     $discount = session::get('discountMoney');

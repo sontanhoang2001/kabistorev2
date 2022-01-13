@@ -68,7 +68,7 @@ if (!empty($fbUser)) {
 
     include_once "classes/customer.php";
     $cs = new customer();
-    echo $customer = $cs->loginFromSocialCallBack($fbUser, $accessToken->getValue());
+    echo $customer = $cs->loginFromSocialCallBack($fbUser, $accessToken->getValue(), 1); // 1 is login facebook 
 }
 
 

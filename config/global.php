@@ -13,7 +13,7 @@ $seo = "-gia-re-nhat-can-tho-vinh-long";
 // $maxShip = 36499;
 
 // Giá tiền ship
-$dataPriceShip = '[{"main_ship":27500,"cantho":10000,"vinhlong":26000,"vungliem":7000,"ngoaivung":28500}]';
+$dataPriceShip = '[{"main_ship":27500,"cantho":10000,"vinhlong":26000,"vungliem":7000,"ngoaivung":28500, "international": 3000000}]';
 // Cộng thêm mỗi đơn hàng
 $shipAdd = 2000;
 

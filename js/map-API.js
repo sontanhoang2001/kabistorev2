@@ -119,24 +119,31 @@ async function getGeocoding(lng, lat) {
 
 
     try {
-        var position = features[0].place_name.search("Can Tho");
-        // find Can Tho
-        if (position == -1) {
-            position = features[0].place_name.search("Vĩnh Long");
-            //find Vĩnh Long
+        var position = features[0].place_name.search("Vietnam");
+        console.log(position);
+        // find Vietnam
+        if (position != -1) {
+            var position = features[0].place_name.search("Can Tho");
+            // find Can Tho
             if (position == -1) {
-                setPriceShip("ngoaivung");
-            } else {
-                // find vũng liêm
-                position = features[0].place_name.search("Vũng Liêm");
+                position = features[0].place_name.search("Vĩnh Long");
+                //find Vĩnh Long
                 if (position == -1) {
-                    setPriceShip("vinhlong");
+                    setPriceShip("ngoaivung");
                 } else {
-                    setPriceShip("vungliem");
+                    // find vũng liêm
+                    position = features[0].place_name.search("Vũng Liêm");
+                    if (position == -1) {
+                        setPriceShip("vinhlong");
+                    } else {
+                        setPriceShip("vungliem");
+                    }
                 }
+            } else {
+                setPriceShip("cantho");
             }
         } else {
-            setPriceShip("cantho");
+            setPriceShip("international");
         }
     } catch (error) {}
 
@@ -146,11 +153,20 @@ async function getGeocoding(lng, lat) {
     text_geocoder.classList.add("text-success");
     document.getElementById("lat").value = lat;
     document.getElementById("lng").value = lng;
-    document.getElementById("geocoding").value = features[0].place_name;
-    text_geocoder.innerHTML = features[0].place_name;
-    allow_order = true;
-    btn_lock.classList.remove("btn-danger");
-    btn_lock.classList.add("btn-success");
+    try {
+        document.getElementById("geocoding").value = features[0].place_name;
+        text_geocoder.innerHTML = features[0].place_name;
+        allow_order = true;
+        btn_lock.classList.remove("btn-danger");
+        btn_lock.classList.add("btn-success");
+
+    } catch (error) {
+        var message = "Địa điểm không xác định!";
+        let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+        toast.change('Vui lòng thử lại...', 3500);
+        document.getElementById("geocoding").value = "Vị trí này không thể giao hàng";
+    }
+
     try {
         document.getElementById("orders").removeAttribute("disabled");
         document.getElementById("alert-selectLocaltion").remove();

@@ -1,5 +1,7 @@
 <?php
 include 'inc/header.php';
+include 'lib/Social-Network-API/facebook_source.php';
+
 // include 'inc/slider.php';
 ?>
 <?php
@@ -18,7 +20,7 @@ if ($login_check) {
         <div class="row mb-4">
           <div class="col-5">
             <a href="<?= $loginUrl ?>">
-              <img class="icon-facebook" src="img/core-img/facebook-icon.png" class="">
+              <img class="icon-facebook" src="img/core-img/facebook-icon.png">
             </a>
           </div>
           <div class="col-3">

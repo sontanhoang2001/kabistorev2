@@ -21,7 +21,7 @@
           <div class="carousel-caption text-left">
             <h2 class="display-4 sm-display-4 font-weight-bold"><?php echo $sliderTitle ?></h2>
             <p class="lead font-weight-bold"><?php echo $sliderContent ?></p>
-            <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="<?php echo $sliderLink ?>" role="button">Khám ngay</a></p>
+            <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="<?php echo $sliderLink ?>" role="button">Xem ngay</a></p>
           </div>
         </div>
     <?php

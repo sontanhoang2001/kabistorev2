@@ -1,5 +1,5 @@
 if ($(window).width() > 960) {
-    document.write('<style type="text/css">html{padding-bottom:20px}</style><img class="banner_tet" style="position:fixed;z-index:5;top:0;left: 0; top: 85px" src="img/core-img/tet/banner_left.png" _cke_saved_src=img/core-img/tet/banner_right.png"/><img class="banner_tet" style="position:fixed;z-index:5;top:0;right:0; top:85px" src="img/core-img/tet/banner_right.png"/><div style="position:fixed;z-index:5;bottom:-50px;left:0;width:100%;height:104px;background:url(img/core-img/tet/nentet.png) repeat-x bottom left;"></div><img style="position:fixed;z-index:998;bottom:20px;left:20px" src="img/core-img/tet/banner_header.png"/>');
+    document.write('<style type="text/css">html{padding-bottom:20px}</style><img class="banner_tet" style="position:fixed;z-index:5;top:0;left: 0; top: 85px" src="img/core-img/tet/banner_left.png" _cke_saved_src=img/core-img/tet/banner_right.png"/><img class="banner_tet" style="position:fixed;z-index:5;top:0;right:0; top:85px" src="img/core-img/tet/banner_right.png"/><div style="position:fixed;z-index:5;bottom:-50px;left:0;width:100%;height:104px;background:url(img/core-img/tet/nentet.png) repeat-x bottom left;"></div><img style="position:fixed;z-index:997;bottom:20px;left:20px" src="img/core-img/tet/banner_header.png"/>');
     var pictureSrc = "img/core-img/tet/hoamai.png"; //the location of the snowflakes
     var pictureWidth = 15; //
     var pictureHeight = 15; //the height of the snowflakes
@@ -91,5 +91,5 @@ if ($(window).width() > 960) {
 
     window.setInterval('flakeFall();', 50);
 } else {
-    document.write('<style type="text/css">html{padding-bottom:20px}</style><div style="position:fixed;z-index:5;bottom:-50px;left:0;width:100%;height:104px;background:url(img/core-img/tet/nentet.png) repeat-x bottom left;"></div><img style="position:fixed;z-index:998;bottom:20px;left:20px" src="img/core-img/tet/banner_header.png"/>');
+    document.write('<style type="text/css">html{padding-bottom:20px}</style><div style="position:fixed;z-index:5;bottom:-50px;left:0;width:100%;height:104px;background:url(img/core-img/tet/nentet.png) repeat-x bottom left;"></div><img style="position:fixed;z-index:997;bottom:20px;left:20px" src="img/core-img/tet/banner_header.png"/>');
 }

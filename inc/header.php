@@ -165,7 +165,7 @@ include_once "inc/checkManager.php";
                             </li>
 
                             <li><a href="index.html"><i class="fa fa-home iconfa" aria-hidden="true"></i> Trang Chủ</a>
-                            <li><a href="#"><i class="fa fa-shopping-cart iconfa" aria-hidden="true"></i> Shop</a>
+                            <li><a href="#"><i class="fa fa-shopping-cart iconfa" aria-hidden="true"></i> Danh Mục</a>
                                 <div class="megamenu">
                                     <?php
 
@@ -217,7 +217,7 @@ include_once "inc/checkManager.php";
                             ?>
                         </ul>
                     </li>
-                    <li><a href="blog.html"><i class="fa fa-rss iconfa" aria-hidden="true"></i> Blog</a></li>
+                    <li><a href="blog.html"><i class="fa fa-facebook-official iconfa" aria-hidden="true"></i> Fanpage</a></li>
                     <li><a href="contact.html"><i class="fa fa-phone-square iconfa" aria-hidden="true"></i> Liên Hệ</a></li>
                     </ul>
                 </div>

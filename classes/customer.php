@@ -107,6 +107,7 @@ class customer
 			$username = mysqli_real_escape_string($this->db->link, $data->username);
 			$password = mysqli_real_escape_string($this->db->link, $data->password);
 			$account_type = mysqli_real_escape_string($this->db->link, $data->type);
+			$picture = mysqli_real_escape_string($this->db->link, $data->picture);
 
 			if ($username == '' || $password == '') {
 				return json_encode($result_json[][] = ['status' => 0, 'content' => 0]);
@@ -118,6 +119,11 @@ class customer
 							break;
 						}
 					case 1: {
+							$check_login = "SELECT id, username, name, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
+							$result_check = $this->db->select($check_login);
+							break;
+						}
+					case 2: {
 							$check_login = "SELECT id, username, name, phone, password FROM tbl_customer WHERE username='$username' AND password='$password' ";
 							$result_check = $this->db->select($check_login);
 							break;
@@ -144,7 +150,13 @@ class customer
 								Session::set('avatar', "https://graph.facebook.com/" . $username . "/picture?type=normal");
 								break;
 							}
+						case 2: {
+								Session::set('account_type', 2);
+								Session::set('avatar', $picture);
+								break;
+							}
 					}
+
 					$extra = Session::get('REQUEST_URI');
 					if ($value['phone'] == null) {
 						$header = "profile.html";
@@ -225,19 +237,26 @@ class customer
 	}
 
 	//Hàm login sau khi mạng xã hội trả dữ liệu về
-	function loginFromSocialCallBack($socialUser, $accessToken)
+	function loginFromSocialCallBack($socialUser, $accessToken, $socialType)
 	{
 		$socialUser_id = mysqli_real_escape_string($this->db->link, $socialUser['id']);
 		$socialUser_name = mysqli_real_escape_string($this->db->link, $socialUser['name']);
 		$socialUser_email = mysqli_real_escape_string($this->db->link, $socialUser['email']);
 		$accessToken = mysqli_real_escape_string($this->db->link, md5($accessToken));
 
+		// socialType = 2 is login google
+		$socialUser_picture = null;
+		if ($socialType == 2) {
+			$socialUser_picture = mysqli_real_escape_string($this->db->link, $socialUser['picture']);
+			// $socialUser_gender = mysqli_real_escape_string($this->db->link, $socialUser['gender']);
+		}
+
 		$check_loginFromSocial = "SELECT id, username, name, password FROM tbl_customer WHERE username='$socialUser_id'";
 		$result_check = $this->db->select($check_loginFromSocial);
 
 		// kiểm tra đăng ký thì insert
 		if ($result_check == false) {
-			$insert_customerSocial = "INSERT INTO tbl_customer(username, name, email, password) VALUES('$socialUser_id', '$socialUser_name', '$socialUser_email', '$accessToken')";
+			$insert_customerSocial = "INSERT INTO tbl_customer(username, name, email, gender, password) VALUES('$socialUser_id', '$socialUser_name', '$socialUser_email', 2, '$accessToken')";
 			$insert_customer = $this->db->insert($insert_customerSocial);
 
 			if ($insert_customer) {
@@ -247,11 +266,30 @@ class customer
 
 				Session::set('loginAlert', true);
 				Session::set('customer_login', true);
-				Session::set('account_type', 1);
+				Session::set('account_type', $socialType);
 				Session::set('customer_id', $value_select['id']);
 				Session::set('customer_username', $socialUser_id);
 				Session::set('customer_name', $value_select['name']);
-				Session::set('avatar', "https://graph.facebook.com/" . $socialUser_id . "/picture?type=normal");
+
+				// socialType = 1 is login Facebook
+				if ($socialType == 1) {
+					Session::set('avatar', "https://graph.facebook.com/" . $socialUser_id . "/picture?type=normal");
+				} else {
+					// socialType = 2 is login Google
+					Session::set('avatar', $socialUser_picture);
+				}
+
+				$name = 'is_login';
+				$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value_select['password'], 'type' => $socialType, 'picture' => $socialUser_picture]);
+				$expire = time() + 3600;
+				$path = '/';
+				setcookie($name, $value, $expire, $path);
+
+				$customer_id = $value_select['id'];
+				$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
+				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
+				session::set('number_cart', (int)$check_quantity_cart['countCart']);
+
 				$extra = Session::get('REQUEST_URI');
 				if ($value_select['phone'] == null) {
 					header("Location: profile.html");
@@ -263,16 +301,6 @@ class customer
 					}
 				}
 
-				$name = 'is_login';
-				$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value_select['password'], 'type' => 1]);
-				$expire = time() + 3600;
-				$path = '/';
-				setcookie($name, $value, $expire, $path);
-
-				$customer_id = $value_select['id'];
-				$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
-				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
-				session::set('number_cart', (int)$check_quantity_cart['countCart']);
 				return "Liên kết với Facebook thành công!";
 			} else {
 				return "Liên kết với Facebook thất bại!";
@@ -283,17 +311,28 @@ class customer
 
 			Session::set('loginAlert', true);
 			Session::set('customer_login', true);
-			Session::set('account_type', 1);
+			Session::set('account_type', $socialType);
 			Session::set('customer_id', $customer_id);
 			Session::set('customer_username', $socialUser_id);
 			Session::set('customer_name', $value['name']);
-			Session::set('avatar', "https://graph.facebook.com/" . $socialUser_id . "/picture?type=normal");
+
+			// socialType = 1 is login Facebook
+			if ($socialType == 1) {
+				Session::set('avatar', "https://graph.facebook.com/" . $socialUser_id . "/picture?type=normal");
+			} else {
+				// socialType = 2 is login Google
+				Session::set('avatar', $socialUser_picture);
+			}
 
 			$name = 'is_login';
-			$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value['password'], 'type' => 1]);
+			$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value['password'], 'type' => $socialType, 'picture' => $socialUser_picture]);
 			$expire = time() + 3600;
 			$path = '/';
 			setcookie($name, $value, $expire, $path);
+
+			$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
+			$check_quantity_cart = $this->db->select($query)->fetch_assoc();
+			session::set('number_cart', (int)$check_quantity_cart['countCart']);
 
 			$extra = Session::get('REQUEST_URI');
 			if ($value['phone'] == null) {
@@ -306,9 +345,6 @@ class customer
 				}
 			}
 
-			$query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
-			$check_quantity_cart = $this->db->select($query)->fetch_assoc();
-			session::set('number_cart', (int)$check_quantity_cart['countCart']);
 			return "Đăng nhập Facebook thành công!";
 		}
 		$this->connection->close();
