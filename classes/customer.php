@@ -223,8 +223,8 @@ class customer
 
 
 				$name = 'is_login';
-				$value = json_encode($result_cookie[] = ['username' => $username, 'password' => $password, 'type' => 0]);
-				$expire = time() + 3600;
+				$value = json_encode($result_cookie[] = ['username' => $username, 'password' => $password, 'type' => 0, 'picture' => null]);
+				$expire = time() + 365 * 24 * 60 * 60;
 				$path = '/';
 				setcookie($name, $value, $expire, $path);
 
@@ -281,7 +281,8 @@ class customer
 
 				$name = 'is_login';
 				$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value_select['password'], 'type' => $socialType, 'picture' => $socialUser_picture]);
-				$expire = time() + 3600;
+				// $expire = time() + 3600;
+				$expire = time() + 365 * 24 * 60 * 60;
 				$path = '/';
 				setcookie($name, $value, $expire, $path);
 
@@ -326,7 +327,9 @@ class customer
 
 			$name = 'is_login';
 			$value = json_encode($result_cookie[] = ['username' => $socialUser_id, 'password' => $value['password'], 'type' => $socialType, 'picture' => $socialUser_picture]);
-			$expire = time() + 3600;
+			// $expire = time() + 3600;
+			$expire = time() + 365 * 24 * 60 * 60;
+
 			$path = '/';
 			setcookie($name, $value, $expire, $path);
 

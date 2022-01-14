@@ -42,8 +42,8 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
                         <li><a href="#">Thanh toán</a></li>
                         <li><a href="#">Vận chuyển và giao hàng</a></li>
                         <li><a href="#">Hướng dẫn</a></li>
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                        <li><a href="#">Điều khoản sử dụng</a></li>
+                        <li><a href="privacypolicies.html">Chính sách bảo mật</a></li>
+                        <li><a href="termsofservice.html">Điều khoản sử dụng</a></li>
                     </ul>
                 </div>
             </div>
