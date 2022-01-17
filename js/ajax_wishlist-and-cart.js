@@ -165,15 +165,26 @@ $('a#remove-wishlist').each(function(index, val) {
 
 // Add to cart
 $(".add_to_cart").click(function(event) {
-    var productId = $(this).attr("data-productid");
-    productSize = $(this).attr("data-id-1");
     event.preventDefault();
+
+    var productId = $(this).attr("data-productid"),
+        productSize = $(this).attr("data-size"),
+        productColor = $(this).attr("data-color");
+
+    if (productSize == null) {
+        productSize = null;
+    }
+    if (productColor == null) {
+        productColor = null;
+    }
+
     $.ajax({
         type: "POST",
         url: "~/../callbackPartial/add-to-cart.php",
         data: {
             'productId': productId,
             'productSize': productSize,
+            'productColor': productColor,
             'quantity': 1
         },
         success: function(data) {
@@ -196,7 +207,7 @@ $(".add_to_cart").click(function(event) {
                     }
                 case 2:
                     {
-                        var message = "Lỗi máy chủ!";
+                        var message = "Thêm sản phẩm thất bại!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
                         break;
@@ -216,6 +227,10 @@ $(".add_to_cart").click(function(event) {
                         break;
                     }
                 default:
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
+                    break;
             }
         },
         error: function(data) {
@@ -234,10 +249,20 @@ $('#cartSubmit').on("click", ".nice-select:eq(0) .option:not(.disabled)", functi
     productSize = s.data("value");
 });
 
+
 $("#cartSubmit").submit(function(e) {
     e.preventDefault();
     var productId = $("#add-to-cart").val();
-    var quantity = $("#quantity").val()
+    quantity = $("#quantity").val(),
+        productSize = $("#productSize").val(),
+        productColor = $("#productColor").val();
+
+    if (productSize == 0) {
+        productSize = null;
+    }
+    if (productColor == 0) {
+        productColor = null;
+    }
 
     $.ajax({
         type: "POST",
@@ -245,6 +270,7 @@ $("#cartSubmit").submit(function(e) {
         data: {
             'productId': productId,
             'productSize': productSize,
+            'productColor': productColor,
             'quantity': quantity
         },
         success: function(data) {
@@ -264,7 +290,7 @@ $("#cartSubmit").submit(function(e) {
                     }
                 case 2:
                     {
-                        var message = "Lỗi máy chủ!";
+                        var message = "Thêm sản phẩm thất bại!";
                         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                         toast.change('Vui lòng thử lại...', 3500);
                         break;
@@ -284,6 +310,10 @@ $("#cartSubmit").submit(function(e) {
                         break;
                     }
                 default:
+                    var message = "Lỗi máy chủ!";
+                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                    toast.change('Vui lòng thử lại...', 3500);
+                    break;
             }
 
             // $(".myModal_text").html("Bạn đã thêm vào giỏ hàng thành công!");

@@ -49,8 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $price = $result['price'];
                         $image = $result['image'];
                         $size = $result['size'];
+                        $color = $result['color'];
                     }
-                    echo json_encode($result_json[] = ['status' => 1, 'product_code' => $product_code, 'productName' => $productName, 'catId' => $catId, 'brandId' => $brandId, 'product_desc' => $product_desc, 'type' => $type, 'root_price' => $root_price, 'old_price' => $old_price, 'price' => $price, 'image' => $image, 'size' => $size]);
+                    echo json_encode($result_json[] = ['status' => 1, 'product_code' => $product_code, 'productName' => $productName, 'catId' => $catId, 'brandId' => $brandId, 'product_desc' => $product_desc, 'type' => $type, 'root_price' => $root_price, 'old_price' => $old_price, 'price' => $price, 'image' => $image, 'size' => $size, 'color' => $color]);
                 } else {
                     echo json_encode($result_json[] = ['status' => 0]);
                 }

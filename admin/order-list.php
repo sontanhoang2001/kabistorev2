@@ -35,8 +35,8 @@ $fm = new format();
 							<th>No.</th>
 							<th>Ngày đặt</th>
 							<th>Tên sản phẩm</th>
-							<th>SL</th>
-							<th>T.Toán</th>
+							<th>Chi tiết mẫu</th>
+							<th>Thanh toán</th>
 							<th>Khách hàng</th>
 							<th>Trạng thái đơn hàng</th>
 						</tr>
@@ -58,6 +58,9 @@ $fm = new format();
 								$orderId = $result['id'];
 								$productId = $result['productId'];
 								$quantity = $result['quantity'];
+								$size = $result['productSize'];
+								$color = $result['color'];
+
 								$address_id = $result['address_id'];
 								$status = $result['status'];
 						?>
@@ -67,7 +70,12 @@ $fm = new format();
 									<td>
 										<a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
 									</td>
-									<td><?php echo $quantity ?></td>
+									<td>
+										<?php echo "Sl: " . $quantity;
+										echo ($size != null) ? "<br>Size: " . $size : "";
+										echo ($color != null) ? "<br>Màu: " . $color : "";
+										?>
+									</td>
 									<td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
 									<td>
 										<a href="#" data-addressid="<?php echo $address_id ?>" data-customerid="<?php echo $result['customer_id'] ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['name'] ?></a>
@@ -263,7 +271,7 @@ $fm = new format();
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="basic-addon1"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
 											</div>
-											<textarea  class="form-control"id="cusNoteModel" readonly></textarea>
+											<textarea class="form-control" id="cusNoteModel" readonly></textarea>
 										</div>
 									</div>
 								</div>

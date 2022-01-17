@@ -1648,9 +1648,9 @@ input[type='radio']:checked:after {
     font-size: 14px;
     font-weight: 500;
     height: 40px;
+    width: 100px;
     line-height: 40;
     margin: 0;
-    text-transform: uppercase;
 }
 
 .single_product_details_area .single_product_desc .nice-select .current {
@@ -3793,8 +3793,8 @@ h3.name-cart {
 }
 
 .cart .items .cartSection h3 {
-    font-size: 15px;
-    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    /* font-family: "Montserrat", sans-serif; */
     font-weight: bold;
     /* text-transform: uppercase;
     letter-spacing: .025em; */
@@ -3802,9 +3802,7 @@ h3.name-cart {
 
 .cart .items .cartSection p {
     display: inline-block;
-    font-size: 16px;
-    /* color: #777777; */
-    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
 }
 
 .cart .items .cartSection p .quantity {
@@ -3897,7 +3895,11 @@ a.remove {
 }
 
 a.remove:hover {
-    background: #f30;
+    background: rgb(255, 30, 0);
+}
+
+.optionProduct {
+    font-weight: 100;
 }
 
 .promoCode {
@@ -3926,17 +3928,11 @@ a.remove:hover {
 .p-price {
     font-weight: 700;
     color: #ee0e0e;
-    margin: 2px 0 0px;
+    margin: -6px 0 0px;
 }
 
-.btn-buy {
-    display: none;
-    background: #ffb916dc;
-}
-
-.cartWrap:hover .btn-buy {
-    display: block;
-    margin-top: 10px;
+.cartWrap:hover {
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 }
 
 .old-price {

@@ -37,16 +37,28 @@ include 'config/global.php';
                                 $productId = $result['productId'];
                                 $product_img =  json_decode($result['image']);
                                 $product_img = $product_img[0]->image;
+                                if ($result['size'] != null) {
+                                    $sizeObj = json_decode($result['size']);
+                                    $size = $sizeObj[0]->size;
+                                } else {
+                                    $size = null;
+                                }
+                                if ($result['color'] != null) {
+                                    $colorObj = json_decode($result['color']);
+                                    $color = $colorObj[0]->color;
+                                } else {
+                                    $color = null;
+                                }
                         ?>
                                 <!-- Single Product -->
-                                <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
+                                <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm">
                                     <!-- Product Image -->
                                     <div class="product-img">
                                         <img id="imgProductHot" src="<?php echo $product_img ?>" class="lazy">
                                         <ul class="card-button-shop">
                                             <li>
                                                 <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
-                                                <a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+                                                <a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-size="<?php echo $size ?>" data-color="<?php echo $color ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                             </li>
                                             <?php
                                             $wishlist_check = $product->wishlist_check($customer_id, $productId);
@@ -242,15 +254,27 @@ include 'config/global.php';
                                     $productId = $result['productId'];
                                     $product_img =  json_decode($result['image']);
                                     $product_img = $product_img[0]->image;
+                                    if ($result['size'] != null) {
+                                        $sizeObj = json_decode($result['size']);
+                                        $size = $sizeObj[0]->size;
+                                    } else {
+                                        $size = null;
+                                    }
+                                    if ($result['color'] != null) {
+                                        $colorObj = json_decode($result['color']);
+                                        $color = $colorObj[0]->color;
+                                    } else {
+                                        $color = null;
+                                    }
                             ?>
-                                    <div id="single-product-wrapper" class="single-product-wrapper relatedProducts bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
+                                    <div id="single-product-wrapper" class="single-product-wrapper relatedProducts bg-white rounded shadow-sm">
                                         <!-- Product Image -->
                                         <div class="product-img relatedProducts">
                                             <img data-src="<?php echo $product_img ?>" class="lazy">
                                             <ul class="card-button-shop">
                                                 <li>
                                                     <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
-                                                    <a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+                                                    <a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-size="<?php echo $size ?>" data-color="<?php echo $color ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                                 </li>
                                                 <?php
                                                 $wishlist_check = $product->wishlist_check($customer_id, $productId);

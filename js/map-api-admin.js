@@ -44,14 +44,23 @@ function loadOrderMap(cusMaps_maplat, cusMaps_maplng) {
 
     // layer list menu-map
     var layerList = document.getElementById('menu-map');
-    var inputs = layerList.getElementsByTagName('input');
+    try {
+        var inputs = layerList.getElementsByTagName('input');
+    } catch (error) {
+
+    }
 
     function switchLayer(layer) {
         var layerId = layer.target.id;
         map.setStyle('mapbox://styles/mapbox/' + layerId);
     }
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].onclick = switchLayer;
+
+    try {
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = switchLayer;
+        }
+    } catch (error) {
+
     }
 
 

@@ -34,8 +34,8 @@ $fm = new format();
                             <th>No.</th>
                             <th>Ngày đặt</th>
                             <th>Tên sản phẩm</th>
-                            <th>SL</th>
-                            <th>T.Toán</th>
+                            <th>Chi tiết mẫu</th>
+                            <th>Thanh toán</th>
                             <th>Khách hàng</th>
                         </tr>
                     </thead>
@@ -63,6 +63,9 @@ $fm = new format();
                                 $orderId = $result['id'];
                                 $productId = $result['productId'];
                                 $address_id = $result['address_id'];
+                                $quantity = $result['quantity'];
+                                $size = $result['productSize'];
+                                $color = $result['color'];
                         ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $i ?></td>
@@ -70,7 +73,12 @@ $fm = new format();
                                     <td>
                                         <a href="#" class="btn" data-productid="<?php echo $productId ?>" data-target="#productModal"><?php echo $result['productName'] ?></i></a>
                                     </td>
-                                    <td><?php echo $result['quantity'] ?></td>
+                                    <td>
+                                        <?php echo "Sl: " . $quantity;
+                                        echo ($size != null) ? "<br>Size: " . $size : "";
+                                        echo ($color != null) ? "<br>Màu: " . $color : "";
+                                        ?></td>
+                                    </td>
                                     <td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
                                     <td>
                                         <a href="#" data-addressid="<?php echo $address_id ?>" data-customerid="<?php echo $result['customer_id'] ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['name'] ?></a>
@@ -219,7 +227,8 @@ $fm = new format();
                         <div class="card p-2 text-center mt-4">
                             <div class="row">
                                 <div class="col-md-7 border-right no-gutters">
-                                    <div class="py-3"><img id="cusAvatar" src="" width="100" class="rounded-circle">
+                                    <div class="py-3"><img class="img-thumbnail" id="cusAvatar" src="" style="width: 100px; height: 100px; object-fit: cover">
+
                                         <h4 class="text-secondary" id="cusName">Tên khách hàng</h4>
                                         <div class="allergy"><span id="cusUserName">UserName</span></div>
                                         <div class="stats">
@@ -390,7 +399,7 @@ $fm = new format();
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
-<script src="js/map-api-admin.js"></script>
+<script src="../js/map-api-admin.js"></script>
 <script src="js/order.js"></script>
 <script src="js/helpers.js"></script>
 <script>

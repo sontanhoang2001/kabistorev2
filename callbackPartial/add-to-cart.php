@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $customer_id = Session::get('customer_id');
     $productId = $_POST['productId'];
     $productSize = $_POST['productSize'];
+    $productColor = $_POST['productColor'];
     $quantity = $_POST['quantity'];
 
     // if($productId == null){
@@ -14,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // }
 
     $ct = new cart();
-    echo $ct->add_to_cart($customer_id, $productId, $productSize, $quantity);
+    echo $ct->add_to_cart($customer_id, $productId, $quantity, $productSize, $productColor);
     // Session::init();
     // $customer_id = Session::get('customer_id');
     // $id = $_POST['productId'];

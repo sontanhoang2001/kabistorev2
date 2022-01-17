@@ -56,6 +56,8 @@ $discount = session::set('discountMoney', 0);
 				$productId = $result['productId'];
 				$quantity = $result['quantity'];
 				$price = $result['price'];
+				$productSize = $result['productSize'];
+				$productColor = $result['color'];
 				$product_img =  json_decode($result['image']);
 				$product_img = $product_img[0]->image;
 		?>
@@ -63,21 +65,53 @@ $discount = session::set('discountMoney', 0);
 					<li class="items odd">
 						<div class="infoWrap">
 							<div class="cartSection">
-								<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+								<a title="Chi tiết sản phẩm" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
 									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
 								</a>
 								<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></p>
-								<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
-								<!-- <input type="text" class="qty" id="qty1_<?php echo $cartId; ?>" value="<?php echo $quantity ?>" /> -->
+								<a title="Sửa sản phẩm" class="optionProduct" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+									<h3 class="name-cart mb-1"><?php echo $result['productName'] ?></h3>
+									<?php if ($productSize != 0) { ?>
+										<div class="row mb-1">
+											Size:
+											<?php
+											switch ($quantity) {
+												case 5: {
+														echo "Freesize";
+														break;
+													}
+												case 4: {
+														echo "XL";
+														break;
+													}
+												case 3: {
+														echo "X";
+														break;
+													}
+												case 2: {
+														echo "M";
+														break;
+													}
+												case 1: {
+														echo "S";
+														break;
+													}
+												default:
+											}
+											echo ", Nhóm màu: " . $productColor; ?>
+										</div>
+									<?php } ?>
+								</a>
 								<p class="mb-0">
-									<?php if ($result['productSize'] != 0) { ?>
+									<!-- <?php if ($result['productSize'] != 0) { ?>
 										<select name="product-size" id="product-size">
+											<option value="5" <?php echo ($result['productSize'] == 4) ? 'selected="selected"' : "" ?>>Size: XL</option>
 											<option value="4" <?php echo ($result['productSize'] == 4) ? 'selected="selected"' : "" ?>>Size: XL</option>
 											<option value="3" <?php echo ($result['productSize'] == 3) ? 'selected="selected"' : "" ?>>Size: X</option>
 											<option value="2" <?php echo ($result['productSize'] == 2) ? 'selected="selected"' : "" ?>>Size: M</option>
 											<option value="1" <?php echo ($result['productSize'] == 1) ? 'selected="selected"' : "" ?>>Size: S</option>
 										</select>
-									<?php } ?>
+									<?php } ?> -->
 									<input class="input-quantitys" type="number" class="buyfield" name="quantity" value="<?php echo $quantity ?>" min="1" max="10" />&nbsp; x <?php echo $fm->format_currency($result['price']) . " ₫" ?>
 								</p>
 
@@ -98,7 +132,7 @@ $discount = session::set('discountMoney', 0);
 								</p>
 							</div>
 							<div class="cartSection removeWrap">
-								<a class="remove" id="remove-cart" href="#">x</a>
+								<a title="Xóa sản phẩm" class="remove" id="remove-cart" href="#">x</a>
 							</div>
 						</div>
 					</li>

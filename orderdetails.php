@@ -81,6 +81,7 @@ if ($login_check == false) {
 				$product_img =  json_decode($result['image']);
 				$product_img = $product_img[0]->image;
 				$productSize = $result['productSize'];
+				$productColor = $result['color'];
 		?>
 				<div class="border-group text-right mt-2">
 					<?php if ($address_id != $address_idTemp[$i - 1]) {
@@ -99,42 +100,47 @@ if ($login_check == false) {
 						<div class="infoWrap">
 							<div class="cartSection mwp">
 								<!-- <h5 class="numorder"><?php echo $i++; ?></h5> -->
-								<a href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+								<a title="Chi tiết sản phẩm" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
 									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg mt-2" />
 								</a>
 								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
-								<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
+								<a title="Chi tiết sản phẩm" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+									<h3 class="name-cart mb-1"><?php echo $result['productName'] ?></h3>
+								</a>
+								<?php if ($productSize != 0) { ?>
+									<div class="row mb-1 optionProduct">
+										Size:
+										<?php
+										switch ($quantity) {
+											case 5: {
+													echo "Freesize";
+													break;
+												}
+											case 4: {
+													echo "XL";
+													break;
+												}
+											case 3: {
+													echo "X";
+													break;
+												}
+											case 2: {
+													echo "M";
+													break;
+												}
+											case 1: {
+													echo "S";
+													break;
+												}
+											default:
+										}
+										echo ", Nhóm màu: " . $productColor; ?>
+									</div>
+								<?php } ?>
 
-								<div class="row">
-									<?php if ($productSize != 0) { ?>
-										<div class="font-weight-light mr-2">
-											Size:
-											<?php
-											switch ($productSize) {
-												case 4: {
-														echo "XL";
-														break;
-													}
-												case 3: {
-														echo "X";
-														break;
-													}
-												case 2: {
-														echo "M";
-														break;
-													}
-												case 1: {
-														echo "S";
-														break;
-													}
-												default:
-											} ?>
-										</div>
-									<?php } ?>
-									<div class="font-weight-light">Số lượng: <?php echo $quantity ?></div>
-								</div>
 								<div class="font-weight-normal">
-									Thanh toán: <p class="p-price"><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></p>
+									<p class="p-price" style="color: #787878; font-weight: 400;">Thanh toán: </p>
+									<p class="p-price"><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></p>
 								</div>
 								<div class="mt-2">
 									<?php

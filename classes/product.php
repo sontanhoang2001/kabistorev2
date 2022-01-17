@@ -31,7 +31,7 @@ class product
 	public function search_product($search_text)
 	{
 		$search_text = $this->fm->validation($search_text); //gọi ham validation từ file Format để ktra
-		$query = "SELECT productId, productName, product_soldout, brandId, old_price, price, image FROM tbl_product WHERE productName LIKE '%$search_text%' AND `type` != 9";
+		$query = "SELECT productId, productName, product_soldout, brandId, old_price, price, size, color, image FROM tbl_product WHERE productName LIKE '%$search_text%' AND `type` != 9";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -63,21 +63,28 @@ class product
 		$type = mysqli_real_escape_string($this->db->link, $formData['type']);
 		$image = mysqli_real_escape_string($this->db->link, $formData['image']);
 		$product_desc = mysqli_real_escape_string($this->db->link, $formData['product_desc']);
-		$size = mysqli_real_escape_string($this->db->link, $formData['size']);
 		$product_soldout = mysqli_real_escape_string($this->db->link, $formData['product_soldout']);
+		$size = mysqli_real_escape_string($this->db->link, $formData['size']);
+		$color = mysqli_real_escape_string($this->db->link, $formData['color']);
 
 		// 0 các trường ko đc bỏ trống
-		if ($productName == "" || $product_code == '' || $productQuantity == "" || $category == "" || $brand == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == "" || $size == "") {
+		if (
+			$productName == "" || $product_code == '' || $productQuantity == "" || $category == ""
+			|| $brand == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == ""
+		) {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
-			$query = "SELECT product_code FROM tbl_product WHERE product_code = '$product_code'";
-			$result = $this->db->select($query);
+			$query1 = "SELECT product_code FROM tbl_product WHERE product_code = '$product_code'";
+			$result = $this->db->select($query1);
 			if ($result) {
 				// 3 Mã sản phẩm này đã tồn tại
 				return json_encode($result_json[] = ['status' => 3]);
 			} else {
-				$query = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type, root_price, old_price, price,image, size) VALUES('$productName','$product_code','$productQuantity','$productQuantity','$product_soldout','$category','$brand','$product_desc','$type', '$root_price', '$old_price','$price', '$image', '$size') ";
-				$result = $this->db->insert($query);
+				$size = $size != null ? "'$size'" : "NULL";
+				$color = $color != null ? "'$color'" : "NULL";
+
+				$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand','$product_desc','$type', '$root_price', '$old_price','$price', '$image', $size, $color)";
+				$result = $this->db->insert($query2);
 				if ($result) {
 					// 1 thành công
 					return json_encode($result_json[] = ['status' => 1]);
@@ -449,11 +456,14 @@ class product
 		$type = mysqli_real_escape_string($this->db->link, $data['type']);
 		$image = $data['image'];
 		$size = mysqli_real_escape_string($this->db->link, $data['size']);
+		$color = mysqli_real_escape_string($this->db->link, $data['color']);
 
-
-		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == "" || $size == "") {
+		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
+			$size = $size != null ? "'$size'" : "NULL";
+			$color = $color != null ? "'$color'" : "NULL";
+
 			$query = "UPDATE tbl_product SET
 					productName = '$productName',
 					product_code = '$product_code',
@@ -465,7 +475,7 @@ class product
 					price = '$price', 
 					`image` = '$image',
 					product_desc = '$product_desc',
-					size = '$size'
+					size = $size, color = $color
 					WHERE productId = '$productId'";
 
 			$result = $this->db->update($query);
@@ -528,7 +538,7 @@ class product
 	// lấy sản phẩm cho edit product
 	public function getproductForEdit($id)
 	{
-		$query = "SELECT productName, product_code, catId, brandId, product_desc, type, root_price, old_price, price, image, size FROM tbl_product WHERE productId = '$id'";
+		$query = "SELECT productName, product_code, catId, brandId, product_desc, type, root_price, old_price, price, image, size, color FROM tbl_product WHERE productId = '$id'";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -553,7 +563,7 @@ class product
 
 	public function get_all_product_rank()
 	{
-		$query = "SELECT p.productId, p.productName, p.type, p.product_soldout, p.brandId, p.old_price, p.price, p.image, p.size, c.catName
+		$query = "SELECT p.productId, p.productName, p.type, p.product_soldout, p.brandId, p.old_price, p.price, p.image, p.size, p.color, c.catName
 		FROM tbl_product as p
 		INNER JOIN tbl_category as c
 		ON p.catId = c.catId
@@ -580,7 +590,7 @@ class product
 			switch ($filter) {
 				case 0: {
 						// lấy tất cả sản phẩm select = 0
-						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, old_price, price, image FROM tbl_product
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, old_price, price, size, color, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
 						WHERE tbl_product.price BETWEEN $priceStart and $priceEnd AND `type` != 9
@@ -591,7 +601,7 @@ class product
 					}
 				case 1: {
 						// Lấy Sản phẩm bán nhiều nhất select = 2
-						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, old_price, price, image FROM tbl_product
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, old_price, price, size, color, image FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
 						WHERE tbl_product.price BETWEEN $priceStart AND $priceEnd AND `type` != 9
@@ -602,7 +612,7 @@ class product
 					}
 				case 2: {
 						// Lấy tất cả Sản phẩm khuyến mãi select = 3
-						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, price, old_price, image
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, price, old_price, size, color, image
 						FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
@@ -614,7 +624,7 @@ class product
 					}
 				case 3: {
 						// Lấy tất cả Sản phẩm đc đánh giá cao nhât 3
-						$query = "SELECT p.productId, p.productName, p.product_soldout, c.catName, brandId, p.price, p.old_price, p.image
+						$query = "SELECT p.productId, p.productName, p.product_soldout, c.catName, brandId, p.price, p.old_price, p.size, p.color, p.image
 						FROM tbl_product as p 
 						inner join tbl_category as c
 						on p.catId = c.catId
@@ -632,7 +642,7 @@ class product
 			switch ($filter) {
 				case "c": {
 						// Tìm theo loại sản phẩm
-						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.brandId, tbl_product.old_price, tbl_product.price, tbl_product.image
+						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.brandId, tbl_product.old_price, tbl_product.price, tbl_product.size, tbl_product.color, tbl_product.image
 						FROM tbl_product
 						inner join tbl_category on tbl_product.catId = tbl_category.catId
 						where tbl_category.catId = '$catId' AND `type` != 9 AND tbl_product.price BETWEEN $priceStart AND $priceEnd
@@ -643,7 +653,7 @@ class product
 						break;
 					}
 				case "b": {
-						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.brandId, tbl_product.old_price, tbl_product.price, tbl_product.image
+						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.brandId, tbl_product.old_price, tbl_product.price, tbl_product.size, tbl_product.color, tbl_product.image
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
 						where tbl_brand.brandId = '$brandId' AND `type` != 9 AND tbl_product.price BETWEEN $priceStart AND $priceEnd
@@ -738,7 +748,7 @@ class product
 	public function get_details($id)
 	{
 		$query =
-			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.productQuantity, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.old_price , tbl_product.price , tbl_product.image, tbl_product.size, tbl_category.catName, tbl_brand.brandName
+			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.productQuantity, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.old_price , tbl_product.price , tbl_product.image, tbl_product.size, tbl_product.color, tbl_category.catName, tbl_brand.brandName
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
 			 WHERE tbl_product.productId = '$id'";
@@ -750,7 +760,7 @@ class product
 	// Lấy Sản phẩm nổi bật (index)
 	public function get_all_product_Featured()
 	{
-		$query = "SELECT p.productId, p.productName, p.type, p.product_soldout, p.brandId, p.old_price, p.price, p.image, p.size, c.catName
+		$query = "SELECT p.productId, p.productName, p.type, p.product_soldout, p.brandId, p.old_price, p.price, p.image, p.size, p.color, c.catName
 		FROM tbl_product as p
 		INNER JOIN tbl_category as c
 		ON p.catId = c.catId

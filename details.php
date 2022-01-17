@@ -75,30 +75,72 @@ include 'inc/facebookPlugin.php';
 						<?php if ($old_price != 0) {
 							echo $fm->format_currency($result_details['old_price']) . " ₫";
 						}
-						?></span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
+						?>
+					</span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
 				<?php if ($productType != 9) { ?>
 
-					<form id="cartSubmit">
+					<form id="cartSubmit" method="POST">
 						<!-- Select Box -->
 						<div class="select-box d-flex mb-15">
-							<?php if ($result_details['size'] != 0) { ?>
+							<?php
+							$result_size = $result_details['size'];
+							$result_color = $result_details['color'];
+
+							if ($result_size != null) {
+								$result_size =  json_decode($result_size);
+							?>
 								<select name="select" id="productSize" class="mr-2">
-									<option value="4">Size: XL</option>
-									<option value="3">Size: X</option>
-									<option value="2">Size: M</option>
-									<option value="1" selected="selected">Size: S</option>
+									<?php
+									foreach ($result_size as $value) {
+										switch ($value->size) {
+											case 1:
+												$size = "S";
+												break;
+											case 2:
+												$size = "M";
+												break;
+											case 3:
+												$size = "X";
+												break;
+											case 4:
+												$size = "XL";
+												break;
+											case 5:
+												$size = "Freesize";
+												break;
+										}
+									?>
+										<option value="<?php echo $value->size ?>"><?php echo ($value->size == 5) ? "Freesize" : "Size: " .  $size ?></option>
+									<?php } ?>
 								</select>
-							<?php } else { ?>
+							<?php
+							} else {
+								$size = null;
+							?>
 								<select name="select" id="productSize" class="mr-2">
 									<option value="0">Size: Không</option>
 								</select>
+							<?php }
+
+							if ($result_color != null) {
+								$result_color =  json_decode($result_color);
+							?>
+								<select name="select" id="productColor">
+									<?php
+									foreach ($result_color as $value) {
+									?>
+										<option value="<?php echo $value->color ?>">Màu: <?php echo $value->color ?></option>
+									<?php }
+									?>
+								</select>
+							<?php
+							} else {
+								$color = null;
+							?>
+								<select name="select" id="productColor">
+									<option value="0">Màu: Không</option>
+								</select>
 							<?php } ?>
-							<select name="select" id="productColor">
-								<option value="0">Màu: Không</option>
-								<!-- <option value="value">Màu: Đen</option>
-											<option value="value">Màu: Trắng</option>
-											<option value="value">Màu: Đỏ</option> -->
-							</select>
 						</div>
 						<div class="mb-3">
 							<b class="mr-2">Số Lượng:</b>

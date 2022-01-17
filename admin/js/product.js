@@ -138,8 +138,40 @@ function add_product() {
         // console.log(imageArrayArg[1]['image']);
     });
 
+
+    var colorTemp1 = '';
+    var colorTemp2 = '';
+
+    $("input[type='checkbox']").change(function() {
+        $("#color").empty();
+        colorTemp1 = '';
+
+        for (var i = 1; i <= 7; i++) {
+            if ($("#color" + i).prop('checked')) {
+                var colorText = $('#color' + i + ':checked').val();
+                colorTemp1 += colorText + ", ";
+                $("#color").text(colorTemp1 + colorTemp2);
+            }
+        }
+    });
+
+    $("#color8").keyup(function() {
+        $("#color").empty();
+        colorTemp2 = '';
+
+        if ($(this).val() != "") {
+            var colorText = $(this).val();
+            colorTemp2 += colorText + ", ";
+            $("#color").text(colorTemp1 + colorTemp2);
+        } else {
+            $("#color").text(colorTemp1 + "");
+        }
+    })
+
     $(document).submit(function(e) {
         e.preventDefault();
+
+
         // Xử lý chuỗi thành mảng json
         var array = $("#image").val().split(",");
         var imageArrayArg = new Array();
@@ -155,6 +187,37 @@ function add_product() {
         // console.log(imageArrayArg[0]['image']);
         // console.log(imageArrayArg[1]['image']);
 
+
+        var sizeArray = new Array();
+        for (var i = 1; i <= 5; i++) {
+            var objTemp = new Object();
+            objTemp.size = i;
+            if ($('#size' + i).prop('checked')) {
+                sizeArray.push(objTemp);
+            }
+        }
+        if (JSON.stringify(sizeArray) == "[]") {
+            sizeArray = null;
+        } else {
+            sizeArray = JSON.stringify(sizeArray);
+        }
+
+        var colorString = $("#color").text().replace(/\s+/g, '').split(",");
+        var colorArray = new Array();
+        $.each(colorString, function(i) {
+            var jsonObj = new Object();
+            jsonObj.color = colorString[i];
+            if (i != colorString.length - 1) {
+                colorArray.push(jsonObj);
+            }
+        });
+
+        if (JSON.stringify(colorArray) == "[]") {
+            colorArray = null;
+        } else {
+            colorArray = JSON.stringify(colorArray);
+        }
+
         var formData = {
             product_code: $("input[name=product_code]").val(),
             productName: $("input[name=productName]").val(),
@@ -164,7 +227,8 @@ function add_product() {
             root_price: $("input[name=root_price]").val(),
             old_price: $("input[name=old_price]").val(),
             price: $("input[name=price]").val(),
-            size: $('select[name="size"] option:selected').val(),
+            size: sizeArray,
+            color: colorArray,
             image: jsonImageArray,
             product_desc: $("#product_desc").val(),
             type: $('select[name="type"] option:selected').val(),
@@ -252,6 +316,10 @@ function product_list() {
     // $('table tr').click(function () {
     //     tr_index = $(this).index();
     // });
+
+
+    var colorTemp1 = '';
+    var colorTemp2 = '';
 
     var table = $('#dataTable').DataTable();
     $('#dataTable tbody').on('click', 'tr', function() {
@@ -387,12 +455,13 @@ function product_list() {
                         old_price = res.old_price,
                         price = res.price,
                         image = res.image,
-                        size = res.size;
+                        size = res.size,
+                        color = res.color;
+
                     $("input[name=product_code]").val(product_code);
                     $("input[name=productName]").val(productName);
                     $('#category option[value=" ' + catId + ' "]').attr('selected', 'selected');
                     $('#brand option[value=" ' + brandId + ' "]').attr('selected', 'selected');
-                    $('#size option[value="' + size + '"]').attr('selected', 'selected');
 
                     $('#root_priceText').text(currency_vn(root_price));
                     $("input[name=root_price]").val(root_price);
@@ -403,7 +472,51 @@ function product_list() {
                     $('#priceText').text(currency_vn(price));
                     $("input[name=price]").val(price);
 
-                    $('#size option[value=" ' + size + ' "]').attr('selected', 'selected');
+                    var size = JSON.parse(res.size)
+                    $.each(size, function(i, val) {
+                        var sizeNumber = val.size;
+                        $("#size" + sizeNumber).prop('checked', true);
+                    })
+
+                    var color = JSON.parse(res.color)
+                    $.each(color, function(i, val) {
+                        var color = val.color;
+                        switch (color) {
+                            case "Trắng":
+                                colorTemp1 += color + ", ";
+                                $("#color1").prop('checked', true);
+                                break;
+                            case "Đỏ":
+                                colorTemp1 += color + ", ";
+                                $("#color2").prop('checked', true);
+                                break;
+                            case "Đen":
+                                colorTemp1 += color + ", ";
+                                $("#color3").prop('checked', true);
+                                break;
+                            case "Cam":
+                                colorTemp1 += color + ", ";
+                                $("#color4").prop('checked', true);
+                                break;
+                            case "Vàng":
+                                colorTemp1 += color + ", ";
+                                $("#color5").prop('checked', true);
+                                break;
+                            case "Lá":
+                                colorTemp1 += color + ", ";
+                                $("#color6").prop('checked', true);
+                                break;
+                            case "Hồng":
+                                colorTemp1 += color + ", ";
+                                $("#color7").prop('checked', true);
+                                break;
+                            default:
+                                colorTemp2 += color + ", ";
+                                $("#color8").text(color);
+                        }
+                        $("#color").text(colorTemp1 + colorTemp2);
+                    })
+
                     YourEditor.setData(product_desc);
 
                     $('#type option[value="' + type + '"]').attr('selected', 'selected');
@@ -522,6 +635,33 @@ function product_list() {
         jsonImageArray = JSON.stringify(imageArrayArg);
     })
 
+
+    $("input[type='checkbox']").change(function() {
+        $("#color").empty();
+        colorTemp1 = '';
+
+        for (var i = 1; i <= 7; i++) {
+            if ($("#color" + i).prop('checked')) {
+                var colorText = $('#color' + i + ':checked').val();
+                colorTemp1 += colorText + ", ";
+                $("#color").text(colorTemp1 + colorTemp2);
+            }
+        }
+    });
+
+    $("#color8").keyup(function() {
+        $("#color").empty();
+        colorTemp2 = '';
+
+        if ($(this).val() != "") {
+            var colorText = $(this).val();
+            colorTemp2 += colorText + ", ";
+            $("#color").text(colorTemp1 + colorTemp2);
+        } else {
+            $("#color").text(colorTemp1 + "");
+        }
+    })
+
     // Khi nhấn nút cập nhật
     $("#btnUpdateProduct").click(function() {
         // Lấy thông tin sản phẩm
@@ -542,6 +682,37 @@ function product_list() {
         jsonImageArray = JSON.stringify(imageArrayArg);
         // console.log(jsonImageArray);
 
+
+        var sizeArray = new Array();
+        for (var i = 1; i <= 5; i++) {
+            var objTemp = new Object();
+            objTemp.size = i;
+            if ($('#size' + i).prop('checked')) {
+                sizeArray.push(objTemp);
+            }
+        }
+        if (JSON.stringify(sizeArray) == "[]") {
+            sizeArray = null;
+        } else {
+            sizeArray = JSON.stringify(sizeArray);
+        }
+
+        var colorString = $("#color").text().replace(/\s+/g, '').split(",");
+        var colorArray = new Array();
+        $.each(colorString, function(i) {
+            var jsonObj = new Object();
+            jsonObj.color = colorString[i];
+            if (i != colorString.length - 1) {
+                colorArray.push(jsonObj);
+            }
+        });
+
+        if (JSON.stringify(colorArray) == "[]") {
+            colorArray = null;
+        } else {
+            colorArray = JSON.stringify(colorArray);
+        }
+
         var formData = {
             productId: productId,
             product_code: $("input[name=product_code]").val(),
@@ -552,7 +723,8 @@ function product_list() {
             root_price: $("input[name=root_price]").val(),
             old_price: $("input[name=old_price]").val(),
             price: $("input[name=price]").val(),
-            size: $('select[name="size"] option:selected').val(),
+            size: sizeArray,
+            color: colorArray,
             image: jsonImageArray,
             product_desc: YourEditor.data.get(),
             type: $('select[name="type"] option:selected').val()
@@ -652,8 +824,20 @@ function product_list() {
         $('#root_priceText').text(currency_vn(0));
         $('#old_priceText').text(currency_vn(0));
         $('#priceText').text(currency_vn(0));
-
         $('#product_desc_parent').remove();
+
+
+        for (var i = 1; i <= 5; i++) {
+            $("#size" + i).prop('checked', false);
+        }
+        for (var i = 0; i <= 7; i++) {
+            $("#color" + i).prop('checked', false);
+        }
+        $("#color8").text("");
+        $("#color").empty();
+        colorTemp1 = "";
+        colorTemp2 = "";
+
         $('#btnEditor').removeAttr("disabled");
     })
 

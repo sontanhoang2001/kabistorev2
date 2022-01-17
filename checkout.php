@@ -157,11 +157,14 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         if ($get_product_cart) {
                             while ($result = $get_product_cart->fetch_assoc()) {
                                 $cartId = $result['cartId'];
+                                $productCode = $result['product_code'];
                                 $brandId = $result['brandId'];
                                 $productName = $result['productName'];
                                 $price = $result['price'];
                                 $quantity = $result['quantity'];
                                 $productSize = $result['productSize'];
+                                $productColor = $result['color'];
+
                                 $product_img =  json_decode($result['image']);
                                 $product_img = $product_img[0]->image;
                         ?>
@@ -170,13 +173,17 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                         <img class="lazy img-fluid" id="itemImg" data-src="<?php echo $product_img; ?>">
                                     </div>
                                     <div class="col-8 mt-1">
-                                        <div class="row itemCode">#QUE-007544-002</div>
+                                        <div class="row itemCode">#<?php echo $productCode ?></div>
                                         <div class="row productName-item"><?php echo $result['productName'] ?></div>
                                         <?php if ($productSize != 0) { ?>
                                             <div class="row">
                                                 Size:
                                                 <?php
                                                 switch ($quantity) {
+                                                    case 5: {
+                                                            echo "Freesize";
+                                                            break;
+                                                        }
                                                     case 4: {
                                                             echo "XL";
                                                             break;
@@ -194,12 +201,13 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                                             break;
                                                         }
                                                     default:
-                                                } ?>
+                                                }
+                                                echo ", Nhóm màu: " . $productColor; ?>
                                             </div>
                                         <?php } ?>
                                         <div class="row">
                                             <div class="font-weight-normal">
-                                                Giá: <span class=""><?php echo $fm->format_currency($price) . ' ₫' ?>
+                                                Giá: <span><?php echo $fm->format_currency($price) . ' ₫' ?>
                                                     &emsp;x&emsp;<?php echo $quantity ?>
                                                 </span>
                                             </div>
@@ -216,7 +224,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 $quantityTotal =  (int)$quantityTotal + (int)$quantity;
                                 //set sesstion to cart
                                 $cart = array();
-                                $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity, 'productSize' => $productSize];
+                                $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity, 'productSize' => $productSize, 'productColor' => $productColor];
                                 $_SESSION['cart_payment'][] = $cart;
                                 // $ship = $ship + $quantity * $price_ship;
                                 $subtotal += $total;
@@ -295,10 +303,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 <div class="col text-left"><a href="cart.html"><u><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa mã giảm giá</u></a></div>
                             </div>
 
-                            <div id="alert-selectLocaltion" class="mt-3 text-danger">
-                                Hãy chọn vị trí giao hàng để mở khóa nút đặt hàng
-                            </div>
-
                             <div class="row mt-4 mb-2">
                                 <button id="orders" class="btn btn-success rounded-pill py-2 btn-block" type="submit" name="orders" disabled><i id="ordersIcon" class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Đặt hàng</button>
                                 <div class="from-group error-group mt-4">
@@ -313,7 +317,9 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                     </div>
                                 </div>
                             </div>
-                            <p class="text-muted text-center">Thông tin thanh toán sẽ được mã hóa</p>
+                            <div id="alert-selectLocaltion" class="mt-3 text-danger">
+                                Hãy chọn vị trí giao hàng để mở khóa nút đặt hàng
+                            </div>
                         </div>
                     </div>
                 </div>

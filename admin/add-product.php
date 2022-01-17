@@ -27,12 +27,12 @@ $pd = new product();
                         <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
 
                             <div class="form-group">
-                                <label for="validation1">Mã sản phẩm</label>
+                                <label class="font-weight-bold" for="validation1">Mã sản phẩm</label>
                                 <input class="form-control" id="validation1" type="text" name="product_code" placeholder="Vd: 4583258743857..." required>
                                 <div class="valid-feedback">Looks good!</div>
                             </div>
                             <div class="form-group">
-                                <label for="validation2">Tên sản phẩm</label>
+                                <label class="font-weight-bold" for="validation2">Tên sản phẩm</label>
                                 <input class="form-control" id="validation2" type="text" name="productName" placeholder="Vd: búp bê baby..." required>
                                 <div class="valid-feedback">Looks good!</div>
                             </div>
@@ -40,13 +40,13 @@ $pd = new product();
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-group col-md-4">
-                                        <label for="validation3">Số lượng</label>
+                                        <label class="font-weight-bold" for="validation3">Số lượng</label>
                                         <input class="form-control" id="validation3" type="number" name="productQuantity" placeholder="Vd: 900" min="1" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label for="sel1">Loại sản phẩm </label>
+                                        <label class="font-weight-bold" for="sel1">Loại sản phẩm </label>
                                         <select class="form-control" id="select" name="category">
                                             <option value="0">Lựa chọn</option>
                                             <?php
@@ -65,7 +65,7 @@ $pd = new product();
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="sel1">Thương hiệu</label>
+                                        <label class="font-weight-bold" for="sel1">Thương hiệu</label>
                                         <select class="form-control" id="select" name="brand">
                                             <option value="0">Lựa chọn</option>
                                             <?php
@@ -87,19 +87,19 @@ $pd = new product();
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-group col-md-4">
-                                        <label for="validation5">Giá gốc <div class="text-success" id="root_priceText">0 ₫</div></label>
+                                        <label class="font-weight-bold" for="validation5">Giá gốc <div class="text-success" id="root_priceText">0 ₫</div></label>
                                         <input class="form-control" id="validation5" type="number" name="root_price" placeholder="Vd: 900" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label for="validation5">Giá cũ <div class="text-success" id="old_priceText">0 ₫</div></label>
+                                        <label class="font-weight-bold" for="validation5">Giá cũ <div class="text-success" id="old_priceText">0 ₫</div></label>
                                         <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" value="0">
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label for="validation6">Giá mới <div class="text-success" id="priceText">0 ₫</div></label>
+                                        <label class="font-weight-bold" for="validation6">Giá mới <div class="text-success" id="priceText">0 ₫</div></label>
                                         <input class="form-control" id="validation6" type="number" name="price" placeholder="Vd: 40000" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
@@ -109,7 +109,7 @@ $pd = new product();
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-group col-md-4">
-                                        <label for="validation6">Tiền lãi ước tính</label>
+                                        <label class="font-weight-bold" for="validation6">Tiền lãi ước tính</label>
                                         <input class="form-control" id="validation6" type="text" name="interestRate" min="0" readonly>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
@@ -130,7 +130,7 @@ $pd = new product();
                             </div>
 
                             <div class="form-group">
-                                <label for="inputdefault">Hình ảnh sản phẩm</label>
+                                <label class="font-weight-bold" for="inputdefault">Hình ảnh sản phẩm</label>
                                 <div class="form-group mt-2">
                                     <input type="file" id="input_img" name="input_img[]" onchange="uploadProductImg(0)" accept="image/*" multiple>
                                 </div>
@@ -147,8 +147,59 @@ $pd = new product();
 
                             <div class="form-group">
                                 <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <h6 class="font-weight-bold">Chọn size</h6>
+                                        <div class="ml-2">
+                                            <input type="checkbox" id="size1">
+                                            <label for="size1"> Size: S</label><br>
+                                            <input type="checkbox" id="size2">
+                                            <label for="size2"> Size: M</label><br>
+                                            <input type="checkbox" id="size3">
+                                            <label for="size3"> Size: X</label><br>
+                                            <input type="checkbox" id="size4">
+                                            <label for="size4"> Size: XL</label><br>
+                                            <input type="checkbox" id="size5">
+                                            <label for="size5"> Freesize</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <h6 class="font-weight-bold">Chọn màu</h6>
+                                        <div class="ml-2">
+                                            <input type="checkbox" id="color1" value="Trắng">
+                                            <label for="color1"> Trắng</label><br>
+                                            <input type="checkbox" id="color2" value="Đỏ">
+                                            <label for="color2"> Đỏ</label><br>
+                                            <input type="checkbox" id="color3" value="Đen">
+                                            <label for="color3"> Đen</label><br>
+                                            <input type="checkbox" id="color4" value="Cam">
+                                            <label for="color4"> Cam</label><br>
+                                            <input type="checkbox" id="color5" value="Vàng">
+                                            <label for="color5"> Vàng</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <h6>&nbsp;</h6>
+                                        <div class="ml-2">
+                                            <input type="checkbox" id="color6" value="Lá">
+                                            <label for="color6"> Lá</label><br>
+                                            <input type="checkbox" id="color7" value="Hồng">
+                                            <label for="color7"> Hồng</label>
+                                            <h6>Màu khác</h6>
+                                            <textarea id="color8" cols="15" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <h6 class="font-weight-bold">Màu sắc đã chọn:</h6>
+                                        <p id="color"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="row">
                                     <div class="form-group col-md-5">
-                                        <label for="sel1">Trạng thái & Xếp loại sản phẩm</label>
+                                        <label class="font-weight-bold" for="sel1">Trạng thái & Xếp loại sản phẩm</label>
                                         <select class="form-control" id="type" name="type">
                                             <option value="null">Lựa chọn</option>
                                             <option selected value="0">Bình thường</option>
@@ -157,17 +208,8 @@ $pd = new product();
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-md-5">
-                                        <label for="sel1">Size</label>
-                                        <select class="form-control" id="select" name="size">
-                                            <option value="null">Lựa chọn</option>
-                                            <option selected value="0">Không</option>
-                                            <option value="1">Có size</option>
-                                        </select>
-                                    </div>
-
                                     <div class="form-group col-md-2">
-                                        <label for="validation6">Đã bán:</label>
+                                        <label class="font-weight-bold" for="validation6">Đã bán:</label>
                                         <input class="form-control" id="validation6" type="number" name="product_soldout" min="0" value="0">
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>

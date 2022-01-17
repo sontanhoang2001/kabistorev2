@@ -1,9 +1,11 @@
-<?php include 'inc/header.php'; ?>
-<?php include '../classes/product.php';  ?>
-<?php include '../classes/category.php';  ?>
-<?php include '../classes/brand.php';  ?>
-<?php require_once '../helpers/format.php'; ?>
 <?php
+include 'inc/header.php';
+include '../classes/product.php';
+include '../classes/category.php';
+include '../classes/brand.php';
+require_once '../helpers/format.php';
+include '../config/global.php';
+
 $pd = new product();
 $fm = new Format();
 
@@ -11,6 +13,12 @@ if (!isset($_GET['page'])) {
     $page = 1;
 } else {
     $page = $_GET['page'];
+}
+
+if (!isset($_GET['product_num'])) {
+    $product_num = $product_num_admin;
+} else {
+    $product_num = $_GET['product_num'];
 }
 ?>
 
@@ -36,6 +44,16 @@ if (!isset($_GET['page'])) {
 
         <div class="card-body">
             <div class="table-responsive">
+                <form method="get">
+                    <div class="ml-1 pull-right">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input type="number" name="product_num" class="form-control" style="width: 70px; height: 30px;" min="1" value="<?php echo $product_num ?>" />
+                            </div>
+                            <button type="submit" class="btn btn-primary ml-1" style="height: 32px;">Hiển thị</button>
+                        </div>
+                    </div>
+                </form>
                 <table class="table table-bordered display datatable table-striped" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -62,7 +80,6 @@ if (!isset($_GET['page'])) {
                     </tfoot> -->
                     <tbody>
                         <?php
-                        $product_num = 20;
                         $list_product = $pd->show_product($page, $product_num);
                         $get_amount_all_show_product = $pd->get_amount_all_show_product();
                         $result = $get_amount_all_show_product->fetch_assoc();
@@ -384,25 +401,71 @@ if (!isset($_GET['page'])) {
                                 <label for="inputdefault">Mô tả sản phẩm</label>
                                 <textarea class="form-control" id="product_desc"></textarea>
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-8">
-                                        <label for="sel1">Trạng thái & Xếp loại sản phẩm</label>
+                                    <div class="form-group col-md-3">
+                                        <h6 class="font-weight-bold">Chọn size</h6>
+                                        <div class="ml-2">
+                                            <input type="checkbox" id="size1">
+                                            <label for="size1"> Size: S</label><br>
+                                            <input type="checkbox" id="size2">
+                                            <label for="size2"> Size: M</label><br>
+                                            <input type="checkbox" id="size3">
+                                            <label for="size3"> Size: X</label><br>
+                                            <input type="checkbox" id="size4">
+                                            <label for="size4"> Size: XL</label><br>
+                                            <input type="checkbox" id="size5">
+                                            <label for="size5"> Freesize</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <h6 class="font-weight-bold">Chọn màu</h6>
+                                        <div class="ml-2">
+                                            <input type="checkbox" id="color1" value="Trắng">
+                                            <label for="color1"> Trắng</label><br>
+                                            <input type="checkbox" id="color2" value="Đỏ">
+                                            <label for="color2"> Đỏ</label><br>
+                                            <input type="checkbox" id="color3" value="Đen">
+                                            <label for="color3"> Đen</label><br>
+                                            <input type="checkbox" id="color4" value="Cam">
+                                            <label for="color4"> Cam</label><br>
+                                            <input type="checkbox" id="color5" value="Vàng">
+                                            <label for="color5"> Vàng</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <h6>&nbsp;</h6>
+                                        <div class="ml-2">
+                                            <input type="checkbox" id="color6" value="Lá">
+                                            <label for="color6"> Lá</label><br>
+                                            <input type="checkbox" id="color7" value="Hồng">
+                                            <label for="color7"> Hồng</label>
+                                            <h6>Màu khác</h6>
+                                            <textarea id="color8" cols="15" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <h6 class="font-weight-bold">Màu sắc đã chọn:</h6>
+                                        <p id="color"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label class="font-weight-bold" for="sel1">Trạng thái & Xếp loại sản phẩm</label>
                                         <select class="form-control" id="type" name="type">
                                             <option value="null">Lựa chọn</option>
-                                            <option value="0">Bình thường</option>
+                                            <option selected value="0">Bình thường</option>
                                             <option value="1">Hot nhất</option>
                                             <option value="2">Xếp cao nhất</option>
-                                            <option value="9">Ngưng kinh doanh</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="sel1">Size</label>
-                                        <select class="form-control" id="size" name="size">
-                                            <option value="null">Lựa chọn</option>
-                                            <option selected value="0">Không</option>
-                                            <option value="1">Có size</option>
-                                        </select>
+                                    <div class="form-group col-md-2">
+                                        <label class="font-weight-bold" for="validation6">Đã bán:</label>
+                                        <input class="form-control" id="validation6" type="number" name="product_soldout" min="0" value="0">
+                                        <div class=" valid-feedback">Looks good!</div>
                                     </div>
                                 </div>
                             </div>

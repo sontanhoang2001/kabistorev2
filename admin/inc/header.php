@@ -161,7 +161,7 @@ header("Cache-Control: max-age=2592000");
                 </div>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PriceShip" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa fa-ship" aria-hidden="true"></i>
                     <span>Giá ship</span>
@@ -172,7 +172,7 @@ header("Cache-Control: max-age=2592000");
                         <a class="collapse-item" href="updatePriceShipping"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </i> Cập nhật</a>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discount" aria-expanded="true" aria-controls="collapseTwo">

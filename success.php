@@ -57,7 +57,7 @@ if (isset($get_payment)) {
                         <div class="col text-right"><b><span class="font-weight-bold theme-color"><?php echo $fm->format_currency($get_amount) . " ₫" ?></span></b>
                         </div>
                     </div>
-                    <div class="text-center mt-4"> <a class="btn btn-viewOrderDetails" href="orderdetails.html"><i class="fa fa-file-text-o" aria-hidden="true"></i> Xem đơn hàng</a> </div>
+                    <div class="text-center mt-4"> <a class="btn btn-primary btn-viewOrderDetails" href="orderdetails.html"><i class="fa fa-file-text-o" aria-hidden="true"></i> Xem đơn hàng</a> </div>
                     <div class="row lower mt-3">
                         <p class="col text-left"><b>Lưu ý:</b> Nhân viên của shop sẽ liên hệ đến bạn sớm nhất để xác nhận đơn hàng. bạn nhớ giữ liên lạc với Shop nhé!</p>
                     </div>

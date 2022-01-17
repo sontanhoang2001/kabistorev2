@@ -65,6 +65,7 @@ class Database extends PDO
       return false;
     }
     $this->link = null;
+    //return $this->link->error;
   }
 
   // Update data

@@ -74,42 +74,42 @@ $('a#remove-cart').each(function(index, val) {
 
 // chưa lấy đc index
 // Update product size
-$('.nice-select').each(function(index, val) {
-    var cartWrapIndex = ".cartWrap:eq(" + index + ")";
+// $('.nice-select').each(function(index, val) {
+//     var cartWrapIndex = ".cartWrap:eq(" + index + ")";
 
-    $('.nice-select:eq(' + index + ') .option:not(.disabled)').click(function(t) {
-        var s = $(this),
-            n = s.closest(".nice-select");
-        productSize = s.data("value");
-        var cartId = $(cartWrapIndex).attr("data-id-1");
+//     $('.nice-select:eq(' + index + ') .option:not(.disabled)').click(function(t) {
+//         var s = $(this),
+//             n = s.closest(".nice-select");
+//         productSize = s.data("value");
+//         var cartId = $(cartWrapIndex).attr("data-id-1");
 
-        $.ajax({
-            type: "POST",
-            url: "~/../callbackPartial/update-size-cart.php",
-            data: {
-                'cartId': cartId,
-                'size': productSize
-            },
-            success: function(data) {
-                success = JSON.parse(data).success;
-                if (success == 1) {
-                    var message = "Cập nhật size thành công!";
-                    let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
-                    toast.change('Đã lưu và thay đổi...', 2000);
-                } else {
-                    var message = "Cập nhật size thất bại!";
-                    let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                    toast.change('Vui lòng thử lại...', 3500);
-                }
-            },
-            error: function() {
-                var message = "Lỗi máy chủ!";
-                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                toast.change('Vui lòng thử lại...', 3500);
-            }
-        });
-    });
-});
+//         $.ajax({
+//             type: "POST",
+//             url: "~/../callbackPartial/update-size-cart.php",
+//             data: {
+//                 'cartId': cartId,
+//                 'size': productSize
+//             },
+//             success: function(data) {
+//                 success = JSON.parse(data).success;
+//                 if (success == 1) {
+//                     var message = "Cập nhật size thành công!";
+//                     let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
+//                     toast.change('Đã lưu và thay đổi...', 2000);
+//                 } else {
+//                     var message = "Cập nhật size thất bại!";
+//                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+//                     toast.change('Vui lòng thử lại...', 3500);
+//                 }
+//             },
+//             error: function() {
+//                 var message = "Lỗi máy chủ!";
+//                 let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+//                 toast.change('Vui lòng thử lại...', 3500);
+//             }
+//         });
+//     });
+// });
 
 //update quantity cart
 var rowTotalPrice;

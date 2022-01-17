@@ -19,7 +19,7 @@ class cart
 	}
 
 	// thêm vào giỏ hàng
-	public function add_to_cart($customer_id, $productId, $productSize, $quantity)
+	public function add_to_cart($customer_id, $productId, $quantity, $productSize, $productColor)
 	{
 		$customer_id = $this->fm->validation($customer_id);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
@@ -29,10 +29,13 @@ class cart
 		} else {
 			$productId = $this->fm->validation($productId);
 			$productId = mysqli_real_escape_string($this->db->link, $productId);
-			$productSize = $this->fm->validation($productSize);
-			$productSize = mysqli_real_escape_string($this->db->link, $productSize);
 			$quantity = $this->fm->validation($quantity);
 			$quantity = mysqli_real_escape_string($this->db->link, $quantity);
+			$size = $this->fm->validation($productSize);
+			$size = mysqli_real_escape_string($this->db->link, $productSize);
+			$color = $this->fm->validation($productColor);
+			$color = mysqli_real_escape_string($this->db->link, $productColor);
+
 
 			$queryCartCustomer = "SELECT COUNT(customerId) as CartCustomer FROM tbl_cart WHERE customerId = '$customer_id'";
 			$resultCartCustomer = $this->db->select($queryCartCustomer)->fetch_assoc();
@@ -42,7 +45,10 @@ class cart
 				$result = $this->db->select($query)->fetch_assoc();
 
 				if ($result['product_remain'] > $quantity) {
-					$query = "INSERT INTO tbl_cart (customerId, productId, productSize, quantity) VALUES ('$customer_id', '$productId', '$productSize', '$quantity')";
+					$size = $size != null ? "'$size'" : "NULL";
+					$color = $color != null ? "'$color'" : "NULL";
+
+					$query = "INSERT INTO tbl_cart (customerId, productId, productSize, quantity, color) VALUES ('$customer_id', '$productId', $size, '$quantity', $color)";
 					$inser_cart = $this->db->insert($query);
 					if ($inser_cart) {
 						// $query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
@@ -109,7 +115,7 @@ class cart
 	{
 		$customerId = $this->fm->validation($customerId);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customerId);
-		$query = "SELECT tbl_product.productName, tbl_product.product_code, tbl_product.product_remain, tbl_product.brandId ,tbl_product.image, tbl_product.price, tbl_cart.cartId, tbl_cart.customerId, tbl_cart.productId, tbl_cart.productSize, tbl_cart.quantity
+		$query = "SELECT tbl_product.productName, tbl_product.product_code, tbl_product.product_remain, tbl_product.brandId, tbl_product.image, tbl_product.price, tbl_cart.cartId, tbl_cart.customerId, tbl_cart.productId, tbl_cart.productSize, tbl_cart.quantity, tbl_cart.color
 		FROM tbl_cart
 		inner join tbl_product on tbl_cart.productId = tbl_product.productId
 		WHERE tbl_cart.customerId = '$customer_id'
@@ -454,7 +460,12 @@ class cart
 						$totalPayment = (int)$totalPrice + (int)$shipPrice - (int)$discountItem;
 						$quantity = $val['quantity'];
 						$productSize = $val['productSize'];
-						$query_order = "INSERT INTO tbl_order(productId, customer_id, address_id, productSize, quantity, totalPayment) VALUES('$productId', '$customer_id', '$address_id', '$productSize','$quantity', '$totalPayment')";
+						$color = $val['productColor'];
+
+						$productSize = $productSize != null ? "'$productSize'" : "NULL";
+						$color = $color != null ? "'$color'" : "NULL";
+
+						$query_order = "INSERT INTO tbl_order(productId, customer_id, address_id, productSize, quantity, totalPayment, color) VALUES('$productId', '$customer_id', '$address_id', $productSize,'$quantity', '$totalPayment', $color)";
 						$insert_order = $this->db->insert($query_order);
 					}
 					if ($insert_order) {
@@ -491,7 +502,7 @@ class cart
 		$product_num = mysqli_real_escape_string($this->db->link, $product_num);
 
 		$index_page = ($page - 1) * $product_num;
-		$query = "SELECT a.address_id, a.maps_maplat, a.maps_maplng, a.note_address, a.date_create, p.productId, p.productName, p.product_code, p.image, o.id, o.address_id, o.quantity, o.totalPayment, o.status, o.productSize
+		$query = "SELECT a.address_id, a.maps_maplat, a.maps_maplng, a.note_address, a.date_create, p.productId, p.productName, p.product_code, p.image, o.id, o.address_id, o.quantity, o.totalPayment, o.status, o.productSize, o.color
 		FROM tbl_order as o
 		inner join tbl_product as p on o.productId = p.productId
         inner join tbl_address as a on o.address_id = a.address_id
@@ -518,7 +529,7 @@ class cart
 	// Đơn đặt hàng
 	public function get_inbox_order()
 	{
-		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, a.date_create, a.address_id
+		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, o.productSize, o.color, a.date_create, a.address_id
 		FROM tbl_order as o
 		inner join tbl_product as p
 		on p.productId = o.productId
@@ -615,7 +626,7 @@ class cart
 		$status = $this->fm->validation($status);
 		$status = mysqli_real_escape_string($this->db->link, $status);
 		if ($cusId == 0) {
-			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, a.date_create, a.address_id
+			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.productSize, o.color, a.date_create, a.address_id
 			FROM tbl_order as o
 			inner join tbl_product as p
 			on p.productId = o.productId
@@ -626,7 +637,7 @@ class cart
 			Where o.status = '$status'
 			ORDER BY a.address_id DESC";
 		} else {
-			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, a.date_create, a.address_id
+			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.productSize, o.color, a.date_create, a.address_id
 			FROM tbl_order as o
 			inner join tbl_product as p
 			on p.productId = o.productId
