@@ -343,39 +343,53 @@ class product
 		return $result;
 	}
 
-	public function show_product($page, $product_num)
+	public function show_product($type, $page, $product_num, $search_text)
 	{
 		$index_page = ($page - 1) * $product_num;
-		$query =
-			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
+		switch ($type) {
+			case 0: {
+					$query =
+						"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
-								WHERE tbl_product.type != '9'
+								WHERE tbl_product.type != 9 AND tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%'
 			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
-		$result = $this->db->select($query);
-		return $result;
-	}
-
-	public function get_amount_all_show_product()
-	{
-		$query = "SELECT COUNT(productId) as totalRow FROM tbl_product";
-		$result = $this->db->select($query);
-		return $result;
-	}
-
-
-	public function show_productPause()
-	{
-		$query =
-			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
-
+					break;
+				}
+			case 9: {
+					$query =
+						"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
-								WHERE tbl_product.type = '9'
-			 order by tbl_product.productId desc";
+								WHERE tbl_product.type = 9 AND (tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%')
+			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
+					break;
+				}
+		}
 		$result = $this->db->select($query);
 		return $result;
 	}
+
+	public function get_amount_all_show_product($type, $searchText)
+	{
+		switch ($type) {
+			case 0: {
+					$query =
+						"SELECT COUNT(productId) as totalRow FROM tbl_product
+								WHERE tbl_product.type != 9 AND tbl_product.productName LIKE '%$searchText%' OR tbl_product.product_code LIKE '%$searchText%'";
+					break;
+				}
+			case 9: {
+					$query =
+						"SELECT COUNT(productId) as totalRow FROM tbl_product
+								WHERE tbl_product.type = 9 AND (tbl_product.productName LIKE '%$searchText%' OR tbl_product.product_code LIKE '%$searchText%')";
+					break;
+				}
+		}
+		$result = $this->db->select($query);
+		return $result;
+	}
+
 
 	public function update_type_slider($id, $type)
 	{
@@ -493,9 +507,20 @@ class product
 	{
 		$id = $this->fm->validation($id);
 		$id = mysqli_real_escape_string($this->db->link, $id);
-		$query = "DELETE FROM tbl_product where productId = '$id'";
-		$result = $this->db->delete($query);
-		if ($result) {
+
+		$query1 = "DELETE FROM tbl_cart where productId = '$id'";
+		$result1 = $this->db->delete($query1);
+
+		$query2 = "DELETE FROM tbl_wishlist where productId = '$id'";
+		$result2 = $this->db->delete($query2);
+
+		$query3 = "DELETE FROM tbl_order where productId = '$id'";
+		$result3 = $this->db->delete($query3);
+
+		$query4 = "DELETE FROM tbl_product where productId = '$id'";
+		$result4 = $this->db->delete($query4);
+
+		if ($result1 == true && $result2 == true && $result3 == true && $result4 == true) {
 			return json_encode($result_json[] = ['status' => 1]);
 		} else {
 			return json_encode($result_json[] = ['status' => 0]);

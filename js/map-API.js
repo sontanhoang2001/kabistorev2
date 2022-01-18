@@ -120,7 +120,6 @@ async function getGeocoding(lng, lat) {
 
     try {
         var position = features[0].place_name.search("Vietnam");
-        console.log(position);
         // find Vietnam
         if (position != -1) {
             var position = features[0].place_name.search("Can Tho");

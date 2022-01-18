@@ -108,77 +108,91 @@ function login() {
     });
 }
 
+function checkRegister(checkUsername, checkPassword1, checkPassword2) {
+    if (checkUsername == true && checkPassword1 == true & checkPassword2 == true) {
+        $("#submit").removeAttr("disabled");
+    } else {
+        $("#submit").attr("disabled", "disabled");
+    }
+}
+
 function register() {
-    var data_right = false;
+    var checkUsername = false,
+        checkPassword1 = false,
+        checkPassword2 = false;
 
     $("#username").keyup(function() {
         if ($('#username').val() == "") {
-            data_right = false;
+            checkUsername = false;
             // username không được bỏ trống
             $("#error-username1").show();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         } else {
-            data_right = true;
-
+            checkUsername = true;
             $("#error-username1").fadeOut();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         }
         if (/^[a-z0-9_-]{3,16}$/.test($('#username').val()) == false) {
-            data_right = false;
+            checkUsername = false;
             // username sai cú pháp
             $(this).focus();
             $("#error-username2").show();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         } else {
-            data_right = true;
-
+            checkUsername = true;
             $("#error-username2").fadeOut();
-
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         }
     });
 
     $("#password1").keyup(function() {
         if ($('#password1').val() == "") {
-            data_right = false;
+            checkPassword1 = false;
             // password không được bỏ trống
             $(this.password1).focus();
             $("#error-password1").show();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         } else {
-            data_right = true;
-
+            checkPassword1 = true;
             $("#error-password1").fadeOut();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         }
         if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test($('#password1').val()) == false) {
-            data_right = false;
+            checkPassword1 = false;
             // password sai cú pháp
             $(this).focus();
             $("#error-password2").show();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         } else {
-            data_right = true;
-
+            checkPassword1 = true;
             $("#error-password2").fadeOut();
-
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         }
 
         if ($('#password2').val() != $('#password1').val()) {
-            data_right = false;
+            checkPassword2 = false;
             // xác nhận password không trùng khớp
             $(this.password1).focus();
             $("#error-password3").show();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         } else {
-            data_right = true;
-
+            checkPassword2 = true;
             $("#error-password3").fadeOut();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         }
     });
 
     $("#password2").keyup(function() {
         if ($('#password2').val() != $('#password1').val()) {
-            data_right = false;
+            checkPassword2 = false;
             // xác nhận password không trùng khớp
             $(this.password1).focus();
             $("#error-password3").show();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         } else {
-            data_right = true;
-
+            checkPassword2 = true;
             $("#error-password3").fadeOut();
+            checkRegister(checkUsername, checkPassword1, checkPassword2);
         }
     });
 
@@ -199,7 +213,7 @@ function register() {
             password2: this.password2.value
         }
 
-        if (data_right == true) {
+        if (checkUsername == true && checkPassword1 && checkPassword2) {
             $.ajax({
                 type: "POST",
                 url: "~/../callbackPartial/register.php",
@@ -284,16 +298,29 @@ function updateProfile() {
     var data_right = false;
     var gender = $('input:radio[name="gender"]:checked').val();
 
+
     $('input[name="fullName"]').keyup(function() {
         if ($(this).val() == "") {
             $("#btnUpdateInfo").attr("disabled", "disabled");
             data_right = false;
             // fullName không được bỏ trống
-            $("#error-fullname").show();
+            $("#error-fullname1").show();
         } else {
-            $("#btnUpdateInfo").removeAttr("disabled");
-            data_right = true;
-            $("#error-fullname").fadeOut();
+            if ($(this).val().length > 6 && $(this).val().length < 30) {
+                $("#btnUpdateInfo").removeAttr("disabled");
+                data_right = true;
+                $("#error-fullname1").fadeOut();
+                $("#error-fullname2").fadeOut();
+            } else {
+                $("#btnUpdateInfo").attr("disabled", "disabled");
+                data_right = false;
+                // username sai cú pháp
+                $("#error-fullname2").show();
+            }
+
+            // $("#btnUpdateInfo").removeAttr("disabled");
+            // data_right = true;
+            // $("#error-fullname1").fadeOut();
         }
     });
 

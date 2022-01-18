@@ -43,17 +43,23 @@ if (!isset($_GET['product_num'])) {
         </div>
 
         <div class="card-body">
-            <div class="table-responsive">
-                <form method="get">
-                    <div class="ml-1 pull-right">
-                        <div class="input-group">
-                            <div class="form-outline">
-                                <input type="number" name="product_num" class="form-control" style="width: 70px; height: 30px;" min="1" value="<?php echo $product_num ?>" />
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="get">
+                        <div class="ml-1">
+                            <div class="input-group">
+                                <div class="form-outline">
+                                    <input type="number" name="product_num" class="form-control" style="width: 60px;" min="1" value="<?php echo $product_num ?>" />
+                                </div>
+                                <button type="submit" class="btn btn-primary ml-1">Hiển thị</button>
                             </div>
-                            <button type="submit" class="btn btn-primary ml-1" style="height: 32px;">Hiển thị</button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
                 <table class="table table-bordered display datatable table-striped" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -80,10 +86,11 @@ if (!isset($_GET['product_num'])) {
                     </tfoot> -->
                     <tbody>
                         <?php
-                        $list_product = $pd->show_product($page, $product_num);
-                        $get_amount_all_show_product = $pd->get_amount_all_show_product();
+                        $type = 0; // product-list normal
+                        $list_product = $pd->show_product($type, $page, $product_num, $searchText);
+                        $get_amount_all_show_product = $pd->get_amount_all_show_product($type, $searchText);
                         $result = $get_amount_all_show_product->fetch_assoc();
-                        $product_count = $result['totalRow'];
+                        $totalRow = $result['totalRow'];
                         if ($list_product) {
                             $i = 0;
                             while ($result = $list_product->fetch_assoc()) {
@@ -144,8 +151,8 @@ if (!isset($_GET['product_num'])) {
                 </table>
                 <!-- Pagination -->
                 <?php
-                if ($product_count >= $product_num) {
-                    $product_button = ceil(($product_count) / $product_num);
+                if ($totalRow >= $product_num) {
+                    $product_button = ceil(($totalRow) / $product_num);
                     $page_now = $page;
                 }
                 ?>
@@ -460,6 +467,7 @@ if (!isset($_GET['product_num'])) {
                                             <option selected value="0">Bình thường</option>
                                             <option value="1">Hot nhất</option>
                                             <option value="2">Xếp cao nhất</option>
+                                            <option value="9">Ngừng kinh doanh</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -534,6 +542,7 @@ if (!isset($_GET['product_num'])) {
 
 <script src="../js/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
 <script type="text/javascript">
+    var product_num = <?php echo $product_num ?>;
     $(function() {
         window.pagObj = $('#pagination').twbsPagination({
             totalPages: <?php echo $product_button ?>,
@@ -544,7 +553,7 @@ if (!isset($_GET['product_num'])) {
             }
         }).on('page', function(event, page) {
             // console.info(page + ' (from event listening)');
-            location.href = "product-list?page=" + page;
+            location.href = "product-list?page=" + page + "&product_num=" + product_num;
         });
     });
 </script>

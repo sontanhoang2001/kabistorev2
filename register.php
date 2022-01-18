@@ -49,7 +49,7 @@ if ($login_check) {
             <!-- to error: add class "has-danger" -->
             <div class="form-group pt-10 mt-30">
               <label for="username">Tên đăng nhập</label>
-              <input type="text" class="form-control form-control-sm" name="username" id="username">
+              <input type="text" class="form-control form-control-sm" name="username" id="username" require>
             </div>
             <div class="error mb-2" id="error-username1">Tên đăng nhập không được bỏ trống!!!</div>
             <div class="error mb-2" id="error-username2">
@@ -58,7 +58,7 @@ if ($login_check) {
             </div>
             <div class="form-group">
               <label for="password1">Mật khẩu</label>
-              <input type="password" class="form-control form-control-sm" name="password1" id="password1">
+              <input type="password" class="form-control form-control-sm" name="password1" id="password1" require>
             </div>
             <div class="error  mb-2" id="error-password1">Mật khẩu không được bỏ trống!!!</div>
             <div class="error  mb-2" id="error-password2">
@@ -66,14 +66,14 @@ if ($login_check) {
               + VD: nguyenvanteo123456</div>
             <div class="form-group">
               <label for="password2">Xác nhận mật khẩu</label>
-              <input type="password" class="form-control form-control-sm" name="password2" id="password2">
+              <input type="password" class="form-control form-control-sm" name="password2" id="password2" require>
             </div>
           </div>
           <div class="error  mb-2" id="error-password3">Xác nhận mật khẩu không khớp!!!</div>
           <div class="checkbox">
             <label><input type="checkbox" onclick="showPasswords()"> Hiện mật khẩu</label>
           </div>
-          <button type="submit" name="submit" class="btn btn-primary btn-block" id="submit"> Tạo tài khoản </button>
+          <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block" id="submit"> Tạo tài khoản </button>
           <div class="mt-2">
             <div class="sign-up">
               Có tài khoản? <a href="login.html">Đăng nhập</a>

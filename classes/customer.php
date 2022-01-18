@@ -95,6 +95,7 @@ class customer
 		}
 		$this->connection->close();
 	}
+
 	public function login_cookie()
 	{
 		// 0 tên đnăg nhập và mất khẩu không được bỏ trống
@@ -361,25 +362,32 @@ class customer
 		$this->connection->close();
 	}
 
-	public function show_AllCustomersAdmin()
+	public function show_AllCustomersAdmin($page, $product_num, $searchText)
 	{
-		$query = "SELECT id, username, name, maps_maplat, maps_maplng, date_Joined FROM tbl_customer
-        ORDER BY id DESC";
+		$index_page = ($page - 1) * $product_num;
+		$query = "SELECT id, username, name, maps_maplat, maps_maplng, date_Joined FROM tbl_customer WHERE username LIKE '%$searchText%' OR `name` LIKE '%$searchText%' ORDER BY id DESC LIMIT $index_page, $product_num";
 		$show_AllCustomersAdmin = $this->db->select($query);
 		return $show_AllCustomersAdmin;
+	}
+
+	public function get_amount_all_show_customerAdmin($searchText)
+	{
+		$query = "SELECT COUNT(id) as totalRow FROM tbl_customer
+		WHERE tbl_customer.username LIKE '%$searchText%' OR tbl_customer.username LIKE '%$searchText%'";
+		$result = $this->db->select($query);
+		return $result;
 	}
 
 	public function delete_customer($customerId)
 	{
 		$customer_id = mysqli_real_escape_string($this->db->link, $customerId);
-		$query = "DELETE FROM tbl_customer WHERE id='$customer_id' ";
+		$query = "DELETE FROM tbl_customer WHERE id='$customer_id'";
 		$result = $this->db->delete($query);
-		if ($result) {
+		if ($result == true) {
 			return json_encode($result_json[] = ['status' => 1]);
 		} else {
 			return json_encode($result_json[] = ['status' => 0]);
 		}
-		return $result;
 	}
 
 	// public function update_customers($data, $id)

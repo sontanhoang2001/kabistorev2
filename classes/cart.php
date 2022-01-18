@@ -406,8 +406,8 @@ class cart
 		$lng = $data['maps_maplng'];
 		// $geocoder = $data['geocoder'];
 		$note_address = $data['note'];
-		$sId = session_id();
-		$sId = $sId . "-" . date("d/m/Y h:m:s");
+		// $sId = session_id();
+		$sId = $customer_id . "-" . date("d/m/Y h:m:s");
 		$discount = session::get('discountMoney');
 
 		// Tìm cart = customer_id
@@ -436,10 +436,11 @@ class cart
 			return json_encode($return_json);
 		} else {
 			//insert address
-			$query = "INSERT INTO tbl_address (maps_maplat, maps_maplng, note_address, sId, customer_id) VALUES ('$lat','$lng','$note_address','$sId','$customer_id')";
+			$note_address = $note_address != null ? "'$note_address'" : "NULL";
+			$query = "INSERT INTO tbl_address (maps_maplat, maps_maplng, note_address, sId, customer_id) VALUES ('$lat','$lng',$note_address,'$sId','$customer_id')";
 			$insertAddress = $this->db->insert($query);
 			if ($insertAddress) {
-				$query = "SELECT address_id FROM tbl_address WHERE sId = '$sId' AND customer_id = '$customer_id'";
+				$query = "SELECT address_id FROM tbl_address WHERE sId = '$sId'";
 				$selectAddress = $this->db->select($query);
 				if ($selectAddress) {
 					$result = $selectAddress->fetch_assoc();
@@ -470,6 +471,9 @@ class cart
 					}
 					if ($insert_order) {
 						Session::set('payment', true);
+						$query = "UPDATE `tbl_address` SET `sId` = NULL WHERE `sId` = '$sId' ";
+						$result = $this->db->update($query);
+
 						// header('Location:success.php');
 						return json_encode($return_json[] = ['status' => 1]);
 					}

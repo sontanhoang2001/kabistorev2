@@ -772,22 +772,25 @@ function product_list() {
                                 toast.change('Đã Lưu và thay đổi...', 3500);
                                 $("#editModal .close").click()
 
+                                if (formData.type == 9) {
+                                    $('tbody tr').eq(tr_index).css("background-color", "hotpink").fadeOut(1000);
+                                } else {
+                                    // cập nhật dữ liệu vào bảng
+                                    $('tbody tr td').eq((tr_index * 11) + tr_index + 1).empty().append(formData.product_code);
+                                    try {
+                                        // lấy img từ input
+                                        const obj_img = JSON.parse(formData.image);
+                                        $('tbody tr td').eq((tr_index * 11) + tr_index + 2).find("a").empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
+                                    } catch (error) {
 
-                                // cập nhật dữ liệu vào bảng
-                                $('tbody tr td').eq((tr_index * 11) + tr_index + 1).empty().append(formData.product_code);
-
-                                try {
-                                    // lấy img từ input
-                                    const obj_img = JSON.parse(formData.image);
-                                    $('tbody tr td').eq((tr_index * 11) + tr_index + 2).find("a").empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
-                                } catch (error) {
-
+                                    }
+                                    $('tbody tr td').eq((tr_index * 11) + tr_index + 3).empty().append(formData.productName);
+                                    $('tbody tr td').eq((tr_index * 11) + tr_index + 7).empty().append(currency_vn(formData.price));
+                                    $('tbody tr td').eq((tr_index * 11) + tr_index + 8).empty().append(categoryTxt);
+                                    $('tbody tr td').eq((tr_index * 11) + tr_index + 9).empty().append(brandTxt);
+                                    $('tbody tr td').eq((tr_index * 11) + tr_index + 10).empty().append(typeTxt);
                                 }
-                                $('tbody tr td').eq((tr_index * 11) + tr_index + 3).empty().append(formData.productName);
-                                $('tbody tr td').eq((tr_index * 11) + tr_index + 7).empty().append(currency_vn(formData.price));
-                                $('tbody tr td').eq((tr_index * 11) + tr_index + 8).empty().append(categoryTxt);
-                                $('tbody tr td').eq((tr_index * 11) + tr_index + 9).empty().append(brandTxt);
-                                $('tbody tr td').eq((tr_index * 11) + tr_index + 10).empty().append(typeTxt);
+
                                 break;
                             }
                         case 2:
@@ -868,7 +871,7 @@ function product_list() {
                 switch (Status) {
                     case 0:
                         {
-                            var message = "Sản phẩm này không thể xóa!";
+                            var message = "Xóa sản phẩm thất bại!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
                             break;

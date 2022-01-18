@@ -285,7 +285,6 @@ function order() {
     // Load customer info
     $(".btn[data-target='#customerModal']").click(function(event) {
         event.preventDefault();
-
         // resset tab về tab đầu tiền
         $("#btnViewInfo").click();
         addressid = $(this).attr("data-addressid");
@@ -321,7 +320,6 @@ function order() {
                         }
                     case 1:
                         {
-
                             var lng = cusMaps_maplng,
                                 lat = cusMaps_maplat;
                             // lấy tên vị trí bản đồ
@@ -398,7 +396,7 @@ function order() {
                 switch (Status) {
                     case 0:
                         {
-                            var message = "Xóa tài khoản khách hàng không thành công!";
+                            var message = "Xóa tài khoản khách hàng không thất bại!";
                             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
                             toast.change('Vui lòng thử lại...', 3500);
                             break;

@@ -5,6 +5,18 @@ include_once($filepath . '/../classes/customer.php');
 include_once($filepath . '/../helpers/format.php');
 $cs = new customer();
 $fm = new format();
+
+if (!isset($_GET['page'])) {
+	$page = 1;
+} else {
+	$page = $_GET['page'];
+}
+
+if (!isset($_GET['product_num'])) {
+	$product_num = $product_num_admin;
+} else {
+	$product_num = $_GET['product_num'];
+}
 ?>
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
@@ -29,6 +41,20 @@ $fm = new format();
 		</div>
 
 		<div class="card-body">
+			<div class="row">
+				<div class="col-md-6">
+					<form method="get">
+						<div class="ml-1">
+							<div class="input-group">
+								<div class="form-outline">
+									<input type="number" name="product_num" class="form-control" style="width: 60px;" min="1" value="<?php echo $product_num ?>" />
+								</div>
+								<button type="submit" class="btn btn-primary ml-1">Hiển thị</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 			<div class="table-responsive">
 				<table class="table table-bordered display datatable table-striped" id="dataTable" width="100%" cellspacing="0">
 					<thead>
@@ -48,7 +74,10 @@ $fm = new format();
                     </tfoot> -->
 					<tbody>
 						<?php
-						$show_customers = $cs->show_AllCustomersAdmin();
+						$show_customers = $cs->show_AllCustomersAdmin($page, $product_num, $searchText);
+						$get_amount_all_show_customerAdmin = $cs->get_amount_all_show_customerAdmin($searchText);
+						$result = $get_amount_all_show_customerAdmin->fetch_assoc();
+						$totalRow = $result['totalRow'];
 						if ($show_customers) {
 							$i = 0;
 							while ($result = $show_customers->fetch_assoc()) {
@@ -72,6 +101,18 @@ $fm = new format();
 						?>
 					</tbody>
 				</table>
+				<!-- Pagination -->
+				<?php
+				if ($totalRow >= $product_num) {
+					$product_button = ceil(($totalRow) / $product_num);
+					$page_now = $page;
+				}
+				?>
+				<div class="container mt-5 mb-4">
+					<nav aria-label="Page navigation">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -240,6 +281,29 @@ $fm = new format();
 <script src="js/customer.js"></script>
 <script src="js/helpers.js"></script>
 <script>
+	$(document).ready(function() {
+		$("#sidebarToggleTop").click();
+	})
+	$('#dataTable').dataTable({
+		"paging": false
+	});
 	order();
 	loadCustomerMap();
+</script>
+<script src="../js/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var product_num = <?php echo $product_num ?>;
+	$(function() {
+		window.pagObj = $('#pagination').twbsPagination({
+			totalPages: <?php echo $product_button ?>,
+			visiblePages: 4,
+			startPage: <?php echo $page_now ?>,
+			onPageClick: function(event, page) {
+				// console.info(page + ' (from options)');
+			}
+		}).on('page', function(event, page) {
+			// console.info(page + ' (from event listening)');
+			location.href = "customer-list?page=" + page + "&product_num=" + product_num;
+		});
+	});
 </script>

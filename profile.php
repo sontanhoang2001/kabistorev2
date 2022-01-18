@@ -140,7 +140,8 @@ if ($login_check == false) {
                                 </div>
                                 <input type="text" name="fullName" id="fullName" class="form-control" value="<?php echo $result['name']; ?>" required placeholder="Vd: Nguyễn Thị  A...">
                               </div>
-                              <div class="error mb-2" id="error-fullname">Họ và tên không được bỏ trống! hãy ghi tên để chúng tôi dễ xưng hô với bạn.</div>
+                              <div class="error mb-2" id="error-fullname1">Họ và tên không được bỏ trống! hãy ghi tên để chúng tôi dễ xưng hô với bạn.</div>
+                              <div class="error mb-2" id="error-fullname2">Họ và tên đang nhỏ hơn 6 ký tự hoặc vượt quá 30 ký tự cho phép!</div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                               <label>(*) Ngày sinh</label>
