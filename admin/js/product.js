@@ -223,6 +223,11 @@ function add_product() {
             old_price = null;
         }
 
+        var product_desc = YourEditor.data.get();
+        if (product_desc == "" || product_desc == " ") {
+            product_desc = null;
+        }
+
         var formData = {
             product_code: $("input[name=product_code]").val(),
             productName: $("input[name=productName]").val(),
@@ -235,7 +240,7 @@ function add_product() {
             size: sizeArray,
             color: colorArray,
             image: jsonImageArray,
-            product_desc: $("#product_desc").val(),
+            product_desc: product_desc,
             type: $('select[name="type"] option:selected').val(),
             product_soldout: $("input[name=product_soldout]").val()
         };
@@ -246,10 +251,6 @@ function add_product() {
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else if (formData.brand == 0) {
             var message = "Bạn chưa chọn thương hiệu!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng chỉnh sửa lại...', 3500);
-        } else if (YourEditor.data.get() == '' || YourEditor.data.get() == ' ') {
-            var message = "Bạn chưa nhập mô tả sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else if (formData.type == "null") {
@@ -727,6 +728,10 @@ function product_list() {
             old_price = null;
         }
 
+        var product_desc = YourEditor.data.get();
+        if (product_desc == "" || product_desc == " ") {
+            product_desc = null;
+        }
 
         var formData = {
             productId: productId,
@@ -741,7 +746,7 @@ function product_list() {
             size: sizeArray,
             color: colorArray,
             image: jsonImageArray,
-            product_desc: YourEditor.data.get(),
+            product_desc: product_desc,
             type: $('select[name="type"] option:selected').val()
         };
 
@@ -751,10 +756,6 @@ function product_list() {
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else if (formData.brand == 0) {
             var message = "Bạn chưa chọn thương hiệu!";
-            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-            toast.change('Vui lòng chỉnh sửa lại...', 3500);
-        } else if (YourEditor.data.get() == '' || YourEditor.data.get() == ' ') {
-            var message = "Bạn chưa nhập mô tả sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else if (formData.type == "null") {

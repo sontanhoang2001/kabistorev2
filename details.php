@@ -203,11 +203,17 @@ include 'inc/facebookPlugin.php';
 						$get_product_details = $product->get_details($productid);
 						if ($get_product_details) {
 							while ($result_details = $get_product_details->fetch_assoc()) {
+								if ($result_details['product_desc'] != null) {
 						?>
-								<div class=" descriptionBox mt-4">
-									<p><?php echo $result_details['product_desc'] ?></p>
-								</div>
+									<div class=" descriptionBox mt-4">
+										<p><?php echo $result_details['product_desc'] ?></p>
+									</div>
+								<?php
+								} else {
+								?>
+									<p class="mt-5">Không có mô tả cho sản phẩm này.</p>
 						<?php
+								}
 							}
 						}
 						?>

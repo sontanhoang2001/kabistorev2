@@ -70,7 +70,7 @@ class product
 		// 0 các trường ko đc bỏ trống
 		if (
 			$productName == "" || $product_code == '' || $productQuantity == "" || $category == ""
-			|| $brand == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == ""
+			|| $brand == "" || $root_price == "" || $price == "" || $type == "" || $image == ""
 		) {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
@@ -83,8 +83,9 @@ class product
 				$old_price = $old_price != null ? "'$old_price'" : "NULL";
 				$size = $size != null ? "'$size'" : "NULL";
 				$color = $color != null ? "'$color'" : "NULL";
+				$product_desc = $product_desc != null ? "'$product_desc'" : "NULL";
 
-				$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand','$product_desc','$type', '$root_price', $old_price,'$price', '$image', $size, $color)";
+				$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand',$product_desc,'$type', '$root_price', $old_price,'$price', '$image', $size, $color)";
 				$result = $this->db->insert($query2);
 				if ($result) {
 					// 1 thành công
@@ -473,24 +474,25 @@ class product
 		$size = mysqli_real_escape_string($this->db->link, $data['size']);
 		$color = mysqli_real_escape_string($this->db->link, $data['color']);
 
-		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
+		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$old_price = $old_price != null ? "'$old_price'" : "NULL";
 			$size = $size != null ? "'$size'" : "NULL";
 			$color = $color != null ? "'$color'" : "NULL";
+			$product_desc = $product_desc != null ? "'$product_desc'" : "NULL";
 
 			$query = "UPDATE tbl_product SET
 					productName = '$productName',
 					product_code = '$product_code',
 					brandId = '$brand',
-					catId = '$category', 
+					catId = '$category',
 					`type` = '$type',
 					root_price = '$root_price',
 					old_price = $old_price,
 					price = '$price', 
 					`image` = '$image',
-					product_desc = '$product_desc',
+					product_desc = $product_desc,
 					size = $size, color = $color
 					WHERE productId = '$productId'";
 
