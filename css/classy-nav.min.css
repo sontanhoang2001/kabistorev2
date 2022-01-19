@@ -138,17 +138,7 @@ img {
 @media only screen and (max-width: 600px) {
     .nav-brand-image1 {
         height: auto;
-        max-width: 32%;
-    }
-}
-
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-
-@media only screen and (min-width: 600px) {
-    .nav-brand-image1 {
-        height: auto;
-        max-width: 32%;
+        max-width: 40%;
     }
 }
 
@@ -156,6 +146,13 @@ img {
 /* Medium devices (landscape tablets, 768px and up) */
 
 @media only screen and (min-width: 768px) {
+    .nav-brand-image1 {
+        height: auto;
+        max-width: 32%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
     .nav-brand-image1 {
         height: auto;
         max-width: 40%;
@@ -168,7 +165,7 @@ img {
 @media only screen and (min-width: 992px) {
     .nav-brand-image1 {
         height: auto;
-        max-width: 45%;
+        max-width: 40%;
     }
 }
 

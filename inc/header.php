@@ -177,7 +177,7 @@ include_once "inc/checkManager.php";
                                         $tableMenuCategory = $numberMenuCategory / $tableMenuCategoryRow;
 
                                         // title json
-                                        $titleCategory = array("Đơn giản", "", "", "Tinh tế", "", "", "Chất lượng", "", "");
+                                        $titleCategory = array("Quần áo", "", "", "Thời trang", "", "", "Phụ kiện hot trend", "", "");
                                         for ($i = 0; $i < $numberMenuCategory; $i++) {
                                             $catId = $menuCategory[$i]['catId'];
                                             $catName = $menuCategory[$i]['catName'];

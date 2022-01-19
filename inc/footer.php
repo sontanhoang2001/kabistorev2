@@ -27,7 +27,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
                     <!-- Footer Menu -->
                     <div class="footer_menu col-md-6">
                         <ul>
-                            <li><a href="product.html">Shop</a></li>
+                            <li><a href="san-pham-f0p1t0smem.html">Sản phẩm</a></li>
                             <li><a href="blog.html">Blog</a></li>
                             <li><a href="contact.html">Liên hệ</a></li>
                         </ul>
