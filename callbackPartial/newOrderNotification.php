@@ -514,7 +514,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </table>
                                             <p>Đi đến xét duyệt đơn hàng ngay</p>
                                             <div align="center">
-                                                <a href="https://kabistore.com.vn/admin/order-list"
+                                                <a href="https://kabistore.com.vn/kba/order-list"
                                                     class="f-fallback button button--green" target="_blank">Xem đơn
                                                     hàng</a>
                                             </div>

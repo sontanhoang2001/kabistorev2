@@ -80,10 +80,11 @@ class product
 				// 3 Mã sản phẩm này đã tồn tại
 				return json_encode($result_json[] = ['status' => 3]);
 			} else {
+				$old_price = $old_price != null ? "'$old_price'" : "NULL";
 				$size = $size != null ? "'$size'" : "NULL";
 				$color = $color != null ? "'$color'" : "NULL";
 
-				$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand','$product_desc','$type', '$root_price', '$old_price','$price', '$image', $size, $color)";
+				$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand','$product_desc','$type', '$root_price', $old_price,'$price', '$image', $size, $color)";
 				$result = $this->db->insert($query2);
 				if ($result) {
 					// 1 thành công
@@ -475,6 +476,7 @@ class product
 		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $product_desc == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
+			$old_price = $old_price != null ? "'$old_price'" : "NULL";
 			$size = $size != null ? "'$size'" : "NULL";
 			$color = $color != null ? "'$color'" : "NULL";
 
@@ -485,7 +487,7 @@ class product
 					catId = '$category', 
 					`type` = '$type',
 					root_price = '$root_price',
-					old_price = '$old_price',
+					old_price = $old_price,
 					price = '$price', 
 					`image` = '$image',
 					product_desc = '$product_desc',

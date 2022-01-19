@@ -218,6 +218,11 @@ function add_product() {
             colorArray = JSON.stringify(colorArray);
         }
 
+        var old_price = $("input[name=old_price]").val();
+        if (old_price == 0 || old_price == "" || old_price == " ") {
+            old_price = null;
+        }
+
         var formData = {
             product_code: $("input[name=product_code]").val(),
             productName: $("input[name=productName]").val(),
@@ -225,7 +230,7 @@ function add_product() {
             category: $('select[name="category"] option:selected').val(),
             brand: $('select[name="brand"] option:selected').val(),
             root_price: $("input[name=root_price]").val(),
-            old_price: $("input[name=old_price]").val(),
+            old_price: old_price,
             price: $("input[name=price]").val(),
             size: sizeArray,
             color: colorArray,
@@ -241,6 +246,10 @@ function add_product() {
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else if (formData.brand == 0) {
             var message = "Bạn chưa chọn thương hiệu!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng chỉnh sửa lại...', 3500);
+        } else if (YourEditor.data.get() == '' || YourEditor.data.get() == ' ') {
+            var message = "Bạn chưa nhập mô tả sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else if (formData.type == "null") {
@@ -713,6 +722,12 @@ function product_list() {
             colorArray = JSON.stringify(colorArray);
         }
 
+        var old_price = $("input[name=old_price]").val();
+        if (old_price == 0 || old_price == "" || old_price == " ") {
+            old_price = null;
+        }
+
+
         var formData = {
             productId: productId,
             product_code: $("input[name=product_code]").val(),
@@ -721,7 +736,7 @@ function product_list() {
             category: $('select[name="category"] option:selected').val(),
             brand: $('select[name="brand"] option:selected').val(),
             root_price: $("input[name=root_price]").val(),
-            old_price: $("input[name=old_price]").val(),
+            old_price: old_price,
             price: $("input[name=price]").val(),
             size: sizeArray,
             color: colorArray,
@@ -736,6 +751,10 @@ function product_list() {
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else if (formData.brand == 0) {
             var message = "Bạn chưa chọn thương hiệu!";
+            let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+            toast.change('Vui lòng chỉnh sửa lại...', 3500);
+        } else if (YourEditor.data.get() == '' || YourEditor.data.get() == ' ') {
+            var message = "Bạn chưa nhập mô tả sản phẩm!";
             let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
             toast.change('Vui lòng chỉnh sửa lại...', 3500);
         } else if (formData.type == "null") {
