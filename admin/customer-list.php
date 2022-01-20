@@ -154,7 +154,7 @@ if (!isset($_GET['product_num'])) {
 							<div class="row">
 								<div class="col-md-7 border-right no-gutters">
 									<div class="py-3">
-										<img class="img-thumbnail" id="cusAvatar" src="" style="width: 100px; height: 100px; object-fit: cover">
+										<img class="img-thumbnail lazy" id="cusAvatar" src="">
 										<h4 class="text-secondary mt-2" id="cusName">Tên khách hàng</h4>
 										<div class="allergy"><span id="cusUserName">UserName</span></div>
 										<div class="stats">

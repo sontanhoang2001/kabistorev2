@@ -478,6 +478,7 @@ class product
 		$product_code = mysqli_real_escape_string($this->db->link, $data['product_code']);
 		$brand = mysqli_real_escape_string($this->db->link, $data['brand']);
 		$category = mysqli_real_escape_string($this->db->link, $data['category']);
+		$product_soldout = mysqli_real_escape_string($this->db->link, $data['product_soldout']);
 		$product_desc = mysqli_real_escape_string($this->db->link, $data['product_desc']);
 		$perPrice = mysqli_real_escape_string($this->db->link, $data['perPrice']);
 		$root_price = mysqli_real_escape_string($this->db->link, $data['root_price']);
@@ -501,6 +502,7 @@ class product
 					product_code = '$product_code',
 					brandId = '$brand',
 					catId = '$category',
+					product_soldout = '$product_soldout',
 					`type` = '$type',
 					perPrice = '$perPrice',
 					root_price = '$root_price',
@@ -582,7 +584,7 @@ class product
 	// lấy sản phẩm cho edit product
 	public function getproductForEdit($id)
 	{
-		$query = "SELECT productName, product_code, catId, brandId, product_desc, type, perPrice, root_price, old_price, price, image, size, color FROM tbl_product WHERE productId = '$id'";
+		$query = "SELECT productName, product_code, catId, brandId, product_soldout, product_desc, type, perPrice, root_price, old_price, price, image, size, color FROM tbl_product WHERE productId = '$id'";
 		$result = $this->db->select($query);
 		return $result;
 	}

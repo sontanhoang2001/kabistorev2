@@ -12,7 +12,7 @@ function uploadProductImg(type) {
     $("#reviewImage img").remove();
     // Tạo hiệu ứng load
     for (var i = 0; i < totalfiles; i++) {
-        $("#reviewImage").append('<img class="lazy mr-2 mt-2" style="width: 100px; height: 100px;" src="../img/core-img/loadAvatar.gif">');
+        $("#reviewImage").append('<img class="lazy mr-2 mt-2" src="../img/core-img/loadAvatar.gif">');
     }
 
     var textImageTemp = "";
@@ -170,7 +170,7 @@ function add_product() {
         var imageArrayArg = new Array();
         $.each(array, function(i) {
             // tạo ảnh xem trước
-            $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + array[i] + '">');
+            $("#reviewImage").append('<img class="mr-2 mt-2 lazy" src="' + array[i] + '">');
             var jsonObj = new Object();
             jsonObj.image = array[i];
             imageArrayArg.push(jsonObj);
@@ -502,6 +502,7 @@ function product_list() {
                         product_code = res.product_code,
                         catId = res.catId,
                         brandId = res.brandId,
+                        product_soldout = res.product_soldout,
                         product_desc = res.product_desc,
                         type = res.type,
                         perPrice = res.perPrice,
@@ -527,6 +528,7 @@ function product_list() {
 
                     $('#priceText').text(currency_vn(price));
                     $("input[name=price]").val(price);
+                    $("input[name=product_soldout]").val(product_soldout);
 
                     var size = JSON.parse(res.size)
                     $.each(size, function(i, val) {
@@ -588,7 +590,7 @@ function product_list() {
                     var imageTemp = "";
                     $.each(obj_img, function(i) {
                         // Khởi tạo lại lại ảnh sản phẩm
-                        $("#reviewImage").append('<img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="' + obj_img[i]['image'] + '">');
+                        $("#reviewImage").append('<img class="mr-2 mt-2 lazy" src="' + obj_img[i]['image'] + '">');
                         // Khởi tạo lại chuỗi json thành text
                         imageTemp = imageTemp.concat(obj_img[i]['image']) + ",";
 
@@ -644,7 +646,7 @@ function product_list() {
         } else {
             root_price = $(this).val();
             $('#root_priceText').text(currency_vn(root_price));
-            var price = Number(root_price) + (root_price * 0.7);
+            var price = Number(root_price) + (root_price * perPrice / 100);
 
             // tính tiền nâng giá
             $('input[name=price]').val(price);
@@ -829,6 +831,7 @@ function product_list() {
             productQuantity: $("input[name=productQuantity]").val(),
             category: $('select[name="category"] option:selected').val(),
             brand: $('select[name="brand"] option:selected').val(),
+            product_soldout: $("input[name=product_soldout]").val(),
             perPrice: perPrice,
             root_price: $("input[name=root_price]").val(),
             old_price: old_price,
@@ -890,7 +893,7 @@ function product_list() {
                                     try {
                                         // lấy img từ input
                                         const obj_img = JSON.parse(formData.image);
-                                        $('tbody tr td').eq((tr_index * 11) + tr_index + 2).find("a").empty().append('<img src="' + obj_img[0]['image'] + '" width="100px" height="100px">');
+                                        $('tbody tr td').eq((tr_index * 11) + tr_index + 2).find("a").empty().append('<img src="' + obj_img[0]['image'] + '" class="lazy">');
                                     } catch (error) {
 
                                     }
