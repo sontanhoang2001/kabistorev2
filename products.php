@@ -347,19 +347,19 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                         ?>
                     </div>
                 </div>
+                <!-- Pagination -->
+                <?php
+                if ($product_count >= $product_num) {
+                    $product_button = ceil(($product_count) / $product_num);
+                    $page_now = $page;
+                }
+                ?>
+                <div class="mt-5 mb-4">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination" id="pagination"></ul>
+                    </nav>
+                </div>
             </div>
-        </div>
-        <!-- Pagination -->
-        <?php
-        if ($product_count >= $product_num) {
-            $product_button = ceil(($product_count) / $product_num);
-            $page_now = $page;
-        }
-        ?>
-        <div class="mt-5 mb-4">
-            <nav aria-label="Page navigation">
-                <ul class="pagination" id="pagination"></ul>
-            </nav>
         </div>
     </div>
 </section>

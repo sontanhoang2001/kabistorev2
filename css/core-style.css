@@ -479,19 +479,19 @@ input[type='radio']:checked:after {
 
 @keyframes openHelp1 {
     0% {
-        top: 700px;
+        bottom: 165px;
     }
     25% {
-        top: 650px;
+        bottom: 190px;
     }
     50% {
-        top: 660px;
+        bottom: 210px;
     }
     75% {
-        top: 670px;
+        bottom: 205px;
     }
     100% {
-        top: 700px;
+        bottom: 165px;
     }
 }
 

@@ -28,25 +28,37 @@ class product
 	}
 
 	// Tìm kiếm sản phẩm
-	public function search_product($search_text)
+	public function search_product($search_text, $page, $product_num)
 	{
+		$index_page = ($page - 1) * $product_num;
 		$search_text = $this->fm->validation($search_text); //gọi ham validation từ file Format để ktra
-		$query = "SELECT productId, productName, product_soldout, brandId, old_price, price, size, color, image FROM tbl_product WHERE productName LIKE '%$search_text%' AND `type` != 9";
+		$query = "SELECT productId, productName, product_soldout, brandId, old_price, price, size, color, image FROM tbl_product WHERE productName LIKE '%$search_text%' AND `type` != 9
+		order by productId desc LIMIT $index_page, $product_num";
 		$result = $this->db->select($query);
 		return $result;
 	}
+
+	// đếm tổng số sản phẩm search được
+	public function get_amount_search_product($search_text)
+	{
+		$query = "SELECT COUNT(productId) as totalRow FROM tbl_product WHERE productName LIKE '%$search_text%' AND `type` != 9";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+
 
 	// đếm tổng số sản phẩm
-	public function get_amount_search_product($filter, $type)
-	{
-		$catId = $type;
-		$brandId = $type;
+	// public function get_amount_search_product($filter, $type)
+	// {
+	// 	$catId = $type;
+	// 	$brandId = $type;
 
-		// Đếm tất cả sản phẩm select = 0
-		$query = "SELECT COUNT(productId) as totalRow FROM tbl_product";
-		$result = $this->db->select($query);
-		return $result;
-	}
+	// 	// Đếm tất cả sản phẩm select = 0
+	// 	$query = "SELECT COUNT(productId) as totalRow FROM tbl_product";
+	// 	$result = $this->db->select($query);
+	// 	return $result;
+	// }
 
 
 	// Nhập sản phẩm admin

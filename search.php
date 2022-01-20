@@ -1,5 +1,6 @@
 <?php
 include 'inc/header.php';
+include 'config/global.php';
 Session::set('REQUEST_URI', getRequestUrls()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 
 $login_check = Session::get('customer_login');
@@ -9,12 +10,22 @@ if ($login_check) {
 	$customer_id = 0;
 }
 
+if (!isset($_GET['page'])) {
+	$page = 1;
+} else {
+	$page = $_GET['page'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	// LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
 	$search_text = $_GET['key'];
-	$search_product = $product->search_product($search_text); // hàm check catName khi submit lên
+	$search_product = $product->search_product($search_text, $page, $product_num); // hàm check catName khi submit lên
+	$get_amount_search_product = $product->get_amount_search_product($search_text);
+	$result = $get_amount_search_product->fetch_assoc();
+	$product_count = $result['totalRow'];
 }
 ?>
+<link rel="stylesheet" href="css/pagination.css">
 
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
@@ -152,9 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 				</div>
 			</div>
 			<?php
-			$product_all = $product->search_product($search_text);
-			if ($product_all) {
-				$numrow = $product_all->num_rows;
+			if ($get_amount_search_product) {
+				$numrow = $product_count;
 			} else {
 				$numrow = 0;
 			}
@@ -175,8 +185,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 					<div class="row" id="wrapper_product">
 						<?php
 						$seo = "-re-nhat-can-tho";
-						if ($product_all) {
-							while ($result = $product_all->fetch_assoc()) {
+						if ($search_product) {
+							while ($result = $search_product->fetch_assoc()) {
 								$productId = $result['productId'];
 								$product_img =  json_decode($result['image']);
 								$product_img = $product_img[0]->image;
@@ -283,6 +293,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 						?>
 					</div>
 				</div>
+				<!-- Pagination -->
+				<?php
+				if ($product_count >= $product_num) {
+					$product_button = ceil(($product_count) / $product_num);
+					$page_now = $page;
+				}
+				?>
+				<div class="mt-5 mb-4">
+					<nav aria-label="Page navigation">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -310,3 +332,19 @@ include 'inc/footer.php';
 	});
 </script>
 <script src="js/ajax_wishlist-and-cart.js"></script>
+<script src="js/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function() {
+		window.pagObj = $('#pagination').twbsPagination({
+			totalPages: "<?php echo $product_button ?>",
+			visiblePages: 4,
+			startPage: <?php echo $page_now ?>,
+			onPageClick: function(event, page) {
+				// console.info(page + ' (from options)');
+			}
+		}).on('page', function(event, page) {
+			// console.info(page + ' (from event listening)');
+			location.href = "search.html?key=<?php echo $search_text ?>&page=" + page;
+		});
+	});
+</script>

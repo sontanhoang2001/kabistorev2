@@ -53,8 +53,8 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
             <!-- Single Widget Area -->
             <div class="col-12 col-md-6 d-none d-sm-block">
                 <p>Liên hệ với chúng tôi thông qua địa chỉ:</p>
-                <p><span class="fa fa-map-marker"></span> Số 38H11/7, Khu vực 3, An Khánh, Ninh Kiều, Cần Thơ</p>
-                <p><span class="fa fa-phone"></span> +09 21 843 042</p>
+                <p><span class="fa fa-map-marker"></span> Khu vực 3, An Khánh, Ninh Kiều, Cần Thơ</p>
+                <p><span class="fa fa-phone"></span> +09 21 838 021</p>
                 <p><span class="fa fa-envelope"></span> hotrokhachhang@kabistore.com.vn</p>
                 <!-- Single Widget Area -->
                 <div class="single_widget_area">
@@ -68,7 +68,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
                 </div>
             </div>
             <div class="col-md-5 col-sm-10">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26428.777715681143!2d105.74198926611305!3d10.044781603808914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0629f6de3edb7%3A0x527f09dbfb20b659!2zQ-G6p24gVGjGoSwgTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1635689373454!5m2!1svi!2s" width="100%" height="220px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26428.777715681143!2d105.74198926611305!3d10.044781603808914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0629f6de3edb7%3A0x527f09dbfb20b659!2zQ-G6p24gVGjGoSwgTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1635689373454!5m2!1svi!2s" width="100%" height="220px" style="border:0;" allowfullscreen="" class="lazy" loading="lazy"></iframe>
             </div>
 
             <!-- Single Widget Area -->
@@ -81,7 +81,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
                 <!-- Single Widget Area -->
                 <div class="single_widget_area">
                     <div class="footer_social_area">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/ilovekabistore" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>

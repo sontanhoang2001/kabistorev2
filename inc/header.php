@@ -35,14 +35,14 @@ include_once "inc/checkManager.php";
 
     <!-- Title  -->
     <meta charset="UTF-8">
-    <title>Kabi Store - Cửa hàng tổng hợp đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long</title>
-    <meta name="keywords" content="kabistore.com.vn , kabistore, kabistore gia sieu re, kabistore giá siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore tong hop, kabistore tổng hợp, kabistore do gia dung, kabistore đồ gia dụng, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore lam dep, kabistore Làm đẹp, kabistore my pham, kabistore mỹ phẩm, kabistore cham soc ca nhan, kabistore chăm sóc cá nhân, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sĩ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sĩ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long, tan hoang kabistore, Tấn Hoàng kabistore" />
+    <title>Kabi Store - Shop quần áo thời trang nam nữ - Phụ kiện hot trend Cần Thơ - Vĩnh Long - Vũng Liêm</title>
+    <meta name="keywords" content="kabistore.com.vn , kabistore, kabistore gia sieu re, kabistore giá siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore tong hop, kabistore tổng hợp, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore quần áo giá siêu rẻ, kabistore quan ao gia sieu re, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sỉ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sỉ quần áo rẻ nhất cần thơ vĩnh long, kabistore si quan ao re nhat can tho vinh long, kabistore sỉ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long, tan hoang kabistore, Tấn Hoàng kabistore, áo thun cotton tay lỡ fom rộng giá rẻ nhất, oa thun cotton tay lo fom rong gia re nhat, shop quần áo giá rẻ vũng liêm, áo thun vũng liêm, ao thun vung liem, shop quan ao gia re vung liem, kabistore chuyên áo thun cần thơ vĩnh long vũng liêm, kabistore chuyen ao thun can tho vinh long vung liem" />
     <meta name="description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
 
     <?php $GET_URI = substr($_SERVER['REQUEST_URI'], 1, 7);
     if (!$GET_URI == "details") {
     ?>
-        <meta property="og:title" content="⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 Kabi Store - Cửa hàng tổng hợp đồ gia dụng - Thời trang - Làm đẹp, mỹ phẩm & chăm sóc cá nhân - Phụ kiện Cần Thơ - Vĩnh Long" />
+        <meta property="og:title" content="⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 Kabi Store - Shop quần áo thời trang nam nữ - Phụ kiện hot trend Cần Thơ - Vĩnh Long - Vũng Liêm" />
         <meta property="og:description" content="Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
         <meta property="og:url" content="kabistore.com.vn">
         <meta property="og:image:type" content="image/jpeg">
@@ -73,6 +73,7 @@ include_once "inc/checkManager.php";
     <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta name="google-site-verification" content="ngOfSvh8AOWkNpFQ-rHOwpugk4-wOl9xFFH-KlASdRU" />
     <meta name="facebook-domain-verification" content="ycjxgr2xgj6t34d9ot90h6u9kyymxr" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7018934731832878" crossorigin="anonymous"></script>
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
@@ -198,7 +199,6 @@ include_once "inc/checkManager.php";
                     </li>
                     <li><a href="#"><i class="fa fa-bars iconfa" aria-hidden="true"></i> Menu</a>
                         <ul class="dropdown">
-                            <li><a href="index.html">Trang Chủ</a></li>
                             <li><a href="san-pham-f0p1t0smem.html">Tất cả sản phẩm</a></li>
                             <?php
                             $customer_id = Session::get('customer_id');
@@ -217,7 +217,6 @@ include_once "inc/checkManager.php";
                             ?>
                         </ul>
                     </li>
-                    <li><a href="blog.html"><i class="fa fa-facebook-official iconfa" aria-hidden="true"></i> Fanpage</a></li>
                     <li><a href="contact.html"><i class="fa fa-phone-square iconfa" aria-hidden="true"></i> Liên Hệ</a></li>
                     </ul>
                 </div>
