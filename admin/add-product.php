@@ -86,19 +86,22 @@ $pd = new product();
 
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
+                                        <label class="font-weight-bold" for="validation5">Phần trăm lãi<div class="text-success" id="per_priceText">0 %</div></label>
+                                        <input class="form-control" id="validation5" type="number" name="perPrice" placeholder="Vd: 70" required>
+                                        <div class=" valid-feedback">Looks good!</div>
+                                    </div>
+                                    <div class="form-group col-md-3">
                                         <label class="font-weight-bold" for="validation5">Giá gốc <div class="text-success" id="root_priceText">0 ₫</div></label>
                                         <input class="form-control" id="validation5" type="number" name="root_price" placeholder="Vd: 900" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
-
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label class="font-weight-bold" for="validation5">Giá cũ <div class="text-success" id="old_priceText">0 ₫</div></label>
                                         <input class="form-control" id="validation5" type="number" name="old_price" placeholder="Vd: 900" min="0" value="0">
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>
-
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label class="font-weight-bold" for="validation6">Giá mới <div class="text-success" id="priceText">0 ₫</div></label>
                                         <input class="form-control" id="validation6" type="number" name="price" placeholder="Vd: 40000" min="0" required>
                                         <div class=" valid-feedback">Looks good!</div>
@@ -138,7 +141,7 @@ $pd = new product();
                                 <div class="form-group" id="reviewImage">
                                     <img class="mr-2 mt-2" style="width: 100px; height: 100px;" src="../upload/default-product350x350.jpg">
                                 </div>
-                                <textarea class="form-control" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;"></textarea>
+                                <textarea class="form-control" id="image" style="vertical-align: top; padding-top: 9px; width: 100%;" required></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="inputdefault">Mô tả sản phẩm</label>

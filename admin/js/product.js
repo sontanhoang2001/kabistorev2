@@ -65,14 +65,56 @@ function uploadProductImg(type) {
 
 function add_product() {
     // Hiển thị số tiền keyup
-    var root_price;
+    var root_price, perPrice, perPrice;
+    $("input[name=perPrice]").keyup(function() {
+        perPrice = $(this).val();
+        if (perPrice.length == 0) {
+            $('#per_priceText').text(currency_vn(0));
+        } else {
+            root_price = $("input[name=root_price]").val();
+            perPrice = $("input[name=perPrice]").val();
+            $("#per_priceText").text(perPrice + "%");
+
+            $('#root_priceText').text(currency_vn(root_price));
+            var price = Number(root_price) + (root_price * perPrice / 100);
+
+            // tính tiền nâng giá
+            $('input[name=price]').val(price);
+            $('#priceText').text(currency_vn(price));
+
+            // tính tiền lãi
+            var priceShipping = $("input[name=priceShipping]").val();
+            interestRate = price - root_price;
+            var totalPrice = Number(interestRate) + Number(priceShipping);
+
+            $("input[name=interestRate]").val(currency_vn(interestRate));
+            $("input[name=totalPrice]").val(currency_vn(totalPrice));
+        }
+    })
+
     $("input[name=root_price]").keyup(function() {
         root_price = $(this).val();
         if (root_price.length == 0) {
             $('#root_priceText').text(currency_vn(0));
         } else {
-            var root_price = $(this).val();
+            root_price = $(this).val();
+            var perPrice = $("input[name=perPrice]").val();
+            $("#per_priceText").text(perPrice + "%");
+
             $('#root_priceText').text(currency_vn(root_price));
+            var price = Number(root_price) + (root_price * perPrice / 100);
+
+            // tính tiền nâng giá
+            $('input[name=price]').val(price);
+            $('#priceText').text(currency_vn(price));
+
+            // tính tiền lãi
+            var priceShipping = $("input[name=priceShipping]").val();
+            interestRate = price - root_price;
+            var totalPrice = Number(interestRate) + Number(priceShipping);
+
+            $("input[name=interestRate]").val(currency_vn(interestRate));
+            $("input[name=totalPrice]").val(currency_vn(totalPrice));
         }
     })
     $("input[name=old_price]").keyup(function() {
@@ -234,6 +276,7 @@ function add_product() {
             productQuantity: $("input[name=productQuantity]").val(),
             category: $('select[name="category"] option:selected').val(),
             brand: $('select[name="brand"] option:selected').val(),
+            perPrice: perPrice,
             root_price: $("input[name=root_price]").val(),
             old_price: old_price,
             price: $("input[name=price]").val(),
@@ -461,6 +504,7 @@ function product_list() {
                         brandId = res.brandId,
                         product_desc = res.product_desc,
                         type = res.type,
+                        perPrice = res.perPrice,
                         root_price = res.root_price,
                         old_price = res.old_price,
                         price = res.price,
@@ -473,6 +517,8 @@ function product_list() {
                     $('#category option[value=" ' + catId + ' "]').attr('selected', 'selected');
                     $('#brand option[value=" ' + brandId + ' "]').attr('selected', 'selected');
 
+                    $('#per_priceText').text(perPrice + "%");
+                    $("input[name=perPrice]").val(perPrice);
                     $('#root_priceText').text(currency_vn(root_price));
                     $("input[name=root_price]").val(root_price);
 
@@ -527,7 +573,11 @@ function product_list() {
                         $("#color").text(colorTemp1 + colorTemp2);
                     })
 
-                    YourEditor.setData(product_desc);
+                    if (product_desc != null) {
+                        YourEditor.setData(product_desc);
+                    } else {
+                        YourEditor.setData("");
+                    }
 
                     $('#type option[value="' + type + '"]').attr('selected', 'selected');
 
@@ -560,14 +610,53 @@ function product_list() {
     })
 
     // Hiển thị số tiền keyup
-    var root_price;
+    var root_price, perPrice;
+    $("input[name=perPrice]").keyup(function() {
+        perPrice = $(this).val();
+        if (perPrice.length == 0) {
+            $('#per_priceText').text(currency_vn(0));
+        } else {
+            root_price = $("input[name=root_price]").val();
+            perPrice = $("input[name=perPrice]").val();
+            $("#per_priceText").text(perPrice + "%");
+
+            $('#root_priceText').text(currency_vn(root_price));
+            var price = Number(root_price) + (root_price * perPrice / 100);
+
+            // tính tiền nâng giá
+            $('input[name=price]').val(price);
+            $('#priceText').text(currency_vn(price));
+
+            // tính tiền lãi
+            var priceShipping = $("input[name=priceShipping]").val();
+            interestRate = price - root_price;
+            var totalPrice = Number(interestRate) + Number(priceShipping);
+
+            $("input[name=interestRate]").val(currency_vn(interestRate));
+            $("input[name=totalPrice]").val(currency_vn(totalPrice));
+        }
+    })
+
     $("input[name=root_price]").keyup(function() {
         root_price = $(this).val();
         if (root_price.length == 0) {
             $('#root_priceText').text(currency_vn(0));
         } else {
-            var root_price = $(this).val();
+            root_price = $(this).val();
             $('#root_priceText').text(currency_vn(root_price));
+            var price = Number(root_price) + (root_price * 0.7);
+
+            // tính tiền nâng giá
+            $('input[name=price]').val(price);
+            $('#priceText').text(currency_vn(price));
+
+            // tính tiền lãi
+            var priceShipping = $("input[name=priceShipping]").val();
+            interestRate = price - root_price;
+            var totalPrice = Number(interestRate) + Number(priceShipping);
+
+            $("input[name=interestRate]").val(currency_vn(interestRate));
+            $("input[name=totalPrice]").val(currency_vn(totalPrice));
         }
     })
     $("input[name=old_price]").keyup(function() {
@@ -740,6 +829,7 @@ function product_list() {
             productQuantity: $("input[name=productQuantity]").val(),
             category: $('select[name="category"] option:selected').val(),
             brand: $('select[name="brand"] option:selected').val(),
+            perPrice: perPrice,
             root_price: $("input[name=root_price]").val(),
             old_price: old_price,
             price: $("input[name=price]").val(),

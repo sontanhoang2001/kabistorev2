@@ -70,6 +70,7 @@ class product
 		$category = mysqli_real_escape_string($this->db->link, $formData['category']);
 		$brand = mysqli_real_escape_string($this->db->link, $formData['brand']);
 		$root_price = mysqli_real_escape_string($this->db->link, $formData['root_price']);
+		$perPrice = mysqli_real_escape_string($this->db->link, $formData['perPrice']);
 		$old_price = mysqli_real_escape_string($this->db->link, $formData['old_price']);
 		$price = mysqli_real_escape_string($this->db->link, $formData['price']);
 		$type = mysqli_real_escape_string($this->db->link, $formData['type']);
@@ -82,7 +83,7 @@ class product
 		// 0 các trường ko đc bỏ trống
 		if (
 			$productName == "" || $product_code == '' || $productQuantity == "" || $category == ""
-			|| $brand == "" || $root_price == "" || $price == "" || $type == "" || $image == ""
+			|| $brand == "" || $perPrice == "" || $root_price == "" || $price == "" || $type == "" || $image == ""
 		) {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
@@ -97,7 +98,7 @@ class product
 				$color = $color != null ? "'$color'" : "NULL";
 				$product_desc = $product_desc != null ? "'$product_desc'" : "NULL";
 
-				$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand',$product_desc,'$type', '$root_price', $old_price,'$price', '$image', $size, $color)";
+				$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type,perPrice, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand',$product_desc,'$type', '$perPrice', '$root_price', $old_price,'$price', '$image', $size, $color)";
 				$result = $this->db->insert($query2);
 				if ($result) {
 					// 1 thành công
@@ -478,6 +479,7 @@ class product
 		$brand = mysqli_real_escape_string($this->db->link, $data['brand']);
 		$category = mysqli_real_escape_string($this->db->link, $data['category']);
 		$product_desc = mysqli_real_escape_string($this->db->link, $data['product_desc']);
+		$perPrice = mysqli_real_escape_string($this->db->link, $data['perPrice']);
 		$root_price = mysqli_real_escape_string($this->db->link, $data['root_price']);
 		$old_price = mysqli_real_escape_string($this->db->link, $data['old_price']);
 		$price = mysqli_real_escape_string($this->db->link, $data['price']);
@@ -486,7 +488,7 @@ class product
 		$size = mysqli_real_escape_string($this->db->link, $data['size']);
 		$color = mysqli_real_escape_string($this->db->link, $data['color']);
 
-		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
+		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $perPrice == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
 			$old_price = $old_price != null ? "'$old_price'" : "NULL";
@@ -500,6 +502,7 @@ class product
 					brandId = '$brand',
 					catId = '$category',
 					`type` = '$type',
+					perPrice = '$perPrice',
 					root_price = '$root_price',
 					old_price = $old_price,
 					price = '$price', 
@@ -579,7 +582,7 @@ class product
 	// lấy sản phẩm cho edit product
 	public function getproductForEdit($id)
 	{
-		$query = "SELECT productName, product_code, catId, brandId, product_desc, type, root_price, old_price, price, image, size, color FROM tbl_product WHERE productId = '$id'";
+		$query = "SELECT productName, product_code, catId, brandId, product_desc, type, perPrice, root_price, old_price, price, image, size, color FROM tbl_product WHERE productId = '$id'";
 		$result = $this->db->select($query);
 		return $result;
 	}
