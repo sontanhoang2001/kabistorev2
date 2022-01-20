@@ -7,7 +7,7 @@ include 'inc/header.php';
 $product = new product();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
-    $insertSlider = $product->a8345920633635a40fe0312d88987405($_POST, $_FILES); // hàm check catName khi submit lên
+    $insertSlider = $product->insert_slider($_POST, $_FILES); // hàm check catName khi submit lên
 }
 ?>
 <!-- Begin Page Content -->
