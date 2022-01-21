@@ -66,7 +66,7 @@ $discount = session::set('discountMoney', 0);
 						<div class="infoWrap">
 							<div class="cartSection">
 								<a title="Chi tiết sản phẩm" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
+									<img class="lazy itemImg" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" data-status="0" />
 								</a>
 								<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></p>
 								<a title="Sửa sản phẩm" class="optionProduct" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">

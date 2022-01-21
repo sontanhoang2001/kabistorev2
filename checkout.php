@@ -56,7 +56,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                         <div class="col-12 col-sm-auto mb-2">
                                             <div class="mx-auto" style="width: 140px;">
                                                 <div class="d-flex justify-content-center align-items-center rounded" style="background-color: rgb(233, 236, 239);">
-                                                    <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="<?php echo $avatar ?>" /></span>
+                                                    <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="img/core-img/best-loader.gif" data-src="<?php echo $avatar ?>" data-status="0" /></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,7 +170,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         ?>
                                 <div class="row item mb-3" id="<?php echo "c" . $cartId ?>">
                                     <div class="col-4 align-self-center0">
-                                        <img class="lazy img-fluid" id="itemImg" data-src="<?php echo $product_img; ?>">
+                                        <img class="img-fluid" id="itemImg" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img; ?>" data-status="0">
                                     </div>
                                     <div class="col-8 mt-1">
                                         <div class="row itemCode">#<?php echo $productCode ?></div>
@@ -244,19 +244,19 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 <label>
                                     <input type="radio" name="payment_methods" class="card-input-element" value="1" checked="checked" />
                                     <div class="panel panel-default card-input" id="payment_methods">
-                                        <img src="img/core-img/income.svg" alt="">
+                                        <img src="img/core-img/best-loader.gif" data-src="img/core-img/income.svg" data-status="0">
                                     </div>
                                 </label>
                                 <label>
                                     <input type="radio" name="payment_methods" value="2" class="card-input-element" />
                                     <div class="panel panel-default card-input" id="payment_methods">
-                                        <img src="img/core-img/Vi-MoMo-new.jpg" alt="">
+                                        <img src="img/core-img/best-loader.gif" data-src="img/core-img/Vi-MoMo-new.jpg" data-status="0">
                                     </div>
                                 </label>
                                 <label>
                                     <input type="radio" name="payment_methods" value="3" class="card-input-element" />
                                     <div class="panel panel-default card-input" id="payment_methods">
-                                        <img src="img/core-img/visa.svg" alt="">
+                                        <img src="img/core-img/best-loader.gif" data-src="img/core-img/visa.svg" data-status="0">
                                     </div>
                                 </label>
                             </div>

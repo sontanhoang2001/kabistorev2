@@ -101,7 +101,7 @@ if ($login_check == false) {
 							<div class="cartSection mwp">
 								<!-- <h5 class="numorder"><?php echo $i++; ?></h5> -->
 								<a title="Chi tiết sản phẩm" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg mt-2" />
+									<img src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" class="lazy itemImg mt-2" data-status="0" />
 								</a>
 								<p class="itemNumber"><small>#<?php echo $result['product_code'] ?></small></p>
 								<a title="Chi tiết sản phẩm" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">

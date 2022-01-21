@@ -58,20 +58,20 @@ if ($show_sliderEdit) {
 
                             <div class="form-group">
                                 <label for="validation2">Chủ đề</label>
-                                <input class="form-control" id="validation2" type="text" name="sliderTitle" value="<?php echo $sliderTitle ?>" placeholder="Vd: Khuyến mãi..." required>
+                                <input class="form-control" id="validation2" type="text" name="sliderTitle" value="<?php echo $sliderTitle ?>" placeholder="Vd: Khuyến mãi...">
                                 <div class="valid-feedback">Looks good!</div>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputdefault">Nội dung</label>
-                                <input class="form-control" id="validation3" type="text" name="sliderContent" value="<?php echo $sliderContent ?>" placeholder="Vd: Giảm tới 30%..." required>
+                                <input class="form-control" id="validation3" type="text" name="sliderContent" value="<?php echo $sliderContent ?>" placeholder="Vd: Giảm tới 30%...">
                             </div>
 
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-group col-md-8">
                                         <label for="inputdefault">Liên kết</label>
-                                        <input class="form-control" id="validation3" type="text" name="sliderLink" value="<?php echo $sliderLink ?>" placeholder="Vd: url..." required>
+                                        <input class="form-control" id="validation3" type="text" name="sliderLink" value="<?php echo $sliderLink ?>" placeholder="Vd: url...">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="sel1">Trạng thái</label>

@@ -8,6 +8,7 @@
 <div class="swiper mySwiper">
   <div class="swiper-wrapper">
     <?php
+    $i = 0;
     $show_slider = $product->show_slider();
     if ($show_slider) {
       while ($result = $show_slider->fetch_assoc()) {
@@ -17,14 +18,25 @@
         $sliderLink = $result['sliderLink'];
     ?>
         <div class="swiper-slide">
-          <img class="img-fluid" src="upload/slider/<?php echo $slider_image ?>" width="1366" height="768" alt="Second slide" loading="lazy">
-          <div class="carousel-caption text-left">
-            <h2 class="display-4 sm-display-4 font-weight-bold"><?php echo $sliderTitle ?></h2>
-            <p class="lead font-weight-bold"><?php echo $sliderContent ?></p>
-            <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="<?php echo $sliderLink ?>" role="button">Xem ngay</a></p>
-          </div>
+          <?php
+          if ($i == 0) {
+          ?>
+            <img class="img-fluid img-effect" src="upload/slider/<?php echo $slider_image ?>" width="1366" height="768">
+          <?php } else {
+          ?>
+            <img class="img-fluid" src="img/core-img/best-loader.gif" data-src="upload/slider/<?php echo $slider_image ?>" width="1366" height="768" data-status="0">
+          <?php
+          } ?>
+          <?php if ($sliderTitle != null) { ?>
+            <div class="carousel-caption text-left">
+              <h2 class="display-4 sm-display-4 font-weight-bold"><?php echo $sliderTitle ?></h2>
+              <p class="lead font-weight-bold"><?php echo $sliderContent ?></p>
+              <p><a class="btn btn-lg btn-primary rounded-pill shadow" href="<?php echo $sliderLink ?>" role="button">Xem ngay</a></p>
+            </div>
+          <?php } ?>
         </div>
     <?php
+        $i++;
       }
     } ?>
   </div>

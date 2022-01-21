@@ -42,7 +42,7 @@
                 threshold: 0,
                 visibleOnly: true,
                 onError: function(element) {
-                    console.log('error loading ' + element.data('src'));
+                    // console.log('error loading ' + element.data('src'));
                 }
             });
         });

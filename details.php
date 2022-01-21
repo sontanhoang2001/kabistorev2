@@ -60,7 +60,7 @@ include 'inc/facebookPlugin.php';
 			<div class="single_product_thumb">
 				<div class="product_thumbnail_slides owl-carousel">
 					<?php foreach ($product_imgJson as $product_img) { ?>
-						<img id="img-detaild" src="<?php echo $product_img->image ?>">
+						<img id="img-detaild" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img->image ?>" data-status="0">
 					<?php
 					}  ?>
 				</div>
@@ -249,10 +249,10 @@ include 'inc/facebookPlugin.php';
 						<div id="single-product-wrapper" class="single-product-wrapper relatedProducts bg-white rounded shadow-sm" data-id-1="<?php echo $productId ?>">
 							<!-- Product Image -->
 							<div class="product-img relatedProducts">
-								<img data-src="<?php echo $product_img ?>" class="lazy">
+								<img class="lazy" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" data-status="0">
 								<ul class="card-button-shop">
 									<li>
-										<img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+										<img style="width: 1px; height: 1px" class="img-clone" data-src="<?php echo $product_img ?>" data-status="0" />
 										<a class="add_to_cart fa fa-cart-plus" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"></a>
 									</li>
 									<?php
@@ -309,7 +309,7 @@ include 'inc/facebookPlugin.php';
 							<!-- Product Description -->
 							<div class="product-description">
 								<a href="details/<?php echo $productId ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-									<div class="text-dark"><?php echo $result['productName'] ?></div>
+									<div class="block-ellipsis text-dark"><?php echo $result['productName'] ?></div>
 								</a>
 								<p class="product-price">
 									<?php if ($old_price != 0) {

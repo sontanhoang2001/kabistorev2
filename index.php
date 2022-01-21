@@ -54,10 +54,10 @@ include 'config/global.php';
                                 <div id="single-product-wrapper" class="single-product-wrapper bg-white rounded shadow-sm">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img id="imgProductHot" src="<?php echo $product_img ?>" class="lazy">
+                                        <img class="lazy" id="imgProductHot" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" data-status="0">
                                         <ul class="card-button-shop">
                                             <li>
-                                                <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                <img class="lazy" src="img/core-img/best-loader.gif" style="width: 1px; height: 1px !important" class="img-clone" data-src="<?php echo $product_img ?>" data-status="0" />
                                                 <a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-size="<?php echo $size ?>" data-color="<?php echo $color ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                             </li>
                                             <?php
@@ -151,11 +151,10 @@ include 'config/global.php';
                         ?>
                             <!-- Single Product -->
                             <div class="single-product-wrapper categoryWrapper">
-
                                 <!-- Product Image -->
                                 <div class="product-img relatedProducts bg-white rounded shadow-sm">
                                     <a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html">
-                                        <img id="img-category" src="<?php echo $product_img ?>" class="lazy">
+                                        <img id="img-category lazy" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" data-status="0">
                                         <h5 class="categories_name" id="categoryNameWrapper"><?php echo $catName; ?></h5>
                                     </a>
                                     <!-- Product Badge -->
@@ -270,10 +269,10 @@ include 'config/global.php';
                                     <div id="single-product-wrapper" class="single-product-wrapper relatedProducts bg-white rounded shadow-sm">
                                         <!-- Product Image -->
                                         <div class="product-img relatedProducts">
-                                            <img data-src="<?php echo $product_img ?>" class="lazy">
+                                            <img src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" class="lazy" data-status="0">
                                             <ul class="card-button-shop">
                                                 <li>
-                                                    <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                    <img class="lazy" style="width: 1px; height: 1px !important" class="img-clone" data-src="<?php echo $product_img ?>" />
                                                     <a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-size="<?php echo $size ?>" data-color="<?php echo $color ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                                 </li>
                                                 <?php

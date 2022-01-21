@@ -261,10 +261,10 @@ Session::set('REQUEST_URI', $typeName . "-f" . getRequestUrl()); // lưu vị tr
                                     <div class="single-product-wrapper page-product bg-white rounded shadow-sm">
                                         <!-- Product Image -->
                                         <div class="product-img page-product">
-                                            <img data-src="<?php echo $product_img ?>" class="lazy" alt="">
+                                            <img class="lazy" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" data-status="0">
                                             <ul class="card-button-shop">
                                                 <li>
-                                                    <img style="width: 1px; height: 1px;" class="img-clone" src="<?php echo $product_img ?>" alt="cart icon" />
+                                                    <img style="width: 1px; height: 1px" class="img-clone" data-src="<?php echo $product_img ?>" data-status="0" />
                                                     <a class="add-btn-product add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-size="<?php echo $size ?>" data-color="<?php echo $color ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                                 </li>
                                                 <?php

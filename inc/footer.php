@@ -22,7 +22,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
                 <div class="single_widget_area d-flex mb-30">
                     <!-- Logo -->
                     <div class="footer-logo">
-                        <a href="#"><img class="nav-brand-image2" src="img/core-img/logo2.png" alt=""></a>
+                        <a href="index.html"><img class="nav-brand-image2 lazy" src="" data-src="img/core-img/logo2.png" data-status="0" ></a>
                     </div>
                     <!-- Footer Menu -->
                     <div class="footer_menu col-md-6">
@@ -68,7 +68,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
                 </div>
             </div>
             <div class="col-md-5 col-sm-10">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26428.777715681143!2d105.74198926611305!3d10.044781603808914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0629f6de3edb7%3A0x527f09dbfb20b659!2zQ-G6p24gVGjGoSwgTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1635689373454!5m2!1svi!2s" width="100%" height="220px" style="border:0;" allowfullscreen="" class="lazy" loading="lazy"></iframe>
+                <iframe src="" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26428.777715681143!2d105.74198926611305!3d10.044781603808914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0629f6de3edb7%3A0x527f09dbfb20b659!2zQ-G6p24gVGjGoSwgTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1635689373454!5m2!1svi!2s" width="100%" height="220px" style="border:0;" allowfullscreen="" class="lazy" data-status="0"></iframe>
             </div>
 
             <!-- Single Widget Area -->
@@ -120,6 +120,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
 <script src="js/classy-nav.min.js"></script>
 <!-- Active js -->
 <script src="js/active.js"></script>
+<script src="js/img-loading.js"></script>
 
 <!-- Include Plugin JS file -->
 <script src="js/nice-toast/nice-toast-js.min.js" type="text/javascript"></script>
@@ -134,24 +135,6 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
 </script>
 <script src="js/live-search.js"></script>
 
-<!-- cdnjs -->
-<script type="text/javascript" src="js/lazy/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="js/lazy/jquery.lazy.plugins.min.js"></script>
-<script>
-    $(function() {
-        $('.lazy').Lazy({
-            // your configuration goes here
-            scrollDirection: 'vertical',
-            effect: 'fadeIn',
-            effectTime: 1000,
-            threshold: 0,
-            visibleOnly: true,
-            onError: function(element) {
-                // console.log('error loading ' + element.data('src'));
-            }
-        });
-    });
-</script>
 <script type="text/javascript">
     $(document).ready(function() {
         if (loginAlert == true) {
@@ -161,5 +144,4 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
         }
     });
 </script>
-
 <script src="js/tet.js"></script>

@@ -181,7 +181,7 @@ class product
 		$uploaded_image = "../upload/slider/" . $unique_image;
 
 
-		if ($sliderTitle == "" || $sliderContent == "" || $sliderLink == "" || $type == "" || $unique_image == "") {
+		if ($type == "" || $unique_image == "") {
 			$alert = "<span class='error'>Các Trường không được bỏ trống!</span>";
 			return $alert;
 		} else {
@@ -189,22 +189,26 @@ class product
 				//Nếu người dùng chọn ảnh
 				if ($file_size > 2048000) {
 
-					$alert = "<span class='success'>Ảnh phải có kích thước dưới 2MB</span>";
+					$alert = "<span class='text-danger'>Ảnh phải có kích thước dưới 2MB</span>";
 					return $alert;
 				} elseif (in_array($file_ext, $permited) === false) {
 					// echo "<span class='error'>You can upload only:-".implode(', ', $permited)."</span>";	
-					$alert = "<span class='success'>You can upload only:-" . implode(', ', $permited) . "</span>";
+					$alert = "<span class='text-danger'>You can upload only:-" . implode(', ', $permited) . "</span>";
 					return $alert;
 				}
 				move_uploaded_file($file_temp, $uploaded_image);
 
-				$query = "INSERT INTO tbl_slider(sliderTitle, sliderContent, sliderLink, type, slider_image) VALUES('$sliderTitle', '$sliderContent', '$sliderLink','$type','$unique_image') ";
+				$sliderTitle = $sliderTitle != null ? "'$sliderTitle'" : "NULL";
+				$sliderContent = $sliderContent != null ? "'$sliderContent'" : "NULL";
+				$sliderLink = $sliderLink != null ? "'$sliderLink'" : "NULL";
+
+				$query = "INSERT INTO tbl_slider(sliderTitle, sliderContent, sliderLink, type, slider_image) VALUES($sliderTitle, $sliderContent, $sliderLink,'$type','$unique_image') ";
 				$result = $this->db->insert($query);
 				if ($result) {
-					$alert = "<span class='success'>Bạn đã thêm Slider thành công</span>";
+					$alert = "<span class='text-success'>Bạn đã thêm Slider thành công</span>";
 					return $alert;
 				} else {
-					$alert = "<span class='error'>Bạn đã thêm Slider không thành công</span>";
+					$alert = "<span class='text-danger'>Bạn đã thêm Slider không thành công</span>";
 					return $alert;
 				}
 			}
@@ -246,6 +250,9 @@ class product
 		$type = mysqli_real_escape_string($this->db->link, $data['type']);
 		$imgOld = mysqli_real_escape_string($this->db->link, $data['slider_image_old']);
 
+		$sliderTitle = $sliderTitle != null ? "'$sliderTitle'" : "NULL";
+		$sliderContent = $sliderContent != null ? "'$sliderContent'" : "NULL";
+		$sliderLink = $sliderLink != null ? "'$sliderLink'" : "NULL";
 
 		$file_name = $_FILES['slider_image']['name'];
 		if ($file_name != null) {
@@ -294,17 +301,18 @@ class product
 
 			// Kiểm tra kiểu file
 			if (!in_array($imageFileType, $allowtypes)) {
-				return "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
+				return '<div class="text-danger">Chỉ được upload các định dạng JPG, PNG, JPEG, GIF!</div>';
 				$allowUpload = false;
 			}
 
-			if ($sliderId == "" || $sliderTitle == "" || $sliderContent == "" || $sliderLink == "" || $type == "" || $imgOld == "") {
+			if ($sliderId == "" || $type == "" || $imgOld == "") {
 				return "Các trường không được bỏ trống";
 			} else {
 				if ($allowUpload) {
+
 					$query = "UPDATE `tbl_slider`
-					 SET `sliderTitle`='$sliderTitle', `sliderContent`='$sliderContent', 
-					 `sliderLink`='$sliderLink', `slider_image`='$unique_image', `type`='$type'
+					 SET `sliderTitle`=$sliderTitle, `sliderContent`=$sliderContent, 
+					 `sliderLink`=$sliderLink, `slider_image`='$unique_image', `type`='$type'
 					WHERE sliderId = '$sliderId'";
 
 					$result = $this->db->update($query);
@@ -325,13 +333,13 @@ class product
 
 						return '<div class="text-success">Cập nhật thành công!</div>';
 					} else {
-						return '<div class="text-success">Cập nhật thất bại!</div>';
+						return '<div class="text-danger">Cập nhật thất bại!</div>';
 					}
 				}
 			}
 		} else {
-			$query = "UPDATE `tbl_slider` SET `sliderTitle`='$sliderTitle', `sliderContent`='$sliderContent', 
-				`sliderLink`='$sliderLink', `type`='$type'
+			$query = "UPDATE `tbl_slider` SET `sliderTitle`=$sliderTitle, `sliderContent`=$sliderContent, 
+				`sliderLink`=$sliderLink, `type`='$type'
 				WHERE sliderId = '$sliderId'";
 			$result = $this->db->update($query);
 			if ($result) {
@@ -412,9 +420,9 @@ class product
 		$query = "UPDATE tbl_slider SET type = '$type' where sliderId='$id'";
 		$result = $this->db->update($query);
 		if ($result) {
-			return "Bạn đã cập nhật thành công!";;
+			return "<span class='text-success'>Bạn đã cập nhật thành công!</span>";
 		} else {
-			return "Bạn đã cập nhật thất bại!";;
+			return "<span class='text-danger'>Bạn đã cập nhật thất bại!</span>";
 		}
 	}
 
@@ -434,10 +442,10 @@ class product
 					// echo "File does not exists";
 				}
 			}
-			$alert = "<span class='success'>Đã xóa slider thành công!</span>";
+			$alert = "<span class='text-success'>Đã xóa slider thành công!</span>";
 			return $alert;
 		} else {
-			$alert = "<span class='success'>Đã xóa slider không thành công!</span>";
+			$alert = "<span class='text-danger'>Đã xóa slider không thành công!</span>";
 			return $alert;
 		}
 	}

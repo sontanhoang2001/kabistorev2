@@ -48,7 +48,7 @@ if ($login_check == false) {
 						<div class="infoWrap">
 							<div class="cartSection">
 								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
-									<img data-src="<?php echo $product_img ?>" alt="" class="lazy itemImg" />
+									<img src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" class="lazy itemImg" data-status="0"/>
 								</a>
 								<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></small></p>
 								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
@@ -106,7 +106,7 @@ include 'inc/footer.php';
 <script type="text/javascript">
 	$(function() {
 		window.pagObj = $('#pagination').twbsPagination({
-            totalPages: "<?php echo $product_button ?>",
+			totalPages: "<?php echo $product_button ?>",
 			visiblePages: 4,
 			startPage: <?php echo $page_now ?>,
 			onPageClick: function(event, page) {

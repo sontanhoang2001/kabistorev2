@@ -3,12 +3,12 @@
 
 /* :: 1.0 Import Web Fonts */
 
-@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Ubuntu:300,400,500,700");
+
+/* @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Ubuntu:300,400,500,700"); */
+
+@import url(../css/fonts.googleapis.css);
 
 /* :: 2.0 Import All CSS */
-
-
-/* @import url(../css/bootstrap.min.css); */
 
 @import url(../css/bootstrap.min.css);
 @import url(../css/classy-nav.min.css);
@@ -393,6 +393,55 @@ input[type='radio']:checked:after {
     transition: all ease-in 0.2s;
 }
 
+img.img-effect {
+    animation: fadein 2s;
+    -moz-animation: fadein 2s;
+    /* Firefox */
+    -webkit-animation: fadein 2s;
+    /* Safari and Chrome */
+    -o-animation: fadein 2s;
+    /* Opera */
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+    /* Firefox */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein {
+    /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein {
+    /* Opera */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 
 /* custom bs */
 
@@ -613,8 +662,22 @@ input[type='radio']:checked:after {
 
 .banner_tet {
     animation-name: tet_effect;
+    animation-duration: 6s;
+    animation-delay: -3s;
+}
+
+.banner_tet:hover {
+    animation-name: outSize;
     animation-duration: 10s;
-    animation-delay: -2s;
+}
+
+@keyframes outSize {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: -300;
+    }
 }
 
 @keyframes tet_effect {
@@ -3929,10 +3992,6 @@ a.remove:hover {
     font-weight: 700;
     color: #ee0e0e;
     margin: -6px 0 0px;
-}
-
-.cartWrap:hover {
-    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 }
 
 .old-price {
