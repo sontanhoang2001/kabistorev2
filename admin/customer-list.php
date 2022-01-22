@@ -5,18 +5,6 @@ include_once($filepath . '/../classes/customer.php');
 include_once($filepath . '/../helpers/format.php');
 $cs = new customer();
 $fm = new format();
-
-if (!isset($_GET['page'])) {
-	$page = 1;
-} else {
-	$page = $_GET['page'];
-}
-
-if (!isset($_GET['product_num'])) {
-	$product_num = $product_num_admin;
-} else {
-	$product_num = $_GET['product_num'];
-}
 ?>
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
@@ -273,9 +261,13 @@ if (!isset($_GET['product_num'])) {
 
 
 <?php include 'inc/footer.php'; ?>
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+<link href="../js/api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css" rel="stylesheet">
+<script src="../js/api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js"></script>
+<script src="../js/api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="../js/api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="../js/cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="../js/cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 <script src="../js/map-api-admin.js"></script>
 <script src="js/order.js"></script>
 <script src="js/customer.js"></script>

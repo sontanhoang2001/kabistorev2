@@ -16,6 +16,18 @@ if (!isset($_GET['searchText'])) {
 } else {
     $searchText = $_GET['searchText'];
 }
+
+if (!isset($_GET['page'])) {
+    $page = 1;
+} else {
+    $page = $_GET['page'];
+}
+
+if (!isset($_GET['product_num'])) {
+    $product_num = $product_num_admin;
+} else {
+    $product_num = $_GET['product_num'];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -116,10 +128,10 @@ if (!isset($_GET['searchText'])) {
                 <div id="order" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý đơn hàng:</h6>
-                        <a class="collapse-item" href="order-list"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Đơn hàng</a>
-                        <a class="collapse-item" href="delivered-list"><i class="fa fa-check-square-o" aria-hidden="true"></i> Đã giao hàng</a>
-                        <a class="collapse-item" href="delOrder-list"><i class="fa fa-trash" aria-hidden="true"></i> Đã hủy</a>
-                        <a class="collapse-item" href="orderFailed-list"><i class="fa fa-window-close" aria-hidden="true"></i> Đơn thất bại</a>
+                        <a class="collapse-item" href="newOrders-list"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Đơn hàng</a>
+                        <a class="collapse-item" href="orders-list?status=2"><i class="fa fa-check-square-o" aria-hidden="true"></i> Đã giao hàng</a>
+                        <a class="collapse-item" href="orders-list?status=3"><i class="fa fa-trash" aria-hidden="true"></i> Đã hủy</a>
+                        <a class="collapse-item" href="orders-list?status=4"><i class="fa fa-window-close" aria-hidden="true"></i> Đơn thất bại</a>
                     </div>
                 </div>
             </li>

@@ -5,9 +5,10 @@ include_once($filepath . '/../classes/cart.php');
 include_once($filepath . '/../helpers/format.php');
 $ct = new cart();
 $fm = new format();
-
 ?>
+
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
+<link rel="stylesheet" href="css/mapAdmin.css">
 </head>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1179829049097202&autoLogAppEvents=1" nonce="LMMRbqRK"></script>
@@ -16,17 +17,33 @@ $fm = new format();
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Đơn hàng thành công</h1>
+	<h1 class="h3 mb-2 text-gray-800">Quản lý Đơn hàng</h1>
 	<p class="mb-4">Một ngày tràng đầy năng lượng, giàu sức khỏe, mua may bán đắt, tiền vô như nước tiền ra như giọt coffee đặc.
 	</p>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4 mt-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các Đơn hàng giao thành công</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Danh sách tất cả các Đơn hàng</h6>
 		</div>
 
 		<div class="card-body">
+			<div class="row">
+				<div class="col-md-6">
+					<form method="get">
+						<div class="ml-1">
+							<div class="input-group">
+								<div class="form-outline">
+									<input type="number" name="product_num" class="form-control" style="width: 60px;" min="1" value="<?php echo $product_num ?>" />
+								</div>
+								<button type="submit" class="btn btn-primary ml-1">Hiển thị</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+
 			<div class="table-responsive">
 				<table class="table table-bordered display datatable table-striped" id="dataTable" width="100%" cellspacing="0">
 					<thead>
@@ -37,6 +54,7 @@ $fm = new format();
 							<th>Chi tiết mẫu</th>
 							<th>Thanh toán</th>
 							<th>Khách hàng</th>
+							<th>Trạng thái đơn hàng</th>
 						</tr>
 					</thead>
 					<!-- <tfoot>
@@ -48,23 +66,22 @@ $fm = new format();
                     </tfoot> -->
 					<tbody>
 						<?php
-						if (isset($_GET['cusId'])) {
-							$cusId = $_GET['cusId'];
-						} else {
-							$cusId = 0;
-						}
-						$status = 2;
-						$list_delivered = $ct->get_list_statusDetails($cusId, $status);
-						if ($list_delivered) {
+						$list_order = $ct->get_inbox_order($page, $product_num, $searchText);
+						$get_amount_inbox_order = $ct->get_amount_inbox_order($searchText);
+						$result = $get_amount_inbox_order->fetch_assoc();
+						$totalRow = $result['totalRow'];
+						if ($list_order) {
 							$i = 0;
-							while ($result = $list_delivered->fetch_assoc()) {
+							while ($result = $list_order->fetch_assoc()) {
 								$i++;
 								$orderId = $result['id'];
 								$productId = $result['productId'];
-								$address_id = $result['address_id'];
 								$quantity = $result['quantity'];
 								$size = $result['productSize'];
 								$color = $result['color'];
+
+								$address_id = $result['address_id'];
+								$status = $result['status'];
 						?>
 								<tr class="odd gradeX">
 									<td><?php echo $i ?></td>
@@ -76,10 +93,24 @@ $fm = new format();
 										<?php echo "Sl: " . $quantity;
 										echo ($size != null) ? "<br>Size: " . $size : "";
 										echo ($color != null) ? "<br>Màu: " . $color : "";
-										?></td>
+										?>
+									</td>
 									<td><?php echo $fm->format_currency($result['totalPayment']) . ' ₫' ?></td>
 									<td>
 										<a href="#" data-addressid="<?php echo $address_id ?>" data-customerid="<?php echo $result['customer_id'] ?>" class="btn" data-toggle="modal" data-target="#customerModal"><?php echo $result['name'] ?></a>
+									</td>
+									<td>
+										<?php
+										if ($status == 0) {
+										?>
+											<a href="#" data-status="0" data-orderid="<?php echo $orderId ?>" data-qty="<?php echo $quantity ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal0"><i class="fa fa-clock-o" aria-hidden="true"></i> Chờ duyệt...</a>
+										<?php
+										} elseif ($status == 1) {
+										?>
+											<a href="#" data-status="1" data-orderid="<?php echo $orderId ?>" data-qty="<?php echo $quantity ?>" data-productid="<?php echo $productId ?>" class="btn" data-toggle="modal" data-target="#statusModal1"><i class="fa fa-truck" aria-hidden="true"></i> Đang giao...</a>
+										<?php
+										}
+										?>
 									</td>
 								</tr>
 						<?php
@@ -88,6 +119,18 @@ $fm = new format();
 						?>
 					</tbody>
 				</table>
+				<!-- Pagination -->
+				<?php
+				if ($totalRow >= $product_num) {
+					$product_button = ceil(($totalRow) / $product_num);
+					$page_now = $page;
+				}
+				?>
+				<div class="container mt-5 mb-4">
+					<nav aria-label="Page navigation">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -161,43 +204,10 @@ $fm = new format();
 </div>
 <!-- Load Facebook SDK for JavaScript -->
 
-<style>
-	a.mapboxgl-ctrl-logo {
-		display: none !important;
-	}
-
-	.customerModal {
-		width: 700px;
-		min-height: 400px;
-	}
-
-	@media only screen and (max-width: 600px) {
-		.customerModal {
-			width: 400px;
-			min-height: 400px;
-		}
-	}
-
-	#map {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 100%;
-	}
-
-	.panelmapOrderAddress {
-		margin-top: 300px;
-	}
-
-	.mapboxgl-ctrl-bottom-right {
-		display: none
-	}
-</style>
-
 <!-- customer Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content customerModal">
+		<div class="modal-content colMax">
 			<div class="modal-header">
 				<h5 class="modal-title" id="delModallLabel">Thông tin khách hàng</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -225,8 +235,9 @@ $fm = new format();
 						<div class="card p-2 text-center mt-4">
 							<div class="row">
 								<div class="col-md-7 border-right no-gutters">
-									<div class="py-3"><img class="img-thumbnail" id="cusAvatar" src="" style="width: 100px; height: 100px; object-fit: cover">
-										<h4 class="text-secondary" id="cusName">Tên khách hàng</h4>
+									<div class="py-3">
+										<img class="img-thumbnail" id="cusAvatar" src="" style="width: 100px; height: 100px; object-fit: cover">
+										<h4 class="text-secondary mt-2" id="cusName">Tên khách hàng</h4>
 										<div class="allergy"><span id="cusUserName">UserName</span></div>
 										<div class="stats">
 											<table class="table table-borderless">
@@ -256,7 +267,6 @@ $fm = new format();
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 					<div class="tab-pane container fade" id="orderAddress">
@@ -265,6 +275,14 @@ $fm = new format();
 								<div class="col-md-12">
 									<div class="panelmapOrderAddress">
 										<div id="map"></div>
+										<div id="menu-map">
+											<input id="satellite-v9" type="radio" name="rtoggle" value="satellite" checked="checked">
+											<label for="satellite-v9">vệ tinh</label>
+											<input id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked">
+											<label for="streets-v11">đường phố</label>
+											<input id="dark-v10" type="radio" name="rtoggle" value="dark">
+											<label for="dark-v10">tối</label>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -273,7 +291,6 @@ $fm = new format();
 									<div class="py-3">
 										<div><span class="d-block head font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ đăng ký</span> <span class="bottom" id="geocodingOrderAddress">Đang tìm vị trí...</span> </div>
 										<a id="googlemapOrderAddress" href="#" target="_blank">Xem với Google map</a>
-
 									</div>
 								</div>
 							</div>
@@ -285,7 +302,7 @@ $fm = new format();
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="basic-addon1"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
 											</div>
-											<input type="text" class="form-control" id="cusNoteModel" readonly>
+											<textarea class="form-control" id="cusNoteModel" readonly></textarea>
 										</div>
 									</div>
 								</div>
@@ -324,6 +341,7 @@ $fm = new format();
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -393,6 +411,14 @@ $fm = new format();
 </div>
 
 <?php include 'inc/footer.php'; ?>
+<script>
+	$(document).ready(function() {
+		$("#sidebarToggleTop").click();
+	})
+	$('#dataTable').dataTable({
+		"paging": false
+	});
+</script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
@@ -401,6 +427,22 @@ $fm = new format();
 <script src="js/helpers.js"></script>
 <script>
 	order();
-	loadOrderMap(12.550343, 55.665957);
-	// mapSave(cusMaps_maplng, cusMaps_maplat);
+</script>
+
+<script src="../js/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var product_num = <?php echo $product_num ?>;
+	$(function() {
+		window.pagObj = $('#pagination').twbsPagination({
+			totalPages: <?php echo $product_button ?>,
+			visiblePages: 4,
+			startPage: <?php echo $page_now ?>,
+			onPageClick: function(event, page) {
+				// console.info(page + ' (from options)');
+			}
+		}).on('page', function(event, page) {
+			// console.info(page + ' (from event listening)');
+			location.href = "newOrders-list?page=" + page + "&product_num=" + product_num;
+		});
+	});
 </script>

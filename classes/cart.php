@@ -531,8 +531,10 @@ class cart
 	}
 
 	// Đơn đặt hàng
-	public function get_inbox_order()
+	public function get_inbox_order($page, $product_num, $search_text)
 	{
+		$index_page = ($page - 1) * $product_num;
+
 		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, o.productSize, o.color, a.date_create, a.address_id
 		FROM tbl_order as o
 		inner join tbl_product as p
@@ -541,10 +543,19 @@ class cart
 		on a.address_id = o.address_id
         inner join tbl_customer as c
 		on o.customer_id = c.id
-		Where o.status = '0' OR o.status = '1'
-        ORDER BY a.address_id DESC";
+		Where (o.status = '0' OR o.status = '1') AND p.productName LIKE '%$search_text%'
+        ORDER BY a.address_id DESC LIMIT $index_page, $product_num";
 		$get_inbox_order = $this->db->select($query);
 		return $get_inbox_order;
+	}
+
+	public function get_amount_inbox_order($searchText)
+	{
+		$query = "SELECT COUNT(o.id) as totalRow  FROM tbl_order o
+		JOIN tbl_product p on o.productId = p.productId 
+		WHERE (o.status = 1 OR o.status = 0) AND p.productName LIKE '%$searchText%'";
+		$result = $this->db->select($query);
+		return $result;
 	}
 
 	// Status 1: chấp nhận đơn hàng -> bắt đầu giao hàng
@@ -623,14 +634,9 @@ class cart
 
 
 
-	public function get_list_statusDetails($cusId, $status)
+	public function get_list_statusDetails($status, $page, $product_num, $search_text)
 	{
-		$cusId = $this->fm->validation($cusId);
-		$cusId = mysqli_real_escape_string($this->db->link, $cusId);
-		$status = $this->fm->validation($status);
-		$status = mysqli_real_escape_string($this->db->link, $status);
-		if ($cusId == 0) {
-			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.productSize, o.color, a.date_create, a.address_id
+		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.productSize, o.color, a.date_create, a.address_id
 			FROM tbl_order as o
 			inner join tbl_product as p
 			on p.productId = o.productId
@@ -638,22 +644,24 @@ class cart
 			on a.address_id = o.address_id
 			inner join tbl_customer as c
 			on o.customer_id = c.id
-			Where o.status = '$status'
+			Where o.status = '$status' AND (p.productName LIKE '%$search_text%' OR c.id LIKE '%$search_text%' OR c.name LIKE '%$search_text%')
 			ORDER BY a.address_id DESC";
-		} else {
-			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.productSize, o.color, a.date_create, a.address_id
-			FROM tbl_order as o
-			inner join tbl_product as p
-			on p.productId = o.productId
-			inner join tbl_address as a
-			on a.address_id = o.address_id
-			inner join tbl_customer as c
-			on o.customer_id = c.id
-			Where o.status = '$status' AND o.customer_id = '$cusId'
-			ORDER BY a.address_id DESC";
-		}
+
 		$get_list_delivered = $this->db->select($query);
 		return $get_list_delivered;
+	}
+
+	public function get_amount_list_statusDetails($status, $search_text)
+	{
+		$query = "SELECT COUNT(o.id) as totalRow 
+		FROM tbl_order as o
+		inner join tbl_product as p
+		on p.productId = o.productId
+		inner join tbl_customer as c
+		on o.customer_id = c.id
+		Where o.status = '$status' AND (p.productName LIKE '%$search_text%' OR c.id LIKE '%$search_text%' OR c.name LIKE '%$search_text%')";
+		$result = $this->db->select($query);
+		return $result;
 	}
 
 

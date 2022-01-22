@@ -8,18 +8,6 @@ include '../config/global.php';
 
 $pd = new product();
 $fm = new Format();
-
-if (!isset($_GET['page'])) {
-    $page = 1;
-} else {
-    $page = $_GET['page'];
-}
-
-if (!isset($_GET['product_num'])) {
-    $product_num = $product_num_admin;
-} else {
-    $product_num = $_GET['product_num'];
-}
 ?>
 
 <link rel="stylesheet" href="css/style.css">
