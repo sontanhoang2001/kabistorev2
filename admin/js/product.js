@@ -188,7 +188,7 @@ function add_product() {
         $("#color").empty();
         colorTemp1 = '';
 
-        for (var i = 1; i <= 7; i++) {
+        for (var i = 1; i <= 13; i++) {
             if ($("#color" + i).prop('checked')) {
                 var colorText = $('#color' + i + ':checked').val();
                 colorTemp1 += colorText + ", ";
@@ -197,7 +197,7 @@ function add_product() {
         }
     });
 
-    $("#color8").keyup(function() {
+    $("#colorOption").keyup(function() {
         $("#color").empty();
         colorTemp2 = '';
 
@@ -231,7 +231,7 @@ function add_product() {
 
 
         var sizeArray = new Array();
-        for (var i = 1; i <= 5; i++) {
+        for (var i = 1; i <= 8; i++) {
             var objTemp = new Object();
             objTemp.size = i;
             if ($('#size' + i).prop('checked')) {
@@ -515,8 +515,8 @@ function product_list() {
 
                     $("input[name=product_code]").val(product_code);
                     $("input[name=productName]").val(productName);
-                    $('#category option[value=" ' + catId + ' "]').attr('selected', 'selected');
-                    $('#brand option[value=" ' + brandId + ' "]').attr('selected', 'selected');
+                    $('#category option[value="' + catId + '"]').attr('selected', 'selected');
+                    $('#brand option[value="' + brandId + '"]').attr('selected', 'selected');
 
                     $('#per_priceText').text(perPrice + "%");
                     $("input[name=perPrice]").val(perPrice);
@@ -530,7 +530,7 @@ function product_list() {
                     $("input[name=price]").val(price);
                     $("input[name=product_soldout]").val(product_soldout);
 
-                    var size = JSON.parse(res.size)
+                    var size = JSON.parse(res.size);
                     $.each(size, function(i, val) {
                         var sizeNumber = val.size;
                         $("#size" + sizeNumber).prop('checked', true);
@@ -560,13 +560,37 @@ function product_list() {
                                 colorTemp1 += color + ", ";
                                 $("#color5").prop('checked', true);
                                 break;
-                            case "Lá":
+                            case "Tím":
                                 colorTemp1 += color + ", ";
                                 $("#color6").prop('checked', true);
                                 break;
-                            case "Hồng":
+                            case "Xám":
                                 colorTemp1 += color + ", ";
                                 $("#color7").prop('checked', true);
+                                break;
+                            case "Xanh-Lá":
+                                colorTemp1 += color + ", ";
+                                $("#color8").prop('checked', true);
+                                break;
+                            case "Xanh-Nhạt":
+                                colorTemp1 += color + ", ";
+                                $("#color9").prop('checked', true);
+                                break;
+                            case "Xanh-Đậm":
+                                colorTemp1 += color + ", ";
+                                $("#color10").prop('checked', true);
+                                break;
+                            case "Xanh-Biển":
+                                colorTemp1 += color + ", ";
+                                $("#color11").prop('checked', true);
+                                break;
+                            case "Xanh-Lam":
+                                colorTemp1 += color + ", ";
+                                $("#color12").prop('checked', true);
+                                break;
+                            case "Hồng":
+                                colorTemp1 += color + ", ";
+                                $("#color13").prop('checked', true);
                                 break;
                             default:
                                 colorTemp2 += color + ", ";
@@ -741,16 +765,17 @@ function product_list() {
         $("#color").empty();
         colorTemp1 = '';
 
-        for (var i = 1; i <= 7; i++) {
+        for (var i = 1; i <= 13; i++) {
             if ($("#color" + i).prop('checked')) {
                 var colorText = $('#color' + i + ':checked').val();
+                console.log(colorText);
                 colorTemp1 += colorText + ", ";
                 $("#color").text(colorTemp1 + colorTemp2);
             }
         }
     });
 
-    $("#color8").keyup(function() {
+    $("#colorOption").keyup(function() {
         $("#color").empty();
         colorTemp2 = '';
 
@@ -785,7 +810,7 @@ function product_list() {
 
 
         var sizeArray = new Array();
-        for (var i = 1; i <= 5; i++) {
+        for (var i = 1; i <= 8; i++) {
             var objTemp = new Object();
             objTemp.size = i;
             if ($('#size' + i).prop('checked')) {
@@ -928,14 +953,14 @@ function product_list() {
     $('#editModal').on('hide.bs.modal', function() {
         $("input[name=product_code]").val("");
         $("input[name=productName]").val("");
-        $('#category option[value=" ' + category + ' "]').removeAttr('selected');
-        $('#brand option[value=" ' + brandId + ' "]').removeAttr('selected', 'selected');
+        $('#category option[value="' + catId + '"]').removeAttr('selected', 'selected');
+        $('#brand option[value="' + brandId + '"]').removeAttr('selected', 'selected');
         $('#size option[value="' + size + '"]').removeAttr('selected', 'selected');
         $("input[name=root_price]").val("");
         $("input[name=old_price]").val("");
         $("input[name=price]").val("");
         YourEditor.setData("");
-        $('#type option[value="' + type + '"]').removeAttr('selected');
+        $('#type option[value="' + type + '"]').attr('selected', 'selected');
 
         $('#root_priceText').text(currency_vn(0));
         $('#old_priceText').text(currency_vn(0));
@@ -943,13 +968,13 @@ function product_list() {
         $('#product_desc_parent').remove();
 
 
-        for (var i = 1; i <= 5; i++) {
+        for (var i = 1; i <= 8; i++) {
             $("#size" + i).prop('checked', false);
         }
-        for (var i = 0; i <= 7; i++) {
+        for (var i = 0; i <= 13; i++) {
             $("#color" + i).prop('checked', false);
         }
-        $("#color8").text("");
+        $("#colorOption").text("");
         $("#color").empty();
         colorTemp1 = "";
         colorTemp2 = "";

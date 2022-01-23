@@ -2,13 +2,6 @@
 include 'inc/header.php';
 include 'config/global.php';
 
-if (!isset($_GET['proid']) || $_GET['proid'] == NULL) {
-	echo "<script>
-	window.location = '404.php'
-</script>";
-} else {
-	$productid = $_GET['proid']; // Lấy productid trên host
-}
 
 $login_check = Session::get('customer_login');
 if ($login_check) {
@@ -18,36 +11,15 @@ if ($login_check) {
 	Session::set('REQUEST_URI', $actual_link);
 	$customer_id = 0;
 }
-$seoUrl = "https://kabistore.com.vn/" . getRequestUrls();
-
-// Seo link
-$get_product_details = $product->get_details($productid);
-if ($get_product_details) {
-	$result_details = $get_product_details->fetch_assoc();
-	$old_price = $result_details['old_price'];
-	$productName = $result_details['productName'];
-	$productType = $result_details['type'];
-	$product_imgJson =  json_decode($result_details['image']);
-	$product_img = $product_imgJson[0]->image;
-?>
-	<meta property="og:title" content="<?php echo $productName ?>" />
-	<meta property="og:description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Nhấn vào liên kết để kiểm tra tình trạng của sản phẩm. Đặt hàng nhanh tức thì chỉ bằng một liên kết..." />
-	<meta property="og:url" content="<?php echo $seoUrl ?>">
-	<meta property="og:image:type" content="image/jpeg">
-	<meta property="og:image:width" content="600">
-	<meta property="og:image:height" content="600">
-	<meta property="og:image" content="<?php echo $product_img ?>">
-	<meta property="og:image:secure_url" content="<?php echo $product_img ?>" />
-<?php }
 
 include 'inc/facebookPlugin.php';
 ?>
 <link rel="stylesheet" href="css/details.css">
 
 <!-- <link rel="stylesheet" href="css/index.css"> -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<script src="js/jquery/jquery-3.5.1.js"></script>
+<script src="js/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<link rel="stylesheet" href="css/owl.carousel.min.css">
 
 
 <body>
@@ -94,23 +66,32 @@ include 'inc/facebookPlugin.php';
 									foreach ($result_size as $value) {
 										switch ($value->size) {
 											case 1:
-												$size = "S";
+												$size = "XS";
 												break;
 											case 2:
-												$size = "M";
+												$size = "S";
 												break;
 											case 3:
-												$size = "X";
+												$size = "M";
 												break;
 											case 4:
-												$size = "XL";
+												$size = "X";
 												break;
 											case 5:
-												$size = "Freesize";
+												$size = "L";
+												break;
+											case 6:
+												$size = "XL";
+												break;
+											case 7:
+												$size = "XXL";
+												break;
+											case 8:
+												$size = "Free Size";
 												break;
 										}
 									?>
-										<option value="<?php echo $value->size ?>"><?php echo ($value->size == 5) ? "Freesize" : "Size: " .  $size ?></option>
+										<option value="<?php echo $value->size ?>"><?php echo ($value->size == 8) ? "Freesize" : "Size: " .  $size ?></option>
 									<?php } ?>
 								</select>
 							<?php
@@ -201,12 +182,13 @@ include 'inc/facebookPlugin.php';
 					<div class="col-12">
 						<?php
 						$get_product_details = $product->get_details($productid);
+						$urlFb = $productid;
 						if ($get_product_details) {
 							while ($result_details = $get_product_details->fetch_assoc()) {
 								if ($result_details['product_desc'] != null) {
 						?>
 									<div class=" descriptionBox mt-4">
-										<p><?php echo $result_details['product_desc'] ?></p>
+										<p><?php echo $result_details['product_desc']; ?></p>
 									</div>
 								<?php
 								} else {
@@ -223,7 +205,7 @@ include 'inc/facebookPlugin.php';
 			<div id="menu1" class="container tab-pane fade"><br>
 				<div class="row">
 					<div class="col-12">
-						<div class="fb-comments" data-href="https://kabistore.com.vn/details/<?php echo $productId ?>" data-width="100%" data-numposts="10" data-lazy="true" data-mobile="true"></div>
+						<div class="fb-comments" data-href="https://kabistore.com.vn/details/<?php echo $urlFb; ?>" data-width="100%" data-numposts="10" data-lazy="true" data-mobile="true"></div>
 					</div>
 				</div>
 			</div>
@@ -319,7 +301,7 @@ include 'inc/facebookPlugin.php';
 									}
 									?>
 									<?php echo $fm->format_currency($result['price']) . " ₫" ?>
-								<div class="sell-out">Đã bán <?php echo $result['product_soldout'] ?></div>
+								<div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
 								</p>
 							</div>
 						</div>

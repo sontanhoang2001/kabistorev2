@@ -35,22 +35,59 @@ include_once "inc/checkManager.php";
 
     <!-- Title  -->
     <meta charset="UTF-8">
-    <title>Kabi Store - Shop quần áo thời trang nam nữ - Phụ kiện hot trend Cần Thơ - Vĩnh Long - Vũng Liêm</title>
-    <meta name="keywords" content="kabistore.com.vn , kabistore, kabistore gia sieu re, kabistore giá siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore tong hop, kabistore tổng hợp, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore quần áo giá siêu rẻ, kabistore quan ao gia sieu re, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sỉ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sỉ quần áo rẻ nhất cần thơ vĩnh long, kabistore si quan ao re nhat can tho vinh long, kabistore sỉ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long, tan hoang kabistore, Tấn Hoàng kabistore, áo thun cotton tay lỡ fom rộng giá rẻ nhất, oa thun cotton tay lo fom rong gia re nhat, shop quần áo giá rẻ vũng liêm, áo thun vũng liêm, ao thun vung liem, shop quan ao gia re vung liem, kabistore chuyên áo thun cần thơ vĩnh long vũng liêm, kabistore chuyen ao thun can tho vinh long vung liem" />
-    <meta name="description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
 
     <?php $GET_URI = substr($_SERVER['REQUEST_URI'], 1, 7);
-    if (!$GET_URI == "details") {
+    if ($GET_URI != "details") {
     ?>
+        <title>Kabi Store - Shop quần áo thời trang nam nữ - Phụ kiện hot trend Cần Thơ - Vĩnh Long - Vũng Liêm</title>
+        <!-- <meta name="keywords" content="kabistore.com.vn , kabistore, kabistore gia sieu re, kabistore giá siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore tong hop, kabistore tổng hợp, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore quần áo giá siêu rẻ, kabistore quan ao gia sieu re, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sỉ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sỉ quần áo rẻ nhất cần thơ vĩnh long, kabistore si quan ao re nhat can tho vinh long, kabistore sỉ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long, tan hoang kabistore, Tấn Hoàng kabistore, áo thun cotton tay lỡ fom rộng giá rẻ nhất, oa thun cotton tay lo fom rong gia re nhat, shop quần áo giá rẻ vũng liêm, áo thun vũng liêm, ao thun vung liem, shop quan ao gia re vung liem, kabistore chuyên áo thun cần thơ vĩnh long vũng liêm, kabistore chuyen ao thun can tho vinh long vung liem" />
+        <meta name="description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." /> -->
+
         <meta property="og:title" content="⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 Kabi Store - Shop quần áo thời trang nam nữ - Phụ kiện hot trend Cần Thơ - Vĩnh Long - Vũng Liêm" />
+        <meta property="keywords" content="Kabistore.com.vn , kabistore, kabistore gia sieu re, kabistore giá siêu rẻ, kabistore mua hang chat luong, kabistore mua hàng chất lượng, kabistore tong hop, kabistore tổng hợp, kabistore thoi trang, kabistore thời trang, kabistore quan ao, kabistore quần áo, kabistore quần áo giá siêu rẻ, kabistore quan ao gia sieu re, kabistore phu kien, kabistore phụ kiện, kabistore can tho, kabistore Cần Thơ, kabistore vinh long, kabistore Vĩnh Long, kabistore si do gia dung vinh long, kabistore sỉ đồ gia dụng vĩnh long,  kabistore si do gia dung can tho, kabistore sỉ quần áo rẻ nhất cần thơ vĩnh long, kabistore si quan ao re nhat can tho vinh long, kabistore sỉ đồ gia dụng cần thơ, kabistore bán đồ gia dụng rẻ nhất cần thơ, kabistore ban do gia dung re nhat can tho, kabistore bán đồ gia dụng rẻ nhất vĩnh long, kabistore ban do gia dung re nhat vinh long, tan hoang kabistore, Tấn Hoàng kabistore, áo thun cotton tay lỡ fom rộng giá rẻ nhất, oa thun cotton tay lo fom rong gia re nhat, shop quần áo giá rẻ vũng liêm, áo thun vũng liêm, ao thun vung liem, shop quan ao gia re vung liem, kabistore chuyên áo thun cần thơ vĩnh long vũng liêm, kabistore chuyen ao thun can tho vinh long vung liem">
         <meta property="og:description" content="Kabi Store trang mua sắm trực tuyến với giao diện mua hàng đẹp nhất hiện nay, thân thiện với khách hàng tiện lợi mua sắm, phục vụ chăm sóc khác hàng tốt nhẩt là xứ mệnh hàng đầu của kabistore." />
         <meta property="og:url" content="kabistore.com.vn">
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:image:width" content="600">
         <meta property="og:image:height" content="600">
         <meta property="og:image" content="https://www.kabistore.com.vn/img/thumbnail/img-thumbnail.jpg">
+        <meta property="og:image:alt" content="Kabi Store - Shop quần áo thời trang nam nữ - Phụ kiện hot trend Cần Thơ - Vĩnh Long - Vũng Liêm">
         <meta property="og:image:secure_url" content="https://www.kabistore.com.vn/img/thumbnail/img-thumbnail.jpg" />
-    <?php } ?>
+        <?php } else {
+        if (!isset($_GET['proid']) || $_GET['proid'] == NULL) {
+            echo "<script>
+                window.location = '404.php'
+            </script>";
+        } else {
+            $productid = $_GET['proid']; // Lấy productid trên host
+        }
+
+        $seoUrl = "https://kabistore.com.vn/" . getRequestUrls();
+        // Seo link
+        $get_product_details = $product->get_details($productid);
+        if ($get_product_details) {
+            $result_details = $get_product_details->fetch_assoc();
+            $old_price = $result_details['old_price'];
+            $productName = $result_details['productName'];
+            $productType = $result_details['type'];
+            $product_imgJson =  json_decode($result_details['image']);
+            $product_img = $product_imgJson[0]->image;
+        ?>
+            <title><?php echo $productName ?></title>
+
+            <meta property="og:title" content="<?php echo $productName ?>" />
+            <meta property="og:description" content="⭐⭐⭐⭐⭐ Đánh giá: CHẤT LƯỢNG VIỆT ✅ 🛒 - Nhấn vào để mua sản phẩm này ngay bây giờ ..." />
+            <meta property="og:url" content="<?php echo $seoUrl ?>">
+            <meta property="og:image:type" content="image/jpeg">
+            <meta property="og:image:width" content="600">
+            <meta property="og:image:height" content="600">
+            <meta property="og:image" content="<?php echo $product_img ?>">
+            <meta property="og:image:alt" content="<?php echo $productName ?>">
+            <meta property="og:image:secure_url" content="<?php echo $product_img ?>" />
+    <?php
+        }
+    }
+    ?>
 
     <meta content="INDEX,FOLLOW" name="robots" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -185,7 +222,7 @@ include_once "inc/checkManager.php";
                                             echo ($i == 0 || $i == 3 || $i == 6) ?
                                                 '<ul class="single-mega cn-col-4">
                                             <li class="title">' . $titleCategory[$i]  . '</li>' : '' ?>
-                            <li><a href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html"><?php echo $catName ?></a></li>
+                            <li><a href="<?php echo $fm->vn_to_strMenu($catName) ?>-fcp1t<?php echo $catId ?>smem.html"><?php echo $catName ?></a></li>
                     <?php
                                             echo ($i == 2 || $i == 5 || $i == 8) ? '</ul>' : '';
                                         }

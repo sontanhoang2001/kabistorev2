@@ -305,10 +305,8 @@ $fm = new Format();
                                             $catlist = $cat->show_category();
                                             if ($catlist) {
                                                 while ($result = $catlist->fetch_assoc()) {
-
                                             ?>
-                                                    <option value=" <?php echo $result['catId'] ?> "> <?php echo $result['catName'] ?> </option>
-
+                                                    <option value="<?php echo $result['catId'] ?>"><?php echo $result['catName'] ?></option>
                                             <?php
                                                 }
                                             }
@@ -325,7 +323,7 @@ $fm = new Format();
                                             if ($brandlist) {
                                                 while ($result = $brandlist->fetch_assoc()) {
                                             ?>
-                                                    <option value=" <?php echo $result['brandId'] ?> "> <?php echo $result['brandName'] ?> </option>
+                                                    <option value="<?php echo $result['brandId'] ?>"><?php echo $result['brandName'] ?></option>
                                             <?php
                                                 }
                                             }
@@ -406,41 +404,59 @@ $fm = new Format();
                                         <h6 class="font-weight-bold">Chọn size</h6>
                                         <div class="ml-2">
                                             <input type="checkbox" id="size1">
-                                            <label for="size1"> Size: S</label><br>
+                                            <label for="size1"> Size: XS</label><br>
                                             <input type="checkbox" id="size2">
-                                            <label for="size2"> Size: M</label><br>
+                                            <label for="size2"> Size: S</label><br>
                                             <input type="checkbox" id="size3">
-                                            <label for="size3"> Size: X</label><br>
+                                            <label for="size3"> Size: M</label><br>
                                             <input type="checkbox" id="size4">
-                                            <label for="size4"> Size: XL</label><br>
+                                            <label for="size4"> Size: L</label><br>
                                             <input type="checkbox" id="size5">
-                                            <label for="size5"> Freesize</label>
+                                            <label for="size5"> Size: X</label><br>
+                                            <input type="checkbox" id="size6">
+                                            <label for="size6"> Size: XL</label><br>
+                                            <input type="checkbox" id="size7">
+                                            <label for="size7"> Size: XXL</label><br>
+                                            <input type="checkbox" id="size8">
+                                            <label for="size8"> Free Size</label>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <h6 class="font-weight-bold">Chọn màu</h6>
                                         <div class="ml-2">
-                                            <input type="checkbox" id="color1" value="Trắng">
+                                            <div class="box-color" style="background-color: white;"></div>&nbsp;<input type="checkbox" id="color1" value="Trắng">
                                             <label for="color1"> Trắng</label><br>
-                                            <input type="checkbox" id="color2" value="Đỏ">
+                                            <div class="box-color" style="background-color: red;"></div>&nbsp;<input type="checkbox" id="color2" value="Đỏ">
                                             <label for="color2"> Đỏ</label><br>
-                                            <input type="checkbox" id="color3" value="Đen">
+                                            <div class="box-color" style="background-color: black;"></div>&nbsp;<input type="checkbox" id="color3" value="Đen">
                                             <label for="color3"> Đen</label><br>
-                                            <input type="checkbox" id="color4" value="Cam">
+                                            <div class="box-color" style="background-color: #ff9900;"></div>&nbsp;<input type="checkbox" id="color4" value="Cam">
                                             <label for="color4"> Cam</label><br>
-                                            <input type="checkbox" id="color5" value="Vàng">
-                                            <label for="color5"> Vàng</label>
+                                            <div class="box-color" style="background-color: #fbff00;"></div>&nbsp;<input type="checkbox" id="color5" value="Vàng">
+                                            <label for="color5"> Vàng</label><br>
+                                            <div class="box-color" style="background-color: #cc0099;"></div>&nbsp;<input type="checkbox" id="color6" value="Tím">
+                                            <label for="color6"> Tím</label><br>
+                                            <div class="box-color" style="background-color: #999966;"></div>&nbsp;<input type="checkbox" id="color7" value="Xám">
+                                            <label for="color7"> Xám</label><br>
+                                            <div class="box-color" style="background-color: #00cc00;"></div>&nbsp;<input type="checkbox" id="color8" value="Xanh-Lá">
+                                            <label for="color8"> Xanh-Lá</label><br>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <h6>&nbsp;</h6>
                                         <div class="ml-2">
-                                            <input type="checkbox" id="color6" value="Lá">
-                                            <label for="color6"> Lá</label><br>
-                                            <input type="checkbox" id="color7" value="Hồng">
-                                            <label for="color7"> Hồng</label>
+                                            <div class="box-color" style="background-color: #66ff66;"></div>&nbsp;<input type="checkbox" id="color9" value="Xanh-Nhạt">
+                                            <label for="color9"> Xanh-Nhạt</label><br>
+                                            <div class="box-color" style="background-color: #009933;"></div>&nbsp;<input type="checkbox" id="color10" value="Xanh-Đậm">
+                                            <label for="color10"> Xanh-Đậm</label><br>
+                                            <div class="box-color" style="background-color: #0099ff;"></div>&nbsp;<input type="checkbox" id="color11" value="Xanh-Biển">
+                                            <label for="color11"> Xanh-Biển</label><br>
+                                            <div class="box-color" style="background-color: #99ccff;"></div>&nbsp;<input type="checkbox" id="color12" value="Xanh-Lam">
+                                            <label for="color12"> Xanh-Lam</label><br>
+                                            <div class="box-color" style="background-color: #ff3399;"></div>&nbsp;<input type="checkbox" id="color13" value="Hồng">
+                                            <label for="color13"> Hồng</label><br>
                                             <h6>Màu khác</h6>
-                                            <textarea id="color8" cols="15" rows="2"></textarea>
+                                            <textarea id="colorOption" cols="15" rows="2"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-3">
@@ -449,20 +465,21 @@ $fm = new Format();
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-5">
+                                    <div class="form-group col-md-8">
                                         <label class="font-weight-bold" for="sel1">Trạng thái & Xếp loại sản phẩm</label>
                                         <select class="form-control" id="type" name="type">
                                             <option value="null">Lựa chọn</option>
                                             <option selected value="0">Bình thường</option>
                                             <option value="1">Hot nhất</option>
                                             <option value="2">Xếp cao nhất</option>
-                                            <option value="9">Ngừng kinh doanh</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-2">
-                                        <label class="font-weight-bold" for="validation6">Đã bán:</label>
+
+                                    <div class="form-group col-md-4">
+                                        <label class="font-weight-bold" for="validation6">*</label>
                                         <input class="form-control" id="validation6" type="number" name="product_soldout" min="0" value="0">
                                         <div class=" valid-feedback">Looks good!</div>
                                     </div>

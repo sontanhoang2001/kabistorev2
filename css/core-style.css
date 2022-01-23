@@ -1711,7 +1711,7 @@ img.img-effect {
     font-size: 14px;
     font-weight: 500;
     height: 40px;
-    width: 106px;
+    width: 135px;
     line-height: 40;
     margin: 0;
 }
@@ -3055,9 +3055,6 @@ li.nav-item.active {
     }
     .single-product-wrapper .product-description .sell-out {
         font-size: 10px !important;
-    }
-    .single-product-wrapper .product-description .sell-out.page-product {
-        font-size: 7px !important;
     }
     .nav-tabs .nav-item {
         width: 106px !important;

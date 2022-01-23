@@ -49,7 +49,7 @@ class category
 	// hiển thị loại sản phẩm
 	public function show_category()
 	{
-		$query = "SELECT * FROM tbl_category order by catId desc";
+		$query = "SELECT * FROM tbl_category order by catId asc";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -61,7 +61,8 @@ class category
 		FROM tbl_product as p
 		inner join tbl_category as c
 		on c.catId = p.catId
-		group by c.catId";
+		group by c.catId
+		order by c.catId asc";
 		$result = $this->db->select($query);
 		return $result;
 	}
