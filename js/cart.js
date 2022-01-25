@@ -248,7 +248,7 @@ function CheckPostPromotion(status, type, data) {
             resetDiscount();
             $("#success-promo").css("display", "none")
             $.each(JSON.parse(data), function(key, val) {
-                $("#error-promo").html('<b>Cảnh báo!</b> Đơn hàng của bạn vẫn chưa điều kiện để giảm giá [' + val[0].promotionsName + '] Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫.').show().delay(6000).fadeOut(2000);
+                $("#error-promo").html('<b>Cảnh báo!</b> Đơn hàng của bạn vẫn chưa điều kiện để giảm giá [' + val[0].promotionsName + '] Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫.').show().delay(10000).fadeOut(2000);
             });
             $('#error-promo').show().delay(6000).fadeOut(2000);
 
@@ -262,7 +262,7 @@ function CheckPostPromotion(status, type, data) {
             audioError.play();
             resetDiscount();
             $("#success-promo").css("display", "none")
-            $("#error-promo").html('<b>Thông báo!</b> Rất tiết mã giảm giá này đã hết hạn vài giờ trước.').show().delay(6000).fadeOut(2000);;
+            $("#error-promo").html('<b>Thông báo!</b> Rất tiết mã giảm giá này đã hết hạn vài giờ trước.').show().delay(10000).fadeOut(2000);
             $('#error-promo').show().delay(4000).fadeOut(1000);
             // Xóa code giảm giá nhập sai
             $('#promotion_code').val("");
@@ -277,14 +277,14 @@ function CheckPostPromotion(status, type, data) {
             promotiontAllow = 1;
             $.each(JSON.parse(data), function(key, val) {
                 if (val[0].deadlinedate != "0 giờ") {
-                    $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn ' + val[0].deadlinedate + '.').show().delay(6000).fadeOut(2000);
+                    $("#success-promo").html('<b>Nhập mã thành công!</b> [' + val[0].promotionsName + ']. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn ' + val[0].deadlinedate + '.').show().delay(10000).fadeOut(2000);
                 } else {
-                    $("#success-promo").html('<b>Nhập mã thành công!</b> ' + val[0].promotionsName + '. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn khoảng vài phút nữa. Hãy nhanh tay lên nào!').show().delay(6000).fadeOut(2000);
+                    $("#success-promo").html('<b>Nhập mã thành công!</b> [' + val[0].promotionsName + ']. Giảm ' + val[0].discountMoney + ' ₫ cho tổng giá trị đơn hàng từ ' + val[0].condition + ' ₫. Thời hạn sử dụng còn khoảng vài phút nữa. Hãy nhanh tay lên nào!').show().delay(10000).fadeOut(2000);
                 }
             });
 
             if (type == 1) {
-                $('#success-promo').show().show().delay(6000).fadeOut(2000);
+                $('#success-promo').show().show().delay(10000).fadeOut(2000);
             }
 
             $.ajax({
@@ -331,7 +331,7 @@ function checkPromotionCode(promoCode, type) {
 
 function resetDiscount() {
     promotiontAllow = 1;
-    audioError.play();
+    // audioError.play();
     $.ajax({
         type: "POST",
         url: "~/../callbackPartial/discount.php",
