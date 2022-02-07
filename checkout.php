@@ -131,7 +131,9 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         </div>
                     </div>
                 </div>
-                <?php unset($_SESSION['cart_payment']);
+                <?php
+                unset($_SESSION['adminUser']);
+                unset($_SESSION['cart_payment']);
                 $subtotal = 0;
                 $ship = 0;
                 $quantityTotal = 0;
@@ -221,7 +223,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                     </div>
                                 </div>
                         <?php
-                                $quantityTotal =  (int)$quantityTotal + (int)$quantity;
+                                $quantityTotal = (int)$quantityTotal + (int)$quantity;
                                 //set sesstion to cart
                                 $cart = array();
                                 $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity, 'productSize' => $productSize, 'productColor' => $productColor];
@@ -229,13 +231,18 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 // $ship = $ship + $quantity * $price_ship;
                                 $subtotal += $total;
                                 $brandLocaltion[] = $brandId;
+                                $adminUser[] = $result['adminId'];
                             }
                         }
+
                         $brandLocaltion = array_unique($brandLocaltion);
                         $brandLocaltion_array = array();
                         Session::set('quantityTotal', $quantityTotal);
                         // $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
                         $discount = 0;
+
+                        $adminUser = array_unique($adminUser);
+                        Session::set('adminUser', $adminUser);
                         ?>
                         <hr>
                         <div class="form-group">

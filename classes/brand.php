@@ -1,5 +1,6 @@
 <?php
 $filepath = realpath(dirname(__FILE__));
+include_once($filepath . '/../lib/session.php');
 include_once($filepath . '/../lib/database.php');
 include_once($filepath . '/../helpers/format.php');
 ?>
@@ -50,7 +51,14 @@ class brand
 
 	public function show_brand()
 	{
-		$query = "SELECT * FROM tbl_brand order by brandId desc";
+		$adminId = Session::get('adminId');
+		$level = Session::get('level');
+
+		if ($level == 0) {
+			$query = "SELECT * FROM tbl_brand order by brandId desc";
+		} else {
+			$query = "SELECT * FROM tbl_brand WHERE adminId = $adminId";
+		}
 		$result = $this->db->select($query);
 		return $result;
 	}

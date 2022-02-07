@@ -77,8 +77,8 @@ if (!isset($_GET['status'])) {
                     </tfoot> -->
 					<tbody>
 						<?php
-						$list_delivered = $ct->get_list_statusDetails($status, $page, $product_num, $searchText);
-						$get_amount_list_statusDetails = $ct->get_amount_list_statusDetails($status, $searchText);
+						$list_delivered = $ct->get_list_order($status, $page, $product_num, $searchText);
+						$get_amount_list_statusDetails = $ct->get_amount_list_order($status, $searchText);
 						$result = $get_amount_list_statusDetails->fetch_assoc();
 						$totalRow = $result['totalRow'];
 						if ($list_delivered) {
@@ -472,7 +472,7 @@ if (!isset($_GET['status'])) {
 			}
 		}).on('page', function(event, page) {
 			// console.info(page + ' (from event listening)');
-			location.href = "newOrders-list?page=" + page + "&product_num=" + product_num;
+			location.href = "orders-list?page=" + page + "&product_num=" + product_num;
 		});
 	});
 </script>

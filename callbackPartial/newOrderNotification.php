@@ -1,5 +1,4 @@
 <?php
-include '../inc/global.php';
 include '../lib/session.php';
 Session::init();
 
@@ -548,19 +547,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </table>
 </body>
 
-</html>
-		';
+</html>';
     $nTo = 'Gửi đến Admin';
     // $mTo = 'hoangsonytb123@gmail.com';
     $diachi = 'hotrokhachhang@kabistore.com.vn';
 
-    // include từ global
-    // $to = array(
-    //     'hoangsonytb123@gmail.com',
-    // );
-    foreach ($to as $mTo) {
+    // Gửi email khi có đơn hàng
+    $to = array(
+        'hoangsonytb123@gmail.com',
+        'phuongthaocmc7f@gmail.com'
+    );
+
+    include '../classes/admin.php';
+    $admin = new admin();
+    $adminUser = Session::get('adminUser');
+
+    foreach ($adminUser as $adminId) {
+        $getAdminUserSendEmail = $admin->getAdminUserSendEmail($adminId);
+        $result = $getAdminUserSendEmail->fetch_assoc();
+        $mTo = $result['adminEmail'];
         $mail = sendMail($user, $password, $title, $content, $nTo, $mTo, $diachi = '');
     }
+    //     foreach ($to as $mTo) {
+    //         $mail = sendMail($user, $password, $title, $content, $nTo, $mTo, $diachi = '');
+    //     }
     if ($mail == 1)
         echo json_encode($result_json[] = ['status' => 1]); // gửi email thành công
     else echo json_encode($result_json[] = ['status' => 0]); // gửi email thất bại

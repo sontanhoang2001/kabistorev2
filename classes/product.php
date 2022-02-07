@@ -1,5 +1,6 @@
 <?php
 $filepath = realpath(dirname(__FILE__));
+include_once($filepath . '/../lib/session.php');
 include_once($filepath . '/../lib/database.php');
 include_once($filepath . '/../helpers/format.php');
 ?>
@@ -368,26 +369,52 @@ class product
 
 	public function show_product($type, $page, $product_num, $search_text)
 	{
+		$adminId = Session::get('adminId');
+		$level = Session::get('level');
+
 		$index_page = ($page - 1) * $product_num;
-		switch ($type) {
-			case 0: {
-					$query =
-						"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
+		if ($level == 0) {
+			switch ($type) {
+				case 0: {
+						$query =
+							"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
 								WHERE tbl_product.type != 9 AND tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%'
 			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
-					break;
-				}
-			case 9: {
-					$query =
-						"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
+						break;
+					}
+				case 9: {
+						$query =
+							"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
 								WHERE tbl_product.type = 9 AND (tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%')
 			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
-					break;
-				}
+						break;
+					}
+			}
+		} else {
+			switch ($type) {
+				case 0: {
+						$query =
+							"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
+			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
+								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
+								WHERE tbl_brand.adminId = $adminId AND tbl_product.type != 9 AND (tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%')
+			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
+						break;
+					}
+				case 9: {
+						$query =
+							"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
+			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
+								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
+								WHERE tbl_brand.adminId = $adminId AND tbl_product.type = 9 AND (tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%')
+			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
+						break;
+					}
+			}
 		}
 		$result = $this->db->select($query);
 		return $result;
@@ -395,19 +422,41 @@ class product
 
 	public function get_amount_all_show_product($type, $searchText)
 	{
-		switch ($type) {
-			case 0: {
-					$query =
-						"SELECT COUNT(productId) as totalRow FROM tbl_product
+		$adminId = Session::get('adminId');
+		$level = Session::get('level');
+
+		if ($level == 0) {
+			switch ($type) {
+				case 0: {
+						$query =
+							"SELECT COUNT(productId) as totalRow FROM tbl_product
 								WHERE tbl_product.type != 9 AND tbl_product.productName LIKE '%$searchText%' OR tbl_product.product_code LIKE '%$searchText%'";
-					break;
-				}
-			case 9: {
-					$query =
-						"SELECT COUNT(productId) as totalRow FROM tbl_product
+						break;
+					}
+				case 9: {
+						$query =
+							"SELECT COUNT(productId) as totalRow FROM tbl_product
 								WHERE tbl_product.type = 9 AND (tbl_product.productName LIKE '%$searchText%' OR tbl_product.product_code LIKE '%$searchText%')";
-					break;
-				}
+						break;
+					}
+			}
+		} else {
+			switch ($type) {
+				case 0: {
+						$query =
+							"SELECT COUNT(productId) as totalRow FROM tbl_product as p
+							JOIN tbl_brand as b on p.productId = b.brandId
+							WHERE b.adminId = '$adminId' AND p.type != 9 AND (p.productName LIKE '%$searchText%' OR p.product_code LIKE '%$searchText%')";
+						break;
+					}
+				case 9: {
+						$query =
+							"SELECT COUNT(productId) as totalRow FROM tbl_product as p
+							JOIN tbl_brand as b on p.productId = b.brandId
+							WHERE b.adminId = '$adminId' AND p.type = 9 AND (p.productName LIKE '%$searchText%' OR p.product_code LIKE '%$searchText%')";
+						break;
+					}
+			}
 		}
 		$result = $this->db->select($query);
 		return $result;
@@ -1113,7 +1162,7 @@ class product
 			$result = $get_relatedProduct->fetch_assoc();
 			$catId = $result['catId'];
 
-			$query = "SELECT productId, productName, `type` ,product_soldout,old_price, price, `image`, size
+			$query = "SELECT productId, productName, brandId, `type` ,product_soldout,old_price, price, `image`, size
 		FROM tbl_product
 		WHERE catId = '$catId' AND `type` != 9 ORDER BY productId DESC LIMIT 12";
 			$result = $this->db->select($query);

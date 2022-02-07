@@ -243,8 +243,12 @@ $fm = new format();
 							<div class="row">
 								<div class="py-3 m-5">
 									<div class="form-group">
-										<div class="text-danger mb-2"> Khi chọn xóa tài khoản, tất cả các dữ liệu lịch sử mua hàng sẽ bị xóa vĩnh viễn.</div>
-										<button type="button" id="delAccount" class="btn btn-danger">Xóa tài khoản</button>
+										<?php if ($_SESSION['level'] == 0) { ?>
+											<div class="text-danger mb-2"> Khi chọn xóa tài khoản, tất cả các dữ liệu lịch sử mua hàng sẽ bị xóa vĩnh viễn.</div>
+											<button type="button" id="delAccount" class="btn btn-danger">Xóa tài khoản</button>
+										<?php } else { ?>
+											<div class="text-danger mb-2"> Khi chọn xóa tài khoản, tất cả các dữ liệu lịch sử mua hàng sẽ bị xóa vĩnh viễn. (Chỉ có admin Tấn Hoàng mới có quyền xóa khách hàng)</div>
+										<?php } ?>
 									</div>
 								</div>
 							</div>

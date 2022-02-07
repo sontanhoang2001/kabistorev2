@@ -17,18 +17,8 @@ $dataPriceShip = '[{"main_ship":25000,"cantho":25000,"vinhlong":25000,"vungliem"
 // Cộng thêm mỗi đơn hàng
 $shipAdd = 2000;
 
-// avatar cua admin
-$avatarAdmin_img = "../upload/avatars/avatar-admin.jpg";
-
-
 // Số sản phẩm hiển thị trong 1 trang sản phẩm Admin
 $product_num_admin = 20;
 
 // Số sản phẩm hiển thị trong 1 trang sản phẩm
 $product_num = 50;
-
-// Gửi email khi có đơn hàng
-$to = array(
-    'hoangsonytb123@gmail.com',
-    'phuongthaocmc7f@gmail.com'
-);

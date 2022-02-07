@@ -57,5 +57,13 @@ class admin
             $this->link = null;
         }
     }
+
+    public function getAdminUserSendEmail($adminId)
+    {
+        $adminId = mysqli_real_escape_string($this->db->link, $adminId);
+        $query = "SELECT `adminEmail` FROM `tbl_admin` WHERE adminId = '$adminId'";
+        $result = $this->db->select($query);
+        return $result;
+    }
 }
 ?>

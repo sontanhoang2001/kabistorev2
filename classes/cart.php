@@ -1,5 +1,6 @@
 <?php
 $filepath = realpath(dirname(__FILE__));
+include_once($filepath . '/../lib/session.php');
 include_once($filepath . '/../lib/database.php');
 include_once($filepath . '/../helpers/format.php');
 ?>
@@ -115,10 +116,11 @@ class cart
 	{
 		$customerId = $this->fm->validation($customerId);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customerId);
-		$query = "SELECT tbl_product.productName, tbl_product.product_code, tbl_product.product_remain, tbl_product.brandId, tbl_product.image, tbl_product.price, tbl_cart.cartId, tbl_cart.customerId, tbl_cart.productId, tbl_cart.productSize, tbl_cart.quantity, tbl_cart.color
-		FROM tbl_cart
-		inner join tbl_product on tbl_cart.productId = tbl_product.productId
-		WHERE tbl_cart.customerId = '$customer_id'
+		$query = "SELECT p.productName, p.product_code, p.product_remain, p.brandId, b.adminId, p.image, p.price, c.cartId, c.customerId, c.productId, c.productSize, c.quantity, c.color
+		FROM tbl_cart as c
+		inner join tbl_product as p on c.productId = p.productId
+		inner join tbl_brand as b on b.brandId = p.brandId
+		WHERE c.customerId = '$customer_id'
 		ORDER by cartId DESC";
 		$result = $this->db->select($query);
 		return $result;
@@ -533,9 +535,12 @@ class cart
 	// Đơn đặt hàng
 	public function get_inbox_order($page, $product_num, $search_text)
 	{
-		$index_page = ($page - 1) * $product_num;
+		$adminId = Session::get('adminId');
+		$level = Session::get('level');
 
-		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, o.productSize, o.color, a.date_create, a.address_id
+		$index_page = ($page - 1) * $product_num;
+		if ($level == 0) {
+			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, o.productSize, o.color, a.date_create, a.address_id
 		FROM tbl_order as o
 		inner join tbl_product as p
 		on p.productId = o.productId
@@ -545,15 +550,45 @@ class cart
 		on o.customer_id = c.id
 		Where (o.status = '0' OR o.status = '1') AND p.productName LIKE '%$search_text%'
         ORDER BY a.address_id DESC LIMIT $index_page, $product_num";
+		} else {
+			$query = "SELECT brandId FROM tbl_brand WHERE adminId = '$adminId'";
+			$getbrandId = $this->db->select($query);
+			$result = $getbrandId->fetch_assoc();
+			$brandId = $result['brandId'];
+
+			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.status, o.productSize, o.color, a.date_create, a.address_id
+			FROM tbl_order as o
+			inner join tbl_product as p
+			on p.productId = o.productId
+			inner join tbl_address as a
+			on a.address_id = o.address_id
+			inner join tbl_customer as c
+			on o.customer_id = c.id
+			Where p.brandId = '$brandId' AND (o.status = '0' OR o.status = '1') AND p.productName LIKE '%$search_text%'
+			ORDER BY a.address_id DESC LIMIT $index_page, $product_num";
+		}
 		$get_inbox_order = $this->db->select($query);
 		return $get_inbox_order;
 	}
 
 	public function get_amount_inbox_order($searchText)
 	{
-		$query = "SELECT COUNT(o.id) as totalRow  FROM tbl_order o
+		$adminId = Session::get('adminId');
+		$level = Session::get('level');
+		if ($level == 0) {
+			$query = "SELECT COUNT(o.id) as totalRow  FROM tbl_order o
 		JOIN tbl_product p on o.productId = p.productId 
 		WHERE (o.status = 1 OR o.status = 0) AND p.productName LIKE '%$searchText%'";
+		} else {
+			$query = "SELECT brandId FROM tbl_brand WHERE adminId = '$adminId'";
+			$getbrandId = $this->db->select($query);
+			$result = $getbrandId->fetch_assoc();
+			$brandId = $result['brandId'];
+
+			$query = "SELECT COUNT(o.id) as totalRow  FROM tbl_order o
+			JOIN tbl_product p on o.productId = p.productId 
+			WHERE p.brandId = '$brandId' AND (o.status = 1 OR o.status = 0) AND p.productName LIKE '%$searchText%'";
+		}
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -634,9 +669,14 @@ class cart
 
 
 
-	public function get_list_statusDetails($status, $page, $product_num, $search_text)
+	public function get_list_order($status, $page, $product_num, $search_text)
 	{
-		$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.productSize, o.color, a.date_create, a.address_id
+		$adminId = Session::get('adminId');
+		$level = Session::get('level');
+
+		$index_page = ($page - 1) * $product_num;
+		if ($level == 0) {
+			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.productSize, o.color, a.date_create, a.address_id
 			FROM tbl_order as o
 			inner join tbl_product as p
 			on p.productId = o.productId
@@ -645,21 +685,43 @@ class cart
 			inner join tbl_customer as c
 			on o.customer_id = c.id
 			Where o.status = '$status' AND (p.productName LIKE '%$search_text%' OR c.id LIKE '%$search_text%' OR c.name LIKE '%$search_text%')
-			ORDER BY a.address_id DESC";
+			ORDER BY a.address_id DESC LIMIT $index_page, $product_num";
+		} else {
+			$query = "SELECT o.id, p.productId, p.productName, o.totalPayment , o.customer_id, c.name, o.quantity, o.productSize, o.color, a.date_create, a.address_id
+			FROM tbl_order as o
+			inner join tbl_product as p on p.productId = o.productId
+			inner join tbl_address as a on a.address_id = o.address_id
+			inner join tbl_customer as c on o.customer_id = c.id
+			inner join tbl_brand as b on p.brandId = b.brandId
+			Where o.status = '$status' AND b.adminId = '$adminId' AND (p.productName LIKE '%$search_text%' OR c.id LIKE '%$search_text%' OR c.name LIKE '%$search_text%')
+			ORDER BY a.address_id DESC LIMIT $index_page, $product_num";
+		}
 
 		$get_list_delivered = $this->db->select($query);
 		return $get_list_delivered;
 	}
 
-	public function get_amount_list_statusDetails($status, $search_text)
+	public function get_amount_list_order($status, $search_text)
 	{
-		$query = "SELECT COUNT(o.id) as totalRow 
-		FROM tbl_order as o
-		inner join tbl_product as p
-		on p.productId = o.productId
-		inner join tbl_customer as c
-		on o.customer_id = c.id
-		Where o.status = '$status' AND (p.productName LIKE '%$search_text%' OR c.id LIKE '%$search_text%' OR c.name LIKE '%$search_text%')";
+		$adminId = Session::get('adminId');
+		$level = Session::get('level');
+
+		if ($level == 0) {
+			$query = "SELECT COUNT(o.id) as totalRow 
+			FROM tbl_order as o
+			inner join tbl_product as p
+			on p.productId = o.productId
+			inner join tbl_customer as c
+			on o.customer_id = c.id
+			Where o.status = '$status' AND (p.productName LIKE '%$search_text%' OR c.id LIKE '%$search_text%' OR c.name LIKE '%$search_text%')";
+		} else {
+			$query = "SELECT COUNT(o.id) as totalRow 
+			FROM tbl_order as o
+			inner join tbl_product as p on p.productId = o.productId
+			inner join tbl_customer as c on o.customer_id = c.id
+			inner join tbl_brand as b on p.brandId = b.brandId
+			Where o.status = '$status' AND b.adminId = '$adminId' AND (p.productName LIKE '%$search_text%' OR c.id LIKE '%$search_text%' OR c.name LIKE '%$search_text%')";
+		}
 		$result = $this->db->select($query);
 		return $result;
 	}

@@ -82,7 +82,7 @@ $(".add_to_wishlist_details").click(function(event) {
                 case 1:
                     {
                         $('.heart').toggleClass("is-active");
-                        var message = "Thêm yêu thích thành công!";
+                        var message = "Đã thêm vào yêu thích!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                         toast.change('Đã thêm lưu vào yêu thích!', 2000);
                         break;
@@ -97,7 +97,7 @@ $(".add_to_wishlist_details").click(function(event) {
                 case 3:
                     {
                         $('.heart').toggleClass("is-active");
-                        var message = "Xóa yêu thích thành công!";
+                        var message = "Đã xóa khỏi yêu thích!";
                         let toast = $.niceToast.success('<strong>Success</strong>: ' + message + '');
                         toast.change('Đã xóa khỏi yêu thích...', 3500);
                         break;

@@ -22,7 +22,7 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
                 <div class="single_widget_area d-flex mb-30">
                     <!-- Logo -->
                     <div class="footer-logo">
-                        <a href="index.html"><img class="nav-brand-image2 lazy" src="" data-src="img/core-img/logo2.png" data-status="0" ></a>
+                        <a href="index.html"><img class="nav-brand-image2 lazy" src="" data-src="img/core-img/logo2.png" data-status="0"></a>
                     </div>
                     <!-- Footer Menu -->
                     <div class="footer_menu col-md-6">
@@ -144,4 +144,4 @@ if ($RequestUrl != "/index.html" && $RequestUrl != "/" && $RequestUrl != "/succe
         }
     });
 </script>
-<script src="js/tet.js"></script>
+<!-- <script src="js/tet.js"></script> -->

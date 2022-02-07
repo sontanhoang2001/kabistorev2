@@ -46,6 +46,8 @@ class adminlogin
 				Session::set('adminId', $value['adminId']);
 				Session::set('adminUser', $value['adminUser']);
 				Session::set('adminName', $value['adminName']);
+				Session::set('adminAvatar', $value['avatar']);
+				Session::set('level', $value['level']);
 				header("Location:index.php");
 			} else {
 				return '<div class="text-danger">Mật khẩu vừa nhập không đúng!</div>';

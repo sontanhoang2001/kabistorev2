@@ -153,15 +153,17 @@ if (!isset($_GET['product_num'])) {
                         <a class="collapse-item" href="add-product"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm sản phẩm</a>
                         <a class="collapse-item" href="product-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds sản phẩm</a>
                         <a class="collapse-item" href="productPause-list"><i class="fa fa-stop-circle" aria-hidden="true"></i> Sp Ngừng kinh doanh</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header"><i class="fa fa-book" aria-hidden="true"></i> Loại sản phẩm:</h6>
-                        <a class="collapse-item" href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm danh mục</a>
-                        <a class="collapse-item" href="category-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds danh mục</a>
-                        <h6 class="collapse-header"><i class="fa fa-university" aria-hidden="true"></i> Thương hiệu:</h6>
-                        <a class="collapse-item" href="add-brand"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm thương hiệu</a>
-                        <a class="collapse-item" href="brand-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds thương hiệu</a>
-                        <h6 class="collapse-header"><i class="fa fa-truck" aria-hidden="true"></i> Kho hàng:</h6>
-                        <a class="collapse-item" href="warehouse-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds kho hàng</a>
+                        <?php if ($_SESSION['level'] == 0) { ?>
+                            <div class="collapse-divider"></div>
+                            <h6 class="collapse-header"><i class="fa fa-book" aria-hidden="true"></i> Loại sản phẩm:</h6>
+                            <a class="collapse-item" href="add-category"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm danh mục</a>
+                            <a class="collapse-item" href="category-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds danh mục</a>
+                            <h6 class="collapse-header"><i class="fa fa-university" aria-hidden="true"></i> Thương hiệu:</h6>
+                            <a class="collapse-item" href="add-brand"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm thương hiệu</a>
+                            <a class="collapse-item" href="brand-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds thương hiệu</a>
+                            <h6 class="collapse-header"><i class="fa fa-truck" aria-hidden="true"></i> Kho hàng:</h6>
+                            <a class="collapse-item" href="warehouse-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds kho hàng</a>
+                        <?php } ?>
                     </div>
                 </div>
             </li>
@@ -179,7 +181,9 @@ if (!isset($_GET['product_num'])) {
                 </div>
             </li>
 
-            <!-- <li class="nav-item">
+            <?php if ($_SESSION['level'] == 0) { ?>
+
+                <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PriceShip" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa fa-ship" aria-hidden="true"></i>
                     <span>Giá ship</span>
@@ -192,33 +196,35 @@ if (!isset($_GET['product_num'])) {
                 </div>
             </li> -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discount" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa fa-percent" aria-hidden="true"></i>
-                    <span>Mã giảm giá</span>
-                </a>
-                <div id="discount" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Ql mã giảm giá:</h6>
-                        <a class="collapse-item" href="add-promotion"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm mã giảm giá</a>
-                        <a class="collapse-item" href="promotions-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discount" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fa fa-percent" aria-hidden="true"></i>
+                        <span>Mã giảm giá</span>
+                    </a>
+                    <div id="discount" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Ql mã giảm giá:</h6>
+                            <a class="collapse-item" href="add-promotion"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm mã giảm giá</a>
+                            <a class="collapse-item" href="promotions-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#slider" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa fa-television" aria-hidden="true"></i>
-                    <span>Slider</span>
-                </a>
-                <div id="slider" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý slider:</h6>
-                        <a class="collapse-item" href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm slider</a>
-                        <a class="collapse-item" href="slider-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#slider" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fa fa-television" aria-hidden="true"></i>
+                        <span>Slider</span>
+                    </a>
+                    <div id="slider" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Quản lý slider:</h6>
+                            <a class="collapse-item" href="add-slider"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm slider</a>
+                            <a class="collapse-item" href="slider-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh sách</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+
+            <?php } ?>
 
 
             <li class="nav-item">
@@ -404,7 +410,7 @@ if (!isset($_GET['product_num'])) {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo Session::get('adminName'); ?></span>
-                                <img class="img-profile rounded-circle" src="<?php echo $avatarAdmin_img ?>">
+                                <img class="img-profile rounded-circle" src="<?php echo Session::get('adminAvatar'); ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -475,6 +475,7 @@ $fm = new Format();
                                             <option selected value="0">Bình thường</option>
                                             <option value="1">Hot nhất</option>
                                             <option value="2">Xếp cao nhất</option>
+                                            <option value="9">Ngừng kinh doanh</option>
                                         </select>
                                     </div>
 
