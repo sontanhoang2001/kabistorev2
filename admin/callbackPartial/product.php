@@ -52,8 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $image = $result['image'];
                         $size = $result['size'];
                         $color = $result['color'];
+                        $out_of_stock = $result['out_of_stock'];
                     }
-                    echo json_encode($result_json[] = ['status' => 1, 'product_code' => $product_code, 'productName' => $productName, 'catId' => $catId, 'brandId' => $brandId, 'product_soldout' => $product_soldout, 'product_desc' => $product_desc, 'type' => $type, 'perPrice' => $perPrice, 'root_price' => $root_price, 'old_price' => $old_price, 'price' => $price, 'image' => $image, 'size' => $size, 'color' => $color]);
+                    echo json_encode($result_json[] = ['status' => 1, 'product_code' => $product_code, 'productName' => $productName, 'catId' => $catId, 'brandId' => $brandId, 'product_soldout' => $product_soldout, 'product_desc' => $product_desc, 'type' => $type, 'perPrice' => $perPrice, 'root_price' => $root_price, 'old_price' => $old_price, 'price' => $price, 'image' => $image, 'size' => $size, 'color' => $color, 'out_of_stock' => $out_of_stock]);
                 } else {
                     echo json_encode($result_json[] = ['status' => 0]);
                 }

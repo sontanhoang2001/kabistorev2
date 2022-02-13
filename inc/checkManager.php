@@ -36,6 +36,18 @@ if (isset($_SESSION['customer_login'])) {
         echo '<script>var loginAlert = false;</script>';
     }
 } else {
+    if (isset($_COOKIE["shopping_cart"])) {
+        $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+        $cart_data = json_decode($cookie_data, true);
+        $number_cart = count($cart_data);
+
+        $CartElemented = $_COOKIE['CartElemented'];
+        $elemented = session::set('elemented', $CartElemented);
+        session::set('number_cart', $number_cart);
+
+        
+    }
+
     if (isset($_COOKIE['is_login'])) {
         $login_cookie = $cs->login_cookie();
         // if ($login_cookie == true) {

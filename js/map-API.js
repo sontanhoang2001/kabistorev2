@@ -77,7 +77,12 @@ map.on('load', function() {
 // var results = document.getElementById('result');
 
 // vị trí đơn hàng đã đặt
+try {
+    brandLocaltion = brandLocaltion;
+} catch (error) { brandLocaltion = 0; }
+
 brandLocaltion = JSON.parse(JSON.stringify(brandLocaltion));
+
 
 function setPriceShip(locationCode) {
     $.ajax({

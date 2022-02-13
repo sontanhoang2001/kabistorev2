@@ -65,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 											while ($result = $cat_featheread->fetch_assoc()) {
 												$catId = $result['catId'];
 												$catName = $result['catName'];
+
 										?>
 												<li><a class="<?php echo ($filter == "c" && $type == $catId) ? 'font-weight-bold' . $categorySelected = $catName : '' ?>" href="<?php echo $fm->vn_to_str($catName) ?>-fcp1t<?php echo $catId ?>smem.html"><?php echo $catName ?></a></li>
 										<?php
@@ -190,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 								$productId = $result['productId'];
 								$product_img =  json_decode($result['image']);
 								$product_img = $product_img[0]->image;
+								$out_of_stock = $result['out_of_stock'];
 
 								if ($result['size'] != null) {
 									$sizeObj = json_decode($result['size']);
@@ -212,27 +214,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 										<div class="product-img page-product">
 											<img src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" class="lazy" data-status="0">
 											<ul class="card-button-shop">
-												<li>
-													<img style="width: 1px; height: 1px;" class="img-clone" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" alt="cart icon" data-status="0" />
-													<a class="add-btn-product add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-size="<?php echo $size ?>" data-color="<?php echo $color ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
-												</li>
+												<?php if ($out_of_stock != 1) { ?>
+													<li>
+														<img style="width: 1px; height: 1px" class="img-clone" data-src="<?php echo $product_img ?>" data-status="0" />
+														<a class="add-btn-product add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-size="<?php echo $size ?>" data-color="<?php echo $color ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+													</li>
+												<?php } ?>
 												<?php
 												$wishlist_check = $product->wishlist_check($customer_id, $productId);
 												$login_check = Session::get('customer_login');
-												if ($login_check) {
+												if ($login_check == true && $out_of_stock != 1) {
 													if ($wishlist_check) {
 												?>
-														<li><a data-tip="Hủy yêu thích" class="add-btn-product add_to_wishlist heart fa fa-heart" data-productid="<?php echo $productId ?>"></a></li>
+														<li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" data-productid="<?php echo $productId ?>"></a></li>
 													<?php
 													} else {
 													?>
-														<li><a data-tip="Thêm yêu thích" class="add-btn-product add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
+														<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
+													<?php
+													}
+												}
+												if (isset($_COOKIE['shopping_wishlist']) && $login_check == false && $out_of_stock != 1) {
+													$wishlisted = false;
+													$cookie_data = stripslashes($_COOKIE['shopping_wishlist']);
+													$wishlist_data = json_decode($cookie_data, true);
+													foreach ($wishlist_data as $keys => $values) {
+														if ($wishlist_data[$keys]['productId'] == $productId) {
+															$wishlisted = true;
+														}
+													}
+													if ($wishlisted == true) {
+													?>
+														<li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" data-productid="<?php echo $productId ?>"></a></li>
+													<?php
+													} else {
+													?>
+														<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
 													<?php
 													}
 												} else {
+													if ($login_check == false && $out_of_stock != 1) {
 													?>
-													<li><a data-tip="Thêm yêu thích" class="add-btn-product add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></a></li>
+														<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
 												<?php
+													}
 												}
 												?>
 												<li><a data-tip="Chi tiết" class="add-btn-product" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
@@ -249,23 +274,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												echo '</span></div>';
 											}
 											?>
-											<!-- Favourite -->
-											<!-- <div class="product-favourite">
-                <?php
-								$result['productId'];
-								$customer_id = Session::get('customer_id');
-								$wishlist_check = $product->wishlist_check($customer_id, $result['productId']);
-
-								$login_check = Session::get('customer_login');
-								if ($login_check) {
-									if ($wishlist_check) {
-										echo '<a href="#" class="favme active fa fa-heart"></a>';
-									} else {
-										echo '<a href="#" class="favme fa fa-heart"></a>';
-									}
-								}
-				?>
-            </div> -->
 										</div>
 										<!-- Product Description -->
 										<div class="product-description">
@@ -280,7 +288,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												}
 												?>
 												<?php echo $fm->format_currency($result['price']) . " ₫" ?>
-											<div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
+											<div class="sell-out page-product">
+												<?php if ($result['out_of_stock'] != 1) { ?>
+													<i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?>
+												<?php } else {
+												?>
+													<i class="fa fa-hourglass-end" aria-hidden="true"> Tạm hết hàng</i>
+												<?php
+												} ?>
+											</div>
 											</p>
 										</div>
 									</div>

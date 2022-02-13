@@ -73,10 +73,31 @@ include 'config/global.php';
                                                     <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
                                                 <?php
                                                 }
-                                            } else {
+                                            }
+                                            if (isset($_COOKIE['shopping_wishlist']) && $login_check == false) {
+                                                $wishlisted = false;
+                                                $cookie_data = stripslashes($_COOKIE['shopping_wishlist']);
+                                                $wishlist_data = json_decode($cookie_data, true);
+                                                foreach ($wishlist_data as $keys => $values) {
+                                                    if ($wishlist_data[$keys]['productId'] == $productId) {
+                                                        $wishlisted = true;
+                                                    }
+                                                }
+                                                if ($wishlisted == true) {
                                                 ?>
-                                                <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></a></li>
+                                                    <li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" data-productid="<?php echo $productId ?>"></a></li>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
+                                                <?php
+                                                }
+                                            } else {
+                                                if ($login_check == false) {
+                                                ?>
+                                                    <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
                                             <?php
+                                                }
                                             }
                                             ?>
                                             <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
@@ -93,23 +114,6 @@ include 'config/global.php';
                                             echo '</span></div>';
                                         }
                                         ?>
-                                        <!-- Favourite -->
-                                        <!-- <div class="product-favourite">
-                                                    <?php
-                                                    $result['productId'];
-                                                    $customer_id = Session::get('customer_id');
-                                                    $wishlist_check = $product->wishlist_check($customer_id, $result['productId']);
-
-                                                    $login_check = Session::get('customer_login');
-                                                    if ($login_check) {
-                                                        if ($wishlist_check) {
-                                                            echo '<a href="#" class="favme active fa fa-heart"></a>';
-                                                        } else {
-                                                            echo '<a href="#" class="favme fa fa-heart"></a>';
-                                                        }
-                                                    }
-                                                    ?>
-                                                </div> -->
                                     </div>
                                     <!-- Product Description -->
                                     <div class="product-description mr-3 ml-3">
@@ -272,7 +276,7 @@ include 'config/global.php';
                                             <img src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" class="lazy" data-status="0">
                                             <ul class="card-button-shop">
                                                 <li>
-                                                    <img class="lazy" style="width: 1px; height: 1px !important" class="img-clone" data-src="<?php echo $product_img ?>" />
+                                                    <img class="lazy" src="img/core-img/best-loader.gif" style="width: 1px; height: 1px !important" class="img-clone" data-src="<?php echo $product_img ?>" data-status="0" />
                                                     <a class="add_to_cart" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-size="<?php echo $size ?>" data-color="<?php echo $color ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
                                                 </li>
                                                 <?php
@@ -288,10 +292,31 @@ include 'config/global.php';
                                                         <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
                                                     <?php
                                                     }
-                                                } else {
+                                                }
+                                                if (isset($_COOKIE['shopping_wishlist']) && $login_check == false) {
+                                                    $wishlisted = false;
+                                                    $cookie_data = stripslashes($_COOKIE['shopping_wishlist']);
+                                                    $wishlist_data = json_decode($cookie_data, true);
+                                                    foreach ($wishlist_data as $keys => $values) {
+                                                        if ($wishlist_data[$keys]['productId'] == $productId) {
+                                                            $wishlisted = true;
+                                                        }
+                                                    }
+                                                    if ($wishlisted == true) {
                                                     ?>
-                                                    <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></a></li>
+                                                        <li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" data-productid="<?php echo $productId ?>"></a></li>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
+                                                    <?php
+                                                    }
+                                                } else {
+                                                    if ($login_check == false) {
+                                                    ?>
+                                                        <li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" data-productid="<?php echo $productId ?>"></i></a></li>
                                                 <?php
+                                                    }
                                                 }
                                                 ?>
                                                 <li><a data-tip="Chi tiết" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
@@ -397,7 +422,7 @@ include 'config/global.php';
 
 <!-- js -->
 <script src="js/carousel.js"></script>
-<?php include 'inc/footer.php' ?>
+<?php include 'inc/footer.php'; ?>
 <script src="js/jquery/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="js/flyto.js"></script>
 <script>

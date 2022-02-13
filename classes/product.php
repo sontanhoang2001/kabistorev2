@@ -33,7 +33,7 @@ class product
 	{
 		$index_page = ($page - 1) * $product_num;
 		$search_text = $this->fm->validation($search_text); //gọi ham validation từ file Format để ktra
-		$query = "SELECT productId, productName, product_soldout, brandId, old_price, price, size, color, image FROM tbl_product WHERE productName LIKE '%$search_text%' AND `type` != 9
+		$query = "SELECT productId, productName, product_soldout, brandId, old_price, price, size, color, image, out_of_stock FROM tbl_product WHERE productName LIKE '%$search_text%' AND `type` != 9
 		order by productId desc LIMIT $index_page, $product_num";
 		$result = $this->db->select($query);
 		return $result;
@@ -384,6 +384,15 @@ class product
 			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
 						break;
 					}
+				case 1: {
+						$query =
+							"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
+			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
+								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
+								WHERE tbl_product.out_of_stock = 1 AND (tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%')
+			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
+						break;
+					}
 				case 9: {
 						$query =
 							"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
@@ -402,6 +411,15 @@ class product
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
 								WHERE tbl_brand.adminId = $adminId AND tbl_product.type != 9 AND (tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%')
+			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
+						break;
+					}
+				case 1: {
+						$query =
+							"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
+			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
+								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
+								WHERE tbl_brand.adminId = $adminId AND tbl_product.out_of_stock = 1 AND (tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%')
 			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
 						break;
 					}
@@ -433,6 +451,12 @@ class product
 								WHERE tbl_product.type != 9 AND tbl_product.productName LIKE '%$searchText%' OR tbl_product.product_code LIKE '%$searchText%'";
 						break;
 					}
+				case 1: {
+						$query =
+							"SELECT COUNT(productId) as totalRow FROM tbl_product
+								WHERE tbl_product.out_of_stock = 1 AND (tbl_product.productName LIKE '%$searchText%' OR tbl_product.product_code LIKE '%$searchText%')";
+						break;
+					}
 				case 9: {
 						$query =
 							"SELECT COUNT(productId) as totalRow FROM tbl_product
@@ -447,6 +471,13 @@ class product
 							"SELECT COUNT(productId) as totalRow FROM tbl_product as p
 							JOIN tbl_brand as b on p.productId = b.brandId
 							WHERE b.adminId = '$adminId' AND p.type != 9 AND (p.productName LIKE '%$searchText%' OR p.product_code LIKE '%$searchText%')";
+						break;
+					}
+				case 1: {
+						$query =
+							"SELECT COUNT(productId) as totalRow FROM tbl_product as p
+							JOIN tbl_brand as b on p.productId = b.brandId
+							WHERE b.adminId = '$adminId' AND p.out_of_stock = 1 AND (p.productName LIKE '%$searchText%' OR p.product_code LIKE '%$searchText%')";
 						break;
 					}
 				case 9: {
@@ -545,6 +576,8 @@ class product
 		$image = $data['image'];
 		$size = mysqli_real_escape_string($this->db->link, $data['size']);
 		$color = mysqli_real_escape_string($this->db->link, $data['color']);
+		$out_of_stock = mysqli_real_escape_string($this->db->link, $data['out_of_stock']);
+
 
 		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $perPrice == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
 			return json_encode($result_json[] = ['status' => 0]);
@@ -567,7 +600,8 @@ class product
 					price = '$price', 
 					`image` = '$image',
 					product_desc = $product_desc,
-					size = $size, color = $color
+					size = $size, color = $color,
+					out_of_stock = $out_of_stock
 					WHERE productId = '$productId'";
 
 			$result = $this->db->update($query);
@@ -641,7 +675,7 @@ class product
 	// lấy sản phẩm cho edit product
 	public function getproductForEdit($id)
 	{
-		$query = "SELECT productName, product_code, catId, brandId, product_soldout, product_desc, type, perPrice, root_price, old_price, price, image, size, color FROM tbl_product WHERE productId = '$id'";
+		$query = "SELECT productName, product_code, catId, brandId, product_soldout, product_desc, type, perPrice, root_price, old_price, price, image, size, color, out_of_stock FROM tbl_product WHERE productId = '$id'";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -693,7 +727,7 @@ class product
 			switch ($filter) {
 				case 0: {
 						// lấy tất cả sản phẩm select = 0
-						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, old_price, price, size, color, image FROM tbl_product
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, old_price, price, size, color, image, out_of_stock FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
 						WHERE tbl_product.price BETWEEN $priceStart and $priceEnd AND `type` != 9
@@ -704,7 +738,7 @@ class product
 					}
 				case 1: {
 						// Lấy Sản phẩm bán nhiều nhất select = 2
-						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, old_price, price, size, color, image FROM tbl_product
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, old_price, price, size, color, image, out_of_stock FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
 						WHERE tbl_product.price BETWEEN $priceStart AND $priceEnd AND `type` != 9
@@ -715,7 +749,7 @@ class product
 					}
 				case 2: {
 						// Lấy tất cả Sản phẩm khuyến mãi select = 3
-						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, price, old_price, size, color, image
+						$query = "SELECT productId, productName, product_soldout, tbl_category.catName, brandId, price, old_price, size, color, image, out_of_stock
 						FROM tbl_product
 						inner join tbl_category
 						on tbl_product.catId = tbl_category.catId
@@ -727,7 +761,7 @@ class product
 					}
 				case 3: {
 						// Lấy tất cả Sản phẩm đc đánh giá cao nhât 3
-						$query = "SELECT p.productId, p.productName, p.product_soldout, c.catName, brandId, p.price, p.old_price, p.size, p.color, p.image
+						$query = "SELECT p.productId, p.productName, p.product_soldout, c.catName, brandId, p.price, p.old_price, p.size, p.color, p.image, p.out_of_stock
 						FROM tbl_product as p 
 						inner join tbl_category as c
 						on p.catId = c.catId
@@ -745,7 +779,7 @@ class product
 			switch ($filter) {
 				case "c": {
 						// Tìm theo loại sản phẩm
-						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.brandId, tbl_product.old_price, tbl_product.price, tbl_product.size, tbl_product.color, tbl_product.image
+						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.brandId, tbl_product.old_price, tbl_product.price, tbl_product.size, tbl_product.color, tbl_product.image, tbl_product.out_of_stock
 						FROM tbl_product
 						inner join tbl_category on tbl_product.catId = tbl_category.catId
 						where tbl_category.catId = '$catId' AND `type` != 9 AND tbl_product.price BETWEEN $priceStart AND $priceEnd
@@ -756,7 +790,7 @@ class product
 						break;
 					}
 				case "b": {
-						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.brandId, tbl_product.old_price, tbl_product.price, tbl_product.size, tbl_product.color, tbl_product.image
+						$query = "SELECT tbl_product.productId, tbl_product.productName, product_soldout, tbl_product.brandId, tbl_product.old_price, tbl_product.price, tbl_product.size, tbl_product.color, tbl_product.image, tbl_product.out_of_stock
 						FROM tbl_product
 						inner join tbl_brand on tbl_product.brandId = tbl_brand.brandId
 						where tbl_brand.brandId = '$brandId' AND `type` != 9 AND tbl_product.price BETWEEN $priceStart AND $priceEnd
@@ -851,7 +885,7 @@ class product
 	public function get_details($id)
 	{
 		$query =
-			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.productQuantity, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.old_price , tbl_product.price , tbl_product.image, tbl_product.size, tbl_product.color, tbl_category.catName, tbl_brand.brandName
+			"SELECT tbl_product.productId, tbl_product.productName, tbl_product.productQuantity, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.old_price , tbl_product.price , tbl_product.image, tbl_product.size, tbl_product.color, tbl_product.out_of_stock, tbl_category.catName, tbl_brand.brandName
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
 			 WHERE tbl_product.productId = '$id'";
@@ -957,6 +991,13 @@ class product
 	public function get_wishlist_all_product($customer_id)
 	{
 		$query = "SELECT COUNT(wishlistId) as totalRow FROM tbl_wishlist WHERE customerId = '$customer_id'";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+	public function get_wishlist_all_product_for_cookie($productId)
+	{
+		$query = "SELECT productId, productName, product_code, product_soldout, product_remain, brandId, old_price, price, size, color, `image` FROM tbl_product WHERE productId = '$productId'";
 		$result = $this->db->select($query);
 		return $result;
 	}

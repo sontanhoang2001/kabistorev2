@@ -28,10 +28,14 @@ $('#f_order').submit(function(e) {
         $("#error-geocoder").show().delay(5000).fadeOut(1000);
     } else if (phone == 0) {
         e.preventDefault();
-        $("#error-payment-methods-phone").show().delay(5000).fadeOut(1000);
         audioError.play();
         $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods-phone"><strong>Cảnh báo!</strong> Bạn chưa cập nhật số điện thoại vui lòng cập nhật ngay. <a href="profile.html" class="alert-link">Cập nhật</a>.</div>');
         $("#error-payment-methods-phone").show().delay(3000).fadeOut(1000).queue(function() { $(this).remove(); });
+    } else if (phone == 3) {
+        e.preventDefault();
+        audioError.play();
+        $(".error-group").append('<div class="alert alert-danger" id="error-payment-methods-phone"><strong>Cảnh báo!</strong> Bạn chưa đăng nhập, hiện tại bạn đang xử dụng tài khoản khách nên chưa thể mở chức năng đặt hàng! Vui lòng đăng nhập hoặc đăng ký 1 tài khoản để tiếp tục thanh toán. <br><a href="login.html" class="alert-link"> Đăng nhập</a> | <a href="register.html" class="alert-link"> Đăng ký tài khoản mới</a></div>');
+        $("#error-payment-methods-phone").show().delay(20000).fadeOut(3000).queue(function() { $(this).remove(); });
     } else if (Selected == 2) {
         e.preventDefault();
         audioError.play();

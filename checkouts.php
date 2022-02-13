@@ -3,13 +3,13 @@ include 'config/global.php';
 include 'inc/header.php';
 
 $login_check = Session::get('customer_login');
-if ($login_check == false) {
-	header('Location:checkouts.html');
-	exit;
+if ($login_check == true) {
+    header('Location:checkout.html');
+    exit;
 }
 
 $disable_check_out = Session::get('disable_check_out');
-if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
+if ($disable_check_out == 0) {
     if (Session::get('payment') == false) {
         header('Location:404.html');
     }
@@ -35,86 +35,67 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         <div class="header">Thông tin giao hàng</div>
                         <!-- <div class="icons"> <img src="https://img.icons8.com/color/48/000000/visa.png" /> <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" /> <img src="https://img.icons8.com/color/48/000000/maestro.png" /> </div> -->
                         <?php
-                        $id = Session::get('customer_id');
-                        $get_customers = $cs->show_customers($id);
-                        if ($get_customers) {
-                            while ($result = $get_customers->fetch_assoc()) {
-                                // neu sesstion da dc ta thi gan ga tri sesstion
-                                $lng = $result['maps_maplng'];
-                                $lat = $result['maps_maplat'];
-                                $email = $result['email'];
-                                if ($email != null) {
-                                    $email = $result['email'];
-                                } else {
-                                    $email = "Chưa nhập email";
-                                }
-
-                                $phone = $result['phone'];
-                                $Phone =  $phone;
-                                if ($phone != null) {
-                                    $phone = "0" . $result['phone'];
-                                } else {
-                                    $phone = "Chưa nhập số điện thoại";
-                                }
+                        // neu sesstion da dc ta thi gan ga tri sesstion
+                        $fullname = "Tài khoản khách";
+                        $lng = "105.7820126349178";
+                        $lat = "10.031728584150372";
+                        $email = "taikhoankhach@kabistore.com.vn";
+                        $phone = "Chưa nhập số";
                         ?>
-                                <div class="col-md-12 pt-4">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-auto mb-2">
-                                            <div class="mx-auto" style="width: 140px;">
-                                                <div class="d-flex justify-content-center align-items-center rounded" style="background-color: rgb(233, 236, 239);">
-                                                    <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="img/core-img/best-loader.gif" data-src="<?php echo $avatar ?>" data-status="0" /></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mt-2">
-                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                                <h5 class="text-nowrap text-primary"><?php echo $result['name']; ?></h5>
-                                                <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $email; ?></p>
-                                                <p class="mb-0"><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $phone; ?></p>
-                                                <label class="pt-1">
-                                                    <a href="profile.html" class="btn btn-primary"><i class="fa fa-edit"></i> Chỉnh sửa</a></input>
-                                                </label>
-                                                <div class="mt-2">
-                                                    <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-
-                                    <div class="form-group" id="location-group">
-                                        <div class="row-flex">
-                                            <label for="maps_address"><i class="fa fa-thumb-tack" aria-hidden="true"></i> <b>Ghim vị và xác nhận trí giao hàng</b></label>
-                                            <!-- <input type="text" class="form-control" name="maps_address" id="maps_address" value="" placeholder="Nhập tên địa điểm cần tìm"> -->
-                                            <div id="maps_maparea">
-                                                <div class="panel-google-maps">
-                                                    <div id="map"></div>
-                                                    <div id="menu-map">
-                                                        <input id="satellite-v9" type="radio" name="rtoggle" value="satellite" checked="checked">
-                                                        <label for="satellite-v9">vệ tinh</label>
-                                                        <input id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked">
-                                                        <label for="streets-v11">đường phố</label>
-                                                        <input id="dark-v10" type="radio" name="rtoggle" value="dark">
-                                                        <label for="dark-v10">tối</label>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="panel-google-maps" id="maps_mapcanvas" class="form-group"></div> -->
-                                                <!-- <div class="panel-google-maps">
-                                                <div id="map"></div>
-                                            </div> -->
-                                                <div class="form-group">
-                                                    <input class="col-md-6" type="hidden" class="form-control" name="maps_maplat" id="lat" readonly="readonly">
-                                                    <input class="col-md-6" type="hidden" class="form-control" name="maps_maplng" id="lng" readonly="readonly">
-                                                    <input class="col-md-12" type="hidden" class="form-control" name="geocoder" id="geocoding" readonly="readonly">
-                                                </div>
-                                            </div>
+                        <div class="col-md-12 pt-4">
+                            <div class="row">
+                                <div class="col-12 col-sm-auto mb-2">
+                                    <div class="mx-auto" style="width: 140px;">
+                                        <div class="d-flex justify-content-center align-items-center rounded" style="background-color: rgb(233, 236, 239);">
+                                            <span><img style="width: 140px; height: 140px;" class="avatar img-thumbnail border-1" src="img/core-img/best-loader.gif" data-src="<?php echo $avatar ?>" data-status="0" /></span>
                                         </div>
                                     </div>
                                 </div>
-                        <?php
-                            }
-                        }
-                        ?>
+                                <div class="col d-flex flex-column flex-sm-row justify-content-between mt-2">
+                                    <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                        <h5 class="text-nowrap text-primary"><?php echo $fullname; ?></h5>
+                                        <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $email; ?></p>
+                                        <p class="mb-0"><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $phone; ?></p>
+                                        <label class="pt-1">
+                                            <a href="profile.html" class="btn btn-primary"><i class="fa fa-edit"></i> Chỉnh sửa</a></input>
+                                        </label>
+                                        <div class="mt-2">
+                                            <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="form-group" id="location-group">
+                                <div class="row-flex">
+                                    <label for="maps_address"><i class="fa fa-thumb-tack" aria-hidden="true"></i> <b>Ghim vị và xác nhận trí giao hàng</b></label>
+                                    <!-- <input type="text" class="form-control" name="maps_address" id="maps_address" value="" placeholder="Nhập tên địa điểm cần tìm"> -->
+                                    <div id="maps_maparea">
+                                        <div class="panel-google-maps">
+                                            <div id="map"></div>
+                                            <div id="menu-map">
+                                                <input id="satellite-v9" type="radio" name="rtoggle" value="satellite" checked="checked">
+                                                <label for="satellite-v9">vệ tinh</label>
+                                                <input id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked">
+                                                <label for="streets-v11">đường phố</label>
+                                                <input id="dark-v10" type="radio" name="rtoggle" value="dark">
+                                                <label for="dark-v10">tối</label>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="panel-google-maps" id="maps_mapcanvas" class="form-group"></div> -->
+                                        <!-- <div class="panel-google-maps">
+                                                <div id="map"></div>
+                                            </div> -->
+                                        <div class="form-group">
+                                            <input class="col-md-6" type="hidden" class="form-control" name="maps_maplat" id="lat" readonly="readonly">
+                                            <input class="col-md-6" type="hidden" class="form-control" name="maps_maplng" id="lng" readonly="readonly">
+                                            <input class="col-md-12" type="hidden" class="form-control" name="geocoder" id="geocoding" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="row pt-2">
                                 <div class="col-md-12 col-xs-12">
@@ -138,7 +119,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                     </div>
                 </div>
                 <?php
-                unset($_SESSION['adminUser']);
                 unset($_SESSION['cart_payment']);
                 $subtotal = 0;
                 $ship = 0;
@@ -148,10 +128,8 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                 // while ($result_price = $get_price_ship->fetch_assoc()) {
                 //     $price_ship = $result_price['price'];
                 // }
+
                 $price_ship = 0;
-                $customer_id = Session::get('customer_id');
-                $get_product_cart = $ct->get_product_cart($customer_id);
-                $num_rows = mysqli_num_rows($get_product_cart);
                 // session::set("numberOfOrders", $num_rows);
                 ?>
                 <div class="col-md-5 col-responsive">
@@ -160,84 +138,93 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         <div class="row lower pull-right">
                             <div class="col text-left"><a href="cart.html"><u><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa sản phẩm</u></a></div>
                         </div>
-                        <p><?php echo $num_rows ?> sản phẩm</p>
                         <?php
-                        if ($get_product_cart) {
-                            while ($result = $get_product_cart->fetch_assoc()) {
-                                $cartId = $result['cartId'];
-                                $productCode = $result['product_code'];
-                                $brandId = $result['brandId'];
-                                $productName = $result['productName'];
-                                $price = $result['price'];
-                                $quantity = $result['quantity'];
-                                $productSize = $result['productSize'];
-                                $productColor = $result['color'];
-
-                                $product_img =  json_decode($result['image']);
-                                $product_img = $product_img[0]->image;
+                        if (isset($_COOKIE["shopping_cart"])) {
+                            $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+                            $cart_data = json_decode($cookie_data, true);
+                            $num_rows =  count($cart_data);
                         ?>
-                                <div class="row item mb-3" id="<?php echo "c" . $cartId ?>">
-                                    <div class="col-4 align-self-center0">
-                                        <img class="img-fluid" id="itemImg" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img; ?>" data-status="0">
-                                    </div>
-                                    <div class="col-8 mt-1">
-                                        <div class="row itemCode">#<?php echo $productCode ?></div>
-                                        <div class="row productName-item"><?php echo $result['productName'] ?></div>
-                                        <?php if ($productSize != 0) { ?>
+                            <p><?php echo $num_rows ?> sản phẩm</p>
+                            <?php
+                            foreach ($cart_data as $result) {
+                                $cartId = json_encode($result['cartId']);
+                                $productId = json_encode($result['productId']);
+                                $quantity = json_encode($result['quantity']);
+                                $productSize = json_encode($result['productSize']);
+                                $productColor = json_encode($result['color']);
+
+                                $get_product_cart = $ct->get_product_cart_for_cookie($productId);
+                                if ($get_product_cart) {
+                                    $result = $get_product_cart->fetch_assoc();
+                                    $productName = $result['productName'];
+                                    $productCode = $result['product_code'];
+                                    $brandId  =  $result['brandId'];
+                                    $price = $result['price'];
+                                    $product_img =  json_decode($result['image']);
+                                    $product_img = $product_img[0]->image;
+                            ?>
+                                    <div class="row item mb-3" id="<?php echo "c" . $cartId ?>">
+                                        <div class="col-4 align-self-center0">
+                                            <img class="img-fluid" id="itemImg" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img; ?>" data-status="0">
+                                        </div>
+                                        <div class="col-8 mt-1">
+                                            <div class="row itemCode">#<?php echo $productCode ?></div>
+                                            <div class="row productName-item"><?php echo $result['productName'] ?></div>
+                                            <?php if ($productSize != 0) { ?>
+                                                <div class="row">
+                                                    Size:
+                                                    <?php
+                                                    switch ($quantity) {
+                                                        case 5: {
+                                                                echo "Freesize";
+                                                                break;
+                                                            }
+                                                        case 4: {
+                                                                echo "XL";
+                                                                break;
+                                                            }
+                                                        case 3: {
+                                                                echo "X";
+                                                                break;
+                                                            }
+                                                        case 2: {
+                                                                echo "M";
+                                                                break;
+                                                            }
+                                                        case 1: {
+                                                                echo "S";
+                                                                break;
+                                                            }
+                                                        default:
+                                                    }
+                                                    echo ", Nhóm màu: " . $productColor; ?>
+                                                </div>
+                                            <?php } ?>
                                             <div class="row">
-                                                Size:
-                                                <?php
-                                                switch ($quantity) {
-                                                    case 5: {
-                                                            echo "Freesize";
-                                                            break;
-                                                        }
-                                                    case 4: {
-                                                            echo "XL";
-                                                            break;
-                                                        }
-                                                    case 3: {
-                                                            echo "X";
-                                                            break;
-                                                        }
-                                                    case 2: {
-                                                            echo "M";
-                                                            break;
-                                                        }
-                                                    case 1: {
-                                                            echo "S";
-                                                            break;
-                                                        }
-                                                    default:
-                                                }
-                                                echo ", Nhóm màu: " . $productColor; ?>
-                                            </div>
-                                        <?php } ?>
-                                        <div class="row">
-                                            <div class="font-weight-normal">
-                                                Giá: <span><?php echo $fm->format_currency($price) . ' ₫' ?>
-                                                    &emsp;x&emsp;<?php echo $quantity ?>
-                                                </span>
-                                            </div>
-                                            <div class="col-12 text-right totalPrice-item font-weight-bold">
-                                                <?php
-                                                $total = $result['price'] * $quantity;
-                                                echo $fm->format_currency($total) . ' ₫';
-                                                ?>
+                                                <div class="font-weight-normal">
+                                                    Giá: <span><?php echo $fm->format_currency($price) . ' ₫' ?>
+                                                        &emsp;x&emsp;<?php echo $quantity ?>
+                                                    </span>
+                                                </div>
+                                                <div class="col-12 text-right totalPrice-item font-weight-bold">
+                                                    <?php
+                                                    $total = $result['price'] * $quantity;
+                                                    echo $fm->format_currency($total) . ' ₫';
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                         <?php
-                                $quantityTotal = (int)$quantityTotal + (int)$quantity;
-                                //set sesstion to cart
-                                $cart = array();
-                                $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity, 'productSize' => $productSize, 'productColor' => $productColor];
-                                $_SESSION['cart_payment'][] = $cart;
-                                // $ship = $ship + $quantity * $price_ship;
-                                $subtotal += $total;
-                                $brandLocaltion[] = $brandId;
-                                $adminUser[] = $result['adminId'];
+                                    $quantityTotal = (int)$quantityTotal + (int)$quantity;
+                                    //set sesstion to cart
+                                    $cart = array();
+                                    $cart = ['cartId' => $cartId, 'productId' => $result['productId'], 'productName' => $productName, 'totalPrice' => $total, 'quantity' => $quantity, 'productSize' => $productSize, 'productColor' => $productColor];
+                                    $_SESSION['cart_payment'][] = $cart;
+                                    // $ship = $ship + $quantity * $price_ship;
+                                    $subtotal += $total;
+                                    $brandLocaltion[] = $brandId;
+                                }
                             }
                         }
 
@@ -246,9 +233,6 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                         Session::set('quantityTotal', $quantityTotal);
                         // $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
                         $discount = 0;
-
-                        $adminUser = array_unique($adminUser);
-                        Session::set('adminUser', $adminUser);
                         ?>
                         <hr>
                         <div class="form-group">
@@ -331,7 +315,7 @@ if (isset($_POST['cartcheckout']) && ($disable_check_out == 0)) {
                                 </div>
                             </div>
                             <div id="alert-selectLocaltion" class="mt-3 text-danger">
-                                Hãy chọn vị trí giao hàng để mở khóa nút đặt hàng
+                                Hãy chọn vị trí giao hàng để mở khóa nút đặt hàng<br>
                             </div>
                         </div>
                     </div>
@@ -387,7 +371,7 @@ include 'inc/footer.php';
         user_location = [105.7691644, 10.0353821];
     }
 
-    var phone = <?php echo ($Phone == null) ? 0 : 1; ?>;
+    var phone = 3;
 
     //quantityTotal
     var quantityTotal = <?php echo $quantityTotal ?>;

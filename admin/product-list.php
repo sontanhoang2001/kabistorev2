@@ -8,6 +8,7 @@ include '../config/global.php';
 
 $pd = new product();
 $fm = new Format();
+$type = $_GET['type'];
 ?>
 
 <link rel="stylesheet" href="css/style.css">
@@ -19,7 +20,22 @@ $fm = new Format();
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Quản lý sản phẩm</h1>
+    <h1 class="h3 mb-2 text-gray-800">
+        <?php switch ($type) {
+            case 0:
+        ?>
+                Quản lý tất cả sản phẩm
+            <?php
+                break;
+            case 1: ?>
+                Quản lý sản phẩm tạm hết hàng
+            <?php
+            case 9: ?>
+                Quản lý sản phẩm ngừng kinh doanh
+        <?php
+                break;
+        }
+        ?></h1>
     <p class="mb-4">Một ngày tràng đầy năng lượng, giàu sức khỏe, mua may bán đắt, tiền vô như nước tiền ra như giọt coffee đặc.
         <br><a href="add-product"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tạo thêm sản phẩm</a>.
     </p>
@@ -74,7 +90,6 @@ $fm = new Format();
                     </tfoot> -->
                     <tbody>
                         <?php
-                        $type = 0; // product-list normal
                         $list_product = $pd->show_product($type, $page, $product_num, $searchText);
                         $get_amount_all_show_product = $pd->get_amount_all_show_product($type, $searchText);
                         $result = $get_amount_all_show_product->fetch_assoc();
@@ -468,7 +483,7 @@ $fm = new Format();
 
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-8">
+                                    <div class="form-group col-md-5">
                                         <label class="font-weight-bold" for="sel1">Trạng thái & Xếp loại sản phẩm</label>
                                         <select class="form-control" id="type" name="type">
                                             <option value="null">Lựa chọn</option>
@@ -480,6 +495,14 @@ $fm = new Format();
                                     </div>
 
                                     <div class="form-group col-md-4">
+                                        <h6 class="font-weight-bold">Trạng thái kho</h6>
+                                        <div class="ml-2">
+                                            <input type="checkbox" id="out_of_stock">
+                                            <label for="out_of_stock"> Tạm Hết hàng</label><br>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
                                         <label class="font-weight-bold" for="validation6">*</label>
                                         <input class="form-control" id="validation6" type="number" name="product_soldout" min="0" value="0">
                                         <div class=" valid-feedback">Looks good!</div>
@@ -551,7 +574,9 @@ $fm = new Format();
 
 <script src="../js/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var product_num = <?php echo $product_num ?>;
+    var product_num = <?php echo $product_num ?>,
+        product_type = <?php echo $type ?>;
+
     $(function() {
         window.pagObj = $('#pagination').twbsPagination({
             totalPages: <?php echo $product_button ?>,
@@ -562,7 +587,7 @@ $fm = new Format();
             }
         }).on('page', function(event, page) {
             // console.info(page + ' (from event listening)');
-            location.href = "product-list?page=" + page + "&product_num=" + product_num;
+            location.href = "product-list?type=" + product_type + "&page=" + page + "&product_num=" + product_num;
         });
     });
 </script>

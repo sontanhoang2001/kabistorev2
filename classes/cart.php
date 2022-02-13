@@ -25,50 +25,48 @@ class cart
 		$customer_id = $this->fm->validation($customer_id);
 		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
 
-		if ($customer_id == null) {
-			return json_encode($result_json[][] = ['status' => 0, 'value' => 0]);
-		} else {
-			$productId = $this->fm->validation($productId);
-			$productId = mysqli_real_escape_string($this->db->link, $productId);
-			$quantity = $this->fm->validation($quantity);
-			$quantity = mysqli_real_escape_string($this->db->link, $quantity);
-			$size = $this->fm->validation($productSize);
-			$size = mysqli_real_escape_string($this->db->link, $productSize);
-			$color = $this->fm->validation($productColor);
-			$color = mysqli_real_escape_string($this->db->link, $productColor);
+
+		$productId = $this->fm->validation($productId);
+		$productId = mysqli_real_escape_string($this->db->link, $productId);
+		$quantity = $this->fm->validation($quantity);
+		$quantity = mysqli_real_escape_string($this->db->link, $quantity);
+		$size = $this->fm->validation($productSize);
+		$size = mysqli_real_escape_string($this->db->link, $productSize);
+		$color = $this->fm->validation($productColor);
+		$color = mysqli_real_escape_string($this->db->link, $productColor);
 
 
-			$queryCartCustomer = "SELECT COUNT(customerId) as CartCustomer FROM tbl_cart WHERE customerId = '$customer_id'";
-			$resultCartCustomer = $this->db->select($queryCartCustomer)->fetch_assoc();
+		$queryCartCustomer = "SELECT COUNT(customerId) as CartCustomer FROM tbl_cart WHERE customerId = '$customer_id'";
+		$resultCartCustomer = $this->db->select($queryCartCustomer)->fetch_assoc();
 
-			if ($resultCartCustomer['CartCustomer'] < 12) {
-				$query = "SELECT product_remain FROM tbl_product WHERE productId = '$productId' ";
-				$result = $this->db->select($query)->fetch_assoc();
+		if ($resultCartCustomer['CartCustomer'] < 12) {
+			$query = "SELECT product_remain FROM tbl_product WHERE productId = '$productId' ";
+			$result = $this->db->select($query)->fetch_assoc();
 
-				if ($result['product_remain'] > $quantity) {
-					$size = $size != null ? "'$size'" : "NULL";
-					$color = $color != null ? "'$color'" : "NULL";
+			if ($result['product_remain'] > $quantity) {
+				$size = $size != null ? "'$size'" : "NULL";
+				$color = $color != null ? "'$color'" : "NULL";
 
-					$query = "INSERT INTO tbl_cart (customerId, productId, productSize, quantity, color) VALUES ('$customer_id', '$productId', $size, '$quantity', $color)";
-					$inser_cart = $this->db->insert($query);
-					if ($inser_cart) {
-						// $query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
-						// $check_quantity_cart = $this->db->select($query)->fetch_assoc();
-						$number_cart = session::get('number_cart');
-						$number_cart++;
-						session::set("number_cart", (int)$number_cart);
-						return json_encode($return_json[][] = ['status' => 1, 'value' => session::get('number_cart')]); // add thành công
-					} else {
-						return json_encode($return_json[][] = ['status' => 2, 'value' => 0]); // add thất bại
-					}
+				$query = "INSERT INTO tbl_cart (customerId, productId, productSize, quantity, color) VALUES ('$customer_id', '$productId', $size, '$quantity', $color)";
+				$inser_cart = $this->db->insert($query);
+				if ($inser_cart) {
+					// $query = "SELECT COUNT(customerId) AS countCart FROM tbl_cart where customerId = '$customer_id'";
+					// $check_quantity_cart = $this->db->select($query)->fetch_assoc();
+					$number_cart = session::get('number_cart');
+					$number_cart++;
+					session::set("number_cart", (int)$number_cart);
+					return json_encode($return_json[][] = ['status' => 1, 'value' => session::get('number_cart')]); // add thành công
 				} else {
-					return json_encode($result_json[][] = ['status' => 3, 'value' => $result['product_remain']]);
+					return json_encode($return_json[][] = ['status' => 2, 'value' => 0]); // add thất bại
 				}
 			} else {
-				return json_encode($result_json[][] = ['status' => 4, 'value' => 0]);
+				return json_encode($result_json[][] = ['status' => 3, 'value' => $result['product_remain']]);
 			}
+		} else {
+			return json_encode($result_json[][] = ['status' => 4, 'value' => 0]);
 		}
 	}
+
 
 
 	public function add_to_wishlist($productid, $customer_id)
@@ -126,6 +124,16 @@ class cart
 		return $result;
 	}
 
+	public function get_product_cart_for_cookie($productId)
+	{
+		$productId = $this->fm->validation($productId);
+		$productId = mysqli_real_escape_string($this->db->link, $productId);
+		$query = "SELECT productId, productName, product_code, product_soldout, product_remain, brandId, old_price, price, size, color, `image` FROM tbl_product WHERE productId = '$productId'
+		order by productId desc";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
 	public function get_amount_all_cart($customer_id)
 	{
 		$customer_id = $this->fm->validation($customer_id);
@@ -136,10 +144,8 @@ class cart
 	}
 
 	// Cập nhật giỏ hàng
-	public function update_quantity_Cart($customerId, $cartId, $productId, $quantity)
+	public function update_quantity_Cart($type, $cartId, $productId, $quantity)
 	{
-		$customerId = $this->fm->validation($customerId);
-		$customerId = mysqli_real_escape_string($this->db->link, $customerId);
 		$cartId = $this->fm->validation($cartId);
 		$cartId = mysqli_real_escape_string($this->db->link, $cartId);
 		$productId = $this->fm->validation($productId);
@@ -155,6 +161,11 @@ class cart
 			$query = "UPDATE tbl_cart SET quantity= '$quantity' WHERE cartId =  '$cartId'";
 			$result = $this->db->update($query);
 			if ($result) {
+				if ($type == 0) {
+					include '../callbackPartial/CartCookie.php';
+					updateCartCookie($cartId, $productId, $quantity);
+				}
+
 				$success = true;
 				$Response = ['success' => $success, 'product_remain' => 0];
 				return json_encode($return_json[][] = $Response);
@@ -164,6 +175,7 @@ class cart
 			$Response = ['success' => $success, 'product_remain' => $product_remain];
 			return json_encode($return_json[][] = $Response);
 		}
+
 
 		// if ($result['product_remain'] > $quantity) {
 		// 	$cart = ['id' => $id, 'quantity' => $quantity, 'element' => $element];

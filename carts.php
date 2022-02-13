@@ -4,8 +4,9 @@ include 'config/global.php';
 
 Session::set('REQUEST_URI', getRequestUrls(0)); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 $login_check = Session::get('customer_login');
-if ($login_check == false) {
-	header('Location:carts.html');
+
+if ($login_check == true) {
+	header('Location:cart.html');
 	exit;
 }
 $discount = session::set('discountMoney', 0);
@@ -48,62 +49,71 @@ $discount = session::set('discountMoney', 0);
 		// Khởi tạo session cho mỗi lần truy cập
 		$disable_check_out = 0;
 		$customer_id = Session::get('customer_id');
-		$get_product_cart = $ct->get_product_cart($customer_id);
-		if ($get_product_cart) {
-			Session::set('payment', true);
-			while ($result = $get_product_cart->fetch_assoc()) {
-				$cartId = $result['cartId'];
-				$productId = $result['productId'];
-				$quantity = $result['quantity'];
-				$price = $result['price'];
-				$productSize = $result['productSize'];
-				$productColor = $result['color'];
-				$product_img =  json_decode($result['image']);
-				$product_img = $product_img[0]->image;
+
+		Session::set('payment', true);
+
+		if (isset($_COOKIE["shopping_cart"])) {
+			$cookie_data = stripslashes($_COOKIE['shopping_cart']);
+			$cart_data = json_decode($cookie_data, true);
+			foreach (array_reverse($cart_data) as $result) {
+				$cartId = json_encode($result['cartId']);
+				$productId = json_encode($result['productId']);
+				$quantity = json_encode($result['quantity']);
+				$productSize = json_encode($result['productSize']);
+				$productColor = json_encode($result['color']);
+
+				$get_product_cart = $ct->get_product_cart_for_cookie($productId);
+				if ($get_product_cart) {
+
+					$result = $get_product_cart->fetch_assoc();
+					$price = $result['price'];
+					$product_img =  json_decode($result['image']);
+					$product_img = $product_img[0]->image;
 		?>
-				<ul class="cartWrap" data-id-1="<?php echo $cartId; ?>" data-id-2="<?php echo $productId ?>" data-id-3="<?php echo $result['price'] ?>">
-					<li class="items odd">
-						<div class="infoWrap">
-							<div class="cartSection">
-								<a title="Chi tiết sản phẩm" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-									<img class="lazy itemImg" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" data-status="0" />
-								</a>
-								<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></p>
-								<a title="Sửa sản phẩm" class="optionProduct" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
-									<h3 class="name-cart mb-1"><?php echo $result['productName'] ?></h3>
-									<?php if ($productSize != 0) { ?>
-										<div class="row mb-1">
-											Size:
-											<?php
-											switch ($quantity) {
-												case 5: {
-														echo "Freesize";
-														break;
-													}
-												case 4: {
-														echo "XL";
-														break;
-													}
-												case 3: {
-														echo "X";
-														break;
-													}
-												case 2: {
-														echo "M";
-														break;
-													}
-												case 1: {
-														echo "S";
-														break;
-													}
-												default:
-											}
-											echo ", Nhóm màu: " . $productColor; ?>
-										</div>
-									<?php } ?>
-								</a>
-								<p class="mb-0">
-									<!-- <?php if ($result['productSize'] != 0) { ?>
+					<ul class="cartWrap" data-id-1="<?php echo $cartId; ?>" data-id-2="<?php echo $productId ?>" data-id-3="<?php echo $result['price'] ?>">
+
+						<li class="items odd">
+							<div class="infoWrap">
+								<div class="cartSection">
+									<a title="Chi tiết sản phẩm" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+										<img class="lazy itemImg" src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" data-status="0" />
+									</a>
+									<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></p>
+									<a title="Sửa sản phẩm" class="optionProduct" href="details/<?php echo $result['productId'] ?>/<?php echo $fm->vn_to_str($result['productName']) . $seo ?>.html">
+										<h3 class="name-cart mb-1"><?php echo $result['productName'] ?></h3>
+										<?php if ($productSize != 0) { ?>
+											<div class="row mb-1">
+												Size:
+												<?php
+												switch ($quantity) {
+													case 5: {
+															echo "Freesize";
+															break;
+														}
+													case 4: {
+															echo "XL";
+															break;
+														}
+													case 3: {
+															echo "X";
+															break;
+														}
+													case 2: {
+															echo "M";
+															break;
+														}
+													case 1: {
+															echo "S";
+															break;
+														}
+													default:
+												}
+												echo ", Nhóm màu: " . $productColor; ?>
+											</div>
+										<?php } ?>
+									</a>
+									<p class="mb-0">
+										<!-- <?php if ($result['productSize'] != 0) { ?>
 										<select name="product-size" id="product-size">
 											<option value="5" <?php echo ($result['productSize'] == 4) ? 'selected="selected"' : "" ?>>Size: XL</option>
 											<option value="4" <?php echo ($result['productSize'] == 4) ? 'selected="selected"' : "" ?>>Size: XL</option>
@@ -112,58 +122,69 @@ $discount = session::set('discountMoney', 0);
 											<option value="1" <?php echo ($result['productSize'] == 1) ? 'selected="selected"' : "" ?>>Size: S</option>
 										</select>
 									<?php } ?> -->
-									<input class="input-quantitys" type="number" class="buyfield" name="quantity" value="<?php echo $quantity ?>" min="1" max="10" />&nbsp; x <?php echo $fm->format_currency($result['price']) . " ₫" ?>
-								</p>
+										<input class="input-quantitys" type="number" class="buyfield" name="quantity" value="<?php echo $quantity ?>" min="1" max="10" />&nbsp; x <?php echo $fm->format_currency($result['price']) . " ₫" ?>
+									</p>
 
-								<?php if ($result['product_remain'] <= $quantity) {
-								?>
-									<p class="stockStatus-out"> Hết hàng</p>
-								<?php
-									$disable_check_out = 1; // chỉ cần 1 đơn hàng hết hàng thì = true ko cho phét thanh toán 
-								} ?>
-
-							</div>
-							<div class="prodTotal cartSection">
-								<p id="rowTotalPrice">
-									<?php
-									$total = $price * $quantity;
-									echo $fm->format_currency($total) . " ₫";
+									<?php if ($result['product_remain'] <= $quantity) {
 									?>
-								</p>
+										<p class="stockStatus-out"> Hết hàng</p>
+									<?php
+										$disable_check_out = 1; // chỉ cần 1 đơn hàng hết hàng thì = true ko cho phét thanh toán 
+									} ?>
+
+								</div>
+								<div class="prodTotal cartSection">
+									<p id="rowTotalPrice">
+										<?php
+										$total = $price * $quantity;
+										echo $fm->format_currency($total) . " ₫";
+										?>
+									</p>
+								</div>
+								<div class="cartSection removeWrap">
+									<a title="Xóa sản phẩm" class="remove" id="remove-cart" href="#">x</a>
+								</div>
 							</div>
-							<div class="cartSection removeWrap">
-								<a title="Xóa sản phẩm" class="remove" id="remove-cart" href="#">x</a>
-							</div>
-						</div>
-					</li>
-					<!--<li class="items even">Item 2</li>-->
-				</ul>
+						</li>
+						<!--<li class="items even">Item 2</li>-->
+						<?php
+						$quantityTotal =  (int)$quantityTotal + (int)$quantity;
+						$cart = array();
+						$cart = ['price' => (int)$price];
+						$_SESSION['cart'][$cartId] = $cart;
+						$subtotal += $total;
+						?>
+					</ul>
 		<?php
-				$quantityTotal =  (int)$quantityTotal + (int)$quantity;
-				$cart = array();
-				$cart = ['price' => $price];
-				$_SESSION['cart'][$cartId] = $cart;
-				$subtotal += $total;
+				} else {
+					Session::set('payment', false);
+				}
+
+				if ($disable_check_out == 1) {
+					Session::set('disable_check_out', 1);
+				} else {
+					Session::set('disable_check_out', 0);
+				}
+				Session::set('quantityTotal', $quantityTotal);
+				// $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
 			}
 		} else {
 			Session::set('payment', false);
+			echo '
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<p class="mb-5">Giỏ của bạn đang trống! Hãy nhấn vào nút giỏ hàng <i class="fa fa-cart-plus" aria-hidden="true"></i> để đưa sản phẩm vào thanh toán. Hãy mua sắm ngay bây giờ.</p>
+						</div>
+					</div>
+				</div>';
 		}
-
-		if ($disable_check_out == 1) {
-			Session::set('disable_check_out', 1);
-		} else {
-			Session::set('disable_check_out', 0);
-		}
-		Session::set('quantityTotal', $quantityTotal);
-		// $ship =  (int)$price_ship + (int)$shipAdd * ((int)$quantityTotal - 1);
-
 		?>
 	</div>
 
 	<div class="row" style="margin-right: -4px; margin-left: -4px;" id="payGroup">
 		<?php
-		$check_cart = $ct->check_cart($customer_id);
-		if ($check_cart) {
+		if (isset($_COOKIE['shopping_cart'])) {
 			$discount = 0;
 		?>
 			<div class="col-lg-6">
@@ -215,19 +236,11 @@ $discount = session::set('discountMoney', 0);
 				</div>
 			</div>
 		<?php
-		} else {
-			echo '
- 			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<p class="mb-5">Giỏ của bạn đang trống! Hãy nhấn vào nút giỏ hàng <i class="fa fa-cart-plus" aria-hidden="true"></i> để đưa sản phẩm vào thanh toán. Hãy mua sắm ngay bây giờ.</p>
-					</div>
-				</div>
-	 		</div>';
 		}
 		?>
 	</div>
 </div>
+
 
 <?php
 include 'inc/footer.php';

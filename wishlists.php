@@ -5,8 +5,8 @@ include 'config/global.php';
 Session::set('REQUEST_URI', getRequestUrls()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 
 $login_check = Session::get('customer_login');
-if ($login_check == false) {
-	header('Location:wishlists.html');
+if ($login_check == true) {
+	header('Location:wishlist.html');
 } else {
 	if (!isset($_GET['page'])) {
 		$page = 1;
@@ -28,45 +28,49 @@ if ($login_check == false) {
 	</div>
 	<div class="cart mb-5">
 		<?php
+		$product_count = 0;
 		$product_num = 6;
-		$customer_id = Session::get('customer_id');
-		$get_wishlist = $product->get_wishlist($customer_id, $page, $product_num);
-		$get_wishlist_all_product = $product->get_wishlist_all_product($customer_id);
-		$result = $get_wishlist_all_product->fetch_assoc();
-		$product_count = $result['totalRow'];
-		if ($get_wishlist) {
-			$i = 0;
-			while ($result = $get_wishlist->fetch_assoc()) {
-				$productId = $result['productId'];
-				$old_price = $result['old_price'];
-				$product_img =  json_decode($result['image']);
-				$product_img = $product_img[0]->image;
-				$i++;
+		if (isset($_COOKIE["shopping_wishlist"])) {
+			$cookie_data = stripslashes($_COOKIE['shopping_wishlist']);
+			$cart_data = json_decode($cookie_data, true);
+			$product_count = count($cart_data);
+			foreach (array_reverse($cart_data) as $result) {
+				$productId = json_encode($result['productId']);
+
+				$get_wishlist_all_product_for_cookie = $product->get_wishlist_all_product_for_cookie($productId);
+				if ($get_wishlist_all_product_for_cookie) {
+
+					$result = $get_wishlist_all_product_for_cookie->fetch_assoc();
+					$price = $result['price'];
+					$old_price = $result['old_price'];
+					$product_img =  json_decode($result['image']);
+					$product_img = $product_img[0]->image;
 		?>
-				<ul class="cartWrap" data-id-1="<?php echo $productId; ?>">
-					<li class="items odd">
-						<div class="infoWrap">
-							<div class="cartSection">
-								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
-									<img src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" class="lazy itemImg" data-status="0"/>
-								</a>
-								<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></small></p>
-								<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
-									<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
-								</a>
-								Giá:
-								<small class="old-price"><?php echo ($old_price == 0) ? $old_price : '' ?></small>
-								<p class="p-price"> <?php echo $fm->format_currency($result['price']) . ' ₫' ?></p>
-								<!-- <button class="btn btn-succes btn-buy" onclick="window.location.href='details/<?php echo $productId ?>/<?php echo $seo ?>.html'"><i class="fa fa-shopping-cart" aria-hidden="true"> Mua ngay</i></button> -->
+					<ul class="cartWrap" data-id-1="<?php echo $productId; ?>">
+						<li class="items odd">
+							<div class="infoWrap">
+								<div class="cartSection">
+									<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
+										<img src="img/core-img/best-loader.gif" data-src="<?php echo $product_img ?>" class="lazy itemImg" data-status="0" />
+									</a>
+									<p class="itemNumber" style="margin-top: 0px"><small>#<?php echo $result['product_code'] ?></small></small></p>
+									<a href="details/<?php echo $productId ?>/<?php echo $seo ?>.html">
+										<h3 class="name-cart"><?php echo $result['productName'] ?></h3>
+									</a>
+									Giá:
+									<small class="old-price"><?php echo ($old_price == 0) ? $old_price : '' ?></small>
+									<p class="p-price"> <?php echo $fm->format_currency($result['price']) . ' ₫' ?></p>
+									<!-- <button class="btn btn-succes btn-buy" onclick="window.location.href='details/<?php echo $productId ?>/<?php echo $seo ?>.html'"><i class="fa fa-shopping-cart" aria-hidden="true"> Mua ngay</i></button> -->
+								</div>
+								<div class="cartSection removeWrap">
+									<a class="remove" id="remove-wishlist" href="#">x</a>
+								</div>
 							</div>
-							<div class="cartSection removeWrap">
-								<a class="remove" id="remove-wishlist" href="#">x</a>
-							</div>
-						</div>
-					</li>
-					<!--<li class="items even">Item 2</li>-->
-				</ul>
+						</li>
+						<!--<li class="items even">Item 2</li>-->
+					</ul>
 		<?php
+				}
 			}
 		} else {
 			echo '

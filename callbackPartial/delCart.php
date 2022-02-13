@@ -4,6 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include '../lib/session.php';
     include '../helpers/format.php';
     include_once "../classes/cart.php";
+    include 'CartCookie.php';
 
     Session::init();
     $fm = new Format();
@@ -17,10 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $customer_id = Session::get('customer_id');
 
-            $ct = new cart();
-            $del_product_cart = $ct->del_product_cart($cart_Id, $customer_id);
-            if ($del_product_cart) {
+            if (isset($_SESSION['customer_login'])) {
+                $ct = new cart();
+                $del_product_cart = $ct->del_product_cart($cart_Id, $customer_id);
+            } else {
+                $del_product_cart = delCartCookie($cart_Id);
+            }
 
+            if ($del_product_cart) {
                 // $price_ship = 5000;
                 $subtotal = Session::get('sum');
                 // $ship = Session::get('ship');

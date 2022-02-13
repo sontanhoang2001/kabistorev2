@@ -4,6 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include '../lib/session.php';
     include_once "../classes/cart.php";
 
+
     Session::init();
     $ct = new cart();
 
@@ -14,14 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     switch ($case) {
         case 0:
             $productId = $_POST['productId'];
-            $customer_id = Session::get('customer_id');
-            echo $ct->update_quantity_Cart($customer_id, $cart_Id, $productId, $quantity);
+            if (isset($_SESSION['customer_login'])) {
+                echo $ct->update_quantity_Cart(1, $cart_Id, $productId, $quantity);
+            } else {
+                echo $ct->update_quantity_Cart(0, $cart_Id, $productId, $quantity);
+            }
             break;
         case 1:
             $quantityBefore = $_POST['quantityBefore'];
-            if ($quantityBefore < $quantity) {
                 $cartSess = $_SESSION['cart'][$cart_Id];
                 $price = $cartSess['price'];
+                
+            if ($quantityBefore < $quantity) {
                 $quantityNew = $quantity - $quantityBefore;
 
                 // lấy tổng số lượng
@@ -45,8 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Session::set('grandTotal', $grandTotal);
                 echo json_encode($result_json[] = ['subtotal' => $subtotal, 'total' => $grandTotal]);
             } else {
-                $cartSess = $_SESSION['cart'][$cart_Id];
-                $price = $cartSess['price'];
+
                 $quantityNew = $quantityBefore - $quantity;
 
 

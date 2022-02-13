@@ -222,13 +222,50 @@ class customer
 				$check_quantity_cart = $this->db->select($query)->fetch_assoc();
 				session::set('number_cart', (int)$check_quantity_cart['countCart']);
 
-
 				$name = 'is_login';
 				$value = json_encode($result_cookie[] = ['username' => $username, 'password' => $password, 'type' => 0, 'picture' => null]);
 				$expire = time() + 365 * 24 * 60 * 60;
 				$path = '/';
 				setcookie($name, $value, $expire, $path);
 
+				// insert cart COOKIE
+				// cart trong db < 0 mới đc phép insert
+				if (isset($_COOKIE["shopping_cart"]) && $check_quantity_cart['countCart'] == 0) {
+					$cookie_data_cart = stripslashes($_COOKIE['shopping_cart']);
+					$cart_data = json_decode($cookie_data_cart, true);
+					$totalCart = count($cart_data);
+					// cart trong cookie > 0 mới đc phép insert
+					if ($totalCart > 0) {
+						foreach ($cart_data as $result) {
+							$productId = json_encode($result['productId']);
+							$quantity = json_encode($result['quantity']);
+							$productSize = json_encode($result['productSize']);
+							$productColor = json_encode($result['color']);
+							$query2 = "INSERT INTO tbl_cart(customerId, productId, productSize, quantity, color) VALUES ('$customer_id', '$productId',  '$productSize', '$quantity', '$productColor')";
+							$check_quantity_cart = $this->db->insert($query2);
+						}
+						session::set('number_cart', $totalCart);
+					}
+				}
+
+				// Kiem tra tren db wishlist co du lieu chua
+				$query3 = "SELECT COUNT(wishlistId) as countWishlist FROM `tbl_wishlist` WHERE customerId = '$customer_id'";
+				$total_wishlist = $this->db->select($query3)->fetch_assoc();
+				// insert cart COOKIE
+				// cart trong db < 0 mới đc phép insert
+				if (isset($_COOKIE["shopping_wishlist"]) && $total_wishlist['countWishlist'] == 0) {
+					$cookie_data_wishlist = stripslashes($_COOKIE['shopping_wishlist']);
+					$wishlist_data = json_decode($cookie_data_wishlist, true);
+					$totalWishlist = count($wishlist_data);
+					// cart trong cookie > 0 mới đc phép insert
+					if ($totalWishlist > 0) {
+						foreach ($wishlist_data as $result) {
+							$productId = json_encode($result['productId']);
+							$query4 = "INSERT INTO tbl_wishlist(productId, customerId) VALUES ('$productId','$customer_id')";
+							$insert_wishlist = $this->db->insert($query4);
+						}
+					}
+				}
 				return json_encode($result_json[] = ['status' => 1, 'url' => $header]);
 			} else {
 				return json_encode($result_json[] = ['status' => 2, 'content' => 0]);

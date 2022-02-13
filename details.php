@@ -41,7 +41,7 @@ include 'inc/facebookPlugin.php';
 			<!-- Single Product Description -->
 			<div class="single_product_desc clearfix">
 				<span><?php echo $result_details['brandName'] ?></span>
-				<div class="fb-like" data-href="https://kabistore.com.vn/details/<?php echo $productid ?>" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+				<div class="fb-like" data-href="https://kabistore.com.vn/details/<?php echo $productId ?>" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
 				<h4><?php echo $productName ?></h4>
 				<p class="product-price"><span class="old-price mr-1">
 						<?php if ($old_price != 0) {
@@ -49,110 +49,135 @@ include 'inc/facebookPlugin.php';
 						}
 						?>
 					</span> <?php echo $fm->format_currency($result_details['price']) . "	 ₫" ?></p>
-				<?php if ($productType != 9) { ?>
+				<?php if ($productType != 9) {
+					if ($out_of_stock != 1) { ?>
 
-					<form id="cartSubmit" method="POST">
-						<!-- Select Box -->
-						<div class="select-box d-flex mb-15">
-							<?php
-							$result_size = $result_details['size'];
-							$result_color = $result_details['color'];
+						<form id="cartSubmit" method="POST">
+							<!-- Select Box -->
+							<div class="select-box d-flex mb-15">
+								<?php
+								$result_size = $result_details['size'];
+								$result_color = $result_details['color'];
 
-							if ($result_size != null) {
-								$result_size =  json_decode($result_size);
-							?>
-								<select name="select" id="productSize" class="mr-2">
-									<?php
-									foreach ($result_size as $value) {
-										switch ($value->size) {
-											case 1:
-												$size = "XS";
-												break;
-											case 2:
-												$size = "S";
-												break;
-											case 3:
-												$size = "M";
-												break;
-											case 4:
-												$size = "X";
-												break;
-											case 5:
-												$size = "L";
-												break;
-											case 6:
-												$size = "XL";
-												break;
-											case 7:
-												$size = "XXL";
-												break;
-											case 8:
-												$size = "Free Size";
-												break;
-										}
-									?>
-										<option value="<?php echo $value->size ?>"><?php echo ($value->size == 8) ? "Freesize" : "Size: " .  $size ?></option>
-									<?php } ?>
-								</select>
-							<?php
-							} else {
-								$size = null;
-							?>
-								<select name="select" id="productSize" class="mr-2">
-									<option value="0">Size: Không</option>
-								</select>
-							<?php }
-
-							if ($result_color != null) {
-								$result_color =  json_decode($result_color);
-							?>
-								<select name="select" id="productColor">
-									<?php
-									foreach ($result_color as $value) {
-									?>
-										<option value="<?php echo $value->color ?>">Màu: <?php echo $value->color ?></option>
-									<?php }
-									?>
-								</select>
-							<?php
-							} else {
-								$color = null;
-							?>
-								<select name="select" id="productColor">
-									<option value="0">Màu: Không</option>
-								</select>
-							<?php } ?>
-						</div>
-						<div class="mb-3">
-							<b class="mr-2">Số Lượng:</b>
-							<input class="input-quantity" type="number" class="buyfield" name="quantity" id="quantity" value="1" min="1" max="10" require="required" />
-						</div>
-						<div id="error-qty"></div>
-						<!-- Cart & Favourite Box -->
-						<div class="cart-fav-box d-flex align-items-center mb-2">
-							<!-- Cart -->
-							<button type="submit" class="essence-btn btn-add btn btn-primary mr-2" id="add-to-cart" value="<?php echo $productid ?>"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i> Mua ngay</button>
-
-							<!-- Favourite -->
-							<?php
-							$wishlist_check = $product->wishlist_check($customer_id, $productid);
-							// $compare_check = $product->compare_check($customer_id, $id);
-
-							$login_check = Session::get('customer_login');
-							if ($login_check) {
-								if ($wishlist_check) {
-									echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add is-active" data-productId="' .  $productid . '"></button>';
+								if ($result_size != null) {
+									$result_size =  json_decode($result_size);
+								?>
+									<select name="select" id="productSize" class="mr-2">
+										<?php
+										foreach ($result_size as $value) {
+											switch ($value->size) {
+												case 1:
+													$size = "XS";
+													break;
+												case 2:
+													$size = "S";
+													break;
+												case 3:
+													$size = "M";
+													break;
+												case 4:
+													$size = "X";
+													break;
+												case 5:
+													$size = "L";
+													break;
+												case 6:
+													$size = "XL";
+													break;
+												case 7:
+													$size = "XXL";
+													break;
+												case 8:
+													$size = "Free Size";
+													break;
+											}
+										?>
+											<option value="<?php echo $value->size ?>"><?php echo ($value->size == 8) ? "Freesize" : "Size: " .  $size ?></option>
+										<?php } ?>
+									</select>
+								<?php
 								} else {
-									echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add" data-productId="' .  $productid . '"></button>';
+									$size = null;
+								?>
+									<select name="select" id="productSize" class="mr-2">
+										<option value="0">Size: Không</option>
+									</select>
+								<?php }
+
+								if ($result_color != null) {
+									$result_color =  json_decode($result_color);
+								?>
+									<select name="select" id="productColor">
+										<?php
+										foreach ($result_color as $value) {
+										?>
+											<option value="<?php echo $value->color ?>">Màu: <?php echo $value->color ?></option>
+										<?php }
+										?>
+									</select>
+								<?php
+								} else {
+									$color = null;
+								?>
+									<select name="select" id="productColor">
+										<option value="0">Màu: Không</option>
+									</select>
+								<?php } ?>
+							</div>
+							<div class="mb-3">
+								<b class="mr-2">Số Lượng:</b>
+								<input class="input-quantity" type="number" class="buyfield" name="quantity" id="quantity" value="1" min="1" max="10" require="required" />
+							</div>
+							<div id="error-qty"></div>
+							<!-- Cart & Favourite Box -->
+							<div class="cart-fav-box d-flex align-items-center mb-2">
+								<!-- Cart -->
+								<button type="submit" class="essence-btn btn-add btn btn-primary mr-2" id="add-to-cart" value="<?php echo $productId ?>"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i> Mua ngay</button>
+
+								<!-- Favourite -->
+
+								<?php
+								$wishlist_check = $product->wishlist_check($customer_id, $productId);
+								$login_check = Session::get('customer_login');
+								if ($login_check == true && $out_of_stock != 1) {
+									if ($wishlist_check) {
+										echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add is-active" data-productId="' .  $productId . '"></button>';
+									} else {
+										echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add" data-productId="' .  $productId . '"></button>';
+									}
 								}
-							}
-							?>
-						</div>
-						<div id="error-submit"></div>
-					</form>
-				<?php } else {
-				?>
-					<div class="text-danger">Sản phẩm này đã ngưng kinh doanh</div>
+								if (isset($_COOKIE['shopping_wishlist']) && $login_check == false && $out_of_stock != 1) {
+									$wishlisted = false;
+									$cookie_data = stripslashes($_COOKIE['shopping_wishlist']);
+									$wishlist_data = json_decode($cookie_data, true);
+									foreach ($wishlist_data as $keys => $values) {
+										if ($wishlist_data[$keys]['productId'] == $productId) {
+											$wishlisted = true;
+										}
+									}
+									if ($wishlisted == true) {
+										echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add is-active" data-productId="' .  $productId . '"></button>';
+									} else {
+										echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add" data-productId="' .  $productId . '"></button>';
+									}
+								} else {
+									if ($login_check == false && $out_of_stock != 1) {
+										echo '<button class="add_to_wishlist_details heart wishlist-btn btn-add" data-productId="' .  $productId . '"></button>';
+									}
+								}
+								?>
+
+							</div>
+							<div id="error-submit"></div>
+						</form>
+					<?php } else {
+					?>
+						<div class="text-danger mt-2">Sản phẩm này tạm hết hàng</div>
+					<?php
+					}
+				} else {
+					?>
+					<div class="text-danger mt-2">Sản phẩm này đã ngưng kinh doanh</div>
 				<?php
 				} ?>
 			</div>
@@ -181,8 +206,8 @@ include 'inc/facebookPlugin.php';
 				<div class="row">
 					<div class="col-12">
 						<?php
-						$get_product_details = $product->get_details($productid);
-						$urlFb = $productid;
+						$get_product_details = $product->get_details($productId);
+						$urlFb = $productId;
 						if ($get_product_details) {
 							while ($result_details = $get_product_details->fetch_assoc()) {
 								if ($result_details['product_desc'] != null) {
@@ -220,7 +245,7 @@ include 'inc/facebookPlugin.php';
 		<div class="wrapper" id="wrapper_product">
 			<div class="carousel-relatedProduct owl-carousel">
 				<?php
-				$get_relatedProduct = $product->get_relatedProduct($productid);
+				$get_relatedProduct = $product->get_relatedProduct($productId);
 				if ($get_relatedProduct) {
 					while ($result = $get_relatedProduct->fetch_assoc()) {
 						$productId = $result['productId'];
@@ -235,7 +260,7 @@ include 'inc/facebookPlugin.php';
 								<ul class="card-button-shop">
 									<li>
 										<img style="width: 1px; height: 1px" class="img-clone" data-src="<?php echo $product_img ?>" data-status="0" />
-										<a class="add_to_cart fa fa-cart-plus" data-productid="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"></a>
+										<a class="add_to_cart fa fa-cart-plus" data-productId="<?php echo $productId ?>" data-tip="Thêm vào giỏ" data-id-1="<?php echo $result['size'] ?>"></a>
 									</li>
 									<?php
 									$wishlist_check = $product->wishlist_check($customer_id, $productId);
@@ -243,16 +268,16 @@ include 'inc/facebookPlugin.php';
 									if ($login_check) {
 										if ($wishlist_check) {
 									?>
-											<li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" style="background-position: inherit !important;" data-productid="<?php echo $productId ?>"></a></li>
+											<li><a data-tip="Hủy yêu thích" class="add_to_wishlist heart fa fa-heart" style="background-position: inherit !important;" data-productId="<?php echo $productId ?>"></a></li>
 										<?php
 										} else {
 										?>
-											<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" style="background-position: inherit !important" data-productid="<?php echo $productId ?>"></i></a></li>
+											<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" style="background-position: inherit !important" data-productId="<?php echo $productId ?>"></i></a></li>
 										<?php
 										}
 									} else {
 										?>
-										<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" style="background-position: inherit !important" data-productid="<?php echo $productId ?>"></a></li>
+										<li><a data-tip="Thêm yêu thích" class="add_to_wishlist heart fa fa-heart-o" style="background-position: inherit !important" data-productId="<?php echo $productId ?>"></a></li>
 									<?php
 									}
 									?>

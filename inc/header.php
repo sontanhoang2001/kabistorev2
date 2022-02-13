@@ -59,12 +59,12 @@ include_once "inc/checkManager.php";
                 window.location = '404.php'
             </script>";
         } else {
-            $productid = $_GET['proid']; // Lấy productid trên host
+            $productId = $_GET['proid']; // Lấy productid trên host
         }
 
         $seoUrl = "https://kabistore.com.vn/" . getRequestUrls();
         // Seo link
-        $get_product_details = $product->get_details($productid);
+        $get_product_details = $product->get_details($productId);
         if ($get_product_details) {
             $result_details = $get_product_details->fetch_assoc();
             $old_price = $result_details['old_price'];
@@ -72,6 +72,7 @@ include_once "inc/checkManager.php";
             $productType = $result_details['type'];
             $product_imgJson =  json_decode($result_details['image']);
             $product_img = $product_imgJson[0]->image;
+            $out_of_stock = $result_details['out_of_stock'];
         ?>
             <title><?php echo $productName ?></title>
 

@@ -511,7 +511,8 @@ function product_list() {
                         price = res.price,
                         image = res.image,
                         size = res.size,
-                        color = res.color;
+                        color = res.color,
+                        out_of_stock = res.out_of_stock;
 
                     $("input[name=product_code]").val(product_code);
                     $("input[name=productName]").val(productName);
@@ -621,6 +622,12 @@ function product_list() {
                     });
                     jsonImageArray = imageTemp;
                     $("#image").val(imageTemp);
+
+                    if (out_of_stock == 0) {
+                        $("#out_of_stock").prop('checked', false);
+                    } else {
+                        $("#out_of_stock").prop('checked', true);
+                    }
                 } else {
                     var message = "Lỗi máy chủ!";
                     let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
@@ -761,6 +768,13 @@ function product_list() {
     })
 
 
+    var out_of_stock = 0;
+    if ($('#out_of_stock').is(":checked")) {
+        out_of_stock = 1;
+    } else {
+        out_of_stock = 0;
+    }
+
     $("input[type='checkbox']").change(function() {
         $("#color").empty();
         colorTemp1 = '';
@@ -768,10 +782,15 @@ function product_list() {
         for (var i = 1; i <= 13; i++) {
             if ($("#color" + i).prop('checked')) {
                 var colorText = $('#color' + i + ':checked').val();
-                console.log(colorText);
                 colorTemp1 += colorText + ", ";
                 $("#color").text(colorTemp1 + colorTemp2);
             }
+        }
+
+        if ($('#out_of_stock').is(":checked")) {
+            out_of_stock = 1;
+        } else {
+            out_of_stock = 0;
         }
     });
 
@@ -865,7 +884,8 @@ function product_list() {
             color: colorArray,
             image: jsonImageArray,
             product_desc: product_desc,
-            type: $('select[name="type"] option:selected').val()
+            type: $('select[name="type"] option:selected').val(),
+            out_of_stock: out_of_stock
         };
 
         if (formData.category == 0) {
