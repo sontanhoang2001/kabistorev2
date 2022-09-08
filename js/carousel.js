@@ -25,7 +25,7 @@ $(".carousel-product").owlCarousel({
 });
 
 $(".carousel-promotion").owlCarousel({
-    margin: 310,
+    margin: 370,
     loop: true,
     autoplay: true,
     autoplayTimeout: 3000,

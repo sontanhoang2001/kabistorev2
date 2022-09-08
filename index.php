@@ -2,6 +2,7 @@
 include 'inc/header.php';
 include 'inc/slider.php';
 include 'config/global.php';
+include 'config/brandLocaltion.php';
 ?>
 
 <!-- All css index -->
@@ -129,11 +130,10 @@ include 'config/global.php';
                                             }
                                             ?>
                                             <?php echo $fm->format_currency($result['price']) . " ₫" ?>
-                                        <div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
+                                        <div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo localBrandId($result['brandId']); ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
                                         </p>
                                     </div>
                                 </div>
-
                         <?php
                             }
                         }
@@ -348,7 +348,7 @@ include 'config/global.php';
                                                 }
                                                 ?>
                                                 <?php echo $fm->format_currency($result['price']) . " " . "₫" ?>
-                                            <div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
+                                            <div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo localBrandId($result['brandId']); ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
                                             </p>
                                         </div>
                                     </div>
@@ -366,6 +366,11 @@ include 'config/global.php';
         </div>
     </div>
 
+
+    <div class="container">
+        <img alt="" style="width: 100%" src="https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/279564530_5562341420457090_2081772191196645774_n.jpg?_nc_cat=107&ccb=1-6&_nc_sid=730e14&_nc_ohc=ojJOE54OHUMAX-g80Ge&_nc_ht=scontent.fsgn5-10.fna&oh=00_AT8Ps-raMN0cPLldBWQnIprTN1kNgFqYIbj-PY5CNf-aQQ&oe=62854D4B">
+    </div>
+
     <!--Main layout-->
     <main class="mt-5">
         <div class="container-fluid" style="background-color: #eff0f5;">
@@ -380,7 +385,7 @@ include 'config/global.php';
                         <div class="col-md-8">
 
                             <!-- Description -->
-                            <p class="grey-text">Chúng tôi chuyên bán những sản phẩm độc và lạ, những sản phẩm mà bạn khó có thể mua được ở các tiệm tập hóa, hay các cửa hàng ở xung quanh bạn. Chất lượng sản phẩm và giao hàng tốt nhất nhất với công nghệ hiện đại sẽ giúp người tiêu dùng dễ dàng kết nối với chúng tôi một cách hiệu quả và tiềm năng hơn.</p>
+                            <p class="grey-text">Chúng tôi chuyên bán những sản phẩm mới hot trend được cập nhật mỗi ngày. Chất lượng sản phẩm và giao hàng tốt nhất nhất với công nghệ hiện đại sẽ giúp người tiêu dùng dễ dàng kết nối với chúng tôi một cách hiệu quả và tiềm năng hơn.</p>
                         </div>
                         <!--Grid column-->
                     </div>
@@ -445,10 +450,10 @@ include 'config/global.php';
 <script>
     scrollingForIndex();
 </script>
-<script src="webpushr-sw.js"></script>
+<!-- <script src="webpushr-sw.js"></script> -->
 
 <!-- start webpushr tracking code -->
-<script>
+<!-- <script>
     (function(w, d, s, id) {
         if (typeof(w.webpushr) !== 'undefined') return;
         w.webpushr = w.webpushr || function() {
@@ -464,5 +469,5 @@ include 'config/global.php';
     webpushr('setup', {
         'key': 'BCGwKnPSZGghR1Zyfbqm2S1ZtTLA755qNjK8N69b0E9EgNvyw5Pif1tVxha7fh-MFMViFEaTBzlih5DfbsDdD8o'
     });
-</script>
+</script> -->
 <!-- end webpushr tracking code -->

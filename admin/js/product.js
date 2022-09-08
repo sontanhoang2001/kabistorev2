@@ -213,6 +213,10 @@ function add_product() {
     $(document).submit(function(e) {
         e.preventDefault();
 
+        var product_code = $("input[name=product_code]").val();
+        if (product_code == 0 || product_code == "" || product_code == " ") {
+            product_code = null;
+        }
 
         // Xử lý chuỗi thành mảng json
         var array = $("#image").val().split(",");
@@ -271,7 +275,7 @@ function add_product() {
         }
 
         var formData = {
-            product_code: $("input[name=product_code]").val(),
+            product_code: product_code,
             productName: $("input[name=productName]").val(),
             productQuantity: $("input[name=productQuantity]").val(),
             category: $('select[name="category"] option:selected').val(),
@@ -338,13 +342,13 @@ function add_product() {
                                 toast.change('Vui lòng thử lại...', 3500);
                                 break;
                             }
-                        case 3:
-                            {
-                                var message = "Mã sản phẩm đã tồn tại!";
-                                let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
-                                toast.change('Vui lòng thử lại...', 3500);
-                                break;
-                            }
+                            // case 3:
+                            //     {
+                            //         var message = "Mã sản phẩm đã tồn tại!";
+                            //         let toast = $.niceToast.error('<strong>Error</strong>: ' + message + '');
+                            //         toast.change('Vui lòng thử lại...', 3500);
+                            //         break;
+                            //     }
                         default:
                             {
                                 var message = "Lỗi máy chủ!";
@@ -514,6 +518,9 @@ function product_list() {
                         color = res.color,
                         out_of_stock = res.out_of_stock;
 
+                    if (product_code == "NULL") {
+                        product_code = "";
+                    }
                     $("input[name=product_code]").val(product_code);
                     $("input[name=productName]").val(productName);
                     $('#category option[value="' + catId + '"]').attr('selected', 'selected');
@@ -809,6 +816,13 @@ function product_list() {
 
     // Khi nhấn nút cập nhật
     $("#btnUpdateProduct").click(function() {
+        product_code = $("input[name=product_code]").val();
+        if (product_code == 0 || product_code == "" || product_code == " ") {
+            product_code = null;
+        }
+
+        console.log(product_code);
+
         // Lấy thông tin sản phẩm
         var categoryTxt = $('select[name="category"] option:selected').text(),
             brandTxt = $('select[name="brand"] option:selected').text(),
@@ -870,7 +884,7 @@ function product_list() {
 
         var formData = {
             productId: productId,
-            product_code: $("input[name=product_code]").val(),
+            product_code: product_code,
             productName: $("input[name=productName]").val(),
             productQuantity: $("input[name=productQuantity]").val(),
             category: $('select[name="category"] option:selected').val(),

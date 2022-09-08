@@ -39,8 +39,8 @@ if ($disable_check_out == 0) {
                         $fullname = "Tài khoản khách";
                         $lng = "105.7820126349178";
                         $lat = "10.031728584150372";
-                        $email = "taikhoankhach@kabistore.com.vn";
-                        $phone = "Chưa nhập số";
+                        $email = "Chưa nhập mail";
+                        $phone = "Chưa nhập số điện thoại";
                         ?>
                         <div class="col-md-12 pt-4">
                             <div class="row">
@@ -57,7 +57,7 @@ if ($disable_check_out == 0) {
                                         <p class="mb-0"><i class="fa fa-envelope-o" aria-hidden="true"></i> <?php echo $email; ?></p>
                                         <p class="mb-0"><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $phone; ?></p>
                                         <label class="pt-1">
-                                            <a href="profile.html" class="btn btn-primary"><i class="fa fa-edit"></i> Chỉnh sửa</a></input>
+                                            <div class="text-danger">Bạn cần đăng nhập để chủ shop biết bạn là ai ? đủ thông tin để giao hàng đến tay bạn.</div>
                                         </label>
                                         <div class="mt-2">
                                             <input type="text" name="avatarold" value="<?php echo $result['avatar']; ?>" hidden>

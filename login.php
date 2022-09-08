@@ -86,6 +86,7 @@ if ($login_check) {
           </div>
           <div class="sign-up">
             Không có tài khoản? <a href="register.html" class="ml-2">Đăng ký</a>
+            <div class="mt-2"><a href="register.html" class="text-success">Đăng ký tài khoản mới chỉ mất 30s</a></div>
           </div>
         </div>
         </form>

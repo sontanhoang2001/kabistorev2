@@ -153,7 +153,7 @@ if (!isset($_GET['product_num'])) {
                         <a class="collapse-item" href="add-product"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm sản phẩm</a>
                         <a class="collapse-item" href="product-list?type=0"><i class="fa fa-list-alt" aria-hidden="true"></i> Ds sản phẩm</a>
                         <a class="collapse-item" href="product-list?type=1"><i class="fa fa-hourglass-end" aria-hidden="true"></i> SP tạm hết hàng</a>
-                        <a class="collapse-item" href="productPause-list?type=9"><i class="fa fa-stop-circle" aria-hidden="true"></i> Sp Ngừng kinh doanh</a>
+                        <a class="collapse-item" href="product-list?type=9"><i class="fa fa-stop-circle" aria-hidden="true"></i> Sp Ngừng kinh doanh</a>
                         <?php if ($_SESSION['level'] == 0) { ?>
                             <div class="collapse-divider"></div>
                             <h6 class="collapse-header"><i class="fa fa-book" aria-hidden="true"></i> Loại sản phẩm:</h6>

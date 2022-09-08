@@ -3,7 +3,7 @@ function load(img) {
     img.setAttribute('src', url)
     img.setAttribute('data-status', 1)
     img.removeAttribute('data-src')
-    img.classList.add('img-effect');
+        // img.classList.add('img-effect');
 }
 
 function readyLazy() {

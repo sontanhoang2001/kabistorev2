@@ -1,6 +1,8 @@
 <?php
 include 'inc/header.php';
 include 'config/global.php';
+include 'config/brandLocaltion.php';
+
 Session::set('REQUEST_URI', getRequestUrls()); // lưu vị trí đường dẫn trang khi chưa đăng nhập
 
 $login_check = Session::get('customer_login');
@@ -290,7 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 												<?php echo $fm->format_currency($result['price']) . " ₫" ?>
 											<div class="sell-out page-product">
 												<?php if ($result['out_of_stock'] != 1) { ?>
-													<i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo ($result['brandId'] == 18) ? "Vũng Liêm" : "Cần Thơ" ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?>
+													<div class="sell-out page-product"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo localBrandId($result['brandId']); ?> &nbsp;<i class="fa fa-bolt" aria-hidden="true"></i> Đã bán <?php echo $result['product_soldout'] ?></div>
 												<?php } else {
 												?>
 													<i class="fa fa-hourglass-end" aria-hidden="true"> Tạm hết hàng</i>

@@ -31,7 +31,7 @@ include_once "inc/checkManager.php";
 <head>
     <!-- <base href="http://192.168.1.100/"> -->
     <!-- <base href="https://kabistore.com.vn/"> -->
-    <base href="https://webcuatoi.vn/">
+    <!-- <base href="https://webcuatoi.vn/"> -->
 
     <!-- Title  -->
     <meta charset="UTF-8">

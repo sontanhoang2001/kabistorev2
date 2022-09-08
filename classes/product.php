@@ -83,32 +83,33 @@ class product
 
 		// 0 các trường ko đc bỏ trống
 		if (
-			$productName == "" || $product_code == '' || $productQuantity == "" || $category == ""
+			$productName == "" || $productQuantity == "" || $category == ""
 			|| $brand == "" || $perPrice == "" || $root_price == "" || $price == "" || $type == "" || $image == ""
 		) {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
-			$query1 = "SELECT product_code FROM tbl_product WHERE product_code = '$product_code'";
-			$result = $this->db->select($query1);
-			if ($result) {
-				// 3 Mã sản phẩm này đã tồn tại
-				return json_encode($result_json[] = ['status' => 3]);
-			} else {
-				$old_price = $old_price != null ? "'$old_price'" : "NULL";
-				$size = $size != null ? "'$size'" : "NULL";
-				$color = $color != null ? "'$color'" : "NULL";
-				$product_desc = $product_desc != null ? "'$product_desc'" : "NULL";
+			// $query1 = "SELECT product_code FROM tbl_product WHERE product_code = '$product_code'";
+			// $result = $this->db->select($query1);
+			// if ($result) {
+			// 3 Mã sản phẩm này đã tồn tại
+			// return json_encode($result_json[] = ['status' => 3]);
+			// } else {
+			$product_code = $product_code != null ? "'$product_code'" : "NULL";
+			$old_price = $old_price != null ? "'$old_price'" : "NULL";
+			$size = $size != null ? "'$size'" : "NULL";
+			$color = $color != null ? "'$color'" : "NULL";
+			$product_desc = $product_desc != null ? "'$product_desc'" : "NULL";
 
-				$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type,perPrice, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand',$product_desc,'$type', '$perPrice', '$root_price', $old_price,'$price', '$image', $size, $color)";
-				$result = $this->db->insert($query2);
-				if ($result) {
-					// 1 thành công
-					return json_encode($result_json[] = ['status' => 1]);
-				} else {
-					// 2 thất bại
-					return json_encode($result_json[] = ['status' => 2]);
-				}
+			$query2 = "INSERT INTO tbl_product(productName,product_code,product_remain,productQuantity, product_soldout, catId,brandId,product_desc,type,perPrice, root_price, old_price, price,image, size, color) VALUES('$productName','$product_code','$productQuantity','$productQuantity', '$product_soldout','$category','$brand',$product_desc,'$type', '$perPrice', '$root_price', $old_price,'$price', '$image', $size, $color)";
+			$result = $this->db->insert($query2);
+			if ($result) {
+				// 1 thành công
+				return json_encode($result_json[] = ['status' => 1]);
+			} else {
+				// 2 thất bại
+				return json_encode($result_json[] = ['status' => 2]);
 			}
+			// }
 		}
 	}
 
@@ -380,7 +381,7 @@ class product
 							"SELECT tbl_product.productId, tbl_product.productName, tbl_product.product_code, tbl_product.productQuantity, tbl_product.product_soldout, tbl_product.product_remain, tbl_product.catId, tbl_product.brandId, tbl_product.product_desc, tbl_product.type, tbl_product.price, tbl_product.image, tbl_category.catName, tbl_brand.brandName
 			 FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId = tbl_category.catId
 								INNER JOIN tbl_brand ON tbl_product.brandId = tbl_brand.brandId
-								WHERE tbl_product.type != 9 AND tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%'
+								WHERE tbl_product.out_of_stock != 9 AND tbl_product.out_of_stock != 1 AND (tbl_product.productName LIKE '%$search_text%' OR tbl_product.product_code LIKE '%$search_text%')
 			 order by tbl_product.productId desc LIMIT $index_page, $product_num";
 						break;
 					}
@@ -579,9 +580,10 @@ class product
 		$out_of_stock = mysqli_real_escape_string($this->db->link, $data['out_of_stock']);
 
 
-		if ($product_code == "" || $productName == ""  || $brand == "" || $category == "" || $perPrice == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
+		if ($productName == ""  || $brand == "" || $category == "" || $perPrice == "" || $root_price == "" || $price == "" || $type == "" || $image == "") {
 			return json_encode($result_json[] = ['status' => 0]);
 		} else {
+			$product_code = $product_code != null ? "'$product_code'" : "NULL";
 			$old_price = $old_price != null ? "'$old_price'" : "NULL";
 			$size = $size != null ? "'$size'" : "NULL";
 			$color = $color != null ? "'$color'" : "NULL";
@@ -589,7 +591,7 @@ class product
 
 			$query = "UPDATE tbl_product SET
 					productName = '$productName',
-					product_code = '$product_code',
+					product_code = $product_code,
 					brandId = '$brand',
 					catId = '$category',
 					product_soldout = '$product_soldout',
@@ -704,7 +706,7 @@ class product
 		FROM tbl_product as p
 		INNER JOIN tbl_category as c
 		ON p.catId = c.catId
-		where type = '2' LIMIT 25";
+		where type = '2' AND out_of_stock != 1";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -893,7 +895,6 @@ class product
 		return $result;
 	}
 
-
 	// Lấy Sản phẩm nổi bật (index)
 	public function get_all_product_Featured()
 	{
@@ -901,7 +902,7 @@ class product
 		FROM tbl_product as p
 		INNER JOIN tbl_category as c
 		ON p.catId = c.catId
-		where type = '1' LIMIT 12";
+		where type = '1' AND out_of_stock != 1";
 		$result = $this->db->select($query);
 		return $result;
 	}

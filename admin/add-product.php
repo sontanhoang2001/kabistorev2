@@ -28,7 +28,7 @@ $pd = new product();
 
                             <div class="form-group">
                                 <label class="font-weight-bold" for="validation1">Mã sản phẩm</label>
-                                <input class="form-control" id="validation1" type="text" name="product_code" placeholder="Vd: 4583258743857..." required>
+                                <input class="form-control" id="validation1" type="text" name="product_code" placeholder="Vd: 4583258743857...">
                                 <div class="valid-feedback">Looks good!</div>
                             </div>
                             <div class="form-group">
@@ -245,7 +245,7 @@ $pd = new product();
                     </div>
                 </div>
                 <div class="text-right">
-                    <a href="product-list"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem danh sách sản phẩm đã thêm</a>
+                    <a href="product-list?type=0"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem danh sách sản phẩm đã thêm</a>
                 </div>
             </div>
         </div>
