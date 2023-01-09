@@ -717,6 +717,7 @@ function checkSendMail() {
                     }
                 },
                 error: function(data) {
+                    console.log("data: ", data)
                     $(sendEmail).text("Gửi xác nhận");
                     $(sendEmail).removeAttr('disabled');
 

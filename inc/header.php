@@ -29,7 +29,7 @@ include_once "inc/checkManager.php";
 <html lang="vn">
 
 <head>
-    <!-- <base href="http://192.168.1.100/"> -->
+    <base href="http://localhost:8081/">
     <!-- <base href="https://kabistore.com.vn/"> -->
     <!-- <base href="https://webcuatoi.vn/"> -->
 

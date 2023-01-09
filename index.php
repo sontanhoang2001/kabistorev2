@@ -366,11 +366,6 @@ include 'config/brandLocaltion.php';
         </div>
     </div>
 
-
-    <div class="container">
-        <img alt="" style="width: 100%" src="https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/279564530_5562341420457090_2081772191196645774_n.jpg?_nc_cat=107&ccb=1-6&_nc_sid=730e14&_nc_ohc=ojJOE54OHUMAX-g80Ge&_nc_ht=scontent.fsgn5-10.fna&oh=00_AT8Ps-raMN0cPLldBWQnIprTN1kNgFqYIbj-PY5CNf-aQQ&oe=62854D4B">
-    </div>
-
     <!--Main layout-->
     <main class="mt-5">
         <div class="container-fluid" style="background-color: #eff0f5;">

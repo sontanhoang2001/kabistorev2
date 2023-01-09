@@ -513,7 +513,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </table>
                                             <p>Đi đến xét duyệt đơn hàng ngay</p>
                                             <div align="center">
-                                                <a href="https://kabistore.com.vn/kba/order-list"
+                                                <a href="http://kabistore.com.vn/kba/order-list"
                                                     class="f-fallback button button--green" target="_blank">Xem đơn
                                                     hàng</a>
                                             </div>
@@ -550,13 +550,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </html>';
     $nTo = 'Gửi đến Admin';
     // $mTo = 'hoangsonytb123@gmail.com';
-    $diachi = 'hotrokhachhang@kabistore.com.vn';
 
     // Gửi email khi có đơn hàng
-    $to = array(
-        'hoangsonytb123@gmail.com',
-        'phuongthaocmc7f@gmail.com'
-    );
+    // $to = array('hoangsonytb123@gmail.com');
 
     include '../classes/admin.php';
     $admin = new admin();
@@ -566,7 +562,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $getAdminUserSendEmail = $admin->getAdminUserSendEmail($adminId);
         $result = $getAdminUserSendEmail->fetch_assoc();
         $mTo = $result['adminEmail'];
-        $mail = sendMail($user, $password, $title, $content, $nTo, $mTo, $diachi = '');
+        $mail = sendMail($title, $content, $nTo, $mTo, $diachi = '');
     }
     //     foreach ($to as $mTo) {
     //         $mail = sendMail($user, $password, $title, $content, $nTo, $mTo, $diachi = '');
